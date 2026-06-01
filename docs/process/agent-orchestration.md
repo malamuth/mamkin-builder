@@ -41,6 +41,12 @@ The coordinator then summarizes the options, asks the human in the coordinator t
 
 If the coordinator delegates a human question to a specialist thread, the prompt must name the exact decision, allowed wording or scope, where to record the answer, and the packet expected afterward. Never delegate collection of secret values.
 
+## After Human Decisions
+
+When the coordinator receives human decisions for a specialist packet, it records the decisions and returns unresolved specialist work to that role by default.
+
+Do not continue architecture, analysis, UX, deployment, review, or walkthrough work inside the coordinator thread unless the remaining work is trivial and the coordinator says why it is staying inline. For architecture and analysis especially, pass the human decision context back to the same specialist thread, or start a new specialist thread if the old one is unavailable.
+
 Use the smallest useful team. After init, the first planning lane should usually include an architect and may include an analyst when product/domain understanding is fuzzy. For later narrow features, the team is often:
 
 - coordinator/team lead
