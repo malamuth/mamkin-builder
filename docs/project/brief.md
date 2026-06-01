@@ -101,6 +101,10 @@ Specialists to add only when useful:
 - Deployment guide
 - UI/UX reviewer
 
+Custom recurring roles:
+
+- TBD
+
 ## Delivery Plan
 
 First thin slice:

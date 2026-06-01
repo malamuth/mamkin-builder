@@ -13,3 +13,4 @@ Use only the packet needed for the current role or handoff. Keep packets self-co
 - Walkthrough defect: `docs/process/handoff-packets/walkthrough-defect.md`
 - Walkthrough readiness: `docs/process/handoff-packets/walkthrough-readiness.md`
 - Retest request: `docs/process/handoff-packets/retest-request.md`
+- Custom role packets: add `docs/process/handoff-packets/<role-name>.md` during init or coordinator-approved setup, using `docs/templates/handoff-packet.md`.

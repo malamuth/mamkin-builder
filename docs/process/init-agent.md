@@ -55,7 +55,8 @@ Recommended questions:
 9. What should the agents explicitly avoid building?
 10. Should the project use GitHub, and if so, should setup be repo only, issues, milestones, or a GitHub Project board?
 11. How much orchestration is appropriate: solo agent, coordinator plus worker, or coordinator plus architect/reviewer/walkthrough?
-12. Are there existing notes, links, designs, repos, or files the agent should inspect before finalizing docs?
+12. Does this project need recurring custom specialist roles beyond the built-in roles?
+13. Are there existing notes, links, designs, repos, or files the agent should inspect before finalizing docs?
 
 ## Adapt The Template
 
@@ -68,13 +69,32 @@ Update or create these docs:
 
 Optionally update:
 
-- `docs/process/agent-orchestration.md`: only to add project-specific role choices or human gates.
-- `docs/process/naming-conventions.md`: only to add project-specific naming rules.
+- `docs/process/agent-orchestration.md`: only to add project-specific role choices, custom roles, or human gates.
+- `docs/process/naming-conventions.md`: only to add project-specific naming rules or custom role names.
 - `docs/templates/feature-spec.md`: only if the project needs a custom feature-spec template.
 - `docs/templates/walkthrough.md`: only if the project needs a custom walkthrough template.
 - `.gitignore`: only for known stack artifacts.
 
 After init, the coordinator owns feature-spec and walkthrough creation. The init agent should capture roadmap candidates plus open product/domain and architecture questions, but should not create the first feature spec or walkthrough/runbook unless explicitly asked.
+
+## Custom Role Setup
+
+If the human requests recurring custom specialist roles, scaffold them during init. Do not create custom roles for one-off work that fits analyst, architect, implementation, reviewer, walkthrough, UX, or deployment.
+
+For each approved custom role:
+
+1. Choose a kebab-case file name, for example `security-auditor`.
+2. Create `docs/process/roles/<role-name>.md` from `docs/templates/role-card.md`.
+3. Create `docs/process/handoff-packets/<role-name>.md` from `docs/templates/handoff-packet.md`.
+4. Add the role to `docs/process/agent-orchestration.md`.
+5. Add the packet to `docs/process/handoff-packets.md`.
+6. Add the thread role name to `docs/process/naming-conventions.md`.
+7. Record when to invoke the role in `docs/project/brief.md`.
+8. Record the role decision in `docs/project/decision-log.md`.
+
+Each custom role must define when the coordinator should invoke it, what inputs it receives, what output packet it returns, which docs it must read, what it must not decide alone, human gates, and that it returns work to the coordinator.
+
+Leave `AGENTS.md` unchanged unless the repo's top-level request routing changes.
 
 ## Roadmap Rules
 
@@ -131,6 +151,7 @@ Roadmap created:
 Roadmap candidates:
 Planning handoff focus:
 Recommended agent model:
+Custom roles created:
 MUST involve human gates:
 SHOULD involve human gates:
 Git status:
@@ -150,6 +171,7 @@ Init is complete when:
 - The roadmap has candidate slices and product value.
 - Product/domain questions, architecture questions, and first-slice candidates are clear enough for the coordinator to call analyst and/or architect.
 - Human-in-loop gates are explicit.
+- Requested custom recurring roles have role cards, handoff packets, naming rules, invocation rules, and decision-log entries.
 - Git state is known.
 - GitHub setup has been proposed or declined.
 - The coordinator has a clear next step.

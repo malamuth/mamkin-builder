@@ -20,6 +20,7 @@ Read AGENTS.md and run the project init flow.
    - `docs/project/decision-log.md`
    - `features/00-roadmap.md`
    - the project-specific agent orchestration notes
+   - custom role cards and packets, if the project needs recurring specialist roles
 5. The init agent verifies git state, proposes GitHub setup, and hands off to the coordinator/team-lead flow.
 
 ## Why This Shape
@@ -41,6 +42,8 @@ Use `AGENTS.md` as the entrypoint because many coding agents already look for it
 - `features/00-roadmap.md`: roadmap candidates created or refined during init.
 - `docs/templates/feature-spec.md`: feature spec template.
 - `docs/templates/walkthrough.md`: coordinator-owned walkthrough/runbook template.
+- `docs/templates/role-card.md`: scaffold for custom recurring specialist roles.
+- `docs/templates/handoff-packet.md`: scaffold for custom role handoff packets.
 
 ## Design Principles
 

@@ -34,7 +34,7 @@ Rules:
 
 - Choose a short project prefix during init or coordinator kickoff, for example `HL` for Hearthlist.
 - Use `C##` for roadmap candidates and `F##` for feature specs.
-- Use role names from `docs/process/roles/`: `Analyst`, `Architect`, `Implementation`, `Reviewer`, `Walkthrough`, `Deployment`, or `UX`.
+- Use role names from `docs/process/roles/`: `Analyst`, `Architect`, `Implementation`, `Reviewer`, `Walkthrough`, `Deployment`, `UX`, or an initialized custom role display name.
 - Keep short scope human-readable and kebab-free enough to scan in thread lists.
 - Do not include status in thread names; status changes too often and is easy to leave stale.
 - Put status in worker prompts, packets, and coordinator notes instead.
