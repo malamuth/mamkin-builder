@@ -37,6 +37,7 @@ Use `AGENTS.md` as the entrypoint because many coding agents already look for it
 - `docs/process/handoff-packets/*.md`: individual kickoff, handoff, defect, retest, and final report templates.
 - `docs/project/brief.md`: adapted project source of truth.
 - `docs/project/decision-log.md`: durable trace of important decisions.
+- `features/README.md`: feature-spec folder guide.
 - `features/00-roadmap.md`: roadmap candidates created or refined during init.
 - `docs/templates/feature-spec.md`: feature spec template.
 - `docs/templates/walkthrough.md`: coordinator-owned walkthrough/runbook template.
