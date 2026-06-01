@@ -1,0 +1,142 @@
+# Agent Orchestration
+
+This is the coordinator/team-lead manual. Workers should not read this whole file by default; give each worker the relevant role card, feature docs, and packet template instead.
+
+## Reading Model
+
+- Coordinator/team lead reads this file and the needed packet files.
+- Workers read `AGENTS.md`, their role card under `docs/process/roles/`, the relevant feature or walkthrough docs, and only the packet file they must return.
+- Long-lived implementation, review, walkthrough, deployment, and research team members should usually run as separate Codex threads.
+- Same-thread subagents are for bounded sidecar tasks, mock runs, quick analysis, or experiments where the coordinator will immediately inspect and integrate the result.
+
+## Start Condition
+
+Use this coordinator manual after the init agent has already adapted the copied template into a real project and handed off the project brief, decision log, and roadmap. If the project has not been initialized yet, run `docs/process/init-agent.md` first.
+
+After init, the coordinator should call the architect before spinning implementation workers. The architect polishes the brief/roadmap, resolves architecture questions, and helps turn roadmap candidates into implementable feature specs.
+
+When the user asks to create new features, the coordinator should usually call the architect first unless the change is already fully specified and low-risk.
+
+## Default Feature Flow
+
+```text
+Coordinator/team lead -> Architect for planning when needed -> Implementation worker -> Review/walkthrough -> Coordinator final report
+```
+
+Every non-coordinator agent returns its final packet to the coordinator. Agents should not hand work directly to peer agents or start follow-up threads unless the coordinator explicitly delegates that path.
+
+Use the smallest useful team. After init, the first planning lane should include an architect. For later narrow features, the team is often:
+
+- coordinator/team lead
+- one implementation worker
+- one walkthrough/testing worker
+
+For later feature work, add architect, reviewer, UX reviewer, or deployment guide only when the feature has a clear need for that role.
+
+## Role Cards
+
+- Architect: `docs/process/roles/architect.md`
+- Implementation worker: `docs/process/roles/implementation.md`
+- Reviewer: `docs/process/roles/reviewer.md`
+- Walkthrough/test guide: `docs/process/roles/walkthrough.md`
+- Deployment guide: `docs/process/roles/deployment.md`
+- UI/UX reviewer: `docs/process/roles/ux.md`
+
+Packet templates are indexed in `docs/process/handoff-packets.md` and split under `docs/process/handoff-packets/`.
+
+## Coordinator Duties
+
+- Read project brief, decision log, roadmap, follow-ups, any relevant feature specs or walkthroughs, and current repo state.
+- Check `docs/follow-ups/` before planning; assess whether any follow-up should become part of the next feature spec or roadmap update.
+- Recommend the smallest useful team and ask the human before adding specialist roles.
+- Define the implementation slice, pass/fail criteria, human gates, and handoff path.
+- Own the walkthrough definition; write it or explicitly assign someone to draft/update it before walkthrough starts.
+- Start real team members as separate threads by default.
+- Write focused worker prompts instead of making every worker read the whole orchestration manual.
+- Relay handoffs, defects, and retest requests without dropping technical details.
+- Decide whether a result is merge-ready, verified with follow-ups, blocked, or not ready.
+
+## Worker Prompt Contract
+
+Every worker prompt should include:
+
+```text
+Project:
+Role:
+Feature/Slice:
+Source thread:
+Expected worktree:
+Expected branch or commit:
+Read first:
+Allowed files to edit:
+Do not edit:
+Handoff target: coordinator
+Stop condition:
+Expected final packet:
+```
+
+The `Read first` list should stay short. Prefer:
+
+- `AGENTS.md`
+- one role card
+- one feature spec or walkthrough, when one exists
+- one relevant packet file
+- any project docs necessary for the slice
+
+## Human Gates
+
+Use these classifications in project docs, feature specs, and handoffs:
+
+- `MUST involve human`: the agent must stop and ask.
+- `SHOULD involve human`: the agent may recommend a default, but should surface the choice.
+- `Agent may decide`: low-risk detail inside agreed scope.
+
+Common `MUST involve human` gates:
+
+- GitHub repo/project creation, external accounts, paid services, secrets, billing, DNS, production deployment, destructive migrations, private data import/export, public posting, legal/licensing decisions, and scope changes that alter product promise or user privacy.
+
+Common `SHOULD involve human` gates:
+
+- Feature prioritization, naming, brand/visual direction, analytics, notification behavior, default retention, non-obvious UX tradeoffs, and architecture choices with long-term lock-in.
+
+## Lifecycle
+
+1. Kickoff: coordinator checks repo state, reads source docs, recommends team shape, and defines the first slice.
+2. Architecture pass: optional; use when boundaries, data model, or tradeoffs are unclear.
+3. Implementation: worker implements one bounded slice and returns an implementation handoff.
+4. Review: optional code/diff review before walkthrough; use when correctness, security, migration, API contract, or regression risk warrants a second engineering read.
+5. Walkthrough: acceptance verification after implementation or review; use to run the approved checks/manual flows against the exact branch/commit and decide merge readiness.
+6. Final report: coordinator records status, test gaps, human steps, follow-ups, and next action.
+
+Use only the needed packet file from `docs/process/handoff-packets/` at each step.
+
+After init, the coordinator owns feature-spec and walkthrough creation. The coordinator may write them directly or assign drafting/update tasks, usually after an architect pass for the first project slice. The walkthrough worker normally executes the approved walkthrough; it should not invent acceptance criteria unless the coordinator explicitly asks for missing coverage to be drafted.
+
+## Traceback Contract
+
+Every meaningful feature should leave a clear path:
+
+```text
+Project brief -> decision log -> feature spec -> implementation handoff -> tests -> walkthrough -> follow-ups
+```
+
+Record durable decisions in `docs/project/decision-log.md`. Record non-blocking discovered work in `docs/follow-ups/`. Do not put temporary thread ownership, live branch status, or secrets in feature specs.
+
+## Git And GitHub
+
+- Verify repo state before each implementation or walkthrough.
+- If git is not initialized, ask before `git init`.
+- If no initial commit exists, propose one after docs are adapted.
+- Ask before creating remotes, pushing, creating GitHub issues, milestones, or project boards.
+- If GitHub Projects are used, keep issues small enough to map to feature specs or sub-slices.
+- Mention expected branch/commit in every worker prompt and final packet.
+
+## Failure Prevention
+
+- Do not run duplicate implementation workers for the same slice.
+- Do not test the wrong branch or worktree.
+- Do not let workers silently expand scope.
+- Do not edit active feature specs during implementation unless explicitly assigned.
+- Do not hide test gaps behind a confident final sentence.
+- Do not paste secrets into docs or chat.
+- Do not create production resources without human approval.

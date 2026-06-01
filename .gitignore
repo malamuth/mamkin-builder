@@ -1,0 +1,39 @@
+# OS and editor noise
+.DS_Store
+.idea/
+.vscode/
+
+# Environment and secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Logs and local runtime
+*.log
+logs/
+tmp/
+temp/
+
+# Python
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Node
+node_modules/
+.next/
+dist/
+build/
+coverage/
+
+# Generated local data
+*.sqlite
+*.sqlite3
+*.db
+data/
