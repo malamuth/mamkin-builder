@@ -51,6 +51,17 @@ The coordinator then summarizes the options, asks the human in the coordinator t
 
 If the coordinator delegates a human question to a specialist thread, the prompt must name the exact decision, allowed wording or scope, where to record the answer, and the packet expected afterward. Never delegate collection of secret values.
 
+## Lane-Specific Clarifications
+
+When a specialist lane is active or was recently used, route human follow-up questions about that lane back to the same specialist by default. The coordinator may acknowledge the question and forward it, but should not answer deployment, architecture, analysis, review, UX, or walkthrough clarifications inline unless the answer is purely administrative or the human explicitly asks the coordinator to decide.
+
+Examples:
+
+- Deployment/provider/setup/secrets questions -> deployment guide.
+- Stack/API/data-model tradeoffs -> architect.
+- User/problem/workflow ambiguity -> analyst.
+- Verification/check results -> walkthrough/testing worker.
+
 ## After Human Decisions
 
 When the coordinator receives human decisions for a specialist packet, it records the decisions and returns unresolved specialist work to that role by default.
@@ -98,6 +109,7 @@ If a needed custom role is missing those artifacts, ask the human before scaffol
 - Start real team members as separate threads by default.
 - Set the worker thread name from `docs/process/naming-conventions.md`, include it in the worker prompt, and rename or request rename if the platform auto-generates a different title.
 - After starting a worker, wait for its returned packet instead of monitoring the worker thread.
+- Route lane-specific human clarifications to the active or most recent specialist instead of answering them inline.
 - Delegate post-implementation verification lanes to walkthrough/testing workers, and delegate environment/provider setup lanes to deployment guides by default.
 - Write focused worker prompts instead of making every worker read the whole orchestration manual.
 - Pass the relevant feature spec, walkthrough, role card, and packet file explicitly in each worker prompt.
