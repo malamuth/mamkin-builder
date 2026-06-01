@@ -39,6 +39,8 @@ Every worker prompt must specify the coordinator thread id and physical return p
 
 The coordinator is responsible for confirming it received the packet, whether by direct thread delivery or by collecting/pasting a fallback `Coordinator handoff`.
 
+While a worker is running, the coordinator should stay quiet on that lane. Do not poll, read, summarize, or steer active worker threads unless the worker returns a packet/blocker, the human explicitly asks for inspection, or a clear timeout/recovery step is needed. The coordinator thread should remain available for the human to discuss scope, priorities, and unrelated coordination while workers work independently.
+
 ## Decision Routing
 
 Human decisions are coordinator-owned by default.
@@ -95,6 +97,7 @@ If a needed custom role is missing those artifacts, ask the human before scaffol
 - Ensure every walkthrough follows `docs/templates/walkthrough.md` unless the coordinator explicitly records why a different structure is needed.
 - Start real team members as separate threads by default.
 - Set the worker thread name from `docs/process/naming-conventions.md`, include it in the worker prompt, and rename or request rename if the platform auto-generates a different title.
+- After starting a worker, wait for its returned packet instead of monitoring the worker thread.
 - Delegate post-implementation verification lanes to walkthrough/testing workers, and delegate environment/provider setup lanes to deployment guides by default.
 - Write focused worker prompts instead of making every worker read the whole orchestration manual.
 - Pass the relevant feature spec, walkthrough, role card, and packet file explicitly in each worker prompt.
@@ -196,6 +199,7 @@ Record durable decisions in `docs/project/decision-log.md`. Record non-blocking 
 ## Failure Prevention
 
 - Do not run duplicate implementation workers for the same slice.
+- Do not monitor active worker threads unless the worker returns a packet/blocker, the human asks, or timeout recovery is needed.
 - Do not test the wrong branch or worktree.
 - Do not let workers silently expand scope.
 - Do not edit active feature specs during implementation unless explicitly assigned.

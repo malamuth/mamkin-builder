@@ -6,6 +6,8 @@ Packets with `Needs human decision`, human-gate blockers, or human/manual steps 
 
 Preferred delivery is direct return to the coordinator thread when a coordinator thread id and thread tools are available. If direct delivery is unavailable, return the packet in the worker thread and label it `Coordinator handoff`. The coordinator is responsible for confirming receipt before continuing.
 
+Coordinators should not poll or read active worker threads while waiting. Continue only after a returned packet/blocker, a human inspection request, or an explicit timeout/recovery step.
+
 - Coordinator kickoff: `docs/process/handoff-packets/coordinator-kickoff.md`
 - Coordinator final report: `docs/process/handoff-packets/coordinator-final.md`
 - Analysis: `docs/process/handoff-packets/analysis.md`
