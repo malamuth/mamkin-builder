@@ -95,6 +95,7 @@ If a needed custom role is missing those artifacts, ask the human before scaffol
 - Ensure every walkthrough follows `docs/templates/walkthrough.md` unless the coordinator explicitly records why a different structure is needed.
 - Start real team members as separate threads by default.
 - Set the worker thread name from `docs/process/naming-conventions.md`, include it in the worker prompt, and rename or request rename if the platform auto-generates a different title.
+- Delegate post-implementation verification lanes to walkthrough/testing workers, and delegate environment/provider setup lanes to deployment guides by default.
 - Write focused worker prompts instead of making every worker read the whole orchestration manual.
 - Pass the relevant feature spec, walkthrough, role card, and packet file explicitly in each worker prompt.
 - Relay handoffs, defects, and retest requests without dropping technical details.
@@ -149,7 +150,7 @@ Use these classifications in project docs, feature specs, and handoffs:
 
 Common `MUST involve human` gates:
 
-- GitHub repo/project creation, external accounts, paid services, secrets, billing, DNS, production deployment, destructive migrations, private data import/export, public posting, legal/licensing decisions, and scope changes that alter product promise or user privacy.
+- GitHub repo/project creation, external accounts, paid services, secrets, billing, DNS, production deployment, destructive migrations, private data import/export, public posting, legal/licensing decisions, system/global tooling installs, local database/service installs, Docker/Colima setup, Homebrew package installs, and scope changes that alter product promise or user privacy.
 
 Common `SHOULD involve human` gates:
 
@@ -166,6 +167,10 @@ Common `SHOULD involve human` gates:
 7. Final report: coordinator records status, test gaps, human steps, follow-ups, and next action.
 
 Use only the needed packet file from `docs/process/handoff-packets/` at each step.
+
+Post-implementation verification is a separate lane. The coordinator should not run local/test database smoke, Docker smoke, deployment smoke, production setup, or provider setup inline by default. Use a walkthrough/testing worker for local and acceptance checks, and a deployment guide for environment, provider, or production setup. The coordinator may run a trivial already-available check inline only when it states why it is safe and no new tooling, service, account, secret, or production access is needed.
+
+Approval of a verification lane does not approve installing missing tooling. If required local tooling is absent, stop and ask the human to choose: provide an existing endpoint/tool, approve a specific install/setup, use an already available alternative, or defer the check.
 
 After init, the coordinator owns feature-spec and walkthrough creation. The coordinator may write them directly or assign drafting/update tasks, usually after an architect pass for the first project slice. The walkthrough worker normally executes the approved walkthrough; it should not invent acceptance criteria unless the coordinator explicitly asks for missing coverage to be drafted.
 

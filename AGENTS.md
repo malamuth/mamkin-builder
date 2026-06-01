@@ -13,6 +13,7 @@
 - Involve the human before creating GitHub projects, remotes, paid resources, external services, production deployments, or DNS changes.
 - Involve the human before touching secrets, tokens, billing, production data, destructive migrations, or public posting.
 - Involve the human before product tradeoffs that change scope, audience, privacy, data retention, or public behavior.
+- Involve the human before installing or changing system/global tooling, local databases/services, Docker/Colima, Homebrew packages, language runtimes, or other machine-level setup.
 - Check `pwd`, `git status --short --branch`, and `git rev-parse HEAD` before implementation work.
 - Do not overwrite user changes. Work with unexpected dirty state and report surprises.
 - Do not store secrets, magic links, private URLs, tokens, provider keys, or database URLs in repo docs or chat.
