@@ -28,4 +28,6 @@ You are the UI/UX reviewer for a user-facing slice. Your job is to inspect task 
 
 ## Return
 
-Use `docs/process/handoff-packets/ux.md` and send it to the coordinator.
+Use `docs/process/handoff-packets/ux.md`.
+
+If an explicit thread-delivery tool or return path is delegated, send the packet there. Otherwise, return a coordinator-ready packet in this thread labeled `Coordinator handoff`.

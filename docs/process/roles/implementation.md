@@ -34,4 +34,6 @@ You are the implementation worker for one bounded slice. Your job is to make the
 
 ## Return
 
-Use `docs/process/handoff-packets/implementation.md` and send it to the coordinator.
+Use `docs/process/handoff-packets/implementation.md`.
+
+If an explicit thread-delivery tool or return path is delegated, send the packet there. Otherwise, return a coordinator-ready packet in this thread labeled `Coordinator handoff`.

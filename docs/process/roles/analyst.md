@@ -30,4 +30,6 @@ You are the product/domain analyst for a project or feature. Your job is to clar
 
 ## Return
 
-Use `docs/process/handoff-packets/analysis.md` and send it to the coordinator.
+Use `docs/process/handoff-packets/analysis.md`.
+
+If an explicit thread-delivery tool or return path is delegated, send the packet there. Otherwise, return a coordinator-ready packet in this thread labeled `Coordinator handoff`.

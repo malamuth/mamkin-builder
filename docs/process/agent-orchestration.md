@@ -31,6 +31,14 @@ Coordinator/team lead -> Analyst if needed -> Architect -> Implementation worker
 
 Every non-coordinator agent returns its final packet to the coordinator. Agents should not hand work directly to peer agents or start follow-up threads unless the coordinator explicitly delegates that path.
 
+## Thread Delivery Contract
+
+Separate worker threads do not imply automatic cross-thread delivery.
+
+Every worker prompt must specify the physical return path. If thread tools are available and explicitly delegated, the worker may send the final packet to the coordinator thread. Otherwise, the worker returns a coordinator-ready packet in its own thread and labels it `Coordinator handoff`.
+
+The coordinator is responsible for collecting, reading, or pasting worker packets before continuing the lane.
+
 ## Decision Routing
 
 Human decisions are coordinator-owned by default.
@@ -106,6 +114,7 @@ Read first:
 Allowed files to edit:
 Do not edit:
 Handoff target: coordinator
+Physical return path:
 Human decision routing:
 Stop condition:
 Expected final packet:
@@ -122,6 +131,8 @@ The `Read first` list should stay short. Prefer:
 Do not start implementation workers from roadmap candidates alone unless the coordinator writes an equivalent scoped brief directly in the prompt.
 
 For `Human decision routing`, default to `Return human gates to coordinator; do not ask the human directly in this thread`.
+
+For `Physical return path`, default to `Return a coordinator-ready packet in this thread labeled Coordinator handoff; do not assume automatic cross-thread delivery`.
 
 ## Human Gates
 

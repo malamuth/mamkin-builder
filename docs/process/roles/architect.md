@@ -32,4 +32,6 @@ You are the architecture planner for a project or feature. Your job is to clarif
 
 ## Return
 
-Use `docs/process/handoff-packets/architecture.md` and send it to the coordinator.
+Use `docs/process/handoff-packets/architecture.md`.
+
+If an explicit thread-delivery tool or return path is delegated, send the packet there. Otherwise, return a coordinator-ready packet in this thread labeled `Coordinator handoff`.
