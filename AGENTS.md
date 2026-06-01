@@ -16,6 +16,7 @@
 - Check `pwd`, `git status --short --branch`, and `git rev-parse HEAD` before implementation work.
 - Do not overwrite user changes. Work with unexpected dirty state and report surprises.
 - Do not store secrets, magic links, private URLs, tokens, provider keys, or database URLs in repo docs or chat.
+- Keep process docs generic. Put project planning in `docs/project/`, `features/`, or `docs/follow-ups/` unless changing reusable workflow rules.
 - Run appropriate checks before declaring work done, or clearly report what was not run.
 - Record durable project decisions in `docs/project/decision-log.md`; use the Surprise Log only for agent mistakes and confusion points.
 - Keep active feature specs stable once implementation starts. Put completed test notes and non-blocking follow-ups under `docs/follow-ups/`.

@@ -2,6 +2,8 @@
 
 Use this file when creating durable docs or separate agent threads.
 
+Project prefix: TBD
+
 ## Doc Naming
 
 Use predictable kebab-case names for docs produced by agents:
@@ -25,14 +27,14 @@ Use predictable names for separate agent threads:
 
 Examples:
 
-- `HL C01 Architect - local smoke slice`
-- `HL F01 Implementation - local list UI`
-- `HL F01 Walkthrough - local acceptance`
-- `HL F01 Reviewer - persistence and tests`
+- `<project-prefix> C01 Architect - first smoke slice`
+- `<project-prefix> F01 Implementation - task list API`
+- `<project-prefix> F01 Walkthrough - acceptance pass`
+- `<project-prefix> F01 Reviewer - persistence and tests`
 
 Rules:
 
-- Choose a short project prefix during init or coordinator kickoff, for example `HL` for Hearthlist.
+- During init or coordinator kickoff, replace `Project prefix: TBD` with one short project prefix. Do not append a second prefix rule or keep stale project examples.
 - Use `C##` for roadmap candidates and `F##` for feature specs.
 - Use role names from `docs/process/roles/`: `Analyst`, `Architect`, `Implementation`, `Reviewer`, `Walkthrough`, `Deployment`, `UX`, or an initialized custom role display name.
 - Keep short scope human-readable and kebab-free enough to scan in thread lists.

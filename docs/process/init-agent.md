@@ -12,6 +12,7 @@ Run this flow once when a copied template becomes a real project. Rerun it only 
 
 - `AGENTS.md`
 - `README.md`
+- `docs/templates/project-readme.md`
 - `docs/project/brief.md`
 - `docs/project/decision-log.md`
 - `docs/process/agent-orchestration.md`
@@ -58,19 +59,33 @@ Recommended questions:
 12. Does this project need recurring custom specialist roles beyond the built-in roles?
 13. Are there existing notes, links, designs, repos, or files the agent should inspect before finalizing docs?
 
+## Document Ownership
+
+Keep each doc narrow:
+
+- `README.md` is a short human entrypoint. Use `docs/templates/project-readme.md`; do not duplicate roadmap details, acceptance criteria, full human gates, or long future-plan notes.
+- `docs/project/brief.md` owns product intent, milestone, success criteria, constraints, risks, human gates, and recommended orchestration model.
+- `features/00-roadmap.md` owns roadmap candidates and future slices.
+- `docs/project/decision-log.md` owns durable decisions and assumptions.
+- `docs/process/*` owns reusable workflow rules. Do not put one-off project planning notes there.
+- `docs/process/agent-orchestration.md` should change only when the coordination model, reusable process rules, or custom-role wiring changes. Put first-slice focus in the brief, roadmap, init handoff, or coordinator prompt instead.
+- `docs/process/naming-conventions.md` owns naming rules and the chosen project prefix only. Replace template placeholders; do not append duplicate prefix examples.
+
+When in doubt, put product context in the brief or roadmap and link to it from the README.
+
 ## Adapt The Template
 
 Update or create these docs:
 
-- `README.md`: project-facing overview and quick start after init, unless the human asks to keep the template README.
+- `README.md`: short project-facing entrypoint based on `docs/templates/project-readme.md`, unless the human asks to keep the template README.
 - `docs/project/brief.md`: project source of truth.
 - `docs/project/decision-log.md`: init decisions and assumptions.
 - `features/00-roadmap.md`: high-level roadmap with product value and candidate slices.
 
 Optionally update:
 
-- `docs/process/agent-orchestration.md`: only to add project-specific role choices, custom roles, or human gates.
-- `docs/process/naming-conventions.md`: only to add project-specific naming rules or custom role names.
+- `docs/process/agent-orchestration.md`: only to change reusable coordination rules, add custom roles, or record durable process-level human gates.
+- `docs/process/naming-conventions.md`: replace `Project prefix: TBD` and add custom role display names if needed.
 - `docs/templates/feature-spec.md`: only if the project needs a custom feature-spec template.
 - `docs/templates/walkthrough.md`: only if the project needs a custom walkthrough template.
 - `.gitignore`: only for known stack artifacts.
@@ -136,6 +151,18 @@ The init agent should:
 
 If GitHub setup is approved, record the chosen shape in `docs/project/brief.md` and `docs/project/decision-log.md`.
 
+## Init Self-Review
+
+Before coordinator handoff, check:
+
+- `README.md` is a compact entrypoint and links to the brief and roadmap instead of duplicating them.
+- Product intent, success criteria, constraints, risks, and human gates live in `docs/project/brief.md`.
+- Future slices and candidate plans live in `features/00-roadmap.md`.
+- `docs/process/*` contains only reusable process changes, not one-off first-slice planning notes.
+- `docs/process/naming-conventions.md` has one project prefix and no stale template/example project prefixes.
+- Remaining `TBD` placeholders are intentional open questions, not forgotten template residue.
+- No secrets, private URLs, tokens, provider keys, or magic links were added.
+
 ## Coordinator Handoff
 
 When init is complete, hand off to the coordinator/team lead with:
@@ -172,6 +199,7 @@ Init is complete when:
 - Product/domain questions, architecture questions, and first-slice candidates are clear enough for the coordinator to call analyst and/or architect.
 - Human-in-loop gates are explicit.
 - Requested custom recurring roles have role cards, handoff packets, naming rules, invocation rules, and decision-log entries.
+- Init self-review passed.
 - Git state is known.
 - GitHub setup has been proposed or declined.
 - The coordinator has a clear next step.

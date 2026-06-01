@@ -2,6 +2,12 @@
 
 This is the coordinator/team-lead manual. Workers should not read this whole file by default; give each worker the relevant role card, feature docs, and packet template instead.
 
+## Customization Boundary
+
+This file is durable process, not a live planning note. Put first-slice focus, current project recommendations, stack questions, and roadmap-specific guidance in `docs/project/brief.md`, `features/00-roadmap.md`, `docs/project/decision-log.md`, or the coordinator prompt.
+
+Edit this file only when the coordination model, reusable workflow rules, custom-role wiring, or durable process-level human gates change.
+
 ## Reading Model
 
 - Coordinator/team lead reads this file and the needed packet files.

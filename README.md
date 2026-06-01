@@ -15,11 +15,12 @@ Read AGENTS.md and run the project init flow.
 
 3. Answer the init questions.
 4. Let the init agent adapt:
-   - `README.md`
+   - `README.md` from `docs/templates/project-readme.md`
    - `docs/project/brief.md`
    - `docs/project/decision-log.md`
    - `features/00-roadmap.md`
-   - the project-specific agent orchestration notes
+   - the project prefix in `docs/process/naming-conventions.md`
+   - process docs only when the reusable workflow or custom roles change
    - custom role cards and packets, if the project needs recurring specialist roles
 5. The init agent verifies git state, proposes GitHub setup, and hands off to the coordinator/team-lead flow.
 
@@ -40,6 +41,7 @@ Use `AGENTS.md` as the entrypoint because many coding agents already look for it
 - `docs/project/decision-log.md`: durable trace of important decisions.
 - `features/README.md`: feature-spec folder guide.
 - `features/00-roadmap.md`: roadmap candidates created or refined during init.
+- `docs/templates/project-readme.md`: compact README shape for initialized projects.
 - `docs/templates/feature-spec.md`: feature spec template.
 - `docs/templates/walkthrough.md`: coordinator-owned walkthrough/runbook template.
 - `docs/templates/role-card.md`: scaffold for custom recurring specialist roles.
@@ -48,6 +50,7 @@ Use `AGENTS.md` as the entrypoint because many coding agents already look for it
 ## Design Principles
 
 - Keep `AGENTS.md` short and use it as a pointer to durable process docs.
+- Keep `README.md` lightweight; the brief and roadmap own product detail.
 - Keep live coordination state out of feature specs.
 - Require every feature to include product value, acceptance criteria, test plan, manual walkthrough, and human-in-loop gates.
 - Use a coordinator-led flow rather than loose worker-to-worker relay.
