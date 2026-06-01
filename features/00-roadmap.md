@@ -24,6 +24,6 @@ The coordinator planning lane later turns selected candidates into feature specs
 
 ## Candidate Index
 
-| Candidate | Value | Status | Notes |
-| --- | --- | --- | --- |
-| 01 | TBD | Candidate | TBD |
+| Candidate | Product value | User/owner outcome | Likely scope | Non-goals | Human gates | Risks/open questions | Status |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| C01 | TBD | TBD | TBD | TBD | TBD | TBD | Candidate |

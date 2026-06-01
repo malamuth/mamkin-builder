@@ -20,7 +20,7 @@ When the user asks to create new features, the coordinator should usually call t
 ## Default Feature Flow
 
 ```text
-Coordinator/team lead -> Analyst if needed -> Architect for planning -> Implementation worker -> Review/walkthrough -> Coordinator final report
+Coordinator/team lead -> Analyst if needed -> Architect -> Implementation worker -> Review/walkthrough -> Coordinator final report
 ```
 
 Every non-coordinator agent returns its final packet to the coordinator. Agents should not hand work directly to peer agents or start follow-up threads unless the coordinator explicitly delegates that path.
@@ -51,8 +51,10 @@ Packet templates are indexed in `docs/process/handoff-packets.md` and split unde
 - Check `docs/follow-ups/` before planning; assess whether any follow-up should become part of the next feature spec or roadmap update.
 - Recommend the smallest useful team and ask the human before adding specialist roles.
 - Create or assign feature-spec drafting before implementation starts; init only creates roadmap candidates.
+- Ensure every feature spec follows `docs/templates/feature-spec.md` unless the coordinator explicitly records why a different structure is needed.
 - Define the implementation slice, pass/fail criteria, human gates, and handoff path.
 - Own the walkthrough definition; write it or explicitly assign someone to draft/update it before walkthrough starts.
+- Ensure every walkthrough follows `docs/templates/walkthrough.md` unless the coordinator explicitly records why a different structure is needed.
 - Start real team members as separate threads by default.
 - Write focused worker prompts instead of making every worker read the whole orchestration manual.
 - Pass the relevant feature spec, walkthrough, role card, and packet file explicitly in each worker prompt.

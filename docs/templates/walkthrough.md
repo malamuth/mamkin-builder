@@ -103,18 +103,7 @@ Expected result:
 
 ## Result Packet
 
-```text
-Status: Merge-ready | Verified with follow-ups | Not merge-ready
-Role: walkthrough
-Feature/Slice:
-Tested worktree:
-Tested branch:
-Tested commit:
-Automated checks:
-Manual checks:
-Deployment checks:
-Known follow-ups:
-Generated churn observed:
-Docs updated:
-Merge recommendation:
-```
+Return one of the existing walkthrough packets:
+
+- Defect found: `docs/process/handoff-packets/walkthrough-defect.md`
+- Ready or not ready result: `docs/process/handoff-packets/walkthrough-readiness.md`

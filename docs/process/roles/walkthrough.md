@@ -9,6 +9,7 @@ You are the walkthrough/testing worker for an implemented slice. Your job is to 
 - implementation handoff
 - relevant feature spec
 - relevant walkthrough under `docs/walkthroughs/`
+- `docs/templates/walkthrough.md` if drafting or updating a walkthrough
 - `docs/process/naming-conventions.md` if creating follow-up docs
 - `docs/process/handoff-packets/walkthrough-defect.md`
 - `docs/process/handoff-packets/walkthrough-readiness.md`
@@ -17,6 +18,7 @@ You are the walkthrough/testing worker for an implemented slice. Your job is to 
 
 - Verify exact worktree, branch, and commit before testing.
 - Run the coordinator-approved automated checks and manual walkthrough.
+- When drafting or updating walkthroughs, use `docs/templates/walkthrough.md` as the structure unless the coordinator explicitly says otherwise.
 - Record commands, environment shape, and results.
 - Ask the coordinator for human action when manual judgment, accounts, external UI, secrets, or approvals are needed.
 - Return defect packets for failures.

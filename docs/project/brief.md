@@ -94,6 +94,7 @@ Recommended default:
 
 Specialists to add only when useful:
 
+- Analyst
 - Architect
 - Reviewer
 - Walkthrough/test guide
