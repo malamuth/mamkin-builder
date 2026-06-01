@@ -33,11 +33,11 @@ Every non-coordinator agent returns its final packet to the coordinator. Agents 
 
 ## Thread Delivery Contract
 
-Separate worker threads do not imply automatic cross-thread delivery.
+Separate worker threads can return packets directly when thread tools and the coordinator thread id are available, but cross-thread delivery is not guaranteed.
 
-Every worker prompt must specify the physical return path. If thread tools are available and explicitly delegated, the worker may send the final packet to the coordinator thread. Otherwise, the worker returns a coordinator-ready packet in its own thread and labels it `Coordinator handoff`.
+Every worker prompt must specify the coordinator thread id and physical return path. Preferred path: send the final packet to the coordinator thread using thread tools. Fallback: if direct thread delivery is unavailable, return a coordinator-ready packet in the worker thread labeled `Coordinator handoff`.
 
-The coordinator is responsible for collecting, reading, or pasting worker packets before continuing the lane.
+The coordinator is responsible for confirming it received the packet, whether by direct thread delivery or by collecting/pasting a fallback `Coordinator handoff`.
 
 ## Decision Routing
 
@@ -110,6 +110,7 @@ Role:
 Thread name:
 Feature/Slice:
 Source thread:
+Coordinator thread id:
 Expected worktree:
 Expected branch or commit:
 Read first:
@@ -136,7 +137,7 @@ For `Thread name`, use `docs/process/naming-conventions.md`. If the platform cre
 
 For `Human decision routing`, default to `Return human gates to coordinator; do not ask the human directly in this thread`.
 
-For `Physical return path`, default to `Return a coordinator-ready packet in this thread labeled Coordinator handoff; do not assume automatic cross-thread delivery`.
+For `Physical return path`, default to `Send the final packet to coordinator thread <id> using thread tools if available; if unavailable, return a coordinator-ready packet in this thread labeled Coordinator handoff`.
 
 ## Human Gates
 

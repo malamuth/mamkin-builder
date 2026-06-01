@@ -59,4 +59,4 @@ SHOULD involve human:
 
 Use `docs/process/handoff-packets/<role-name>.md`.
 
-If an explicit thread-delivery tool or return path is delegated, send the packet there. Otherwise, return a coordinator-ready packet in this thread labeled `Coordinator handoff`.
+Prefer sending the packet to the coordinator thread when a coordinator thread id and thread tools are available. If direct delivery is unavailable, return a coordinator-ready packet in this thread labeled `Coordinator handoff`.

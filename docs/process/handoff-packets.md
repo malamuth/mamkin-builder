@@ -4,7 +4,7 @@ Use only the packet needed for the current role or handoff. Keep packets self-co
 
 Packets with `Needs human decision`, human-gate blockers, or human/manual steps go back to the coordinator. The coordinator asks the human and records the decision unless the worker prompt explicitly delegated that exact approval lane.
 
-If no explicit thread-delivery tool or return path is delegated, return the packet in the worker thread and label it `Coordinator handoff`. The coordinator is responsible for collecting or pasting it into the coordinator thread.
+Preferred delivery is direct return to the coordinator thread when a coordinator thread id and thread tools are available. If direct delivery is unavailable, return the packet in the worker thread and label it `Coordinator handoff`. The coordinator is responsible for confirming receipt before continuing.
 
 - Coordinator kickoff: `docs/process/handoff-packets/coordinator-kickoff.md`
 - Coordinator final report: `docs/process/handoff-packets/coordinator-final.md`
