@@ -94,6 +94,7 @@ If a needed custom role is missing those artifacts, ask the human before scaffol
 - Own the walkthrough definition; write it or explicitly assign someone to draft/update it before walkthrough starts.
 - Ensure every walkthrough follows `docs/templates/walkthrough.md` unless the coordinator explicitly records why a different structure is needed.
 - Start real team members as separate threads by default.
+- Set the worker thread name from `docs/process/naming-conventions.md`, include it in the worker prompt, and rename or request rename if the platform auto-generates a different title.
 - Write focused worker prompts instead of making every worker read the whole orchestration manual.
 - Pass the relevant feature spec, walkthrough, role card, and packet file explicitly in each worker prompt.
 - Relay handoffs, defects, and retest requests without dropping technical details.
@@ -106,6 +107,7 @@ Every worker prompt should include:
 ```text
 Project:
 Role:
+Thread name:
 Feature/Slice:
 Source thread:
 Expected worktree:
@@ -129,6 +131,8 @@ The `Read first` list should stay short. Prefer:
 - any project docs necessary for the slice
 
 Do not start implementation workers from roadmap candidates alone unless the coordinator writes an equivalent scoped brief directly in the prompt.
+
+For `Thread name`, use `docs/process/naming-conventions.md`. If the platform creates a different title, rename the thread or request rename before treating the worker as properly started. Do not rely on auto-generated titles from the first prompt words.
 
 For `Human decision routing`, default to `Return human gates to coordinator; do not ask the human directly in this thread`.
 

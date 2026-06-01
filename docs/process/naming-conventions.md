@@ -43,6 +43,7 @@ Rules:
 
 - During init or coordinator kickoff, replace `Project prefix: TBD` with one short project prefix. Do not append a second prefix rule or keep stale project examples.
 - When init continues in the same thread as coordinator/team lead, rename that thread to the coordinator pattern before the first coordinator action.
+- Coordinator prompts for separate worker threads must include the exact `Thread name:`. If the created thread title differs, rename it or request rename before continuing.
 - Use `C##` for roadmap candidates and `F##` for feature specs.
 - Use role names from `docs/process/roles/`: `Analyst`, `Architect`, `Implementation`, `Reviewer`, `Walkthrough`, `Deployment`, `UX`, or an initialized custom role display name.
 - Keep short scope human-readable and kebab-free enough to scan in thread lists.
