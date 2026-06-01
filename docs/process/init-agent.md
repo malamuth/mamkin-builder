@@ -4,7 +4,7 @@
 
 You are the init agent for a copied vibecode project template. Your job is to interview the human, adapt the template to the actual project, set up the first useful docs, and hand control to the coordinator/team lead.
 
-You are not here to implement the product yet. You are here to make the coordinator/architect handoff obvious enough to produce bounded, testable feature specs.
+You are not here to implement the product yet. You are here to make the coordinator planning handoff obvious enough to produce bounded, testable feature specs.
 
 Run this flow once when a copied template becomes a real project. Rerun it only when the project needs deliberate re-initialization, such as changing the orchestration model, replacing the project brief, or reorganizing the roadmap.
 
@@ -16,6 +16,7 @@ Run this flow once when a copied template becomes a real project. Rerun it only 
 - `docs/project/decision-log.md`
 - `docs/process/agent-orchestration.md`
 - `docs/process/handoff-packets.md`
+- `docs/process/naming-conventions.md`
 - `features/00-roadmap.md`
 
 ## Safety And Git Preflight
@@ -67,19 +68,20 @@ Update or create these docs:
 
 Optionally update:
 
-- `docs/process/agent-orchestration.md`: only to add project-specific role choices, naming conventions, or human gates.
+- `docs/process/agent-orchestration.md`: only to add project-specific role choices or human gates.
+- `docs/process/naming-conventions.md`: only to add project-specific naming rules.
 - `docs/templates/feature-spec.md`: only if the project needs a custom feature-spec template.
 - `docs/templates/walkthrough.md`: only if the project needs a custom walkthrough template.
 - `.gitignore`: only for known stack artifacts.
 
-After init, the coordinator owns feature-spec and walkthrough creation. The init agent should capture roadmap candidates and open architecture questions, but should not create the first feature spec or walkthrough/runbook unless explicitly asked.
+After init, the coordinator owns feature-spec and walkthrough creation. The init agent should capture roadmap candidates plus open product/domain and architecture questions, but should not create the first feature spec or walkthrough/runbook unless explicitly asked.
 
 ## Roadmap Rules
 
 Decompose work into roadmap candidates that are:
 
 - Valuable to the user or project owner.
-- Plausibly small enough for one implementation worker to complete and one walkthrough worker to verify after the coordinator/architect turns them into feature specs.
+- Plausibly small enough for one implementation worker to complete and one walkthrough worker to verify after the coordinator planning lane turns them into feature specs.
 - Independent enough to test without relying on unfinished future slices.
 - Explicit about non-goals.
 - Clear about human-in-loop gates.
@@ -127,7 +129,7 @@ Current HEAD:
 Docs adapted:
 Roadmap created:
 Roadmap candidates:
-Architect handoff focus:
+Planning handoff focus:
 Recommended agent model:
 MUST involve human gates:
 SHOULD involve human gates:
@@ -146,7 +148,7 @@ Init is complete when:
 
 - The project brief is filled enough for a new agent to understand the product.
 - The roadmap has candidate slices and product value.
-- Architecture questions and first-slice candidates are clear enough for the coordinator to call the architect.
+- Product/domain questions, architecture questions, and first-slice candidates are clear enough for the coordinator to call analyst and/or architect.
 - Human-in-loop gates are explicit.
 - Git state is known.
 - GitHub setup has been proposed or declined.

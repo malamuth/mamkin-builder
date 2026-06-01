@@ -2,7 +2,7 @@
 
 A tiny, product-agnostic starting point for vibecode projects. Copy it, ask an init agent to run the setup flow, and the agent will interview you, adapt the docs to the specific product, propose git/GitHub setup, and hand off to a coordinator-led implementation workflow.
 
-The workflow is built for projects run by an init agent, a coordinator/team lead, optional architect, implementation workers, and walkthrough/testing agents. `AGENTS.md` stays short as the agent entrypoint; the durable process lives in `docs/process/`.
+The workflow is built for projects run by an init agent, a coordinator/team lead, optional analyst/architect support, implementation workers, and walkthrough/testing agents. `AGENTS.md` stays short as the agent entrypoint; the durable process lives in `docs/process/`.
 
 ## Quick Start
 
@@ -31,6 +31,7 @@ Use `AGENTS.md` as the entrypoint because many coding agents already look for it
 - `AGENTS.md`: short always-on agent entrypoint.
 - `docs/process/init-agent.md`: project initialization protocol and questionnaire.
 - `docs/process/agent-orchestration.md`: coordinator/team-lead orchestration manual.
+- `docs/process/naming-conventions.md`: doc and agent-thread naming rules.
 - `docs/process/roles/*.md`: small role cards for non-coordinator worker threads.
 - `docs/process/handoff-packets.md`: index of shared packet templates.
 - `docs/process/handoff-packets/*.md`: individual kickoff, handoff, defect, retest, and final report templates.
@@ -53,7 +54,7 @@ Use `AGENTS.md` as the entrypoint because many coding agents already look for it
 
 1. Init agent interviews the human and adapts docs.
 2. Coordinator/team lead reviews the project brief and roadmap.
-3. Coordinator calls architect to polish architecture and feature boundaries.
+3. Coordinator calls analyst if the domain is fuzzy, then architect to polish architecture and feature boundaries.
 4. Coordinator creates or assigns one bounded feature spec and walkthrough definition.
 5. Worker implements and returns a handoff packet.
 6. Reviewer and/or walkthrough agent verifies the exact branch/commit.

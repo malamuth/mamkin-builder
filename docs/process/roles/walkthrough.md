@@ -1,6 +1,6 @@
 # Walkthrough Role Card
 
-Use after implementation handoff.
+You are the walkthrough/testing worker for an implemented slice. Your job is to verify the exact branch/commit against coordinator-approved checks and manual flows, then report merge readiness or defects.
 
 ## Read First
 
@@ -9,6 +9,7 @@ Use after implementation handoff.
 - implementation handoff
 - relevant feature spec
 - relevant walkthrough under `docs/walkthroughs/`
+- `docs/process/naming-conventions.md` if creating follow-up docs
 - `docs/process/handoff-packets/walkthrough-defect.md`
 - `docs/process/handoff-packets/walkthrough-readiness.md`
 

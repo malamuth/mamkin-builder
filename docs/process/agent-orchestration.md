@@ -13,46 +13,49 @@ This is the coordinator/team-lead manual. Workers should not read this whole fil
 
 Use this coordinator manual after the init agent has already adapted the copied template into a real project and handed off the project brief, decision log, and roadmap. If the project has not been initialized yet, run `docs/process/init-agent.md` first.
 
-After init, the coordinator should call the architect before spinning implementation workers. The architect polishes the brief/roadmap, resolves architecture questions, and helps turn roadmap candidates into implementable feature specs.
+After init, the coordinator should call the architect before spinning implementation workers. Use an analyst first when the user/problem/domain/workflow is still fuzzy. The analyst clarifies what is being built and why; the architect clarifies how it should be structured and sliced.
 
 When the user asks to create new features, the coordinator should usually call the architect first unless the change is already fully specified and low-risk.
 
 ## Default Feature Flow
 
 ```text
-Coordinator/team lead -> Architect for planning when needed -> Implementation worker -> Review/walkthrough -> Coordinator final report
+Coordinator/team lead -> Analyst if needed -> Architect for planning -> Implementation worker -> Review/walkthrough -> Coordinator final report
 ```
 
 Every non-coordinator agent returns its final packet to the coordinator. Agents should not hand work directly to peer agents or start follow-up threads unless the coordinator explicitly delegates that path.
 
-Use the smallest useful team. After init, the first planning lane should include an architect. For later narrow features, the team is often:
+Use the smallest useful team. After init, the first planning lane should usually include an architect and may include an analyst when product/domain understanding is fuzzy. For later narrow features, the team is often:
 
 - coordinator/team lead
 - one implementation worker
 - one walkthrough/testing worker
 
-For later feature work, add architect, reviewer, UX reviewer, or deployment guide only when the feature has a clear need for that role.
+For later feature work, add analyst, architect, reviewer, UX reviewer, or deployment guide only when the feature has a clear need for that role.
 
 ## Role Cards
 
 - Architect: `docs/process/roles/architect.md`
+- Analyst: `docs/process/roles/analyst.md`
 - Implementation worker: `docs/process/roles/implementation.md`
 - Reviewer: `docs/process/roles/reviewer.md`
 - Walkthrough/test guide: `docs/process/roles/walkthrough.md`
 - Deployment guide: `docs/process/roles/deployment.md`
 - UI/UX reviewer: `docs/process/roles/ux.md`
 
-Packet templates are indexed in `docs/process/handoff-packets.md` and split under `docs/process/handoff-packets/`.
+Packet templates are indexed in `docs/process/handoff-packets.md` and split under `docs/process/handoff-packets/`. Naming rules live in `docs/process/naming-conventions.md`.
 
 ## Coordinator Duties
 
 - Read project brief, decision log, roadmap, follow-ups, any relevant feature specs or walkthroughs, and current repo state.
 - Check `docs/follow-ups/` before planning; assess whether any follow-up should become part of the next feature spec or roadmap update.
 - Recommend the smallest useful team and ask the human before adding specialist roles.
+- Create or assign feature-spec drafting before implementation starts; init only creates roadmap candidates.
 - Define the implementation slice, pass/fail criteria, human gates, and handoff path.
 - Own the walkthrough definition; write it or explicitly assign someone to draft/update it before walkthrough starts.
 - Start real team members as separate threads by default.
 - Write focused worker prompts instead of making every worker read the whole orchestration manual.
+- Pass the relevant feature spec, walkthrough, role card, and packet file explicitly in each worker prompt.
 - Relay handoffs, defects, and retest requests without dropping technical details.
 - Decide whether a result is merge-ready, verified with follow-ups, blocked, or not ready.
 
@@ -83,6 +86,8 @@ The `Read first` list should stay short. Prefer:
 - one relevant packet file
 - any project docs necessary for the slice
 
+Do not start implementation workers from roadmap candidates alone unless the coordinator writes an equivalent scoped brief directly in the prompt.
+
 ## Human Gates
 
 Use these classifications in project docs, feature specs, and handoffs:
@@ -101,12 +106,13 @@ Common `SHOULD involve human` gates:
 
 ## Lifecycle
 
-1. Kickoff: coordinator checks repo state, reads source docs, recommends team shape, and defines the first slice.
-2. Architecture pass: optional; use when boundaries, data model, or tradeoffs are unclear.
-3. Implementation: worker implements one bounded slice and returns an implementation handoff.
-4. Review: optional code/diff review before walkthrough; use when correctness, security, migration, API contract, or regression risk warrants a second engineering read.
-5. Walkthrough: acceptance verification after implementation or review; use to run the approved checks/manual flows against the exact branch/commit and decide merge readiness.
-6. Final report: coordinator records status, test gaps, human steps, follow-ups, and next action.
+1. Kickoff: coordinator checks repo state, reads source docs, recommends team shape, and defines the planning lane.
+2. Analysis pass: optional; use when user, problem, workflow, business rules, or domain constraints are unclear.
+3. Architecture pass: use after init and whenever boundaries, data model, integrations, or tradeoffs are unclear.
+4. Implementation: worker implements one bounded slice and returns an implementation handoff.
+5. Review: optional code/diff review before walkthrough; use when correctness, security, migration, API contract, or regression risk warrants a second engineering read.
+6. Walkthrough: acceptance verification after implementation or review; use to run the approved checks/manual flows against the exact branch/commit and decide merge readiness.
+7. Final report: coordinator records status, test gaps, human steps, follow-ups, and next action.
 
 Use only the needed packet file from `docs/process/handoff-packets/` at each step.
 

@@ -2,7 +2,7 @@
 
 Init status: not initialized
 
-The init agent should replace this with a short roadmap of valuable candidate slices. The coordinator and architect turn candidates into feature specs after init.
+The init agent should replace this with a short roadmap of valuable candidate slices. The coordinator planning lane turns candidates into feature specs after init, usually with architect support and analyst support when the domain is fuzzy.
 
 ## Roadmap Rules
 
@@ -14,7 +14,7 @@ Each roadmap candidate should include:
 - Human-in-loop gates.
 - Known risks or open architecture questions.
 
-The coordinator and architect later turn selected candidates into feature specs with acceptance criteria, automated test plans, and walkthrough definitions.
+The coordinator planning lane later turns selected candidates into feature specs with acceptance criteria, automated test plans, and walkthrough definitions. Name feature specs as `features/NN-short-kebab-title.md`.
 
 ## Candidate Shape
 

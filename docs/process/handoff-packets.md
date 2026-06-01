@@ -4,6 +4,7 @@ Use only the packet needed for the current role or handoff. Keep packets self-co
 
 - Coordinator kickoff: `docs/process/handoff-packets/coordinator-kickoff.md`
 - Coordinator final report: `docs/process/handoff-packets/coordinator-final.md`
+- Analysis: `docs/process/handoff-packets/analysis.md`
 - Architecture: `docs/process/handoff-packets/architecture.md`
 - Implementation: `docs/process/handoff-packets/implementation.md`
 - Reviewer: `docs/process/handoff-packets/reviewer.md`
