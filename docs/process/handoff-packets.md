@@ -2,6 +2,8 @@
 
 Use only the packet needed for the current role or handoff. Keep packets self-contained enough that the coordinator can relay them to another thread without rewriting important technical details.
 
+Packets with `Needs human decision`, human-gate blockers, or human/manual steps go back to the coordinator. The coordinator asks the human and records the decision unless the worker prompt explicitly delegated that exact approval lane.
+
 - Coordinator kickoff: `docs/process/handoff-packets/coordinator-kickoff.md`
 - Coordinator final report: `docs/process/handoff-packets/coordinator-final.md`
 - Analysis: `docs/process/handoff-packets/analysis.md`

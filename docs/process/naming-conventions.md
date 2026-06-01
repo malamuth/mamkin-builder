@@ -25,8 +25,15 @@ Use predictable names for separate agent threads:
 <project-prefix> <slice-id> <role> - <short-scope>
 ```
 
+For the main coordinator thread, use:
+
+```text
+👑 <project-prefix> Coordinator - project coordination
+```
+
 Examples:
 
+- `👑 <project-prefix> Coordinator - project coordination`
 - `<project-prefix> C01 Architect - first smoke slice`
 - `<project-prefix> F01 Implementation - task list API`
 - `<project-prefix> F01 Walkthrough - acceptance pass`
@@ -35,6 +42,7 @@ Examples:
 Rules:
 
 - During init or coordinator kickoff, replace `Project prefix: TBD` with one short project prefix. Do not append a second prefix rule or keep stale project examples.
+- When init continues in the same thread as coordinator/team lead, rename that thread to the coordinator pattern before the first coordinator action.
 - Use `C##` for roadmap candidates and `F##` for feature specs.
 - Use role names from `docs/process/roles/`: `Analyst`, `Architect`, `Implementation`, `Reviewer`, `Walkthrough`, `Deployment`, `UX`, or an initialized custom role display name.
 - Keep short scope human-readable and kebab-free enough to scan in thread lists.

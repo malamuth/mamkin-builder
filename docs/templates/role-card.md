@@ -27,6 +27,7 @@ You are the `<role name>` for this project. Your job is to handle the recurring 
 
 - TBD
 - Identify risks, unknowns, and human-in-loop gates in this role's area.
+- Route human decisions through the coordinator unless explicitly delegated.
 - Return final work to the coordinator.
 
 ## Decisions

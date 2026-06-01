@@ -31,6 +31,16 @@ Coordinator/team lead -> Analyst if needed -> Architect -> Implementation worker
 
 Every non-coordinator agent returns its final packet to the coordinator. Agents should not hand work directly to peer agents or start follow-up threads unless the coordinator explicitly delegates that path.
 
+## Decision Routing
+
+Human decisions are coordinator-owned by default.
+
+When a worker packet says `Needs human decision`, `Blocked` on a human gate, `Human judgment needed`, or `Human/manual steps expected`, the worker should return the packet to the coordinator and stop. The worker should not treat its own thread as the approval lane unless the coordinator prompt explicitly delegates that exact human question.
+
+The coordinator then summarizes the options, asks the human in the coordinator thread, records durable decisions in `docs/project/decision-log.md` and the relevant brief/feature spec when needed, and resumes the lane with a new worker prompt or retest request.
+
+If the coordinator delegates a human question to a specialist thread, the prompt must name the exact decision, allowed wording or scope, where to record the answer, and the packet expected afterward. Never delegate collection of secret values.
+
 Use the smallest useful team. After init, the first planning lane should usually include an architect and may include an analyst when product/domain understanding is fuzzy. For later narrow features, the team is often:
 
 - coordinator/team lead
@@ -90,6 +100,7 @@ Read first:
 Allowed files to edit:
 Do not edit:
 Handoff target: coordinator
+Human decision routing:
 Stop condition:
 Expected final packet:
 ```
@@ -103,6 +114,8 @@ The `Read first` list should stay short. Prefer:
 - any project docs necessary for the slice
 
 Do not start implementation workers from roadmap candidates alone unless the coordinator writes an equivalent scoped brief directly in the prompt.
+
+For `Human decision routing`, default to `Return human gates to coordinator; do not ask the human directly in this thread`.
 
 ## Human Gates
 

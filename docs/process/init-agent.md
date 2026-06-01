@@ -190,6 +190,8 @@ Recommended next action:
 
 Then start the coordinator flow from `docs/process/agent-orchestration.md`.
 
+If this same thread continues as coordinator/team lead, rename the thread before the first coordinator action using the coordinator pattern in `docs/process/naming-conventions.md`. If creating a new coordinator thread instead, create it with that name from the start.
+
 ## Done Checklist
 
 Init is complete when:
@@ -200,6 +202,7 @@ Init is complete when:
 - Human-in-loop gates are explicit.
 - Requested custom recurring roles have role cards, handoff packets, naming rules, invocation rules, and decision-log entries.
 - Init self-review passed.
+- The coordinator thread is named according to `docs/process/naming-conventions.md`, or the init handoff says a new coordinator thread should be created with that name.
 - Git state is known.
 - GitHub setup has been proposed or declined.
 - The coordinator has a clear next step.
