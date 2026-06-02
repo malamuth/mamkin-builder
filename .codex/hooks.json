@@ -1,0 +1,53 @@
+{
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/usr/bin/python3 \"$(git rev-parse --show-toplevel)/.codex/hooks/secret_scan.py\"",
+            "timeout": 10,
+            "statusMessage": "Scanning prompt for secret-shaped text"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "^apply_patch$|Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/usr/bin/python3 \"$(git rev-parse --show-toplevel)/.codex/hooks/secret_scan.py\"",
+            "timeout": 10,
+            "statusMessage": "Scanning edits for secret-shaped text"
+          }
+        ]
+      }
+    ],
+    "SubagentStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/usr/bin/python3 \"$(git rev-parse --show-toplevel)/.codex/hooks/subagent_start_context.py\"",
+            "timeout": 10,
+            "statusMessage": "Adding Mamkin subagent handoff context"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/usr/bin/python3 \"$(git rev-parse --show-toplevel)/.codex/hooks/stop_process_check.py\"",
+            "timeout": 10,
+            "statusMessage": "Checking Mamkin turn closeout"
+          }
+        ]
+      }
+    ]
+  }
+}

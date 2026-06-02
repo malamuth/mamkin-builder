@@ -7,6 +7,7 @@ personality = "pragmatic"
 
 [features]
 multi_agent = true
+hooks = true
 
 [agents]
 max_threads = 4
