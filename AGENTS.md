@@ -11,12 +11,14 @@
 ## Hard Rules
 
 - Involve the human before creating GitHub projects, remotes, paid resources, external services, production deployments, or DNS changes.
+- Involve the human before adding or enabling MCP servers, connectors, provider integrations, or project config that reaches external services or starts local services.
 - Involve the human before touching secrets, tokens, billing, production data, destructive migrations, or public posting.
 - Involve the human before product tradeoffs that change scope, audience, privacy, data retention, or public behavior.
 - Involve the human before installing or changing system/global tooling, local databases/services, Docker/Colima, Homebrew packages, language runtimes, or other machine-level setup.
 - Check `pwd`, `git status --short --branch`, and `git rev-parse HEAD` before implementation work.
 - Do not overwrite user changes. Work with unexpected dirty state and report surprises.
 - Do not store secrets, magic links, private URLs, tokens, provider keys, or database URLs in repo docs or chat.
+- If a command needs secrets, use a human-approved local/provider secret path; do not rely on inherited shell secrets unless the coordinator explicitly approves the variable names and the command will not print them.
 - Keep process docs generic. Put project planning in `docs/project/`, `features/`, or `docs/follow-ups/` unless changing reusable workflow rules.
 - If a non-coordinator agent hits a human decision gate, return it to the coordinator unless the prompt explicitly delegates asking the human in that thread.
 - Use the delegated physical return path for handoffs. Prefer sending packets to the coordinator thread when a coordinator thread id and thread tools are available; otherwise start the local packet with `Coordinator handoff - manual relay required`.

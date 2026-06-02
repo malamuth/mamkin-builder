@@ -50,14 +50,16 @@ Recommended questions:
 3. What first thin slice or milestone would prove the project is real?
 4. What interfaces are expected: web app, mobile, API, CLI, bot, browser extension, data pipeline, or something else?
 5. What stack, hosting, database, AI providers, design systems, or constraints are already preferred?
-6. What data is sensitive, private, regulated, expensive, or hard to recover?
-7. Which decisions must involve the human, and which should usually involve the human?
-8. What does "done" mean for the first milestone?
-9. What should the agents explicitly avoid building?
-10. Should the project use GitHub, and if so, should setup be repo only, issues, milestones, or a GitHub Project board?
-11. How much orchestration is appropriate: solo agent, coordinator plus worker, or coordinator plus architect/reviewer/walkthrough?
-12. Does this project need recurring custom specialist roles beyond the built-in roles?
-13. Are there existing notes, links, designs, repos, or files the agent should inspect before finalizing docs?
+6. Which MCP servers, connectors, or external workspace tools should Codex use for this project, if any?
+7. What data is sensitive, private, regulated, expensive, or hard to recover?
+8. Which local/provider secret paths should agents use when commands need secrets, without exposing values in chat or docs?
+9. Which decisions must involve the human, and which should usually involve the human?
+10. What does "done" mean for the first milestone?
+11. What should the agents explicitly avoid building?
+12. Should the project use GitHub, and if so, should setup be repo only, issues, milestones, or a GitHub Project board?
+13. How much orchestration is appropriate: solo agent, coordinator plus worker, or coordinator plus architect/reviewer/walkthrough?
+14. Does this project need recurring custom specialist roles beyond the built-in roles?
+15. Are there existing notes, links, designs, repos, or files the agent should inspect before finalizing docs?
 
 ## Document Ownership
 
@@ -70,6 +72,7 @@ Keep each doc narrow:
 - `docs/process/*` owns reusable workflow rules. Do not put one-off project planning notes there.
 - `docs/process/agent-orchestration.md` should change only when the coordination model, reusable process rules, or custom-role wiring changes. Put first-slice focus in the brief, roadmap, init handoff, or coordinator prompt instead.
 - `docs/process/naming-conventions.md` owns naming rules and the chosen project prefix only. Replace template placeholders; do not append duplicate prefix examples.
+- `.codex/config.toml` owns project-local Codex runtime config: approvals, sandbox defaults, multi-agent settings, and approved project-local MCP servers. Do not store secrets, token values, provider keys, private URLs, or one-off planning notes there.
 
 When in doubt, put product context in the brief or roadmap and link to it from the README.
 
@@ -81,6 +84,7 @@ Update or create these docs:
 - `docs/project/brief.md`: project source of truth.
 - `docs/project/decision-log.md`: init decisions and assumptions.
 - `features/00-roadmap.md`: high-level roadmap with product value and candidate slices.
+- `.codex/config.toml`: project-level Codex runtime config. Extend it only for approved project-local MCP servers or runtime defaults.
 
 Optionally update:
 
@@ -89,6 +93,22 @@ Optionally update:
 - `docs/templates/feature-spec.md`: only if the project needs a custom feature-spec template.
 - `docs/templates/walkthrough.md`: only if the project needs a custom walkthrough template.
 - `.gitignore`: only for known stack artifacts.
+
+For MCP setup:
+
+- Ask which MCP servers/connectors are needed and whether they should be project-local or user-level.
+- Prefer user-level config or installed connectors for personal accounts, OAuth, bearer tokens, or private workspace access.
+- Add project-local `[mcp_servers.<name>]` entries only after human approval and only when the config is safe to commit.
+- Store only non-secret server metadata in `.codex/config.toml`; use environment variable names or user-level config for credentials.
+- Record approved MCP decisions in `docs/project/brief.md` and `docs/project/decision-log.md`.
+
+For command secrets:
+
+- Prefer explicit human-prepared local files, shell exports, provider dashboards, or user-level config over ambient inherited environment variables.
+- If an agent command needs a secret value, ask the human to approve the variable names or local/provider secret path before use.
+- Do not run secret-dependent commands if they might print secret values.
+- Keep `.codex/config.toml` conservative: exclude common secret variable patterns from inherited shell environment unless the human deliberately changes the project policy.
+- Record approved secret-handling paths in `docs/project/brief.md` or deployment notes without storing the secret values.
 
 After init, the coordinator owns feature-spec and walkthrough creation. The init agent should capture roadmap candidates plus open product/domain and architecture questions, but should not create the first feature spec or walkthrough/runbook unless explicitly asked.
 
@@ -133,7 +153,7 @@ Use this language in adapted docs:
 
 Common `MUST involve human` gates:
 
-- External accounts, GitHub repo/project creation, paid services, billing, production deployment, DNS, secrets, destructive migrations, public posting, private data import/export, legal/licensing decisions, and high-impact product scope changes.
+- External accounts, GitHub repo/project creation, paid services, billing, production deployment, DNS, secrets or inherited secret env vars, MCP servers/connectors/provider integrations, destructive migrations, public posting, private data import/export, legal/licensing decisions, and high-impact product scope changes.
 
 Common `SHOULD involve human` gates:
 
@@ -160,6 +180,7 @@ Before coordinator handoff, check:
 - Future slices and candidate plans live in `features/00-roadmap.md`.
 - `docs/process/*` contains only reusable process changes, not one-off first-slice planning notes.
 - `docs/process/naming-conventions.md` has one project prefix and no stale template/example project prefixes.
+- `.codex/config.toml` contains only approved runtime/MCP config, excludes ambient secret patterns by default, and has no secrets, token values, private URLs, provider keys, or personal-only workspace config.
 - Remaining `TBD` placeholders are intentional open questions, not forgotten template residue.
 - No secrets, private URLs, tokens, provider keys, or magic links were added.
 
@@ -183,6 +204,7 @@ MUST involve human gates:
 SHOULD involve human gates:
 Git status:
 GitHub setup recommendation:
+Codex/MCP config:
 Tests or validation run:
 Open questions:
 Recommended next action:
@@ -201,6 +223,7 @@ Init is complete when:
 - Product/domain questions, architecture questions, and first-slice candidates are clear enough for the coordinator to call analyst and/or architect.
 - Human-in-loop gates are explicit.
 - Requested custom recurring roles have role cards, handoff packets, naming rules, invocation rules, and decision-log entries.
+- MCP/connectors were asked about; approved project-local config is recorded in `.codex/config.toml`, or user-level setup is listed as a human/manual step.
 - Init self-review passed.
 - The coordinator thread is named according to `docs/process/naming-conventions.md`, or the init handoff says a new coordinator thread should be created with that name.
 - Git state is known.
