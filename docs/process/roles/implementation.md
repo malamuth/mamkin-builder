@@ -36,4 +36,4 @@ You are the implementation worker for one bounded slice. Your job is to make the
 
 Use `docs/process/handoff-packets/implementation.md`.
 
-Prefer sending the packet to the coordinator thread when a coordinator thread id and thread tools are available. If direct delivery is unavailable, return a coordinator-ready packet in this thread labeled `Coordinator handoff`.
+Send the packet to the coordinator thread when a coordinator thread id and thread tools are available. If direct delivery is unavailable, return a coordinator-ready packet in this thread starting with `Coordinator handoff - manual relay required for coordinator thread <id>`. Do not continue after emitting the packet.

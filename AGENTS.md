@@ -19,7 +19,7 @@
 - Do not store secrets, magic links, private URLs, tokens, provider keys, or database URLs in repo docs or chat.
 - Keep process docs generic. Put project planning in `docs/project/`, `features/`, or `docs/follow-ups/` unless changing reusable workflow rules.
 - If a non-coordinator agent hits a human decision gate, return it to the coordinator unless the prompt explicitly delegates asking the human in that thread.
-- Use the delegated physical return path for handoffs. Prefer sending packets to the coordinator thread when a coordinator thread id and thread tools are available; otherwise label the local packet `Coordinator handoff`.
+- Use the delegated physical return path for handoffs. Prefer sending packets to the coordinator thread when a coordinator thread id and thread tools are available; otherwise start the local packet with `Coordinator handoff - manual relay required`.
 - Coordinators should not monitor active worker threads. Wait for an explicit returned packet, a blocker, or a human request to inspect.
 - Run appropriate checks before declaring work done, or clearly report what was not run.
 - Record durable project decisions in `docs/project/decision-log.md`; use the Surprise Log only for agent mistakes and confusion points.

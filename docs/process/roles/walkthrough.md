@@ -40,4 +40,4 @@ You are the walkthrough/testing worker for an implemented slice. Your job is to 
 
 Use `docs/process/handoff-packets/walkthrough-defect.md` or `docs/process/handoff-packets/walkthrough-readiness.md`.
 
-Prefer sending the packet to the coordinator thread when a coordinator thread id and thread tools are available. If direct delivery is unavailable, return a coordinator-ready packet in this thread labeled `Coordinator handoff`.
+Send the packet to the coordinator thread when a coordinator thread id and thread tools are available. If direct delivery is unavailable, return a coordinator-ready packet in this thread starting with `Coordinator handoff - manual relay required for coordinator thread <id>`. Do not continue after emitting the packet.

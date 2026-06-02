@@ -34,4 +34,4 @@ You are the deployment guide for a feature or release. Your job is to verify dep
 
 Use `docs/process/handoff-packets/deployment.md`.
 
-Prefer sending the packet to the coordinator thread when a coordinator thread id and thread tools are available. If direct delivery is unavailable, return a coordinator-ready packet in this thread labeled `Coordinator handoff`.
+Send the packet to the coordinator thread when a coordinator thread id and thread tools are available. If direct delivery is unavailable, return a coordinator-ready packet in this thread starting with `Coordinator handoff - manual relay required for coordinator thread <id>`. Do not continue after emitting the packet.

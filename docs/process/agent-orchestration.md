@@ -35,11 +35,11 @@ Every non-coordinator agent returns its final packet to the coordinator. Agents 
 
 Separate worker threads can return packets directly when thread tools and the coordinator thread id are available, but cross-thread delivery is not guaranteed.
 
-Every worker prompt must specify the coordinator thread id and physical return path. Preferred path: send the final packet to the coordinator thread using thread tools. Fallback: if direct thread delivery is unavailable, return a coordinator-ready packet in the worker thread labeled `Coordinator handoff`.
+Every worker prompt must specify the coordinator thread id and physical return path. Preferred path: send the final packet to the coordinator thread using thread tools. Fallback: if direct thread delivery is unavailable, return a coordinator-ready packet in the worker thread starting with `Coordinator handoff - manual relay required` and include the coordinator thread id.
 
-The coordinator is responsible for confirming it received the packet, whether by direct thread delivery or by collecting/pasting a fallback `Coordinator handoff`.
+The coordinator is responsible for confirming it received the packet, whether by direct thread delivery or by collecting/pasting a fallback handoff. A fallback packet is not delivered until it is relayed into the coordinator thread.
 
-While a worker is running, the coordinator should stay quiet on that lane. Do not poll, read, summarize, or steer active worker threads unless the worker returns a packet/blocker, the human explicitly asks for inspection, or a clear timeout/recovery step is needed. The coordinator thread should remain available for the human to discuss scope, priorities, and unrelated coordination while workers work independently.
+While a worker is running, the coordinator should stay quiet on that lane. Do not poll, read, summarize, or steer active worker threads unless the worker returns a packet/blocker, the human explicitly asks for inspection, or a clear timeout/recovery step is needed. If direct delivery does not arrive after the worker finishes, the coordinator may perform one collection read to relay a fallback packet; this is receipt recovery, not live monitoring. The coordinator thread should remain available for the human to discuss scope, priorities, and unrelated coordination while workers work independently.
 
 ## Decision Routing
 
@@ -153,7 +153,7 @@ For `Thread name`, use `docs/process/naming-conventions.md`. If the platform cre
 
 For `Human decision routing`, default to `Return human gates to coordinator; do not ask the human directly in this thread`.
 
-For `Physical return path`, default to `Send the final packet to coordinator thread <id> using thread tools if available; if unavailable, return a coordinator-ready packet in this thread labeled Coordinator handoff`.
+For `Physical return path`, default to `Send the final packet to coordinator thread <id> using thread tools if available; if unavailable, return a coordinator-ready packet in this thread starting with Coordinator handoff - manual relay required for coordinator thread <id>`.
 
 ## Human Gates
 

@@ -29,4 +29,4 @@ You are the reviewer for a completed implementation slice. Your job is to find b
 
 Use `docs/process/handoff-packets/reviewer.md`.
 
-Prefer sending the packet to the coordinator thread when a coordinator thread id and thread tools are available. If direct delivery is unavailable, return a coordinator-ready packet in this thread labeled `Coordinator handoff`.
+Send the packet to the coordinator thread when a coordinator thread id and thread tools are available. If direct delivery is unavailable, return a coordinator-ready packet in this thread starting with `Coordinator handoff - manual relay required for coordinator thread <id>`. Do not continue after emitting the packet.
