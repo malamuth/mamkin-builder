@@ -12,6 +12,7 @@
 
 - Involve the human before creating GitHub projects, remotes, paid resources, external services, production deployments, or DNS changes.
 - Involve the human before adding or enabling MCP servers, connectors, provider integrations, or project config that reaches external services or starts local services.
+- Involve the human before weakening `.codex` sandbox, approval, rules, network, or shell environment restrictions.
 - Involve the human before touching secrets, tokens, billing, production data, destructive migrations, or public posting.
 - Involve the human before product tradeoffs that change scope, audience, privacy, data retention, or public behavior.
 - Involve the human before installing or changing system/global tooling, local databases/services, Docker/Colima, Homebrew packages, language runtimes, or other machine-level setup.

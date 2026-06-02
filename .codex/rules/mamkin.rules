@@ -1,0 +1,198 @@
+# Project-local outside-sandbox command policy.
+# These rules reinforce AGENTS.md human gates; they do not replace workflow docs.
+
+prefix_rule(
+    pattern = ["git", "push"],
+    decision = "prompt",
+    justification = "Pushing changes affects the remote repository and should be approved.",
+    match = [
+        "git push origin main",
+        "git push --set-upstream origin codex/example",
+    ],
+)
+
+prefix_rule(
+    pattern = ["git", "remote", ["add", "set-url", "remove", "rename"]],
+    decision = "prompt",
+    justification = "Changing remotes changes where project code is published.",
+    match = [
+        "git remote add origin https://github.com/example/repo.git",
+        "git remote set-url origin git@github.com:example/repo.git",
+    ],
+    not_match = [
+        "git remote -v",
+    ],
+)
+
+prefix_rule(
+    pattern = ["gh", ["auth", "repo", "issue", "project", "release"]],
+    decision = "prompt",
+    justification = "GitHub CLI actions can touch accounts, repos, issues, projects, or releases.",
+    match = [
+        "gh repo create example/repo --private",
+        "gh issue create --title Example",
+        "gh project create --owner example",
+        "gh release create v1.0.0",
+    ],
+)
+
+prefix_rule(
+    pattern = [["vercel", "railway", "fly", "render"]],
+    decision = "prompt",
+    justification = "Provider CLIs can deploy, configure secrets, or change external services.",
+    match = [
+        "vercel deploy",
+        "railway up",
+        "fly deploy",
+        "render deploy",
+    ],
+)
+
+prefix_rule(
+    pattern = ["brew", ["install", "uninstall", "upgrade", "services", "tap", "untap"]],
+    decision = "prompt",
+    justification = "Homebrew commands can change machine-level tooling or services.",
+    match = [
+        "brew install postgresql@16",
+        "brew services start postgresql@16",
+    ],
+    not_match = [
+        "brew --version",
+    ],
+)
+
+prefix_rule(
+    pattern = ["docker"],
+    decision = "prompt",
+    justification = "Docker commands can start local services, access volumes, or change runtime state.",
+    match = [
+        "docker compose up",
+        "docker run postgres",
+    ],
+)
+
+prefix_rule(
+    pattern = ["colima"],
+    decision = "prompt",
+    justification = "Colima changes local container runtime state.",
+    match = [
+        "colima start",
+        "colima stop",
+    ],
+)
+
+prefix_rule(
+    pattern = ["npm", ["install", "i"], "-g"],
+    decision = "prompt",
+    justification = "Global npm installs change machine-level tooling.",
+    match = [
+        "npm install -g pnpm",
+        "npm i -g vercel",
+    ],
+)
+
+prefix_rule(
+    pattern = ["pnpm", "add", "-g"],
+    decision = "prompt",
+    justification = "Global pnpm installs change machine-level tooling.",
+    match = [
+        "pnpm add -g vercel",
+    ],
+)
+
+prefix_rule(
+    pattern = ["yarn", "global"],
+    decision = "prompt",
+    justification = "Yarn global commands change machine-level tooling.",
+    match = [
+        "yarn global add vercel",
+    ],
+)
+
+prefix_rule(
+    pattern = ["npm", "publish"],
+    decision = "prompt",
+    justification = "Publishing packages is a public/external action.",
+    match = [
+        "npm publish",
+    ],
+)
+
+prefix_rule(
+    pattern = ["pnpm", "publish"],
+    decision = "prompt",
+    justification = "Publishing packages is a public/external action.",
+    match = [
+        "pnpm publish",
+    ],
+)
+
+prefix_rule(
+    pattern = ["npm", "run", ["db:migrate", "db:push", "migrate", "migration"]],
+    decision = "prompt",
+    justification = "Database migration commands may write external or persistent data.",
+    match = [
+        "npm run db:migrate",
+        "npm run db:push",
+    ],
+)
+
+prefix_rule(
+    pattern = ["pnpm", "run", ["db:migrate", "db:push", "migrate", "migration"]],
+    decision = "prompt",
+    justification = "Database migration commands may write external or persistent data.",
+    match = [
+        "pnpm run db:migrate",
+        "pnpm run db:push",
+    ],
+)
+
+prefix_rule(
+    pattern = ["yarn", ["db:migrate", "db:push", "migrate", "migration"]],
+    decision = "prompt",
+    justification = "Database migration commands may write external or persistent data.",
+    match = [
+        "yarn db:migrate",
+        "yarn migrate",
+    ],
+)
+
+prefix_rule(
+    pattern = ["git", "reset", "--hard"],
+    decision = "forbidden",
+    justification = "Do not discard worktree changes automatically; ask the human for an explicit recovery plan.",
+    match = [
+        "git reset --hard",
+        "git reset --hard HEAD~1",
+    ],
+)
+
+prefix_rule(
+    pattern = ["git", "clean"],
+    decision = "forbidden",
+    justification = "Do not delete untracked files automatically; ask the human for an explicit cleanup plan.",
+    match = [
+        "git clean -fd",
+        "git clean -fdx",
+    ],
+)
+
+prefix_rule(
+    pattern = ["rm", ["-rf", "-fr", "-r", "-R", "-Rf", "-fR"]],
+    decision = "forbidden",
+    justification = "Recursive deletion outside the sandbox is too risky; use targeted edits or ask the human.",
+    match = [
+        "rm -rf node_modules",
+        "rm -r /tmp/example",
+    ],
+)
+
+prefix_rule(
+    pattern = ["sudo"],
+    decision = "forbidden",
+    justification = "Do not run privileged commands as an agent; ask the human to perform required machine-level setup.",
+    match = [
+        "sudo npm install -g vercel",
+        "sudo rm -rf /tmp/example",
+    ],
+)

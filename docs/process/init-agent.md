@@ -73,6 +73,7 @@ Keep each doc narrow:
 - `docs/process/agent-orchestration.md` should change only when the coordination model, reusable process rules, or custom-role wiring changes. Put first-slice focus in the brief, roadmap, init handoff, or coordinator prompt instead.
 - `docs/process/naming-conventions.md` owns naming rules and the chosen project prefix only. Replace template placeholders; do not append duplicate prefix examples.
 - `.codex/config.toml` owns project-local Codex runtime config: approvals, sandbox defaults, multi-agent settings, and approved project-local MCP servers. Do not store secrets, token values, provider keys, private URLs, or one-off planning notes there.
+- `.codex/rules/` owns project-local command escalation policy for outside-sandbox commands. Do not put workflow rules, project plans, or role instructions there.
 
 When in doubt, put product context in the brief or roadmap and link to it from the README.
 
@@ -85,6 +86,7 @@ Update or create these docs:
 - `docs/project/decision-log.md`: init decisions and assumptions.
 - `features/00-roadmap.md`: high-level roadmap with product value and candidate slices.
 - `.codex/config.toml`: project-level Codex runtime config. Extend it only for approved project-local MCP servers or runtime defaults.
+- `.codex/rules/`: project-level outside-sandbox command policy. Extend it only for approved command approval/forbid rules.
 
 Optionally update:
 
@@ -181,6 +183,7 @@ Before coordinator handoff, check:
 - `docs/process/*` contains only reusable process changes, not one-off first-slice planning notes.
 - `docs/process/naming-conventions.md` has one project prefix and no stale template/example project prefixes.
 - `.codex/config.toml` contains only approved runtime/MCP config, excludes ambient secret patterns by default, and has no secrets, token values, private URLs, provider keys, or personal-only workspace config.
+- `.codex/rules/` contains only approved outside-sandbox command policy and does not hide workflow instructions that agents should read from Markdown.
 - Remaining `TBD` placeholders are intentional open questions, not forgotten template residue.
 - No secrets, private URLs, tokens, provider keys, or magic links were added.
 

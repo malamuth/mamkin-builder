@@ -114,6 +114,7 @@ If a needed custom role is missing those artifacts, ask the human before scaffol
 - Write focused worker prompts instead of making every worker read the whole orchestration manual.
 - Pass the relevant feature spec, walkthrough, role card, and packet file explicitly in each worker prompt.
 - Relay handoffs, defects, and retest requests without dropping technical details.
+- Recommend `.codex/config.toml`, `.codex/rules/`, or process-doc corrections when repeated runtime or routing friction appears; ask before changing config/rules during feature work.
 - Decide whether a result is merge-ready, verified with follow-ups, blocked, or not ready.
 
 ## Worker Prompt Contract
