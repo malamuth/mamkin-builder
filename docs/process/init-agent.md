@@ -73,6 +73,7 @@ Keep each doc narrow:
 - `docs/process/agent-orchestration.md` should change only when the coordination model, reusable process rules, or custom-role wiring changes. Put first-slice focus in the brief, roadmap, init handoff, or coordinator prompt instead.
 - `docs/process/naming-conventions.md` owns naming rules and the chosen project prefix only. Replace template placeholders; do not append duplicate prefix examples.
 - `.codex/config.toml` owns project-local Codex runtime config: approvals, sandbox defaults, multi-agent settings, and approved project-local MCP servers. Do not store secrets, token values, provider keys, private URLs, or one-off planning notes there.
+- `.codex/agents/` owns short project-local Codex subagent presets. Keep them as launch wrappers for role identity, sandbox/reasoning posture, and coordinator return path; do not duplicate full role cards or feature plans there.
 - `.codex/rules/` owns project-local command escalation policy for outside-sandbox commands. Do not put workflow rules, project plans, or role instructions there.
 - `.codex/hooks.json` and `.codex/hooks/` own project-local runtime reminders and scanners. Hooks may warn, add context, or request continuation, but workflow rules still live in Markdown.
 
@@ -87,6 +88,7 @@ Update or create these docs:
 - `docs/project/decision-log.md`: init decisions and assumptions.
 - `features/00-roadmap.md`: high-level roadmap with product value and candidate slices.
 - `.codex/config.toml`: project-level Codex runtime config. Extend it only for approved project-local MCP servers or runtime defaults.
+- `.codex/agents/`: project-level Codex subagent presets. Extend it only for approved recurring custom roles or project-specific runtime posture.
 - `.codex/rules/`: project-level outside-sandbox command policy. Extend it only for approved command approval/forbid rules.
 - `.codex/hooks.json` and `.codex/hooks/`: project-level lifecycle automation. Extend only for deterministic checks that support the Markdown process.
 
@@ -125,13 +127,14 @@ For each approved custom role:
 1. Choose a kebab-case file name, for example `security-auditor`.
 2. Create `docs/process/roles/<role-name>.md` from `docs/templates/role-card.md`.
 3. Create `docs/process/handoff-packets/<role-name>.md` from `docs/templates/handoff-packet.md`.
-4. Add the role to `docs/process/agent-orchestration.md`.
-5. Add the packet to `docs/process/handoff-packets.md`.
-6. Add the thread role name to `docs/process/naming-conventions.md`.
-7. Record when to invoke the role in `docs/project/brief.md`.
-8. Record the role decision in `docs/project/decision-log.md`.
+4. Create `.codex/agents/mamkin-<role-name>.toml` as a short launch preset when custom agents are supported.
+5. Add the role and preset to `docs/process/agent-orchestration.md`.
+6. Add the packet to `docs/process/handoff-packets.md`.
+7. Add the thread role name to `docs/process/naming-conventions.md`.
+8. Record when to invoke the role in `docs/project/brief.md`.
+9. Record the role decision in `docs/project/decision-log.md`.
 
-Each custom role must define when the coordinator should invoke it, what inputs it receives, what output packet it returns, which docs it must read, what it must not decide alone, human gates, and that it returns work to the coordinator.
+Each custom role must define when the coordinator should invoke it, what inputs it receives, what output packet it returns, which docs it must read, what it must not decide alone, human gates, and that it returns work to the coordinator. Keep the `.codex/agents/` preset shorter than the role card; it should point to the role card and packet, not copy them.
 
 Leave `AGENTS.md` unchanged unless the repo's top-level request routing changes.
 
@@ -185,6 +188,7 @@ Before coordinator handoff, check:
 - `docs/process/*` contains only reusable process changes, not one-off first-slice planning notes.
 - `docs/process/naming-conventions.md` has one project prefix and no stale template/example project prefixes.
 - `.codex/config.toml` contains only approved runtime/MCP config, excludes ambient secret patterns by default, and has no secrets, token values, private URLs, provider keys, or personal-only workspace config.
+- `.codex/agents/` contains only concise subagent presets and does not duplicate full role cards, feature plans, secrets, or product-specific private context.
 - `.codex/rules/` contains only approved outside-sandbox command policy and does not hide workflow instructions that agents should read from Markdown.
 - `.codex/hooks.json` and hook scripts contain only deterministic reminders/scanners and no hidden workflow instructions, secrets, or provider-specific project planning.
 - Remaining `TBD` placeholders are intentional open questions, not forgotten template residue.
@@ -228,7 +232,7 @@ Init is complete when:
 - The roadmap has candidate slices and product value.
 - Product/domain questions, architecture questions, and first-slice candidates are clear enough for the coordinator to call analyst and/or architect.
 - Human-in-loop gates are explicit.
-- Requested custom recurring roles have role cards, handoff packets, naming rules, invocation rules, and decision-log entries.
+- Requested custom recurring roles have role cards, handoff packets, custom agent presets when supported, naming rules, invocation rules, and decision-log entries.
 - MCP/connectors were asked about; approved project-local config is recorded in `.codex/config.toml`, or user-level setup is listed as a human/manual step.
 - Init self-review passed.
 - The coordinator thread is named according to `docs/process/naming-conventions.md`, or the init handoff says a new coordinator thread should be created with that name.

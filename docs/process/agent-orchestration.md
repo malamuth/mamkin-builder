@@ -78,20 +78,26 @@ For later feature work, add analyst, architect, reviewer, UX reviewer, or deploy
 
 ## Role Cards
 
-- Architect: `docs/process/roles/architect.md`
-- Analyst: `docs/process/roles/analyst.md`
-- Implementation worker: `docs/process/roles/implementation.md`
-- Reviewer: `docs/process/roles/reviewer.md`
-- Walkthrough/test guide: `docs/process/roles/walkthrough.md`
-- Deployment guide: `docs/process/roles/deployment.md`
-- UI/UX reviewer: `docs/process/roles/ux.md`
+- Architect: `docs/process/roles/architect.md`; agent preset `mamkin-architect`.
+- Analyst: `docs/process/roles/analyst.md`; agent preset `mamkin-analyst`.
+- Implementation worker: `docs/process/roles/implementation.md`; agent preset `mamkin-worker`.
+- Reviewer: `docs/process/roles/reviewer.md`; agent preset `mamkin-reviewer`.
+- Walkthrough/test guide: `docs/process/roles/walkthrough.md`; agent preset `mamkin-walkthrough`.
+- Deployment guide: `docs/process/roles/deployment.md`; agent preset `mamkin-deployment`.
+- UI/UX reviewer: `docs/process/roles/ux.md`; agent preset `mamkin-ux`.
 - Custom recurring roles: add role cards under `docs/process/roles/` during init or coordinator-approved setup.
 
 Packet templates are indexed in `docs/process/handoff-packets.md` and split under `docs/process/handoff-packets/`. Naming rules live in `docs/process/naming-conventions.md`.
 
+## Agent Presets
+
+Codex runtime presets live under `.codex/agents/`. They are short launch wrappers for sandbox, reasoning posture, and the physical return path; they do not replace role cards, packet templates, or feature docs.
+
+When starting a separate Codex thread for a built-in role, use the matching `mamkin-*` preset when the platform supports custom agents. If custom agents are unavailable, include the same role card, packet template, thread name, coordinator thread id, and return-path instructions directly in the prompt.
+
 ## Custom Roles
 
-Use built-in roles unless the project needs a recurring specialist with distinct responsibilities. A custom role is ready to use only when it has a role card, a matching handoff packet, a thread naming rule, an invocation rule in the project brief or this file, and explicit human gates.
+Use built-in roles unless the project needs a recurring specialist with distinct responsibilities. A custom role is ready to use only when it has a role card, a matching handoff packet, a custom agent preset when custom agents are supported, a thread naming rule, an invocation rule in the project brief or this file, and explicit human gates.
 
 If a needed custom role is missing those artifacts, ask the human before scaffolding it or assigning an analyst/architect to define it. Do not invent a custom role only inside a worker prompt.
 
@@ -100,7 +106,7 @@ If a needed custom role is missing those artifacts, ask the human before scaffol
 - Read project brief, decision log, roadmap, follow-ups, any relevant feature specs or walkthroughs, and current repo state.
 - Check `docs/follow-ups/` before planning; assess whether any follow-up should become part of the next feature spec or roadmap update.
 - Recommend the smallest useful team and ask the human before adding specialist roles.
-- Use custom roles only after their role card and packet exist.
+- Use custom roles only after their role card, packet, custom agent preset when supported, naming rule, invocation rule, and human gates exist.
 - Create or assign feature-spec drafting before implementation starts; init only creates roadmap candidates.
 - Ensure every feature spec follows `docs/templates/feature-spec.md` unless the coordinator explicitly records why a different structure is needed.
 - Define the implementation slice, pass/fail criteria, human gates, and handoff path.
@@ -124,6 +130,7 @@ Every worker prompt should include:
 ```text
 Project:
 Role:
+Agent preset:
 Thread name:
 Feature/Slice:
 Source thread:
