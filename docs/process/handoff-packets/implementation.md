@@ -3,6 +3,8 @@
 ```text
 Status: Ready for walkthrough | Needs review | Blocked
 Role: implementation
+Coordinator thread id:
+Return path used: Direct thread send | Manual relay required
 Feature/Slice:
 Worktree:
 Branch:

@@ -14,13 +14,13 @@
     ],
     "PostToolUse": [
       {
-        "matcher": "^apply_patch$|Edit|Write",
+        "matcher": "Bash|^apply_patch$|Edit|Write",
         "hooks": [
           {
             "type": "command",
             "command": "/usr/bin/python3 \"$(git rev-parse --show-toplevel)/.codex/hooks/secret_scan.py\"",
             "timeout": 10,
-            "statusMessage": "Scanning edits for secret-shaped text"
+            "statusMessage": "Scanning tool use for secret-shaped text"
           }
         ]
       }

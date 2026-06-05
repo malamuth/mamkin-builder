@@ -66,6 +66,7 @@ Recommended questions:
 Keep each doc narrow:
 
 - `README.md` is a short human entrypoint. Use `docs/templates/project-readme.md`; do not duplicate roadmap details, acceptance criteria, full human gates, or long future-plan notes.
+- `AGENTS.md` owns always-on request routing, hard rules, and stack-specific project commands. Keep it short, but fill the project command placeholders once the stack is known.
 - `docs/project/brief.md` owns product intent, milestone, success criteria, constraints, risks, human gates, and recommended orchestration model.
 - `features/00-roadmap.md` owns roadmap candidates and future slices.
 - `docs/project/decision-log.md` owns durable decisions and assumptions.
@@ -85,6 +86,7 @@ When in doubt, put product context in the brief or roadmap and link to it from t
 Update or create these docs:
 
 - `README.md`: short project-facing entrypoint based on `docs/templates/project-readme.md`, unless the human asks to keep the template README.
+- `AGENTS.md`: fill the `Project Commands` section once setup/run/check commands are known; keep request routing and hard rules generic.
 - `docs/project/brief.md`: project source of truth.
 - `docs/project/decision-log.md`: init decisions and assumptions.
 - `features/00-roadmap.md`: high-level roadmap with product value and candidate slices.
@@ -138,7 +140,7 @@ For each approved custom role:
 
 Each custom role must define when the coordinator should invoke it, what inputs it receives, what output packet it returns, which docs it must read, what it must not decide alone, human gates, and that it returns work to the coordinator. Keep the `.codex/agents/` preset shorter than the role card; it should point to the role card and packet, not copy them.
 
-Leave `AGENTS.md` unchanged unless the repo's top-level request routing changes.
+Leave `AGENTS.md` unchanged unless the repo's top-level request routing, hard rules, or project command placeholders need to change.
 
 ## Roadmap Rules
 
@@ -185,6 +187,7 @@ If GitHub setup is approved, record the chosen shape in `docs/project/brief.md` 
 Before coordinator handoff, check:
 
 - `README.md` is a compact entrypoint and links to the brief and roadmap instead of duplicating them.
+- `AGENTS.md` has stack-specific setup/run/check commands, or those placeholders are explicitly left as unknown with an open question.
 - Product intent, success criteria, constraints, risks, and human gates live in `docs/project/brief.md`.
 - Future slices and candidate plans live in `features/00-roadmap.md`.
 - `docs/process/*` contains only reusable process changes, not one-off first-slice planning notes.
@@ -233,6 +236,7 @@ Init is complete when:
 
 - The project brief is filled enough for a new agent to understand the product.
 - The roadmap has candidate slices and product value.
+- `AGENTS.md` project commands are filled, or unknown commands are recorded as an open question.
 - Product/domain questions, architecture questions, and first-slice candidates are clear enough for the coordinator to call analyst and/or architect.
 - Human-in-loop gates are explicit.
 - Requested custom recurring roles have role cards, handoff packets, custom agent presets when supported, naming rules, invocation rules, and decision-log entries.

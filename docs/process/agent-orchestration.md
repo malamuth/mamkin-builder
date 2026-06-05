@@ -26,7 +26,7 @@ When the user asks to create new features, the coordinator should usually call t
 ## Default Feature Flow
 
 ```text
-Coordinator/team lead -> Analyst if needed -> Architect -> Implementation worker -> Review/walkthrough -> Coordinator final report
+Coordinator/team lead -> Analyst if needed -> Architect -> Implementation worker -> optional reviewer -> walkthrough/testing -> Coordinator final report
 ```
 
 Every non-coordinator agent returns its final packet to the coordinator. Agents should not hand work directly to peer agents or start follow-up threads unless the coordinator explicitly delegates that path.
@@ -113,6 +113,7 @@ If a needed custom role is missing those artifacts, ask the human before scaffol
 - Own the walkthrough definition; write it or explicitly assign someone to draft/update it before walkthrough starts.
 - Ensure every walkthrough follows `docs/templates/walkthrough.md` unless the coordinator explicitly records why a different structure is needed.
 - Start real team members as separate threads by default.
+- For parallel write-capable workers, use separate worktrees or explicitly disjoint `Allowed files to edit` ownership.
 - Set the worker thread name from `docs/process/naming-conventions.md`, include it in the worker prompt, and rename or request rename if the platform auto-generates a different title.
 - After starting a worker, wait for its returned packet instead of monitoring the worker thread.
 - Route lane-specific human clarifications to the active or most recent specialist instead of answering them inline.
@@ -122,6 +123,7 @@ If a needed custom role is missing those artifacts, ask the human before scaffol
 - Relay handoffs, defects, and retest requests without dropping technical details.
 - Recommend `.codex/config.toml`, `.codex/rules/`, or process-doc corrections when repeated runtime or routing friction appears; ask before changing config/rules during feature work.
 - Decide whether a result is merge-ready, verified with follow-ups, blocked, or not ready.
+- After the final report, start, fork, or rename a fresh coordinator thread for the next coherent feature when context is heavy or the work direction changes.
 
 ## Worker Prompt Contract
 
@@ -137,6 +139,7 @@ Source thread:
 Coordinator thread id:
 Expected worktree:
 Expected branch or commit:
+Allowed worktree sharing: separate worktree | disjoint files only | read-only
 Read first:
 Allowed files to edit:
 Do not edit:
@@ -186,7 +189,7 @@ Common `SHOULD involve human` gates:
 3. Architecture pass: use after init and whenever boundaries, data model, integrations, or tradeoffs are unclear.
 4. Implementation: worker implements one bounded slice and returns an implementation handoff.
 5. Review: optional code/diff review before walkthrough; use when correctness, security, migration, API contract, or regression risk warrants a second engineering read.
-6. Walkthrough: acceptance verification after implementation or review; use to run the approved checks/manual flows against the exact branch/commit and decide merge readiness.
+6. Walkthrough: required acceptance verification after implementation or review; use to run the approved checks/manual flows against the exact branch/commit and decide merge readiness.
 7. Final report: coordinator records status, test gaps, human steps, follow-ups, and next action.
 
 Use only the needed packet file from `docs/process/handoff-packets/` at each step.
@@ -210,6 +213,7 @@ Record durable decisions in `docs/project/decision-log.md`. Record non-blocking 
 ## Git And GitHub
 
 - Verify repo state before each implementation or walkthrough.
+- Do not run multiple write-capable workers on the same worktree/files unless their ownership is explicitly disjoint; prefer separate worktrees for true parallel implementation.
 - If git is not initialized, ask before `git init`.
 - If no initial commit exists, propose one after docs are adapted.
 - Ask before creating remotes, pushing, creating GitHub issues, milestones, or project boards.
@@ -219,6 +223,7 @@ Record durable decisions in `docs/project/decision-log.md`. Record non-blocking 
 ## Failure Prevention
 
 - Do not run duplicate implementation workers for the same slice.
+- Do not let parallel write-capable workers edit the same files or feature spec.
 - Do not monitor active worker threads unless the worker returns a packet/blocker, the human asks, or timeout recovery is needed.
 - Do not test the wrong branch or worktree.
 - Do not let workers silently expand scope.

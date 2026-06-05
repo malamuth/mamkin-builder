@@ -3,6 +3,8 @@
 ```text
 Status: Ready for coordinator | Needs human decision | Blocked
 Role:
+Coordinator thread id:
+Return path used: Direct thread send | Manual relay required
 Topic or feature:
 Thread:
 Worktree:

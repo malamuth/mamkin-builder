@@ -3,6 +3,8 @@
 ```text
 Status: Ready for architecture | Needs human decision | Blocked
 Role: analyst
+Coordinator thread id:
+Return path used: Direct thread send | Manual relay required
 Topic:
 Docs and sources reviewed:
 User/problem summary:

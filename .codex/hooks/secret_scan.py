@@ -46,6 +46,8 @@ def main():
     name = event.get("hook_event_name")
     if name == "UserPromptSubmit":
         print(json.dumps({
+            "decision": "block",
+            "reason": message,
             "hookSpecificOutput": {
                 "hookEventName": "UserPromptSubmit",
                 "additionalContext": message,

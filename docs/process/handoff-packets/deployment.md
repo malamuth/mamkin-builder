@@ -3,6 +3,8 @@
 ```text
 Status: Deployment-ready | Smoke passed | Smoke failed | Blocked
 Role: deployment
+Coordinator thread id:
+Return path used: Direct thread send | Manual relay required
 Feature/Slice:
 Environment: local | preview | staging | production
 Worktree:

@@ -3,6 +3,8 @@
 ```text
 Status: Merge-ready | Verified with follow-ups | Not merge-ready
 Role: walkthrough
+Coordinator thread id:
+Return path used: Direct thread send | Manual relay required
 Feature/Slice:
 Tested worktree:
 Tested branch:

@@ -15,7 +15,7 @@ So that ...
 ## Scope
 
 - In scope:
-- In scope:
+- Also in scope:
 
 ## Out Of Scope
 

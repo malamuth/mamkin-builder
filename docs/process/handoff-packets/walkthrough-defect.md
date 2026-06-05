@@ -3,6 +3,8 @@
 ```text
 Status: Needs fix
 Role: walkthrough
+Coordinator thread id:
+Return path used: Direct thread send | Manual relay required
 Feature/Slice:
 Tested worktree:
 Tested branch:
