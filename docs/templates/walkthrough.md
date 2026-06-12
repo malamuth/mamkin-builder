@@ -69,7 +69,21 @@ Expected result:
 
 - TBD
 
-## 5. Manual Flow
+## 5. Establish Controlled Verification State
+
+State setup:
+
+```bash
+# TBD
+```
+
+Expected result:
+
+- Test data, fixtures, environment flags, or other verification state are deliberately created, selected, or reset when practical.
+- Any state that cannot be controlled is documented as a test limitation.
+- Any state changed during verification is either cleaned up later or explicitly reported in the result packet.
+
+## 6. Manual Flow
 
 1. TBD
 2. TBD
@@ -79,7 +93,7 @@ Expected result:
 
 - TBD
 
-## 6. Boundary Flow
+## 7. Boundary Flow
 
 1. TBD
 2. TBD
@@ -89,7 +103,7 @@ Expected result:
 
 - TBD
 
-## 7. Cleanup
+## 8. Cleanup
 
 Commands or manual cleanup:
 
@@ -100,6 +114,7 @@ Commands or manual cleanup:
 Expected result:
 
 - Local test artifacts are removed or documented.
+- Controlled verification state is restored, removed, or listed in the readiness/defect packet if it remains.
 
 ## Result Packet
 

@@ -119,6 +119,7 @@ If a needed custom role is missing those artifacts, ask the human before scaffol
 - Define the implementation slice, pass/fail criteria, human gates, and handoff path.
 - Own the walkthrough definition; write it or explicitly assign someone to draft/update it before walkthrough starts.
 - Ensure every walkthrough follows `docs/templates/walkthrough.md` unless the coordinator explicitly records why a different structure is needed.
+- Before starting implementation, prefer a clean planning baseline commit that contains the accepted feature spec, walkthrough/runbook, roadmap status, and relevant decisions. If committing is not approved or Git is unavailable, record the exact baseline state in the worker prompt instead.
 - Start real team members as separate threads by default.
 - For parallel write-capable workers, use separate worktrees or explicitly disjoint `Allowed files to edit` ownership.
 - Set the worker thread name from `docs/process/naming-conventions.md`, include it in the worker prompt, and rename or request rename if the platform auto-generates a different title.
@@ -130,6 +131,7 @@ If a needed custom role is missing those artifacts, ask the human before scaffol
 - Pass the relevant feature spec, walkthrough, role card, and packet file explicitly in each worker prompt.
 - Relay handoffs, defects, and retest requests without dropping technical details.
 - Recommend `.codex/config.toml`, `.codex/rules/`, or process-doc corrections when repeated runtime or routing friction appears; ask before changing config/rules during feature work.
+- Before final status, perform a coordinator quality gate: inspect returned packets, confirm expected files/scope, reconcile roadmap/docs/follow-ups, verify required checks were run or gaps are explicit, and look for obvious process or acceptance-rule violations. Route source or artifact fixes back to the proper lane instead of fixing them inline.
 - Decide whether a result is merge-ready, verified with follow-ups, blocked, or not ready.
 - After the final report, start, fork, or rename a fresh coordinator thread for the next coherent feature when context is heavy or the work direction changes.
 
@@ -216,10 +218,12 @@ Before creating or sending a feature doc to an architect, the coordinator must i
 1. Kickoff: coordinator checks repo state, reads source docs, triages unresolved follow-ups, updates roadmap status if prior work moved, recommends team shape, and defines the planning lane.
 2. Analysis pass: optional; use when user, problem, workflow, business rules, or domain constraints are unclear.
 3. Architecture pass: use after init and whenever boundaries, data model, integrations, or tradeoffs are unclear; pass relevant unresolved follow-ups into the architect prompt and update the roadmap when a candidate becomes a ready feature spec.
-4. Implementation: worker implements one bounded slice and returns an implementation handoff; mark the feature in implementation when the lane starts.
-5. Review: optional code/diff review before walkthrough; use when correctness, security, migration, API contract, or regression risk warrants a second engineering read; keep roadmap status aligned with review outcome.
-6. Walkthrough: required acceptance verification after implementation or review; use to run the approved checks/manual flows against the exact branch/commit and decide merge readiness; record pass/blocker/follow-up status in the roadmap.
-7. Final report: coordinator records status, test gaps, human steps, follow-ups, commit/push state when applicable, and next action in both the final report and roadmap.
+4. Planning baseline: before implementation, prefer a clean commit containing the accepted feature spec, walkthrough/runbook, roadmap status, and relevant decisions. If a commit is not approved or Git is unavailable, record the exact baseline state in the worker prompt.
+5. Implementation: worker implements one bounded slice and returns an implementation handoff; mark the feature in implementation when the lane starts.
+6. Review: optional code/diff review before walkthrough; use when correctness, security, migration, API contract, or regression risk warrants a second engineering read; keep roadmap status aligned with review outcome.
+7. Walkthrough: required acceptance verification after implementation or review; use to run the approved checks/manual flows against the exact branch/commit and decide merge readiness; record pass/blocker/follow-up status in the roadmap.
+8. Coordinator quality gate: inspect packets, scope, docs, roadmap, checks, generated churn, and unresolved follow-ups before committing or reporting final status. Send fixes back to the correct lane.
+9. Final report: coordinator records status, test gaps, human steps, follow-ups, commit/push state when applicable, and next action in both the final report and roadmap.
 
 Use only the needed packet file from `docs/process/handoff-packets/` at each step.
 
@@ -246,8 +250,10 @@ The roadmap should reflect the current durable feature state, not just initial s
 - Verify repo state before each implementation or walkthrough.
 - In copied projects, treat inherited template Git state and remotes as `TBD`, not as valid project push targets. Do not push project/product commits until the human approves a project-specific remote.
 - Do not run multiple write-capable workers on the same worktree/files unless their ownership is explicitly disjoint; prefer separate worktrees for true parallel implementation.
-- If git is not initialized, ask before `git init`.
+- If git is not initialized, ask before `git init`; creating `.git` may require approval in local agent environments even though the folder is local.
+- If staging or committing writes to local Git metadata and the environment asks for approval, request it explicitly and explain that no remote push is implied.
 - If no initial commit exists, propose one after docs are adapted.
+- Before implementation lanes, prefer a small planning commit so workers start from a stable baseline; if not possible, include the clean/dirty baseline details in each worker prompt.
 - Ask before creating remotes, pushing, creating GitHub issues, milestones, or project boards.
 - If GitHub Projects are used, keep issues small enough to map to feature specs or sub-slices.
 - Mention expected branch/commit in every worker prompt and final packet.

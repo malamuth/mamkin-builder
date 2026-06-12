@@ -15,6 +15,7 @@ Step or command:
 Observed:
 Expected:
 Evidence:
+Verification state:
 Likely area:
 Retest request:
 Human/manual step involved:

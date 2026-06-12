@@ -34,7 +34,7 @@ git rev-parse HEAD
 git remote -v
 ```
 
-If the repository has no commits yet, report that and continue. If it is not a git repository, propose `git init` and ask before running it.
+If the repository has no commits yet, report that and continue. If it is not a git repository, propose `git init` and ask before running it; local Git metadata writes may still require approval from the agent environment.
 
 If the folder was copied with an existing `.git/` directory, report the inherited branch, dirty state, and remotes. Treat template branches/remotes as inherited template state, not as approved project state. Ask before removing `.git/`, reinitializing git, changing remotes, or pushing anywhere.
 
@@ -179,10 +179,11 @@ The init agent should:
 
 1. Verify git status.
 2. Check whether any existing branch, dirty state, or remote came from the reusable template repository. If it did, report that the project repo target is `TBD` and that the template Git state must not be used for project/product commits.
-3. If no initial commit exists, propose making one after docs are adapted.
-4. Ask whether to create or connect a project-specific GitHub repository.
-5. Ask whether to create issues/milestones/project board from the roadmap.
-6. Default to recommendation only. Do not push, create remotes, create issues, or create a GitHub Project unless the human explicitly asks this init run to perform that setup.
+3. If Git is not initialized, ask before running `git init`; local agent environments may still require approval because `git init`, staging, and committing write Git metadata.
+4. If no initial commit exists, propose making one after docs are adapted.
+5. Ask whether to create or connect a project-specific GitHub repository.
+6. Ask whether to create issues/milestones/project board from the roadmap.
+7. Default to recommendation only. Do not push, create remotes, create issues, or create a GitHub Project unless the human explicitly asks this init run to perform that setup.
 
 If GitHub setup is approved, record the chosen shape in `docs/project/brief.md` and `docs/project/decision-log.md`.
 

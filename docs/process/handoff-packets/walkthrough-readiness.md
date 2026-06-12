@@ -12,6 +12,7 @@ Tested commit:
 Automated checks:
 Manual checks:
 Deployment checks:
+Verification state:
 Known follow-ups:
 Generated churn observed:
 Docs updated:

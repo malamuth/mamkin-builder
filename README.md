@@ -49,7 +49,7 @@ Then open this same folder in Codex and run:
 $mamkin-init
 ```
 
-During init, decide whether to keep the project without Git for now, run `git init`, or connect a project-specific remote. Do not push project commits back to `https://github.com/malamuth/mamkin-builder.git`.
+During init, decide whether to keep the project without Git for now, run `git init`, or connect a project-specific remote. Local `git init`, staging, and committing may still ask for approval because they write Git metadata. Do not push project commits back to `https://github.com/malamuth/mamkin-builder.git`.
 
 ## Why This Shape
 
