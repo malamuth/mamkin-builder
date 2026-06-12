@@ -5,7 +5,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "/usr/bin/python3 \"$(git rev-parse --show-toplevel)/.codex/hooks/secret_scan.py\"",
+            "command": "root=\"$(git rev-parse --show-toplevel 2>/dev/null || pwd)\"; /usr/bin/python3 \"$root/.codex/hooks/secret_scan.py\"",
             "timeout": 10,
             "statusMessage": "Scanning prompt for secret-shaped text"
           }
@@ -18,7 +18,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "/usr/bin/python3 \"$(git rev-parse --show-toplevel)/.codex/hooks/secret_scan.py\"",
+            "command": "root=\"$(git rev-parse --show-toplevel 2>/dev/null || pwd)\"; /usr/bin/python3 \"$root/.codex/hooks/secret_scan.py\"",
             "timeout": 10,
             "statusMessage": "Scanning tool use for secret-shaped text"
           }
@@ -30,7 +30,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "/usr/bin/python3 \"$(git rev-parse --show-toplevel)/.codex/hooks/subagent_start_context.py\"",
+            "command": "root=\"$(git rev-parse --show-toplevel 2>/dev/null || pwd)\"; /usr/bin/python3 \"$root/.codex/hooks/subagent_start_context.py\"",
             "timeout": 10,
             "statusMessage": "Adding Mamkin subagent handoff context"
           }
@@ -42,7 +42,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "/usr/bin/python3 \"$(git rev-parse --show-toplevel)/.codex/hooks/stop_process_check.py\"",
+            "command": "root=\"$(git rev-parse --show-toplevel 2>/dev/null || pwd)\"; /usr/bin/python3 \"$root/.codex/hooks/stop_process_check.py\"",
             "timeout": 10,
             "statusMessage": "Checking Mamkin turn closeout"
           }
