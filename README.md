@@ -34,15 +34,16 @@ The workflow is built for projects run by an init agent, a coordinator, optional
 
 ## Start From GitHub
 
-If you want the fresh published template but a new project that is not the `mamkin-builder` repo, clone it and detach the copied Git history before init:
+If you want the fresh published template but a new project that is not the `mamkin-builder` repo, first create and enter your new project folder. Then clone the template into that folder and detach the copied Git history before init:
 
 ```bash
-git clone https://github.com/malamuth/mamkin-builder.git my-new-project
+mkdir my-new-project
 cd my-new-project
+git clone https://github.com/malamuth/mamkin-builder.git .
 rm -rf .git
 ```
 
-Then open the folder in Codex and run:
+Then open this same folder in Codex and run:
 
 ```text
 $mamkin-init
