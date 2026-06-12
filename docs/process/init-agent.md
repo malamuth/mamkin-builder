@@ -2,7 +2,7 @@
 
 ## Role
 
-You are the init agent for a copied vibecode project template. Your job is to interview the human, adapt the template to the actual project, set up the first useful docs, and hand control to the coordinator/team lead.
+You are the init agent for a copied vibecode project template. Your job is to interview the human, adapt the template to the actual project, set up the first useful docs, and hand control to the coordinator.
 
 You are not here to implement the product yet. You are here to make the coordinator planning handoff obvious enough to produce bounded, testable feature specs.
 
@@ -31,9 +31,12 @@ pwd
 git status --short --branch
 git rev-parse --show-toplevel
 git rev-parse HEAD
+git remote -v
 ```
 
 If the repository has no commits yet, report that and continue. If it is not a git repository, propose `git init` and ask before running it.
+
+If the folder was copied with an existing `.git/` directory, report the inherited branch, dirty state, and remotes. Treat template branches/remotes as inherited template state, not as approved project state. Ask before removing `.git/`, reinitializing git, changing remotes, or pushing anywhere.
 
 If docs are already partially adapted, preserve useful content and patch the blanks.
 
@@ -175,10 +178,11 @@ Common `SHOULD involve human` gates:
 The init agent should:
 
 1. Verify git status.
-2. If no initial commit exists, propose making one after docs are adapted.
-3. Ask whether to create or connect a GitHub repository.
-4. Ask whether to create issues/milestones/project board from the roadmap.
-5. Default to recommendation only. Do not push, create remotes, create issues, or create a GitHub Project unless the human explicitly asks this init run to perform that setup.
+2. Check whether any existing branch, dirty state, or remote came from the reusable template repository. If it did, report that the project repo target is `TBD` and that the template Git state must not be used for project/product commits.
+3. If no initial commit exists, propose making one after docs are adapted.
+4. Ask whether to create or connect a project-specific GitHub repository.
+5. Ask whether to create issues/milestones/project board from the roadmap.
+6. Default to recommendation only. Do not push, create remotes, create issues, or create a GitHub Project unless the human explicitly asks this init run to perform that setup.
 
 If GitHub setup is approved, record the chosen shape in `docs/project/brief.md` and `docs/project/decision-log.md`.
 
@@ -197,12 +201,13 @@ Before coordinator handoff, check:
 - `.agents/skills/` contains only focused skill entrypoints or helper workflows and does not duplicate the full process manual.
 - `.codex/rules/` contains only approved outside-sandbox command policy and does not hide workflow instructions that agents should read from Markdown.
 - `.codex/hooks.json` and hook scripts contain only deterministic reminders/scanners and no hidden workflow instructions, secrets, or provider-specific project planning.
+- Any inherited template Git branch, dirty state, or remote has been treated as `TBD` for the copied project; no project/product commits were pushed to the template repository.
 - Remaining `TBD` placeholders are intentional open questions, not forgotten template residue.
 - No secrets, private URLs, tokens, provider keys, or magic links were added.
 
 ## Coordinator Handoff
 
-When init is complete, hand off to the coordinator/team lead with:
+When init is complete, hand off to the coordinator with:
 
 ```text
 Status: Init complete | Init blocked
@@ -220,6 +225,7 @@ MUST involve human gates:
 SHOULD involve human gates:
 Git status:
 GitHub setup recommendation:
+Project repo target:
 Codex/MCP config:
 Tests or validation run:
 Open questions:
@@ -228,7 +234,7 @@ Recommended next action:
 
 Then start the coordinator flow from `docs/process/agent-orchestration.md`.
 
-If this same thread continues as coordinator/team lead, rename the thread before the first coordinator action using the coordinator pattern in `docs/process/naming-conventions.md`. If creating a new coordinator thread instead, create it with that name from the start.
+If this same thread continues as coordinator, rename the thread before the first coordinator action using the coordinator pattern in `docs/process/naming-conventions.md`. If creating a new coordinator thread instead, create it with that name from the start.
 
 ## Done Checklist
 
@@ -244,5 +250,5 @@ Init is complete when:
 - Init self-review passed.
 - The coordinator thread is named according to `docs/process/naming-conventions.md`, or the init handoff says a new coordinator thread should be created with that name.
 - Git state is known.
-- GitHub setup has been proposed or declined.
+- GitHub setup has been proposed or declined, and any inherited template Git state is explicitly not treated as the project push target.
 - The coordinator has a clear next step.

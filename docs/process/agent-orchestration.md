@@ -1,6 +1,6 @@
 # Agent Orchestration
 
-This is the coordinator/team-lead manual. Workers should not read this whole file by default; give each worker the relevant role card, feature docs, and packet template instead.
+This is the coordinator manual. Workers should not read this whole file by default; give each worker the relevant role card, feature docs, and packet template instead.
 
 ## Customization Boundary
 
@@ -10,10 +10,10 @@ Edit this file only when the coordination model, reusable workflow rules, custom
 
 ## Reading Model
 
-- Coordinator/team lead reads this file and the needed packet files.
+- Coordinator reads this file and the needed packet files.
 - Workers read `AGENTS.md`, their role card under `docs/process/roles/`, the relevant feature or walkthrough docs, and only the packet file they must return.
-- Long-lived implementation, review, walkthrough, deployment, and research team members should usually run as separate Codex threads.
-- Same-thread subagents are for bounded sidecar tasks, mock runs, quick analysis, or experiments where the coordinator will immediately inspect and integrate the result.
+- Long-lived implementation, review, walkthrough, deployment, and research lanes should run as separate Codex threads by default.
+- Same-thread subagents are only for bounded sidecar tasks, mock runs, quick analysis, or experiments where the coordinator will immediately inspect and integrate the result.
 
 ## Start Condition
 
@@ -26,7 +26,7 @@ When the user asks to create new features, the coordinator should usually call t
 ## Default Feature Flow
 
 ```text
-Coordinator/team lead -> Analyst if needed -> Architect -> Implementation worker -> optional reviewer -> walkthrough/testing -> Coordinator final report
+Coordinator -> Analyst if needed -> Architect -> Implementation worker -> optional reviewer -> walkthrough/testing -> Coordinator final report
 ```
 
 Every non-coordinator agent returns its final packet to the coordinator. Agents should not hand work directly to peer agents or start follow-up threads unless the coordinator explicitly delegates that path.
@@ -35,7 +35,9 @@ Every non-coordinator agent returns its final packet to the coordinator. Agents 
 
 Separate worker threads can return packets directly when thread tools and the coordinator thread id are available, but cross-thread delivery is not guaranteed.
 
-Every worker prompt must specify the coordinator thread id and physical return path. Preferred path: send the final packet to the coordinator thread using thread tools. Fallback: if direct thread delivery is unavailable, return a coordinator-ready packet in the worker thread starting with `Coordinator handoff - manual relay required` and include the coordinator thread id.
+Every worker prompt must specify the coordinator thread id and handoff return path. Preferred path: when the prompt provides an exact coordinator thread id and a thread-send tool is available, send the final packet directly to that coordinator thread. Fallback: if direct thread delivery is unavailable, return a coordinator-ready packet in the worker thread starting with `Coordinator handoff - manual relay required` and include the coordinator thread id.
+
+The fallback path is an expected success path. Workers should not try to compensate by forwarding the prompt, creating a new thread, or sending a packet to their own worker thread. If the prompt lacks an exact coordinator thread id or no thread-send tool is available, the worker should end with the manual-relay packet as the final message in the worker thread.
 
 The coordinator is responsible for confirming it received the packet, whether by direct thread delivery or by collecting/pasting a fallback handoff. A fallback packet is not delivered until it is relayed into the coordinator thread.
 
@@ -55,12 +57,15 @@ If the coordinator delegates a human question to a specialist thread, the prompt
 
 When a specialist lane is active or was recently used, route human follow-up questions about that lane back to the same specialist by default. The coordinator may acknowledge the question and forward it, but should not answer deployment, architecture, analysis, review, UX, or walkthrough clarifications inline unless the answer is purely administrative or the human explicitly asks the coordinator to decide.
 
+When an implementation or inventory lane exists, route additional implementation, inventory, documentation-content, or artifact-update work to that lane by default. The coordinator may update coordination/process records inline, but should not keep changing feature artifacts or inventory content in the coordinator thread unless the human explicitly asks for a one-off inline edit and the coordinator records why it is safe.
+
 Examples:
 
 - Deployment/provider/setup/secrets questions -> deployment guide.
 - Stack/API/data-model tradeoffs -> architect.
 - User/problem/workflow ambiguity -> analyst.
 - Verification/check results -> walkthrough/testing worker.
+- Inventory/content corrections after implementation has started -> existing implementation worker or a new worker with explicit file ownership.
 
 ## After Human Decisions
 
@@ -70,7 +75,7 @@ Do not continue architecture, analysis, UX, deployment, review, or walkthrough w
 
 Use the smallest useful team. After init, the first planning lane should usually include an architect and may include an analyst when product/domain understanding is fuzzy. For later narrow features, the team is often:
 
-- coordinator/team lead
+- coordinator
 - one implementation worker
 - one walkthrough/testing worker
 
@@ -91,7 +96,7 @@ Packet templates are indexed in `docs/process/handoff-packets.md` and split unde
 
 ## Agent Presets
 
-Codex runtime presets live under `.codex/agents/`. They are short launch wrappers for sandbox, reasoning posture, and the physical return path; they do not replace role cards, packet templates, or feature docs.
+Codex runtime presets live under `.codex/agents/`. They are short launch wrappers for sandbox, reasoning posture, and the handoff return path; they do not replace role cards, packet templates, or feature docs.
 
 When starting a separate Codex thread for a built-in role, use the matching `mamkin-*` preset when the platform supports custom agents. If custom agents are unavailable, include the same role card, packet template, thread name, coordinator thread id, and return-path instructions directly in the prompt.
 
@@ -104,7 +109,9 @@ If a needed custom role is missing those artifacts, ask the human before scaffol
 ## Coordinator Duties
 
 - Read project brief, decision log, roadmap, follow-ups, any relevant feature specs or walkthroughs, and current repo state.
-- Check `docs/follow-ups/` before planning; assess whether any follow-up should become part of the next feature spec or roadmap update.
+- Check `docs/follow-ups/` before planning; assess whether each unresolved follow-up should become part of the current feature, the next feature spec, a later roadmap candidate, or a deferred note.
+- Before sending a next feature spec to an architect for fine-tuning, review all unimplemented follow-ups and explicitly decide which are relevant to that architect lane.
+- Keep the roadmap status current at every feature-cycle transition: spec proposed/ready, implementation started, review or walkthrough started/completed, follow-ups deferred/resolved, and commit/push completed.
 - Recommend the smallest useful team and ask the human before adding specialist roles.
 - Use custom roles only after their role card, packet, custom agent preset when supported, naming rule, invocation rule, and human gates exist.
 - Create or assign feature-spec drafting before implementation starts; init only creates roadmap candidates.
@@ -117,6 +124,7 @@ If a needed custom role is missing those artifacts, ask the human before scaffol
 - Set the worker thread name from `docs/process/naming-conventions.md`, include it in the worker prompt, and rename or request rename if the platform auto-generates a different title.
 - After starting a worker, wait for its returned packet instead of monitoring the worker thread.
 - Route lane-specific human clarifications to the active or most recent specialist instead of answering them inline.
+- Route post-start implementation/inventory/content changes to the active or most recent implementation worker by default; the coordinator records decisions, packets, and routing, not the artifact changes themselves.
 - Delegate post-implementation verification lanes to walkthrough/testing workers, and delegate environment/provider setup lanes to deployment guides by default.
 - Write focused worker prompts instead of making every worker read the whole orchestration manual.
 - Pass the relevant feature spec, walkthrough, role card, and packet file explicitly in each worker prompt.
@@ -134,6 +142,7 @@ Project:
 Role:
 Agent preset:
 Thread name:
+Worker thread id, if known:
 Feature/Slice:
 Source thread:
 Coordinator thread id:
@@ -144,8 +153,9 @@ Read first:
 Allowed files to edit:
 Do not edit:
 Handoff target: coordinator
-Physical return path:
+Handoff return path:
 Human decision routing:
+Delivery guardrails:
 Stop condition:
 Expected final packet:
 ```
@@ -162,9 +172,13 @@ Do not start implementation workers from roadmap candidates alone unless the coo
 
 For `Thread name`, use `docs/process/naming-conventions.md`. If the platform creates a different title, rename the thread or request rename before treating the worker as properly started. Do not rely on auto-generated titles from the first prompt words.
 
+For `Coordinator thread id`, provide the exact coordinator thread id that should receive direct thread-send packets. For `Worker thread id, if known`, provide the worker's own thread id only as an anti-self-send guard and receipt-recovery handle; it is never the packet delivery target.
+
 For `Human decision routing`, default to `Return human gates to coordinator; do not ask the human directly in this thread`.
 
-For `Physical return path`, default to `Send the final packet to coordinator thread <id> using thread tools if available; if unavailable, return a coordinator-ready packet in this thread starting with Coordinator handoff - manual relay required for coordinator thread <id>`.
+For `Handoff return path`, default to `Send the final packet to coordinator thread <id> using thread tools if available; if no thread-send tool is available, return a coordinator-ready packet in this thread starting with Coordinator handoff - manual relay required for coordinator thread <id>`.
+
+For `Delivery guardrails`, include: `Do not forward this prompt, create another handoff thread, or send the packet to this worker thread. If direct delivery is unavailable, emit the manual-relay packet as the final message in this worker thread.`
 
 ## Human Gates
 
@@ -182,15 +196,30 @@ Common `SHOULD involve human` gates:
 
 - Feature prioritization, naming, brand/visual direction, analytics, notification behavior, default retention, non-obvious UX tradeoffs, and architecture choices with long-term lock-in.
 
+## Follow-Up Triage
+
+Follow-ups should always be collected, but they are not automatically acceptance criteria for the active feature.
+
+When a new follow-up arrives, the coordinator should classify it before routing work:
+
+- Current feature: include only if it directly affects the feature's stated product value, acceptance criteria, or a defect in newly changed behavior.
+- Current feature, optional follow-up: record it and implement only if it is small, low-risk, and does not destabilize the lane.
+- Future feature: add or move it to the appropriate roadmap candidate or future feature spec.
+- Deferred note: keep it in `docs/follow-ups/` when it is real but not yet scoped.
+
+If a follow-up changes product direction, visual direction, public behavior, privacy, or integration scope, route it through the coordinator and update the feature spec or roadmap before sending it to workers.
+
+Before creating or sending a feature doc to an architect, the coordinator must inspect unresolved follow-ups and tell the architect which ones are in scope, out of scope, or open for recommendation. Do not make the architect rediscover old follow-ups from scratch.
+
 ## Lifecycle
 
-1. Kickoff: coordinator checks repo state, reads source docs, recommends team shape, and defines the planning lane.
+1. Kickoff: coordinator checks repo state, reads source docs, triages unresolved follow-ups, updates roadmap status if prior work moved, recommends team shape, and defines the planning lane.
 2. Analysis pass: optional; use when user, problem, workflow, business rules, or domain constraints are unclear.
-3. Architecture pass: use after init and whenever boundaries, data model, integrations, or tradeoffs are unclear.
-4. Implementation: worker implements one bounded slice and returns an implementation handoff.
-5. Review: optional code/diff review before walkthrough; use when correctness, security, migration, API contract, or regression risk warrants a second engineering read.
-6. Walkthrough: required acceptance verification after implementation or review; use to run the approved checks/manual flows against the exact branch/commit and decide merge readiness.
-7. Final report: coordinator records status, test gaps, human steps, follow-ups, and next action.
+3. Architecture pass: use after init and whenever boundaries, data model, integrations, or tradeoffs are unclear; pass relevant unresolved follow-ups into the architect prompt and update the roadmap when a candidate becomes a ready feature spec.
+4. Implementation: worker implements one bounded slice and returns an implementation handoff; mark the feature in implementation when the lane starts.
+5. Review: optional code/diff review before walkthrough; use when correctness, security, migration, API contract, or regression risk warrants a second engineering read; keep roadmap status aligned with review outcome.
+6. Walkthrough: required acceptance verification after implementation or review; use to run the approved checks/manual flows against the exact branch/commit and decide merge readiness; record pass/blocker/follow-up status in the roadmap.
+7. Final report: coordinator records status, test gaps, human steps, follow-ups, commit/push state when applicable, and next action in both the final report and roadmap.
 
 Use only the needed packet file from `docs/process/handoff-packets/` at each step.
 
@@ -210,9 +239,12 @@ Project brief -> decision log -> feature spec -> implementation handoff -> tests
 
 Record durable decisions in `docs/project/decision-log.md`. Record non-blocking discovered work in `docs/follow-ups/`. Do not put temporary thread ownership, live branch status, or secrets in feature specs.
 
+The roadmap should reflect the current durable feature state, not just initial spec creation. If roadmap status and feature docs disagree, update the roadmap before starting the next lane or finalizing a cycle.
+
 ## Git And GitHub
 
 - Verify repo state before each implementation or walkthrough.
+- In copied projects, treat inherited template Git state and remotes as `TBD`, not as valid project push targets. Do not push project/product commits until the human approves a project-specific remote.
 - Do not run multiple write-capable workers on the same worktree/files unless their ownership is explicitly disjoint; prefer separate worktrees for true parallel implementation.
 - If git is not initialized, ask before `git init`.
 - If no initial commit exists, propose one after docs are adapted.
@@ -228,6 +260,7 @@ Record durable decisions in `docs/project/decision-log.md`. Record non-blocking 
 - Do not test the wrong branch or worktree.
 - Do not let workers silently expand scope.
 - Do not edit active feature specs during implementation unless explicitly assigned.
+- Do not let the coordinator keep implementing inside its own thread after a worker lane exists; use worker packets and retest loops instead.
 - Do not hide test gaps behind a confident final sentence.
 - Do not paste secrets into docs or chat.
 - Do not create production resources without human approval.

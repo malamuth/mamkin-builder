@@ -19,6 +19,7 @@ Fill these during init once the stack is known. Until then, do not invent comman
 ## Hard Rules
 
 - Involve the human before creating GitHub projects, remotes, paid resources, external services, production deployments, or DNS changes.
+- In copied projects, treat inherited Git state and remotes as `TBD` until the human approves a project-specific target. A template repo remote is not a valid push target for project/product commits.
 - Involve the human before adding or enabling MCP servers, connectors, provider integrations, or project config that reaches external services or starts local services.
 - Involve the human before weakening `.codex` sandbox, approval, hooks, rules, network, or shell environment restrictions.
 - Involve the human before touching secrets, tokens, billing, production data, destructive migrations, or public posting.
@@ -31,8 +32,9 @@ Fill these during init once the stack is known. Until then, do not invent comman
 - If multiple write-capable agents run in parallel, use separate worktrees or explicitly disjoint allowed file ownership.
 - Keep process docs generic. Put project planning in `docs/project/`, `features/`, or `docs/follow-ups/` unless changing reusable workflow rules.
 - If a non-coordinator agent hits a human decision gate, return it to the coordinator unless the prompt explicitly delegates asking the human in that thread.
-- Use the delegated physical return path for handoffs. Prefer sending packets to the coordinator thread when a coordinator thread id and thread tools are available; otherwise start the local packet with `Coordinator handoff - manual relay required`.
+- Use the assigned handoff return path. If the prompt provides an exact coordinator thread id and a thread-send tool is available, send the packet directly to that coordinator thread. Otherwise start the local packet with `Coordinator handoff - manual relay required`.
 - Coordinators should not monitor active worker threads. Wait for an explicit returned packet, a blocker, or a human request to inspect.
+- Coordinators should not do implementation, inventory, or content work inline once a feature lane exists. Route additional work to the existing implementation thread when appropriate, or start a new worker with explicit file ownership.
 - Run appropriate checks before declaring work done, or clearly report what was not run.
 - Record durable project decisions in `docs/project/decision-log.md`; use the Surprise Log only for agent mistakes and confusion points.
 - Keep active feature specs stable once implementation starts. Put completed test notes and non-blocking follow-ups under `docs/follow-ups/`.
@@ -41,4 +43,4 @@ Fill these during init once the stack is known. Until then, do not invent comman
 
 Below are common agent mistakes and confusion points in this repository. If you encounter something surprising while working, alert the developer and add a concise note to the Surprise Log for a future agent.
 
-- No surprises recorded yet.
+- Worker packets may remain in the worker thread when direct thread delivery is unavailable. This is not a failed worker handoff if the packet starts with `Coordinator handoff - manual relay required`; the coordinator should do one receipt-recovery read and relay it. Worker prompts and presets must also say not to forward prompts or send packets to the worker's own thread.

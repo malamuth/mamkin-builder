@@ -4,7 +4,11 @@ Use only the packet needed for the current role or handoff. Keep packets self-co
 
 Packets with `Needs human decision`, human-gate blockers, or human/manual steps go back to the coordinator. The coordinator asks the human and records the decision unless the worker prompt explicitly delegated that exact approval lane.
 
-Preferred delivery is direct return to the coordinator thread when a coordinator thread id and thread tools are available. If direct delivery is unavailable, return the packet in the worker thread starting with `Coordinator handoff - manual relay required` and include the coordinator thread id. The coordinator is responsible for confirming receipt before continuing; a fallback packet is not delivered until it is relayed into the coordinator thread.
+Preferred delivery is direct return to the coordinator thread when the worker prompt provides an exact coordinator thread id and a thread-send tool is available. If direct delivery is unavailable, return the packet in the worker thread starting with `Coordinator handoff - manual relay required` and include the coordinator thread id. The coordinator is responsible for confirming receipt before continuing; a fallback packet is not delivered until it is relayed into the coordinator thread.
+
+`Manual relay required` is a valid completed worker outcome, not a failed handoff. Use it whenever the prompt lacks an exact coordinator thread id or no thread-send tool is available.
+
+Workers must not forward coordinator prompts, create duplicate handoff threads, or send packets to their own worker thread. If a thread-send tool is used, the target `threadId` must be the coordinator thread id from the prompt, never the worker's current thread id, source thread id, or a newly created thread. If the prompt lacks an exact coordinator thread id or no thread-send tool is available, emit the manual-relay packet as the final message in the worker thread.
 
 Every final non-coordinator packet must fill `Coordinator thread id` and `Return path used` so the coordinator can distinguish direct delivery from manual relay.
 

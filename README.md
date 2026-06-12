@@ -2,11 +2,11 @@
 
 A tiny, product-agnostic starting point for vibecode projects. Copy it, ask an init agent to run the setup flow, and the agent will interview you, adapt the docs to the specific product, propose git/GitHub setup, and hand off to a coordinator-led implementation workflow.
 
-The workflow is built for projects run by an init agent, a coordinator/team lead, optional analyst/architect support, implementation workers, and walkthrough/testing agents. `AGENTS.md` stays short as the agent entrypoint; the durable process lives in `docs/process/`.
+The workflow is built for projects run by an init agent, a coordinator, optional analyst/architect support, implementation workers, and walkthrough/testing agents. `AGENTS.md` stays short as the agent entrypoint; the durable process lives in `docs/process/`.
 
 ## Quick Start
 
-1. Copy this repository for a new project.
+1. Copy this repository for a new project. If you duplicate the folder directly, the hidden `.git/` directory is copied too, including branch, dirty state, and remotes. Treat that Git state as inherited template state until init decides what to keep.
 2. Ask your agent to run the repo skill if available:
 
    ```text
@@ -30,7 +30,25 @@ The workflow is built for projects run by an init agent, a coordinator/team lead
    - approved project-local Codex config, hooks, rules, skills, or agent presets
    - process docs only when the reusable workflow or custom roles change
    - custom role cards and packets, if the project needs recurring specialist roles
-5. The init agent verifies git state, proposes GitHub setup, and hands off to the coordinator/team-lead flow.
+5. The init agent verifies git state, calls out any inherited template branch, dirty state, or remote, proposes GitHub setup, and hands off to the coordinator flow.
+
+## Start From GitHub
+
+If you want the fresh published template but a new project that is not the `mamkin-builder` repo, clone it and detach the copied Git history before init:
+
+```bash
+git clone https://github.com/malamuth/mamkin-builder.git my-new-project
+cd my-new-project
+rm -rf .git
+```
+
+Then open the folder in Codex and run:
+
+```text
+$mamkin-init
+```
+
+During init, decide whether to keep the project without Git for now, run `git init`, or connect a project-specific remote. Do not push project commits back to `https://github.com/malamuth/mamkin-builder.git`.
 
 ## Why This Shape
 
@@ -45,7 +63,7 @@ Use `AGENTS.md` as the entrypoint because many coding agents already look for it
 - `.codex/hooks.json` and `.codex/hooks/`: project lifecycle reminders and scanners.
 - `.codex/rules/`: project-local outside-sandbox command policy.
 - `docs/process/init-agent.md`: project initialization protocol and questionnaire.
-- `docs/process/agent-orchestration.md`: coordinator/team-lead orchestration manual.
+- `docs/process/agent-orchestration.md`: coordinator orchestration manual.
 - `docs/process/naming-conventions.md`: doc and agent-thread naming rules.
 - `docs/process/roles/*.md`: small role cards for non-coordinator worker threads.
 - `docs/process/handoff-packets.md`: index of shared packet templates.
@@ -72,11 +90,12 @@ Use `AGENTS.md` as the entrypoint because many coding agents already look for it
 - Use a coordinator-led flow rather than loose worker-to-worker relay.
 - Make traceback explicit: project brief -> feature spec -> implementation handoff -> tests -> walkthrough -> follow-ups.
 - Treat GitHub/project setup, production actions, secrets, and ambiguous product calls as human approval gates.
+- Treat copied-project Git state and remotes as `TBD` until the human approves a project-specific repo; never push project commits to the template repo.
 
 ## Normal Operating Loop
 
 1. Init agent interviews the human and adapts docs.
-2. Coordinator/team lead reviews the project brief and roadmap.
+2. Coordinator reviews the project brief and roadmap.
 3. Coordinator calls analyst if the domain is fuzzy, then architect to polish architecture and feature boundaries.
 4. Coordinator creates or assigns one bounded feature spec and walkthrough definition.
 5. Worker implements and returns a handoff packet.

@@ -9,8 +9,10 @@ Read AGENTS.md, docs/process/roles/implementation.md, the relevant feature spec 
 
 Verify pwd, git status --short --branch, and git rev-parse HEAD before editing. Implement only the assigned slice. Run focused checks before declaring work done.
 
-Return implementation work to the coordinator only. If thread tools and the coordinator thread id are available, send the packet there. Otherwise start the local final packet with:
+Return implementation work to the coordinator only. If the prompt provides an exact coordinator thread id and a thread-send tool is available, send the packet directly to that coordinator thread. If direct delivery is unavailable, start this worker thread's final message with:
 Coordinator handoff - manual relay required for coordinator thread <id>
+
+Do not forward prompts, create duplicate handoff threads, or send packets to your own worker thread. Manual relay is the fallback when the prompt lacks an exact coordinator thread id or no thread-send tool is available.
 
 Do not start adjacent feature work, create subworkers, edit active feature specs unless assigned, touch production systems, expose secrets, stage, commit, push, or ask the human directly unless explicitly delegated.
 """

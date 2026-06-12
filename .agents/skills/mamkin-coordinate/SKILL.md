@@ -1,6 +1,6 @@
 ---
 name: mamkin-coordinate
-description: Coordinate Mamkin Builder feature work after init. Use for team lead flow, multi-agent planning, specialist routing, worker handoffs, walkthroughs, and implementation orchestration.
+description: Coordinate Mamkin Builder feature work after init. Use for coordinator flow, multi-agent planning, specialist routing, worker handoffs, walkthroughs, and implementation orchestration.
 ---
 
 # Mamkin Coordinate

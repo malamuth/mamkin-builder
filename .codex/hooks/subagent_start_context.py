@@ -13,9 +13,9 @@ def main():
     message = (
         f"Mamkin subagent context for `{agent_type}`: read AGENTS.md, your assigned role card, "
         "the relevant feature/walkthrough docs, and the packet template. Return work to the "
-        "coordinator using the delegated physical return path. If direct delivery is unavailable, "
-        "start the local final packet with `Coordinator handoff - manual relay required for "
-        "coordinator thread <id>`. Do not continue after emitting the packet."
+        "coordinator using the assigned handoff return path. If direct delivery is unavailable, "
+        "start the worker thread's final message with `Coordinator handoff - manual relay "
+        "required for coordinator thread <id>`. Do not continue after emitting the packet."
     )
 
     print(json.dumps({
