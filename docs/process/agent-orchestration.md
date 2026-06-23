@@ -311,16 +311,22 @@ The reset packet should include source authority, current model, obsolete assump
 
 When the human approves rollover and thread-management tools are available, the current coordinator should execute the rollover end-to-end. Do not hand the human a prompt to paste unless thread creation/sending/renaming tools are unavailable or blocked.
 
+During rollover, the current coordinator becomes the outgoing coordinator. Its job is to transfer authority, not to keep coordinating future work. The outgoing coordinator should not start new implementation, review, walkthrough, deployment, research, or Figma/live-validation lanes after rollover starts. It may only prepare the reset packet, create/send/verify the fresh coordinator start, rename/archive itself, and report the result.
+
+There should be only one main coordinator thread after rollover. The fresh coordinator must become the main coordinator once it has received the reset prompt. If title tools are available, either rename/archive the old coordinator before assigning the main coordinator title to the fresh thread, or create the fresh thread with a temporary reset title and then promote it after the old thread is archived. Do not leave two visible coordinator threads that both look active.
+
 Recommended rollover sequence:
 
 1. Old coordinator pauses implementation and live validation.
 2. Coordinator or architect prepares a source-grounded reset packet from current files, decisions, packets, and repo state.
 3. Human reviews any material decisions or stale-assumption corrections.
 4. Commit the reset packet and process/doc updates when Git is available and approved.
-5. Create a fresh coordinator thread using the normal coordinator title from `docs/process/naming-conventions.md`. Prefer creating a clean new coordinator over forking when fork would carry contaminated context; use fork only when the platform gives a clean enough start or the human requests it.
+5. Create a fresh coordinator thread. Prefer creating a clean new coordinator over forking when fork would carry contaminated context; use fork only when the platform gives a clean enough start or the human requests it.
 6. Send the starter prompt below to the fresh coordinator thread, including the reset packet or path to the committed reset doc.
-7. Rename or archive the old coordinator thread when the platform supports it; treat the old thread as historical evidence only.
-8. Report the new coordinator thread id, baseline commit/doc, old-thread status, and whether the next write-capable slice needs a branch/worktree.
+7. Verify the fresh coordinator thread exists and has the starter prompt. If possible, wait for or inspect its first acknowledgement before treating rollover as complete.
+8. Rename/archive the old coordinator thread when the platform supports it, using the archived coordinator pattern from `docs/process/naming-conventions.md`.
+9. Promote the fresh coordinator to the normal main coordinator title from `docs/process/naming-conventions.md` when title tools are available.
+10. Report the new coordinator thread id, baseline commit/doc, old-thread status, title/promotion status, and whether the next write-capable slice needs a branch/worktree.
 
 Fresh coordinator starter prompt:
 
@@ -345,6 +351,8 @@ Required restatement:
 ```
 
 If no thread-management tools are available, write the reset packet locally and return the exact starter prompt as a manual fallback for the human to paste. State that manual start is a fallback because tools were unavailable, not the preferred rollover path. Do not keep trying to repair a drifting coordinator through more inline explanations.
+
+If create/send works but rename/archive is unavailable, the outgoing coordinator must clearly report that old-thread cleanup is manual. It should mark itself historical in its final response and avoid taking more coordination actions. The human or a later coordinator may archive/rename it when tooling becomes available.
 
 ## Git And GitHub
 

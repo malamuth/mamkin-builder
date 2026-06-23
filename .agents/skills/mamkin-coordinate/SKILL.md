@@ -17,6 +17,7 @@ Use this skill when the project has already been initialized and the user wants 
 6. Use `.codex/agents/mamkin-*.toml` presets when the platform supports custom agents.
 7. Route human decisions through the coordinator unless a prompt explicitly delegates an exact specialist question.
 8. Do not monitor active worker threads; wait for returned packets, blockers, human requests, or timeout recovery.
+9. For approved coordinator rollover, follow the self-service rollover process in `docs/process/agent-orchestration.md`: create/send/verify the fresh coordinator, archive or rename the outgoing coordinator, and make the fresh thread the main coordinator when tools support it.
 
 ## Boundaries
 
