@@ -18,6 +18,8 @@ Run this flow once when a copied template becomes a real project. Rerun it only 
 - `docs/process/agent-orchestration.md`
 - `docs/process/handoff-packets.md`
 - `docs/process/naming-conventions.md`
+- `.mamkin/template-version.json`
+- `.mamkin/template-owned-files.md`
 - `features/00-roadmap.md`
 
 ## Safety And Git Preflight
@@ -81,6 +83,7 @@ Keep each doc narrow:
 - `.agents/skills/` owns repo-scoped Codex skill entrypoints. Keep skills focused and discoverable; they may point to process docs, scripts, or references, but should not duplicate full manuals.
 - `.codex/rules/` owns project-local command escalation policy for outside-sandbox commands. Do not put workflow rules, project plans, or role instructions there.
 - `.codex/hooks.json` and `.codex/hooks/` own project-local runtime reminders and scanners. Hooks may warn, add context, or request continuation, but workflow rules still live in Markdown.
+- `.mamkin/` owns template version and ownership metadata for future Mamkin process sync. It is not product planning space.
 
 When in doubt, put product context in the brief or roadmap and link to it from the README.
 
@@ -98,6 +101,8 @@ Update or create these docs:
 - `.agents/skills/`: repo-scoped Codex skill entrypoints. Extend only for reusable workflows that benefit from implicit or explicit skill invocation.
 - `.codex/rules/`: project-level outside-sandbox command policy. Extend it only for approved command approval/forbid rules.
 - `.codex/hooks.json` and `.codex/hooks/`: project-level lifecycle automation. Extend only for deterministic checks that support the Markdown process.
+- `.mamkin/template-version.json`: record the copied template commit when known. If the project was copied without Git metadata, leave commit fields as `TBD` and note that first sync must run in review mode.
+- `.mamkin/template-owned-files.md`: keep the ownership classes unless the project deliberately changes what is considered template-owned, mixed, or project-owned.
 
 Optionally update:
 
@@ -202,6 +207,8 @@ Before coordinator handoff, check:
 - `.agents/skills/` contains only focused skill entrypoints or helper workflows and does not duplicate the full process manual.
 - `.codex/rules/` contains only approved outside-sandbox command policy and does not hide workflow instructions that agents should read from Markdown.
 - `.codex/hooks.json` and hook scripts contain only deterministic reminders/scanners and no hidden workflow instructions, secrets, or provider-specific project planning.
+- `.mamkin/template-version.json` records the copied template baseline when known, or explicitly leaves it `TBD` for first-sync review mode.
+- `.mamkin/template-owned-files.md` protects project-owned docs/features/code from future template sync.
 - Any inherited template Git branch, dirty state, or remote has been treated as `TBD` for the copied project; no project/product commits were pushed to the template repository.
 - Remaining `TBD` placeholders are intentional open questions, not forgotten template residue.
 - No secrets, private URLs, tokens, provider keys, or magic links were added.
@@ -228,6 +235,7 @@ Git status:
 GitHub setup recommendation:
 Project repo target:
 Codex/MCP config:
+Mamkin template metadata:
 Tests or validation run:
 Open questions:
 Recommended next action:

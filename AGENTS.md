@@ -5,6 +5,8 @@
 - If asked to improve this template itself, edit the template docs directly; do not run the project init flow.
 - If asked to initialize, adapt, or start a copied project from this template, read and follow `docs/process/init-agent.md`.
 - If asked to coordinate feature work or multi-agent work, read `docs/process/agent-orchestration.md`.
+- If asked whether coordinator context is contaminated, drifting, or ready for reset/rollover, read `.agents/skills/mamkin-context-audit/SKILL.md`.
+- If asked to update a copied project's Mamkin process layer from the current template, read `.agents/skills/mamkin-template-sync/SKILL.md`.
 - If assigned a worker or specialist role, read the matching role card in `docs/process/roles/` instead of the full orchestration manual.
 - For product context, read `docs/project/brief.md`, `docs/project/decision-log.md`, the relevant `features/*.md`, and any relevant walkthrough in `docs/walkthroughs/`.
 

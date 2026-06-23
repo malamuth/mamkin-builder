@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "templateName": "mamkin-builder",
+  "templateRepo": "https://github.com/malamuth/mamkin-builder.git",
+  "templateCommit": "TBD",
+  "lastProcessSyncCommit": "TBD",
+  "initializedProject": false,
+  "ownershipManifest": ".mamkin/template-owned-files.md",
+  "notes": [
+    "In copied projects, init should replace templateCommit with the copied template commit when known.",
+    "If the copied project has no inherited Git metadata, leave templateCommit as TBD and use template sync in review mode.",
+    "Project/product files remain project-owned even when this process manifest is updated from the template."
+  ]
+}

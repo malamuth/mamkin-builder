@@ -18,6 +18,7 @@ Use this skill when the project has already been initialized and the user wants 
 7. Route human decisions through the coordinator unless a prompt explicitly delegates an exact specialist question.
 8. Do not monitor active worker threads; wait for returned packets, blockers, human requests, or timeout recovery.
 9. For approved coordinator rollover, follow the self-service rollover process in `docs/process/agent-orchestration.md`: create/send/verify the fresh coordinator, archive or rename the outgoing coordinator, and make the fresh thread the main coordinator when tools support it.
+10. If context contamination is suspected, use `docs/process/context-health-audit.md` before choosing between normal continuation, watch, context reset, or rollover.
 
 ## Boundaries
 

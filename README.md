@@ -27,6 +27,7 @@ The workflow is built for projects run by an init agent, a coordinator, optional
    - `features/00-roadmap.md`
    - `AGENTS.md` project commands once the stack is known
    - the project prefix in `docs/process/naming-conventions.md`
+   - `.mamkin/template-version.json` with the copied template baseline when known
    - approved project-local Codex config, hooks, rules, skills, or agent presets
    - process docs only when the reusable workflow or custom roles change
    - custom role cards and packets, if the project needs recurring specialist roles
@@ -55,16 +56,21 @@ During init, decide whether to keep the project without Git for now, run `git in
 
 Use `AGENTS.md` as the entrypoint because many coding agents already look for it. Keep it concise so every worker sees only high-signal rules. Put the coordinator manual, role cards, handoff packets, and testing contracts under `docs/process/`.
 
+Use `.mamkin/` metadata to keep copied projects aligned with future template improvements. `mamkin-template-sync` updates the reusable process layer from the upstream template while protecting project-owned docs, feature specs, code, secrets, and remotes.
+
 ## Included Files
 
 - `AGENTS.md`: short always-on agent entrypoint.
 - `.agents/skills/`: repo-scoped Codex skill entrypoints.
+- `.mamkin/`: template version and file ownership metadata for safe process sync.
 - `.codex/agents/`: project-scoped Codex custom agent presets.
 - `.codex/config.toml`: conservative project Codex runtime defaults.
 - `.codex/hooks.json` and `.codex/hooks/`: project lifecycle reminders and scanners.
 - `.codex/rules/`: project-local outside-sandbox command policy.
 - `docs/process/init-agent.md`: project initialization protocol and questionnaire.
 - `docs/process/agent-orchestration.md`: coordinator orchestration manual.
+- `docs/process/context-health-audit.md`: read-only audit protocol for OK/watch/context reset/rollover decisions.
+- `docs/process/template-sync.md`: safe sync protocol for updating copied projects from the current template.
 - `docs/process/naming-conventions.md`: doc and agent-thread naming rules.
 - `docs/process/roles/*.md`: small role cards for non-coordinator worker threads.
 - `docs/process/handoff-packets.md`: index of shared packet templates.

@@ -289,6 +289,10 @@ The roadmap should reflect the current durable feature state, not just initial s
 
 ## Context Reset Pattern
 
+When unsure whether a thread needs reset or rollover, run the read-only context health audit in `docs/process/context-health-audit.md`. The audit returns one of four statuses: `OK`, `watch`, `context reset recommended`, or `rollover recommended`.
+
+`watch` means the coordinator may continue carefully, but the audit must name the trigger that would require reset. It is not a second reset protocol.
+
 A context reset is read-only unless the coordinator explicitly assigns doc updates afterward. The reset packet should answer:
 
 - Which current files, docs, reports, commits, environments, or human decisions were read.
@@ -298,6 +302,8 @@ A context reset is read-only unless the coordinator explicitly assigns doc updat
 - What action is safe next, or which blocker remains.
 
 Use this pattern instead of arguing from memory in long coordinator threads.
+
+Context reset and rollover are related but distinct. A context reset keeps the same coordinator thread and requires a source-grounded restatement before more work. A rollover creates/promotes a fresh coordinator from a reset baseline when the current coordinator thread is structurally unreliable.
 
 ## Coordinator Rollover
 
