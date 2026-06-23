@@ -309,17 +309,42 @@ Before starting the new coordinator, prepare `docs/process/handoff-packets/coord
 
 The reset packet should include source authority, current model, obsolete assumptions, active lanes, dirty repos/worktrees, external proof boundaries, next safe action, and actions the next coordinator must not take yet.
 
+When the human approves rollover and thread-management tools are available, the current coordinator should execute the rollover end-to-end. Do not hand the human a prompt to paste unless thread creation/sending/renaming tools are unavailable or blocked.
+
 Recommended rollover sequence:
 
 1. Old coordinator pauses implementation and live validation.
 2. Coordinator or architect prepares a source-grounded reset packet from current files, decisions, packets, and repo state.
 3. Human reviews any material decisions or stale-assumption corrections.
 4. Commit the reset packet and process/doc updates when Git is available and approved.
-5. Start or fork a fresh coordinator thread using the normal coordinator title from `docs/process/naming-conventions.md`.
-6. First action in the new coordinator is an architecture restatement from the reset packet, not implementation.
+5. Create a fresh coordinator thread using the normal coordinator title from `docs/process/naming-conventions.md`. Prefer creating a clean new coordinator over forking when fork would carry contaminated context; use fork only when the platform gives a clean enough start or the human requests it.
+6. Send the starter prompt below to the fresh coordinator thread, including the reset packet or path to the committed reset doc.
 7. Rename or archive the old coordinator thread when the platform supports it; treat the old thread as historical evidence only.
+8. Report the new coordinator thread id, baseline commit/doc, old-thread status, and whether the next write-capable slice needs a branch/worktree.
 
-If no thread-management tools are available, write the reset packet locally and ask the human to start the fresh coordinator with that packet and the current commit. Do not keep trying to repair a drifting coordinator through more inline explanations.
+Fresh coordinator starter prompt:
+
+```text
+Read AGENTS.md, docs/process/agent-orchestration.md, docs/process/handoff-packets/coordinator-reset.md, docs/project/decision-log.md, the relevant feature/roadmap docs, and the committed coordinator reset packet/doc listed below.
+
+Start as the fresh coordinator after coordinator rollover. Do not implement, merge, deploy, run live validation, or start write-capable workers yet.
+
+First action: produce a source-grounded architecture restatement from current repo files and the reset packet. Verify repo state and HEAD before reasoning. Treat the old coordinator thread, old packets, and old summaries as historical evidence only.
+
+Reset packet/doc:
+<path or packet content>
+
+Required restatement:
+- Source authority and exact baseline.
+- Current model and active scope.
+- Obsolete or unsafe assumptions.
+- Active lanes and dirty repos/worktrees.
+- External proof boundary.
+- Next safe action and must-not-do-next.
+- Whether the next write-capable slice needs a branch/worktree.
+```
+
+If no thread-management tools are available, write the reset packet locally and return the exact starter prompt as a manual fallback for the human to paste. State that manual start is a fallback because tools were unavailable, not the preferred rollover path. Do not keep trying to repair a drifting coordinator through more inline explanations.
 
 ## Git And GitHub
 
