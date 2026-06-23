@@ -299,6 +299,28 @@ A context reset is read-only unless the coordinator explicitly assigns doc updat
 
 Use this pattern instead of arguing from memory in long coordinator threads.
 
+## Coordinator Rollover
+
+Use coordinator rollover when the current coordinator thread is too long, context-heavy, direction has changed, old packets are competing with current sources, or a context reset finds repeated source confusion.
+
+Rollover is a context-management action, not a Git-branching action. Start a fresh coordinator thread from a committed reset baseline when possible. Create a new branch or worktree only for the next write-capable implementation, docs, deployment, or artifact slice when file ownership or review isolation requires it.
+
+Before starting the new coordinator, prepare `docs/process/handoff-packets/coordinator-reset.md` as either a durable project doc under `docs/project/`, a final packet in the old coordinator thread, or both. Prefer committing the reset packet and relevant process/doc updates first so the new coordinator can start from repo truth instead of chat memory.
+
+The reset packet should include source authority, current model, obsolete assumptions, active lanes, dirty repos/worktrees, external proof boundaries, next safe action, and actions the next coordinator must not take yet.
+
+Recommended rollover sequence:
+
+1. Old coordinator pauses implementation and live validation.
+2. Coordinator or architect prepares a source-grounded reset packet from current files, decisions, packets, and repo state.
+3. Human reviews any material decisions or stale-assumption corrections.
+4. Commit the reset packet and process/doc updates when Git is available and approved.
+5. Start or fork a fresh coordinator thread using the normal coordinator title from `docs/process/naming-conventions.md`.
+6. First action in the new coordinator is an architecture restatement from the reset packet, not implementation.
+7. Rename or archive the old coordinator thread when the platform supports it; treat the old thread as historical evidence only.
+
+If no thread-management tools are available, write the reset packet locally and ask the human to start the fresh coordinator with that packet and the current commit. Do not keep trying to repair a drifting coordinator through more inline explanations.
+
 ## Git And GitHub
 
 - Verify repo state before each implementation or walkthrough.
@@ -308,6 +330,7 @@ Use this pattern instead of arguing from memory in long coordinator threads.
 - If staging or committing writes to local Git metadata and the environment asks for approval, request it explicitly and explain that no remote push is implied.
 - If no initial commit exists, propose one after docs are adapted.
 - Before implementation lanes, prefer a small planning commit so workers start from a stable baseline; if not possible, include the clean/dirty baseline details in each worker prompt.
+- A fresh coordinator thread does not require a fresh branch. Branches/worktrees are for write-capable work isolation, not for coordinator context rollover by itself.
 - Ask before creating remotes, pushing, creating GitHub issues, milestones, or project boards.
 - If GitHub Projects are used, keep issues small enough to map to feature specs or sub-slices.
 - Mention expected branch/commit in every worker prompt and final packet.

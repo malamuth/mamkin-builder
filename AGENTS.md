@@ -37,6 +37,7 @@ Fill these during init once the stack is known. Until then, do not invent comman
 - Coordinators should not monitor active worker threads. Wait for an explicit returned packet, a blocker, or a human request to inspect.
 - Coordinators should not do implementation, inventory, or content work inline once a feature lane exists. Route additional work to the existing implementation thread when appropriate, or start a new worker with explicit file ownership.
 - If a coordinator repeats corrected facts, loses source ownership, over-focuses on stale details, or starts reasoning from memory in a complex lane, pause execution and run a source-grounded context reset or architect check before continuing.
+- A fresh coordinator thread does not require a fresh Git branch. Use a committed coordinator reset packet as the new thread baseline; create a branch/worktree only for the next write-capable slice when isolation is needed.
 - Run appropriate checks before declaring work done, or clearly report what was not run.
 - Record durable project decisions in `docs/project/decision-log.md`; use the Surprise Log only for agent mistakes and confusion points.
 - Keep active feature specs stable once implementation starts. Put completed test notes and non-blocking follow-ups under `docs/follow-ups/`.

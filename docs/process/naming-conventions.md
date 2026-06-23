@@ -31,6 +31,12 @@ For the main coordinator thread, use:
 👑 <project-prefix> Coordinator - project coordination
 ```
 
+For a replaced coordinator thread, rename or archive it when the platform supports that:
+
+```text
+👑 <project-prefix> Coordinator - archived <short-reason>
+```
+
 Examples:
 
 - `👑 <project-prefix> Coordinator - project coordination`
@@ -43,6 +49,7 @@ Rules:
 
 - During init or coordinator kickoff, replace `Project prefix: TBD` with one short project prefix. Do not append a second prefix rule or keep stale project examples.
 - When init continues in the same thread as coordinator, rename that thread to the coordinator pattern before the first coordinator action.
+- After coordinator rollover, the fresh coordinator should use the main coordinator title; the old coordinator may be renamed with the archived pattern.
 - Coordinator prompts for separate worker threads must include the exact `Thread name:`. If the created thread title differs, rename it or request rename before continuing.
 - Use `C##` for roadmap candidates and `F##` for feature specs.
 - Use role names from `docs/process/roles/`: `Analyst`, `Architect`, `Implementation`, `Reviewer`, `Walkthrough`, `Deployment`, `UX`, or an initialized custom role display name.

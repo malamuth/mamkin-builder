@@ -19,6 +19,7 @@ Every final non-coordinator packet must fill `Coordinator thread id` and `Return
 Coordinators should not poll or read active worker threads while waiting. Continue only after a returned packet/blocker, a human inspection request, or an explicit timeout/recovery step. If a worker has finished but no direct packet arrived, one collection read is allowed to relay the fallback packet.
 
 - Coordinator kickoff: `docs/process/handoff-packets/coordinator-kickoff.md`
+- Coordinator reset/rollover: `docs/process/handoff-packets/coordinator-reset.md`
 - Coordinator final report: `docs/process/handoff-packets/coordinator-final.md`
 - Analysis: `docs/process/handoff-packets/analysis.md`
 - Architecture: `docs/process/handoff-packets/architecture.md`
