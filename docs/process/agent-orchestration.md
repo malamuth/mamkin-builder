@@ -15,6 +15,45 @@ Edit this file only when the coordination model, reusable workflow rules, custom
 - Long-lived implementation, review, walkthrough, deployment, and research lanes should run as separate Codex threads by default.
 - Same-thread subagents are only for bounded sidecar tasks, mock runs, quick analysis, or experiments where the coordinator will immediately inspect and integrate the result.
 
+## Source Authority
+
+When facts conflict, use this authority order:
+
+1. Current human decisions in the coordinator thread and durable decision records.
+2. Current repo sources, manifests, project docs, feature specs, walkthroughs, and runbooks at the expected branch or commit.
+3. Generated reports, logs, screenshots, external checks, or live proofs from a named branch/commit/environment.
+4. Old handoff packets, old coordinator summaries, stale chat memory, and previous generated reports.
+
+Old packets are useful history, not source of truth. If a packet conflicts with current human decisions or current files, explicitly treat that packet detail as obsolete and continue from the higher-authority source.
+
+External proof has narrow scope. A live check, screenshot, generated report, preview, provider dashboard, API response, or other outside signal proves only the exact observed fact at the named state. It does not automatically prove architecture correctness, source ownership, merge readiness, or that generated artifacts match current source.
+
+## Context Reset Triggers
+
+Pause execution and perform a source-grounded reset when any of these happen:
+
+- The coordinator repeats a fact the human or a source file already corrected.
+- The thread starts treating old packets, summaries, or memory as authority over current files.
+- The coordinator cannot name the source file, doc, report, branch, commit, or human decision behind an important claim.
+- The thread over-focuses on a stale or low-importance detail while losing the main acceptance question.
+- Generated artifacts, reports, or external checks disagree with source files or expected ownership.
+- The human asks for a reset, detox, source check, or says the thread is hallucinating or drifting.
+
+For small cases, the coordinator may do the reset inline by rereading the relevant current files and writing a short correction before continuing. For complex, multi-repo, integration, generated-artifact, data, deployment, or architecture-heavy work, route a read-only context reset to the architect lane or a custom specialist. Do not continue implementation, merge, deployment, or live validation until the reset identifies the current source of truth and obsolete assumptions.
+
+## Architecture Restatement Gate
+
+Before merge readiness, live/external validation, deployment handoff, or major routing in a complex lane, the coordinator must restate the current model or route that restatement to the architect. Include:
+
+- The exact branch, commit, worktree, environment, or external target being reasoned about.
+- The current source-of-truth docs/files/manifests and what each owns.
+- The active scope, omitted scope, and any intentionally excluded concepts.
+- The generated artifacts, reports, or external proofs being used, with their narrow meaning.
+- Any old packet details or assumptions now considered obsolete.
+- Remaining uncertainties and the lane that should resolve them.
+
+This restatement should be short, but it must be source-grounded. If the coordinator cannot fill it without guessing, the next action is a blocker or architect/context reset lane, not implementation.
+
 ## Start Condition
 
 Use this coordinator manual after the init agent has already adapted the copied template into a real project and handed off the project brief, decision log, and roadmap. If the project has not been initialized yet, run `docs/process/init-agent.md` first.
@@ -109,6 +148,7 @@ If a needed custom role is missing those artifacts, ask the human before scaffol
 ## Coordinator Duties
 
 - Read project brief, decision log, roadmap, follow-ups, any relevant feature specs or walkthroughs, and current repo state.
+- Apply the source authority order when facts conflict; do not let old packets, generated reports, external proof, or memory override current decisions and current files.
 - Check `docs/follow-ups/` before planning; assess whether each unresolved follow-up should become part of the current feature, the next feature spec, a later roadmap candidate, or a deferred note.
 - Before sending a next feature spec to an architect for fine-tuning, review all unimplemented follow-ups and explicitly decide which are relevant to that architect lane.
 - Keep the roadmap status current at every feature-cycle transition: spec proposed/ready, implementation started, review or walkthrough started/completed, follow-ups deferred/resolved, and commit/push completed.
@@ -126,6 +166,8 @@ If a needed custom role is missing those artifacts, ask the human before scaffol
 - After starting a worker, wait for its returned packet instead of monitoring the worker thread.
 - Route lane-specific human clarifications to the active or most recent specialist instead of answering them inline.
 - Route post-start implementation/inventory/content changes to the active or most recent implementation worker by default; the coordinator records decisions, packets, and routing, not the artifact changes themselves.
+- Trigger a source-grounded context reset when the thread repeats corrected facts, loses source ownership, treats old packets as authority, or cannot cite the source behind important claims.
+- Require an architecture restatement before complex merge, validation, deployment, or routing decisions when source ownership, generated artifacts, external proof, or multiple repos/components are involved.
 - Delegate post-implementation verification lanes to walkthrough/testing workers, and delegate environment/provider setup lanes to deployment guides by default.
 - Write focused worker prompts instead of making every worker read the whole orchestration manual.
 - Pass the relevant feature spec, walkthrough, role card, and packet file explicitly in each worker prompt.
@@ -245,6 +287,18 @@ Record durable decisions in `docs/project/decision-log.md`. Record non-blocking 
 
 The roadmap should reflect the current durable feature state, not just initial spec creation. If roadmap status and feature docs disagree, update the roadmap before starting the next lane or finalizing a cycle.
 
+## Context Reset Pattern
+
+A context reset is read-only unless the coordinator explicitly assigns doc updates afterward. The reset packet should answer:
+
+- Which current files, docs, reports, commits, environments, or human decisions were read.
+- What is currently authoritative.
+- What older packet details, assumptions, or generated outputs are obsolete or only historical evidence.
+- What external proof shows and what it does not show.
+- What action is safe next, or which blocker remains.
+
+Use this pattern instead of arguing from memory in long coordinator threads.
+
 ## Git And GitHub
 
 - Verify repo state before each implementation or walkthrough.
@@ -262,6 +316,9 @@ The roadmap should reflect the current durable feature state, not just initial s
 
 - Do not run duplicate implementation workers for the same slice.
 - Do not let parallel write-capable workers edit the same files or feature spec.
+- Do not let old handoff packets or summaries override current source files, manifests, docs, or human corrections.
+- Do not treat external proof, generated reports, screenshots, or live checks as broader evidence than the exact thing they verified.
+- Do not continue execution from memory after repeated corrections or source confusion; run a context reset first.
 - Do not monitor active worker threads unless the worker returns a packet/blocker, the human asks, or timeout recovery is needed.
 - Do not test the wrong branch or worktree.
 - Do not let workers silently expand scope.

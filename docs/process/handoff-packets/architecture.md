@@ -7,6 +7,10 @@ Coordinator thread id:
 Return path used: Direct thread send | Manual relay required
 Topic:
 Docs read:
+Source authority summary:
+Current model:
+Obsolete or unsafe assumptions:
+External proof boundary:
 Recommendation:
 Tradeoffs:
 Risks:

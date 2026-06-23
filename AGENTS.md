@@ -27,6 +27,7 @@ Fill these during init once the stack is known. Until then, do not invent comman
 - Involve the human before installing or changing system/global tooling, local databases/services, Docker/Colima, Homebrew packages, language runtimes, or other machine-level setup.
 - Check `pwd`, `git status --short --branch`, and `git rev-parse HEAD` before implementation work.
 - Do not overwrite user changes. Work with unexpected dirty state and report surprises.
+- When facts conflict, treat current human decisions and current repo sources/docs as authority. Old handoff packets are historical evidence, not source of truth.
 - Do not store secrets, magic links, private URLs, tokens, provider keys, or database URLs in repo docs or chat.
 - If a command needs secrets, use a human-approved local/provider secret path; do not rely on inherited shell secrets unless the coordinator explicitly approves the variable names and the command will not print them.
 - If multiple write-capable agents run in parallel, use separate worktrees or explicitly disjoint allowed file ownership.
@@ -35,6 +36,7 @@ Fill these during init once the stack is known. Until then, do not invent comman
 - Use the assigned handoff return path. If the prompt provides an exact coordinator thread id and a thread-send tool is available, send the packet directly to that coordinator thread. Otherwise start the local packet with `Coordinator handoff - manual relay required`.
 - Coordinators should not monitor active worker threads. Wait for an explicit returned packet, a blocker, or a human request to inspect.
 - Coordinators should not do implementation, inventory, or content work inline once a feature lane exists. Route additional work to the existing implementation thread when appropriate, or start a new worker with explicit file ownership.
+- If a coordinator repeats corrected facts, loses source ownership, over-focuses on stale details, or starts reasoning from memory in a complex lane, pause execution and run a source-grounded context reset or architect check before continuing.
 - Run appropriate checks before declaring work done, or clearly report what was not run.
 - Record durable project decisions in `docs/project/decision-log.md`; use the Surprise Log only for agent mistakes and confusion points.
 - Keep active feature specs stable once implementation starts. Put completed test notes and non-blocking follow-ups under `docs/follow-ups/`.

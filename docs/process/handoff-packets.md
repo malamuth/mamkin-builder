@@ -4,6 +4,10 @@ Use only the packet needed for the current role or handoff. Keep packets self-co
 
 Packets with `Needs human decision`, human-gate blockers, or human/manual steps go back to the coordinator. The coordinator asks the human and records the decision unless the worker prompt explicitly delegated that exact approval lane.
 
+Handoff packets are evidence, not permanent authority. If an older packet conflicts with current human decisions, current source files, current project docs, or a named branch/commit, the coordinator must prefer the current source and mark the old packet detail obsolete.
+
+When a packet makes architecture, source-ownership, generated-artifact, deployment, data, or integration claims, it should name the files, docs, reports, branch/commit, environment, or external proof it relied on. External proof should be described narrowly: what it observed, where, and what it does not prove.
+
 Preferred delivery is direct return to the coordinator thread when the worker prompt provides an exact coordinator thread id and a thread-send tool is available. If direct delivery is unavailable, return the packet in the worker thread starting with `Coordinator handoff - manual relay required` and include the coordinator thread id. The coordinator is responsible for confirming receipt before continuing; a fallback packet is not delivered until it is relayed into the coordinator thread.
 
 `Manual relay required` is a valid completed worker outcome, not a failed handoff. Use it whenever the prompt lacks an exact coordinator thread id or no thread-send tool is available.
