@@ -7,11 +7,23 @@ This is a process sync, not a product migration. It must not overwrite project p
 ## Inputs
 
 - Current copied project worktree.
-- Upstream template source, preferably `https://github.com/malamuth/mamkin-builder.git` or a human-approved local clone/path.
+- Upstream template source, preferably `https://github.com/malamuth/mamkin-builder.git` or a verified local clone/path.
 - `.mamkin/template-version.json`, if present.
 - `.mamkin/template-owned-files.md`, if present.
 
 If the copied project lacks `.mamkin/` metadata, run in first-sync review mode and create the metadata only after human approval.
+
+## Upstream Verification
+
+When using a local `mamkin-builder` checkout as the upstream template, verify it before comparing:
+
+```bash
+git status --short --branch
+git rev-parse HEAD
+git rev-parse origin/main
+```
+
+A local checkout is acceptable as the upstream source only when it is clean and its HEAD matches `origin/main`. If the local checkout has uncommitted changes, is ahead/behind, or points at a commit that does not match `origin/main`, do not treat it as latest GitHub state unless the human explicitly approves using that local-only state. Otherwise fetch/clone the GitHub upstream when network access is available, or return a blocked/review-only packet that names the verification gap.
 
 ## Ownership
 
@@ -95,6 +107,7 @@ Current template commit:
 Current last sync commit:
 Target upstream:
 Target upstream commit:
+Upstream verification:
 Ownership manifest used:
 Template-owned changes:
 Mixed-file changes:
