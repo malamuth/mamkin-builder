@@ -2,7 +2,7 @@
 
 A tiny, product-agnostic starting point for vibecode projects. Copy it, ask an init agent to run the setup flow, and the agent will interview you, adapt the docs to the specific product, propose git/GitHub setup, and hand off to a coordinator-led implementation workflow.
 
-The workflow is built for projects run by an init agent, a coordinator, optional analyst/architect support, implementation workers, and walkthrough/testing agents. `AGENTS.md` stays short as the agent entrypoint; the durable process lives in `docs/process/`.
+The workflow is built for projects run by an init agent, a coordinator, optional analyst/architect/designer support, implementation workers, and walkthrough/testing agents. `AGENTS.md` stays short as the agent entrypoint; the durable process lives in `docs/process/`.
 
 ## Quick Start
 

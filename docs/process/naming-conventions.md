@@ -61,7 +61,7 @@ Rules:
 - Do not leave two unarchived coordinator threads with titles that both read as active. If cleanup tooling is unavailable, the outgoing coordinator must say so in its final response and stop coordinating.
 - Coordinator prompts for separate worker threads must include the exact `Thread name:`. If the created thread title differs, rename it or request rename before continuing.
 - Use `C##` for roadmap candidates and `F##` for feature specs.
-- Use role names from `docs/process/roles/`: `Analyst`, `Architect`, `Implementation`, `Reviewer`, `Walkthrough`, `Deployment`, `UX`, or an initialized custom role display name.
+- Use role names from `docs/process/roles/`: `Analyst`, `Architect`, `Implementation`, `Reviewer`, `Walkthrough`, `Deployment`, `Designer`, `UX`, or an initialized custom role display name.
 - Keep short scope human-readable and kebab-free enough to scan in thread lists.
 - Do not include status in thread names; status changes too often and is easy to leave stale.
 - Put status in worker prompts, packets, and coordinator notes instead.

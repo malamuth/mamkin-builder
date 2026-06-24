@@ -94,7 +94,7 @@ If the coordinator delegates a human question to a specialist thread, the prompt
 
 ## Lane-Specific Clarifications
 
-When a specialist lane is active or was recently used, route human follow-up questions about that lane back to the same specialist by default. The coordinator may acknowledge the question and forward it, but should not answer deployment, architecture, analysis, review, UX, or walkthrough clarifications inline unless the answer is purely administrative or the human explicitly asks the coordinator to decide.
+When a specialist lane is active or was recently used, route human follow-up questions about that lane back to the same specialist by default. The coordinator may acknowledge the question and forward it, but should not answer deployment, architecture, analysis, design, review, UX, or walkthrough clarifications inline unless the answer is purely administrative or the human explicitly asks the coordinator to decide.
 
 When an implementation or inventory lane exists, route additional implementation, inventory, documentation-content, or artifact-update work to that lane by default. The coordinator may update coordination/process records inline, but should not keep changing feature artifacts or inventory content in the coordinator thread unless the human explicitly asks for a one-off inline edit and the coordinator records why it is safe.
 
@@ -110,7 +110,7 @@ Examples:
 
 When the coordinator receives human decisions for a specialist packet, it records the decisions and returns unresolved specialist work to that role by default.
 
-Do not continue architecture, analysis, UX, deployment, review, or walkthrough work inside the coordinator thread unless the remaining work is trivial and the coordinator says why it is staying inline. For architecture and analysis especially, pass the human decision context back to the same specialist thread, or start a new specialist thread if the old one is unavailable.
+Do not continue architecture, analysis, design, UX, deployment, review, or walkthrough work inside the coordinator thread unless the remaining work is trivial and the coordinator says why it is staying inline. For architecture and analysis especially, pass the human decision context back to the same specialist thread, or start a new specialist thread if the old one is unavailable.
 
 Use the smallest useful team. After init, the first planning lane should usually include an architect and may include an analyst when product/domain understanding is fuzzy. For later narrow features, the team is often:
 
@@ -118,7 +118,7 @@ Use the smallest useful team. After init, the first planning lane should usually
 - one implementation worker
 - one walkthrough/testing worker
 
-For later feature work, add analyst, architect, reviewer, UX reviewer, or deployment guide only when the feature has a clear need for that role.
+For later feature work, add analyst, architect, designer, reviewer, UX reviewer, or deployment guide only when the feature has a clear need for that role.
 
 ## Role Cards
 
@@ -128,6 +128,7 @@ For later feature work, add analyst, architect, reviewer, UX reviewer, or deploy
 - Reviewer: `docs/process/roles/reviewer.md`; agent preset `mamkin-reviewer`.
 - Walkthrough/test guide: `docs/process/roles/walkthrough.md`; agent preset `mamkin-walkthrough`.
 - Deployment guide: `docs/process/roles/deployment.md`; agent preset `mamkin-deployment`.
+- Designer: `docs/process/roles/designer.md`; agent preset `mamkin-designer`.
 - UI/UX reviewer: `docs/process/roles/ux.md`; agent preset `mamkin-ux`.
 - Custom recurring roles: add role cards under `docs/process/roles/` during init or coordinator-approved setup.
 

@@ -132,7 +132,7 @@ After init, the coordinator owns feature-spec and walkthrough creation. The init
 
 ## Custom Role Setup
 
-If the human requests recurring custom specialist roles, scaffold them during init. Do not create custom roles for one-off work that fits analyst, architect, implementation, reviewer, walkthrough, UX, or deployment.
+If the human requests recurring custom specialist roles, scaffold them during init. Do not create custom roles for one-off work that fits analyst, architect, implementation, reviewer, walkthrough, designer, UX, or deployment.
 
 For each approved custom role:
 

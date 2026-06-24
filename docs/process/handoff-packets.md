@@ -26,6 +26,7 @@ Coordinators should not poll or read active worker threads while waiting. Contin
 - Implementation: `docs/process/handoff-packets/implementation.md`
 - Reviewer: `docs/process/handoff-packets/reviewer.md`
 - Deployment: `docs/process/handoff-packets/deployment.md`
+- Designer: `docs/process/handoff-packets/designer.md`
 - UI/UX review: `docs/process/handoff-packets/ux.md`
 - Walkthrough defect: `docs/process/handoff-packets/walkthrough-defect.md`
 - Walkthrough readiness: `docs/process/handoff-packets/walkthrough-readiness.md`
