@@ -24,3 +24,5 @@ Use this skill when the user asks whether coordinator context is contaminated, d
 - `watch` is an explicit status: continue carefully, name the risk, and state the trigger that would require reset.
 - Context reset keeps the same coordinator thread and requires a source-grounded restatement before more action.
 - Rollover creates/promotes a fresh coordinator thread using the process in `docs/process/agent-orchestration.md`.
+- If the result is `context reset recommended`, use `mamkin-context-reset` when asked to proceed.
+- If the result is `rollover recommended`, use `mamkin-coordinator-rollover` when asked to proceed.

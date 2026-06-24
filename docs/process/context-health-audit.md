@@ -13,6 +13,8 @@ Use one status:
 - `context reset recommended`: pause action in the same coordinator thread and produce a source-grounded restatement before continuing.
 - `rollover recommended`: create a fresh coordinator thread from a reset baseline using the coordinator rollover process.
 
+When using Codex skills, `context reset recommended` maps to `mamkin-context-reset`, and `rollover recommended` maps to `mamkin-coordinator-rollover`.
+
 ## Watch
 
 `watch` means the thread is not bad enough to reset yet, but the next coordinator action should be cautious and source-grounded.
