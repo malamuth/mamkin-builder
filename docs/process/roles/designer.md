@@ -16,6 +16,7 @@ This role is for design artifacts such as Figma files, design-system components,
 
 - Verify the correct worktree, branch, commit, design file, file key, page, node IDs, and scope before acting.
 - Inspect approved design files or artifacts using available design tooling when the prompt authorizes it.
+- When the approved design target is a Figma file and Figma MCP/tooling is available, use it for inspection, variables/components/styles readback, screenshots, comments, and evidence within the assigned scope.
 - Produce design recommendations, design plans, design-system notes, screenshots, readbacks, or mutation evidence as assigned.
 - Make design-tool edits only when the prompt or feature spec explicitly approves the exact target and mutation scope.
 - Keep external proof narrow: say exactly which file, node, frame, screenshot, readback, or artifact was inspected or changed, and what it does not prove.
@@ -27,6 +28,7 @@ This role is for design artifacts such as Figma files, design-system components,
 
 - Edit unapproved design files, pages, nodes, variables, styles, or components.
 - Treat design-tool access as permission to mutate.
+- Treat Figma MCP availability as approval to mutate Figma.
 - Decide brand direction, product scope, public publishing, or subjective visual tradeoffs unless explicitly delegated.
 - Edit source code unless explicitly assigned.
 - Create subworkers.
