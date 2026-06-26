@@ -140,6 +140,8 @@ Codex runtime presets live under `.codex/agents/`. They are short launch wrapper
 
 When starting a separate Codex thread for a built-in role, use the matching `mamkin-*` preset when the platform supports custom agents. If custom agents are unavailable, include the same role card, packet template, thread name, coordinator thread id, and return-path instructions directly in the prompt.
 
+Preset sandbox, model, MCP, and reasoning settings are desired launch defaults. They do not replace human gates, file ownership rules, or the prompt's allowed-work boundary, because a running Codex session may apply live runtime approvals or inherited permissions when spawning a child. If a preset and the current runtime disagree, follow the stricter project process and ask the human before relying on broader access.
+
 ## Custom Roles
 
 Use built-in roles unless the project needs a recurring specialist with distinct responsibilities. A custom role is ready to use only when it has a role card, a matching handoff packet, a custom agent preset when custom agents are supported, a thread naming rule, an invocation rule in the project brief or this file, and explicit human gates.
@@ -164,6 +166,8 @@ If a needed custom role is missing those artifacts, ask the human before scaffol
 - Start real team members as separate threads by default.
 - For parallel write-capable workers, use separate worktrees or explicitly disjoint `Allowed files to edit` ownership.
 - Set the worker thread name from `docs/process/naming-conventions.md`, include it in the worker prompt, and rename or request rename if the platform auto-generates a different title.
+- After creating a worker thread, perform one bounded start-health check: the thread should be readable and show the starter prompt, an acknowledgement, or other visible turn content. If a new thread stays `in progress` with zero visible items, or read tools can see it while rename/archive/search tools cannot resolve it, treat it as a platform thread-start failure rather than an active lane.
+- For a platform thread-start failure, do not wait indefinitely. Mark the thread id as superseded in the coordinator notes, try at most one replacement sidebar thread when useful, then fall back to a bounded same-turn subagent for read-only/analysis work or return a manual starter prompt for human paste. Do not send implementation work to an unacknowledged thread.
 - After starting a worker, wait for its returned packet instead of monitoring the worker thread.
 - Route lane-specific human clarifications to the active or most recent specialist instead of answering them inline.
 - Route post-start implementation/inventory/content changes to the active or most recent implementation worker by default; the coordinator records decisions, packets, and routing, not the artifact changes themselves.
@@ -224,6 +228,8 @@ For `Human decision routing`, default to `Return human gates to coordinator; do 
 For `Handoff return path`, default to `Send the final packet to coordinator thread <id> using thread tools if available; if no thread-send tool is available, return a coordinator-ready packet in this thread starting with Coordinator handoff - manual relay required for coordinator thread <id>`.
 
 For `Delivery guardrails`, include: `Do not forward this prompt, create another handoff thread, or send the packet to this worker thread. If direct delivery is unavailable, emit the manual-relay packet as the final message in this worker thread.`
+
+For `Stop condition`, make the ending explicit: `Return one packet, then stop.` If the worker cannot start, cannot access required sources, or reaches a human gate, it should return a blocker packet and stop rather than keep thinking or waiting in the lane.
 
 ## Human Gates
 
@@ -383,6 +389,7 @@ If create/send works but rename/archive is unavailable, the outgoing coordinator
 - Do not treat external proof, generated reports, screenshots, or live checks as broader evidence than the exact thing they verified.
 - Do not continue execution from memory after repeated corrections or source confusion; run a context reset first.
 - Do not monitor active worker threads unless the worker returns a packet/blocker, the human asks, or timeout recovery is needed.
+- Do not treat a newly created thread with no visible turn items as an active worker. Replace or fall back; do not let the coordinator wait on an empty running lane.
 - Do not test the wrong branch or worktree.
 - Do not let workers silently expand scope.
 - Do not edit active feature specs during implementation unless explicitly assigned.

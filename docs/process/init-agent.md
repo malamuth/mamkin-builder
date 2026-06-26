@@ -40,6 +40,8 @@ If the repository has no commits yet, report that and continue. If it is not a g
 
 If the folder was copied with an existing `.git/` directory, report the inherited branch, dirty state, and remotes. Treat template branches/remotes as inherited template state, not as approved project state. Ask before removing `.git/`, reinitializing git, changing remotes, or pushing anywhere.
 
+Project-local `.codex` config, hooks, rules, and agent presets load only after Codex trusts the copied project. If hooks, rules, or presets appear inactive, report that trust/review state may be the reason and ask the human to review trust or hooks in Codex before treating the workflow as broken.
+
 If docs are already partially adapted, preserve useful content and patch the blanks.
 
 In addition to the `AGENTS.md` hard rules, ask before installing dependencies, running networked setup, or changing system/global state.
@@ -79,10 +81,10 @@ Keep each doc narrow:
 - `docs/process/agent-orchestration.md` should change only when the coordination model, reusable process rules, or custom-role wiring changes. Put first-slice focus in the brief, roadmap, init handoff, or coordinator prompt instead.
 - `docs/process/naming-conventions.md` owns naming rules and the chosen project prefix only. Replace template placeholders; do not append duplicate prefix examples.
 - `.codex/config.toml` owns project-local Codex runtime config: approvals, sandbox defaults, multi-agent settings, and approved project-local MCP servers. Do not store secrets, token values, provider keys, private URLs, or one-off planning notes there.
-- `.codex/agents/` owns short project-local Codex subagent presets. Keep them as launch wrappers for role identity, sandbox/reasoning posture, and coordinator return path; do not duplicate full role cards or feature plans there.
+- `.codex/agents/` owns short project-local Codex subagent presets. Keep them as launch wrappers for role identity, sandbox/reasoning posture, and coordinator return path; do not duplicate full role cards or feature plans there. Preset sandbox/model/MCP settings are desired launch defaults, not a substitute for process gates; active runtime approvals may still be broader.
 - `.agents/skills/` owns repo-scoped Codex skill entrypoints. Keep skills focused and discoverable; they may point to process docs, scripts, or references, but should not duplicate full manuals.
 - `.codex/rules/` owns project-local command escalation policy for outside-sandbox commands. Do not put workflow rules, project plans, or role instructions there.
-- `.codex/hooks.json` and `.codex/hooks/` own project-local runtime reminders and scanners. Hooks may warn, add context, or request continuation, but workflow rules still live in Markdown.
+- `.codex/hooks.json` and `.codex/hooks/` own project-local runtime reminders and scanners. Hooks may warn, add context, or request continuation, but workflow rules still live in Markdown. Changed project hooks may need Codex trust/review before they run.
 - `.mamkin/` owns template version and ownership metadata for future Mamkin process sync. It is not product planning space.
 
 When in doubt, put product context in the brief or roadmap and link to it from the README.
@@ -207,6 +209,7 @@ Before coordinator handoff, check:
 - `.agents/skills/` contains only focused skill entrypoints or helper workflows and does not duplicate the full process manual.
 - `.codex/rules/` contains only approved outside-sandbox command policy and does not hide workflow instructions that agents should read from Markdown.
 - `.codex/hooks.json` and hook scripts contain only deterministic reminders/scanners and no hidden workflow instructions, secrets, or provider-specific project planning.
+- The handoff notes whether project-local `.codex` config/hooks/rules/presets are expected to be active, and reminds the human to trust the project or review hooks in Codex if they appear inactive.
 - `.mamkin/template-version.json` records the copied template baseline when known, or explicitly leaves it `TBD` for first-sync review mode.
 - `.mamkin/template-owned-files.md` protects project-owned docs/features/code from future template sync.
 - Any inherited template Git branch, dirty state, or remote has been treated as `TBD` for the copied project; no project/product commits were pushed to the template repository.

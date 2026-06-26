@@ -26,6 +26,8 @@ Fill these during init once the stack is known. Until then, do not invent comman
 - In copied projects, treat inherited Git state and remotes as `TBD` until the human approves a project-specific target. A template repo remote is not a valid push target for project/product commits.
 - Involve the human before adding or enabling MCP servers, connectors, provider integrations, or project config that reaches external services or starts local services.
 - Involve the human before weakening `.codex` sandbox, approval, hooks, rules, network, or shell environment restrictions.
+- Project-local `.codex` config, hooks, rules, and agent presets load only when Codex trusts the project. If expected hooks/rules/presets do not run, verify project trust and hook review state before changing workflow docs.
+- Treat `.codex/agents/*` sandbox, model, and MCP settings as launch defaults, not permission to bypass process gates. Current runtime approvals or inherited permissions may be broader; human gates and file ownership still apply.
 - Involve the human before touching secrets, tokens, billing, production data, destructive migrations, or public posting.
 - Involve the human before product tradeoffs that change scope, audience, privacy, data retention, or public behavior.
 - Involve the human before installing or changing system/global tooling, local databases/services, Docker/Colima, Homebrew packages, language runtimes, or other machine-level setup.

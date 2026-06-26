@@ -1,3 +1,7 @@
+# Project-local Codex config, hooks, rules, and agents load only when
+# Codex trusts the project. Changed hooks may also need review in Codex.
+# Codex also supports permission profiles; this template keeps the simpler
+# sandbox_mode settings until a project deliberately migrates runtime policy.
 approval_policy = "on-request"
 approvals_reviewer = "user"
 sandbox_mode = "workspace-write"

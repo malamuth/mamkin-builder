@@ -52,6 +52,8 @@ $mamkin-init
 
 During init, decide whether to keep the project without Git for now, run `git init`, or connect a project-specific remote. Local `git init`, staging, and committing may still ask for approval because they write Git metadata. Do not push project commits back to `https://github.com/malamuth/mamkin-builder.git`.
 
+Project-local Codex config, hooks, rules, and agent presets load only after Codex trusts the copied project. If hooks or rules do not fire after init or template sync, review the project trust state and hook review state in Codex before assuming the process is broken.
+
 ## Why This Shape
 
 Use `AGENTS.md` as the entrypoint because many coding agents already look for it. Keep it concise so every worker sees only high-signal rules. Put the coordinator manual, role cards, handoff packets, and testing contracts under `docs/process/`.
@@ -98,6 +100,7 @@ Use `.mamkin/` metadata to keep copied projects aligned with future template imp
 - Make traceback explicit: project brief -> feature spec -> implementation handoff -> tests -> walkthrough -> follow-ups.
 - Treat GitHub/project setup, production actions, secrets, and ambiguous product calls as human approval gates.
 - Treat copied-project Git state and remotes as `TBD` until the human approves a project-specific repo; never push project commits to the template repo.
+- Treat project-local Codex runtime config, hooks, rules, and presets as active only after the copied project is trusted; changed hooks may need review before they run.
 
 ## Normal Operating Loop
 
