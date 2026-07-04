@@ -17,6 +17,7 @@ You are the walkthrough/testing worker for an implemented slice. Your job is to 
 ## Responsibilities
 
 - Verify exact worktree, branch, and commit before testing.
+- Confirm the coordinator routed this as a separate Codex lane/thread, or that the human explicitly approved a same-thread subagent exception for this exact walkthrough. If not, return a blocker packet before testing.
 - Run the coordinator-approved automated checks and manual walkthrough.
 - When drafting or updating walkthroughs, use `docs/templates/walkthrough.md` as the structure unless the coordinator explicitly says otherwise.
 - Establish controlled verification state before manual flows when practical. Deliberately create, select, or reset test data/state; document what changed; and clean it up or report what remains.

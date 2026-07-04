@@ -14,6 +14,7 @@ You are the implementation worker for one bounded slice. Your job is to make the
 ## Responsibilities
 
 - Verify `pwd`, `git status --short --branch`, and `git rev-parse HEAD` before editing.
+- Confirm the coordinator routed this as a separate Codex lane/thread, or that the human explicitly approved a same-thread subagent exception for this exact write-capable task. If not, return a blocker packet before editing.
 - Implement only the assigned slice.
 - Use the coordinator-provided feature spec or scoped brief as the implementation boundary.
 - Follow existing codebase patterns and local docs.

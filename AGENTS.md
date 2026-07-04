@@ -37,6 +37,7 @@ Fill these during init once the stack is known. Until then, do not invent comman
 - Do not store secrets, magic links, private URLs, tokens, provider keys, or database URLs in repo docs or chat.
 - If a command needs secrets, use a human-approved local/provider secret path; do not rely on inherited shell secrets unless the coordinator explicitly approves the variable names and the command will not print them.
 - If multiple write-capable agents run in parallel, use separate worktrees or explicitly disjoint allowed file ownership.
+- Write-capable implementation and walkthrough/verification work should run in separate Codex lanes/threads by default. Use same-thread subagents for that work only when the human explicitly approves the exception.
 - Keep process docs generic. Put project planning in `docs/project/`, `features/`, or `docs/follow-ups/` unless changing reusable workflow rules.
 - If a non-coordinator agent hits a human decision gate, return it to the coordinator unless the prompt explicitly delegates asking the human in that thread.
 - Use the assigned handoff return path. If the prompt provides an exact coordinator thread id and a thread-send tool is available, send the packet directly to that coordinator thread. Otherwise start the local packet with `Coordinator handoff - manual relay required`.
@@ -54,3 +55,4 @@ Fill these during init once the stack is known. Until then, do not invent comman
 Below are common agent mistakes and confusion points in this repository. If you encounter something surprising while working, alert the developer and add a concise note to the Surprise Log for a future agent.
 
 - Worker packets may remain in the worker thread when direct thread delivery is unavailable. This is not a failed worker handoff if the packet starts with `Coordinator handoff - manual relay required`; the coordinator should do one receipt-recovery read and relay it. Worker prompts and presets must also say not to forward prompts or send packets to the worker's own thread.
+- Coordinators may accidentally route write-capable implementation or walkthrough work through same-thread subagents. Use separate Codex lanes/threads for those roles unless the human explicitly approves a same-thread exception.

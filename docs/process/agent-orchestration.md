@@ -13,7 +13,8 @@ Edit this file only when the coordination model, reusable workflow rules, custom
 - Coordinator reads this file and the needed packet files.
 - Workers read `AGENTS.md`, their role card under `docs/process/roles/`, the relevant feature or walkthrough docs, and only the packet file they must return.
 - Long-lived implementation, review, walkthrough, deployment, and research lanes should run as separate Codex threads by default.
-- Same-thread subagents are only for bounded sidecar tasks, mock runs, quick analysis, or experiments where the coordinator will immediately inspect and integrate the result.
+- Write-capable implementation and walkthrough/verification work must use separate Codex lanes/threads unless the human explicitly approves a same-thread subagent exception for that exact task.
+- Same-thread subagents are only for bounded sidecar tasks, mock runs, quick read-only analysis, or experiments where the coordinator will immediately inspect and integrate the result.
 
 ## Source Authority
 
@@ -164,10 +165,11 @@ If a needed custom role is missing those artifacts, ask the human before scaffol
 - Ensure every walkthrough follows `docs/templates/walkthrough.md` unless the coordinator explicitly records why a different structure is needed.
 - Before starting implementation, prefer a clean planning baseline commit that contains the accepted feature spec, walkthrough/runbook, roadmap status, and relevant decisions. If committing is not approved or Git is unavailable, record the exact baseline state in the worker prompt instead.
 - Start real team members as separate threads by default.
+- Do not use same-turn subagents for write-capable implementation or walkthrough/verification lanes unless the human explicitly approved that exception. If thread creation is failing, return a manual starter prompt or ask the human how to proceed instead of silently changing execution mode for write-capable work.
 - For parallel write-capable workers, use separate worktrees or explicitly disjoint `Allowed files to edit` ownership.
 - Set the worker thread name from `docs/process/naming-conventions.md`, include it in the worker prompt, and rename or request rename if the platform auto-generates a different title.
 - After creating a worker thread, perform one bounded start-health check: the thread should be readable and show the starter prompt, an acknowledgement, or other visible turn content. If a new thread stays `in progress` with zero visible items, or read tools can see it while rename/archive/search tools cannot resolve it, treat it as a platform thread-start failure rather than an active lane.
-- For a platform thread-start failure, do not wait indefinitely. Mark the thread id as superseded in the coordinator notes, try at most one replacement sidebar thread when useful, then fall back to a bounded same-turn subagent for read-only/analysis work or return a manual starter prompt for human paste. Do not send implementation work to an unacknowledged thread.
+- For a platform thread-start failure, do not wait indefinitely. Mark the thread id as superseded in the coordinator notes, try at most one replacement sidebar thread when useful, then fall back to a bounded same-turn subagent only for read-only/analysis work or return a manual starter prompt for human paste. Do not send implementation or walkthrough work to an unacknowledged thread, and do not convert it to a same-thread subagent without explicit human approval.
 - After starting a worker, wait for its returned packet instead of monitoring the worker thread.
 - Route lane-specific human clarifications to the active or most recent specialist instead of answering them inline.
 - Route post-start implementation/inventory/content changes to the active or most recent implementation worker by default; the coordinator records decisions, packets, and routing, not the artifact changes themselves.
@@ -277,6 +279,8 @@ Before creating or sending a feature doc to an architect, the coordinator must i
 Use only the needed packet file from `docs/process/handoff-packets/` at each step.
 
 Post-implementation verification is a separate lane. The coordinator should not run local/test database smoke, Docker smoke, deployment smoke, production setup, or provider setup inline by default. Use a walkthrough/testing worker for local and acceptance checks, and a deployment guide for environment, provider, or production setup. The coordinator may run a trivial already-available check inline only when it states why it is safe and no new tooling, service, account, secret, or production access is needed.
+
+Walkthrough/testing workers should also run as separate Codex lanes by default. A same-thread subagent may summarize or inspect read-only evidence, but it should not be the acceptance walkthrough for a changed worktree unless the human explicitly approves that exception.
 
 Approval of a verification lane does not approve installing missing tooling. If required local tooling is absent, stop and ask the human to choose: provide an existing endpoint/tool, approve a specific install/setup, use an already available alternative, or defer the check.
 
@@ -390,6 +394,7 @@ If create/send works but rename/archive is unavailable, the outgoing coordinator
 - Do not continue execution from memory after repeated corrections or source confusion; run a context reset first.
 - Do not monitor active worker threads unless the worker returns a packet/blocker, the human asks, or timeout recovery is needed.
 - Do not treat a newly created thread with no visible turn items as an active worker. Replace or fall back; do not let the coordinator wait on an empty running lane.
+- Do not replace write-capable implementation or walkthrough lanes with same-thread subagents unless the human explicitly approves the mode change.
 - Do not test the wrong branch or worktree.
 - Do not let workers silently expand scope.
 - Do not edit active feature specs during implementation unless explicitly assigned.
