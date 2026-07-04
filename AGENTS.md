@@ -46,6 +46,7 @@ Fill these during init once the stack is known. Until then, do not invent comman
 - If a coordinator repeats corrected facts, loses source ownership, over-focuses on stale details, or starts reasoning from memory in a complex lane, pause execution and run a source-grounded context reset or architect check before continuing.
 - A fresh coordinator thread does not require a fresh Git branch. Use a committed coordinator reset packet as the new thread baseline; create a branch/worktree only for the next write-capable slice when isolation is needed.
 - When the human approves coordinator rollover and thread-management tools are available, the outgoing coordinator performs the rollover end-to-end: create or start the fresh coordinator thread, send the reset prompt, verify receipt, then rename/archive the old thread and make the fresh thread the main coordinator when supported.
+- Do not fork coordinator threads to create implementation, walkthrough, or specialist lanes. Forking carries completed coordinator history; use clean thread creation with a standalone role prompt unless inherited history is explicitly intended.
 - Run appropriate checks before declaring work done, or clearly report what was not run.
 - Record durable project decisions in `docs/project/decision-log.md`; use the Surprise Log only for agent mistakes and confusion points.
 - Keep active feature specs stable once implementation starts. Put completed test notes and non-blocking follow-ups under `docs/follow-ups/`.
@@ -56,3 +57,4 @@ Below are common agent mistakes and confusion points in this repository. If you 
 
 - Worker packets may remain in the worker thread when direct thread delivery is unavailable. This is not a failed worker handoff if the packet starts with `Coordinator handoff - manual relay required`; the coordinator should do one receipt-recovery read and relay it. Worker prompts and presets must also say not to forward prompts or send packets to the worker's own thread.
 - Coordinators may accidentally route write-capable implementation or walkthrough work through same-thread subagents. Use separate Codex lanes/threads for those roles unless the human explicitly approves a same-thread exception.
+- Forked coordinator threads can inherit reset packets and coordinator history instead of becoming clean worker lanes. If a worker/walkthrough lane preview shows coordinator handoff or reset context, supersede it and create a clean thread with a standalone prompt.

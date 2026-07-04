@@ -15,6 +15,7 @@ Edit this file only when the coordination model, reusable workflow rules, custom
 - Long-lived implementation, review, walkthrough, deployment, and research lanes should run as separate Codex threads by default.
 - Write-capable implementation and walkthrough/verification work must use separate Codex lanes/threads unless the human explicitly approves a same-thread subagent exception for that exact task.
 - Same-thread subagents are only for bounded sidecar tasks, mock runs, quick read-only analysis, or experiments where the coordinator will immediately inspect and integrate the result.
+- New worker/specialist lanes should be clean thread creations with standalone role prompts. Do not fork the coordinator thread to create implementation, walkthrough, review, deployment, or specialist lanes unless the human explicitly wants inherited conversation history.
 
 ## Source Authority
 
@@ -166,9 +167,10 @@ If a needed custom role is missing those artifacts, ask the human before scaffol
 - Before starting implementation, prefer a clean planning baseline commit that contains the accepted feature spec, walkthrough/runbook, roadmap status, and relevant decisions. If committing is not approved or Git is unavailable, record the exact baseline state in the worker prompt instead.
 - Start real team members as separate threads by default.
 - Do not use same-turn subagents for write-capable implementation or walkthrough/verification lanes unless the human explicitly approved that exception. If thread creation is failing, return a manual starter prompt or ask the human how to proceed instead of silently changing execution mode for write-capable work.
+- Use clean thread creation for new worker and walkthrough lanes. Treat `fork_thread` as context inheritance, not normal lane creation; a fork of the coordinator can carry reset packets, old packets, and coordinator state into a role that should start clean.
 - For parallel write-capable workers, use separate worktrees or explicitly disjoint `Allowed files to edit` ownership.
 - Set the worker thread name from `docs/process/naming-conventions.md`, include it in the worker prompt, and rename or request rename if the platform auto-generates a different title.
-- After creating a worker thread, perform one bounded start-health check: the thread should be readable and show the starter prompt, an acknowledgement, or other visible turn content. If a new thread stays `in progress` with zero visible items, or read tools can see it while rename/archive/search tools cannot resolve it, treat it as a platform thread-start failure rather than an active lane.
+- After creating a worker thread, perform one bounded start-health check: the thread should be readable and show the standalone worker starter prompt, an acknowledgement, or other visible turn content for the assigned role. If a new thread stays `in progress` with zero visible items, shows inherited coordinator/reset context instead of the worker prompt, or read tools can see it while rename/archive/search tools cannot resolve it, treat it as a platform thread-start failure rather than an active lane.
 - For a platform thread-start failure, do not wait indefinitely. Mark the thread id as superseded in the coordinator notes, try at most one replacement sidebar thread when useful, then fall back to a bounded same-turn subagent only for read-only/analysis work or return a manual starter prompt for human paste. Do not send implementation or walkthrough work to an unacknowledged thread, and do not convert it to a same-thread subagent without explicit human approval.
 - After starting a worker, wait for its returned packet instead of monitoring the worker thread.
 - Route lane-specific human clarifications to the active or most recent specialist instead of answering them inline.
@@ -338,7 +340,7 @@ Recommended rollover sequence:
 2. Coordinator or architect prepares a source-grounded reset packet from current files, decisions, packets, and repo state.
 3. Human reviews any material decisions or stale-assumption corrections.
 4. Commit the reset packet and process/doc updates when Git is available and approved.
-5. Create a fresh coordinator thread. Prefer creating a clean new coordinator over forking when fork would carry contaminated context; use fork only when the platform gives a clean enough start or the human requests it.
+5. Create a fresh coordinator thread. Prefer creating a clean new coordinator over forking when fork would carry contaminated context; use fork only when the platform gives a clean enough start or the human requests it. This rollover exception does not make forks appropriate for ordinary worker or walkthrough lane creation.
 6. Send the starter prompt below to the fresh coordinator thread, including the reset packet or path to the committed reset doc.
 7. Verify the fresh coordinator thread exists and has the starter prompt. If possible, wait for or inspect its first acknowledgement before treating rollover as complete.
 8. Rename/archive the old coordinator thread when the platform supports it, using the archived coordinator pattern from `docs/process/naming-conventions.md`.
@@ -395,6 +397,7 @@ If create/send works but rename/archive is unavailable, the outgoing coordinator
 - Do not monitor active worker threads unless the worker returns a packet/blocker, the human asks, or timeout recovery is needed.
 - Do not treat a newly created thread with no visible turn items as an active worker. Replace or fall back; do not let the coordinator wait on an empty running lane.
 - Do not replace write-capable implementation or walkthrough lanes with same-thread subagents unless the human explicitly approves the mode change.
+- Do not fork coordinator threads into worker or walkthrough lanes. If a lane inherits coordinator/reset history, supersede it and create a clean role thread.
 - Do not test the wrong branch or worktree.
 - Do not let workers silently expand scope.
 - Do not edit active feature specs during implementation unless explicitly assigned.
