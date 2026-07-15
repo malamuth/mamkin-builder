@@ -53,19 +53,11 @@ Agent may decide:
 - The relevant state is visible or verifiable ...
 - Failure cases are covered ...
 
-## Manual Test Flows
+## Verification Scenarios
 
-### Flow 1: Happy Path
-
-1. Start from ...
-2. Do ...
-3. Confirm ...
-
-### Flow 2: Boundary Or Error Case
-
-1. Start from ...
-2. Do ...
-3. Confirm ...
+- Happy path and expected observable outcome:
+- Boundary or error case and expected observable outcome:
+- State, data, or cleanup behavior that must be verified:
 
 ## Automated Test Plan
 
@@ -80,7 +72,7 @@ Agent may decide:
 - Required accounts or services:
 - Human actions needed:
 - Evidence to capture:
-- Suggested walkthrough focus:
+- Detailed commands and steps belong in `docs/walkthroughs/`, not this spec.
 
 ## Implementation Notes
 
@@ -96,4 +88,4 @@ This feature is ready for implementation when:
 - Acceptance criteria are testable.
 - Human gates are explicit.
 - Required dependencies are available or called out.
-- Suggested walkthrough focus is clear enough for the coordinator to create or assign a runbook.
+- Verification scenarios and evidence needs are clear enough for the coordinator to create or assign a runbook.

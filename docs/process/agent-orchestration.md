@@ -12,6 +12,7 @@ Edit this file only when the coordination model, reusable workflow rules, custom
 
 - Coordinator reads this file and the needed packet files.
 - Workers read `AGENTS.md`, their role card under `docs/process/roles/`, the relevant feature or walkthrough docs, and only the packet file they must return.
+- Read `docs/process/thread-operations.md` only when starting, receiving from, or recovering a separate worker lane.
 - Long-lived implementation, review, walkthrough, deployment, and research lanes should run as separate Codex threads by default.
 - Write-capable implementation and walkthrough/verification work must use separate Codex lanes/threads unless the human explicitly approves a same-thread subagent exception for that exact task.
 - Same-thread subagents are only for bounded sidecar tasks, mock runs, quick read-only analysis, or experiments where the coordinator will immediately inspect and integrate the result.
@@ -74,15 +75,9 @@ Every non-coordinator agent returns its final packet to the coordinator. Agents 
 
 ## Thread Delivery Contract
 
-Separate worker threads can return packets directly when thread tools and the coordinator thread id are available, but cross-thread delivery is not guaranteed.
+Workers follow the handoff invariant in `AGENTS.md`. Every dynamic worker prompt supplies the exact coordinator thread id, return path, output packet, and stop rule. The coordinator confirms receipt before routing follow-up work.
 
-Every worker prompt must specify the coordinator thread id and handoff return path. Preferred path: when the prompt provides an exact coordinator thread id and a thread-send tool is available, send the final packet directly to that coordinator thread. Fallback: if direct thread delivery is unavailable, return a coordinator-ready packet in the worker thread starting with `Coordinator handoff - manual relay required` and include the coordinator thread id.
-
-The fallback path is an expected success path. Workers should not try to compensate by forwarding the prompt, creating a new thread, or sending a packet to their own worker thread. If the prompt lacks an exact coordinator thread id or no thread-send tool is available, the worker should end with the manual-relay packet as the final message in the worker thread.
-
-The coordinator is responsible for confirming it received the packet, whether by direct thread delivery or by collecting/pasting a fallback handoff. A fallback packet is not delivered until it is relayed into the coordinator thread.
-
-While a worker is running, the coordinator should stay quiet on that lane. Do not poll, read, summarize, or steer active worker threads unless the worker returns a packet/blocker, the human explicitly asks for inspection, or a clear timeout/recovery step is needed. If direct delivery does not arrive after the worker finishes, the coordinator may perform one collection read to relay a fallback packet; this is receipt recovery, not live monitoring. The coordinator thread should remain available for the human to discuss scope, priorities, and unrelated coordination while workers work independently.
+For clean thread creation, start-health checks, manual-relay recovery, and polling boundaries, read `docs/process/thread-operations.md`.
 
 ## Decision Routing
 
@@ -167,12 +162,9 @@ If a needed custom role is missing those artifacts, ask the human before scaffol
 - Before starting implementation, prefer a clean planning baseline commit that contains the accepted feature spec, walkthrough/runbook, roadmap status, and relevant decisions. If committing is not approved or Git is unavailable, record the exact baseline state in the worker prompt instead.
 - Start real team members as separate threads by default.
 - Do not use same-turn subagents for write-capable implementation or walkthrough/verification lanes unless the human explicitly approved that exception. If thread creation is failing, return a manual starter prompt or ask the human how to proceed instead of silently changing execution mode for write-capable work.
-- Use clean thread creation for new worker and walkthrough lanes. Treat `fork_thread` as context inheritance, not normal lane creation; a fork of the coordinator can carry reset packets, old packets, and coordinator state into a role that should start clean.
 - For parallel write-capable workers, use separate worktrees or explicitly disjoint `Allowed files to edit` ownership.
 - Set the worker thread name from `docs/process/naming-conventions.md`, include it in the worker prompt, and rename or request rename if the platform auto-generates a different title.
-- After creating a worker thread, perform one bounded start-health check: the thread should be readable and show the standalone worker starter prompt, an acknowledgement, or other visible turn content for the assigned role. If a new thread stays `in progress` with zero visible items, shows inherited coordinator/reset context instead of the worker prompt, or read tools can see it while rename/archive/search tools cannot resolve it, treat it as a platform thread-start failure rather than an active lane.
-- For a platform thread-start failure, do not wait indefinitely. Mark the thread id as superseded in the coordinator notes, try at most one replacement sidebar thread when useful, then fall back to a bounded same-turn subagent only for read-only/analysis work or return a manual starter prompt for human paste. Do not send implementation or walkthrough work to an unacknowledged thread, and do not convert it to a same-thread subagent without explicit human approval.
-- After starting a worker, wait for its returned packet instead of monitoring the worker thread.
+- Follow `docs/process/thread-operations.md` for clean creation, start-health checks, delivery, receipt recovery, and fallback.
 - Route lane-specific human clarifications to the active or most recent specialist instead of answering them inline.
 - Route post-start implementation/inventory/content changes to the active or most recent implementation worker by default; the coordinator records decisions, packets, and routing, not the artifact changes themselves.
 - Trigger a source-grounded context reset when the thread repeats corrected facts, loses source ownership, treats old packets as authority, or cannot cite the source behind important claims.
@@ -191,26 +183,28 @@ If a needed custom role is missing those artifacts, ask the human before scaffol
 Every worker prompt should include:
 
 ```text
-Project:
 Role:
+Goal:
+Success criteria:
+Required evidence and source authority:
+Scope and allowed files:
+Human and permission boundaries:
+Validation required:
+Output packet:
+Stop and fallback rules:
+Project:
+Feature/Slice:
 Agent preset:
 Thread name:
 Worker thread id, if known:
-Feature/Slice:
 Source thread:
 Coordinator thread id:
 Expected worktree:
 Expected branch or commit:
 Allowed worktree sharing: separate worktree | disjoint files only | read-only
 Read first:
-Allowed files to edit:
 Do not edit:
-Handoff target: coordinator
 Handoff return path:
-Human decision routing:
-Delivery guardrails:
-Stop condition:
-Expected final packet:
 ```
 
 The `Read first` list should stay short. Prefer:
@@ -225,15 +219,11 @@ Do not start implementation workers from roadmap candidates alone unless the coo
 
 For `Thread name`, use `docs/process/naming-conventions.md`. If the platform creates a different title, rename the thread or request rename before treating the worker as properly started. Do not rely on auto-generated titles from the first prompt words.
 
-For `Coordinator thread id`, provide the exact coordinator thread id that should receive direct thread-send packets. For `Worker thread id, if known`, provide the worker's own thread id only as an anti-self-send guard and receipt-recovery handle; it is never the packet delivery target.
+Lead with the result the lane must produce. `Success criteria` names the observable completion bar; `Required evidence and source authority` names the inputs that support important claims; `Validation required` names checks that matter and how to report gaps.
 
-For `Human decision routing`, default to `Return human gates to coordinator; do not ask the human directly in this thread`.
+For `Coordinator thread id`, provide the exact delivery target. `Worker thread id` is only an anti-self-send and recovery handle. `Handoff return path` supplies the direct-send target and the manual fallback required by `AGENTS.md`.
 
-For `Handoff return path`, default to `Send the final packet to coordinator thread <id> using thread tools if available; if no thread-send tool is available, return a coordinator-ready packet in this thread starting with Coordinator handoff - manual relay required for coordinator thread <id>`.
-
-For `Delivery guardrails`, include: `Do not forward this prompt, create another handoff thread, or send the packet to this worker thread. If direct delivery is unavailable, emit the manual-relay packet as the final message in this worker thread.`
-
-For `Stop condition`, make the ending explicit: `Return one packet, then stop.` If the worker cannot start, cannot access required sources, or reaches a human gate, it should return a blocker packet and stop rather than keep thinking or waiting in the lane.
+`Stop and fallback rules` should say `Return one packet, then stop`, and require a blocker packet when the worker cannot access required sources, reaches a human gate, or cannot satisfy the completion bar.
 
 ## Human Gates
 
@@ -300,108 +290,26 @@ Record durable decisions in `docs/project/decision-log.md`. Record non-blocking 
 
 The roadmap should reflect the current durable feature state, not just initial spec creation. If roadmap status and feature docs disagree, update the roadmap before starting the next lane or finalizing a cycle.
 
-## Context Reset Pattern
+## Context Health, Reset, And Rollover
 
-When unsure whether a thread needs reset or rollover, run the read-only context health audit in `docs/process/context-health-audit.md`. The audit returns one of four statuses: `OK`, `watch`, `context reset recommended`, or `rollover recommended`.
+Use `docs/process/context-health-audit.md` or `mamkin-context-audit` when source grounding or coordinator reliability is in doubt. The audit chooses normal continuation, watch, same-thread reset, or rollover.
 
-`watch` means the coordinator may continue carefully, but the audit must name the trigger that would require reset. It is not a second reset protocol.
+A same-thread reset is read-only and uses `mamkin-context-reset`. An approved rollover uses `mamkin-coordinator-rollover` and `docs/process/handoff-packets/coordinator-reset.md`. The focused skills own their prerequisites, packet shape, thread operations, and stop rules; do not duplicate those protocols in ordinary coordinator context.
 
-A context reset is read-only unless the coordinator explicitly assigns doc updates afterward. The reset packet should answer:
-
-- Which current files, docs, reports, commits, environments, or human decisions were read.
-- What is currently authoritative.
-- What older packet details, assumptions, or generated outputs are obsolete or only historical evidence.
-- What external proof shows and what it does not show.
-- What action is safe next, or which blocker remains.
-
-Use this pattern instead of arguing from memory in long coordinator threads.
-
-Context reset and rollover are related but distinct. A context reset keeps the same coordinator thread and requires a source-grounded restatement before more work. A rollover creates/promotes a fresh coordinator from a reset baseline when the current coordinator thread is structurally unreliable.
-
-## Coordinator Rollover
-
-Use coordinator rollover when the current coordinator thread is too long, context-heavy, direction has changed, old packets are competing with current sources, or a context reset finds repeated source confusion.
-
-Rollover is a context-management action, not a Git-branching action. Start a fresh coordinator thread from a committed reset baseline when possible. Create a new branch or worktree only for the next write-capable implementation, docs, deployment, or artifact slice when file ownership or review isolation requires it.
-
-Before starting the new coordinator, prepare `docs/process/handoff-packets/coordinator-reset.md` as either a durable project doc under `docs/project/`, a final packet in the old coordinator thread, or both. Prefer committing the reset packet and relevant process/doc updates first so the new coordinator can start from repo truth instead of chat memory.
-
-The reset packet should include source authority, current model, obsolete assumptions, active lanes, dirty repos/worktrees, external proof boundaries, next safe action, and actions the next coordinator must not take yet.
-
-When the human approves rollover and thread-management tools are available, the current coordinator should execute the rollover end-to-end. Do not hand the human a prompt to paste unless thread creation/sending/renaming tools are unavailable or blocked.
-
-During rollover, the current coordinator becomes the outgoing coordinator. Its job is to transfer authority, not to keep coordinating future work. The outgoing coordinator should not start new implementation, review, walkthrough, deployment, research, or Figma/live-validation lanes after rollover starts. It may only prepare the reset packet, create/send/verify the fresh coordinator start, rename/archive itself, and report the result.
-
-There should be only one main coordinator thread after rollover. The fresh coordinator must become the main coordinator once it has received the reset prompt. If title tools are available, either rename/archive the old coordinator before assigning the main coordinator title to the fresh thread, or create the fresh thread with a temporary reset title and then promote it after the old thread is archived. Do not leave two visible coordinator threads that both look active.
-
-Recommended rollover sequence:
-
-1. Old coordinator pauses implementation and live validation.
-2. Coordinator or architect prepares a source-grounded reset packet from current files, decisions, packets, and repo state.
-3. Human reviews any material decisions or stale-assumption corrections.
-4. Commit the reset packet and process/doc updates when Git is available and approved.
-5. Create a fresh coordinator thread. Prefer creating a clean new coordinator over forking when fork would carry contaminated context; use fork only when the platform gives a clean enough start or the human requests it. This rollover exception does not make forks appropriate for ordinary worker or walkthrough lane creation.
-6. Send the starter prompt below to the fresh coordinator thread, including the reset packet or path to the committed reset doc.
-7. Verify the fresh coordinator thread exists and has the starter prompt. If possible, wait for or inspect its first acknowledgement before treating rollover as complete.
-8. Rename/archive the old coordinator thread when the platform supports it, using the archived coordinator pattern from `docs/process/naming-conventions.md`.
-9. Promote the fresh coordinator to the normal main coordinator title from `docs/process/naming-conventions.md` when title tools are available.
-10. Report the new coordinator thread id, baseline commit/doc, old-thread status, title/promotion status, and whether the next write-capable slice needs a branch/worktree.
-
-Fresh coordinator starter prompt:
-
-```text
-Read AGENTS.md, docs/process/agent-orchestration.md, docs/process/handoff-packets/coordinator-reset.md, docs/project/decision-log.md, the relevant feature/roadmap docs, and the committed coordinator reset packet/doc listed below.
-
-Start as the fresh coordinator after coordinator rollover. Do not implement, merge, deploy, run live validation, or start write-capable workers yet.
-
-First action: produce a source-grounded architecture restatement from current repo files and the reset packet. Verify repo state and HEAD before reasoning. Treat the old coordinator thread, old packets, and old summaries as historical evidence only.
-
-Reset packet/doc:
-<path or packet content>
-
-Required restatement:
-- Source authority and exact baseline.
-- Current model and active scope.
-- Obsolete or unsafe assumptions.
-- Active lanes and dirty repos/worktrees.
-- External proof boundary.
-- Next safe action and must-not-do-next.
-- Whether the next write-capable slice needs a branch/worktree.
-```
-
-If no thread-management tools are available, write the reset packet locally and return the exact starter prompt as a manual fallback for the human to paste. State that manual start is a fallback because tools were unavailable, not the preferred rollover path. Do not keep trying to repair a drifting coordinator through more inline explanations.
-
-If create/send works but rename/archive is unavailable, the outgoing coordinator must clearly report that old-thread cleanup is manual. It should mark itself historical in its final response and avoid taking more coordination actions. The human or a later coordinator may archive/rename it when tooling becomes available.
+Rollover transfers coordinator authority and is not a Git-branching action. The outgoing coordinator stops feature coordination after transfer begins, and only one thread should remain visibly authoritative when cleanup tools are available.
 
 ## Git And GitHub
 
-- Verify repo state before each implementation or walkthrough.
-- In copied projects, treat inherited template Git state and remotes as `TBD`, not as valid project push targets. Do not push project/product commits until the human approves a project-specific remote.
-- Do not run multiple write-capable workers on the same worktree/files unless their ownership is explicitly disjoint; prefer separate worktrees for true parallel implementation.
-- If git is not initialized, ask before `git init`; creating `.git` may require approval in local agent environments even though the folder is local.
-- If staging or committing writes to local Git metadata and the environment asks for approval, request it explicitly and explain that no remote push is implied.
-- If no initial commit exists, propose one after docs are adapted.
-- Before implementation lanes, prefer a small planning commit so workers start from a stable baseline; if not possible, include the clean/dirty baseline details in each worker prompt.
-- A fresh coordinator thread does not require a fresh branch. Branches/worktrees are for write-capable work isolation, not for coordinator context rollover by itself.
-- Ask before creating remotes, pushing, creating GitHub issues, milestones, or project boards.
-- If GitHub Projects are used, keep issues small enough to map to feature specs or sub-slices.
-- Mention expected branch/commit in every worker prompt and final packet.
+- Follow the Git, remote, external-write, and parallel-ownership gates in `AGENTS.md`.
+- Verify repo state before each implementation or walkthrough and include the expected worktree and branch/commit in every worker prompt and final packet.
+- Prefer a small accepted planning commit before implementation. If committing is unavailable or not approved, record the exact clean or dirty baseline in the worker prompt.
+- Branches and worktrees isolate write-capable work; coordinator rollover alone does not need a new branch.
+- If GitHub issues or projects are approved, keep them small enough to map to feature specs or bounded sub-slices.
 
-## Failure Prevention
+## Completion Rules
 
-- Do not run duplicate implementation workers for the same slice.
-- Do not let parallel write-capable workers edit the same files or feature spec.
-- Do not let old handoff packets or summaries override current source files, manifests, docs, or human corrections.
-- Do not treat external proof, generated reports, screenshots, or live checks as broader evidence than the exact thing they verified.
-- Do not continue execution from memory after repeated corrections or source confusion; run a context reset first.
-- Do not monitor active worker threads unless the worker returns a packet/blocker, the human asks, or timeout recovery is needed.
-- Do not treat a newly created thread with no visible turn items as an active worker. Replace or fall back; do not let the coordinator wait on an empty running lane.
-- Do not replace write-capable implementation or walkthrough lanes with same-thread subagents unless the human explicitly approves the mode change.
-- Do not fork coordinator threads into worker or walkthrough lanes. If a lane inherits coordinator/reset history, supersede it and create a clean role thread.
-- Do not test the wrong branch or worktree.
-- Do not let workers silently expand scope.
-- Do not edit active feature specs during implementation unless explicitly assigned.
-- Do not let the coordinator keep implementing inside its own thread after a worker lane exists; use worker packets and retest loops instead.
-- Do not hide test gaps behind a confident final sentence.
-- Do not paste secrets into docs or chat.
-- Do not create production resources without human approval.
+- One implementation owner per slice; parallel writers need isolated or disjoint ownership.
+- Test the exact expected branch/commit and keep external proof narrower than the claim it supports.
+- Route source confusion to context audit/reset instead of continuing from memory.
+- Keep coordinator, implementation, review, walkthrough, and deployment ownership distinct once their lanes exist.
+- Final status must name validation run, validation omitted, remaining human steps, follow-ups, and the next action.

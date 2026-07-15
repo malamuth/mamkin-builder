@@ -71,7 +71,9 @@ Use `.mamkin/` metadata to keep copied projects aligned with future template imp
 - `.codex/rules/`: project-local outside-sandbox command policy.
 - `docs/process/init-agent.md`: project initialization protocol and questionnaire.
 - `docs/process/agent-orchestration.md`: coordinator orchestration manual.
+- `docs/process/thread-operations.md`: focused worker-thread creation, delivery, and recovery rules.
 - `docs/process/context-health-audit.md`: read-only audit protocol for OK/watch/context reset/rollover decisions.
+- `docs/process/prompt-evals.md`: regression protocol for prompt, role, hook, and reasoning changes.
 - `docs/process/template-sync.md`: safe sync protocol for updating copied projects from the current template.
 - `docs/process/naming-conventions.md`: doc and agent-thread naming rules.
 - `docs/process/roles/*.md`: small role cards for non-coordinator worker threads.
@@ -88,6 +90,8 @@ Use `.mamkin/` metadata to keep copied projects aligned with future template imp
 - `docs/templates/walkthrough.md`: coordinator-owned walkthrough/runbook template.
 - `docs/templates/role-card.md`: scaffold for custom recurring specialist roles.
 - `docs/templates/handoff-packet.md`: scaffold for custom role handoff packets.
+- `evals/mamkin-prompt-cases.json`: representative behavior cases for prompt regressions.
+- `scripts/validate_prompt_contracts.py`: deterministic prompt-contract and size checks.
 
 ## Design Principles
 
@@ -101,6 +105,7 @@ Use `.mamkin/` metadata to keep copied projects aligned with future template imp
 - Treat GitHub/project setup, production actions, secrets, and ambiguous product calls as human approval gates.
 - Treat copied-project Git state and remotes as `TBD` until the human approves a project-specific repo; never push project commits to the template repo.
 - Treat project-local Codex runtime config, hooks, rules, and presets as active only after the copied project is trusted; changed hooks may need review before they run.
+- Change prompt contracts and reasoning defaults one group at a time, and keep only changes that pass representative evals.
 
 ## Normal Operating Loop
 

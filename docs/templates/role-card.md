@@ -58,5 +58,4 @@ SHOULD involve human:
 ## Return
 
 Use `docs/process/handoff-packets/<role-name>.md`.
-
-Prefer sending the packet to the coordinator thread when a coordinator thread id and thread tools are available. If direct delivery is unavailable, return a coordinator-ready packet in this thread labeled `Coordinator handoff`.
+Follow the Worker Handoff Contract in `AGENTS.md`. Return one packet, then stop.

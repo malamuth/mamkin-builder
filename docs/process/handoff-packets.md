@@ -8,15 +8,7 @@ Handoff packets are evidence, not permanent authority. If an older packet confli
 
 When a packet makes architecture, source-ownership, generated-artifact, deployment, data, or integration claims, it should name the files, docs, reports, branch/commit, environment, or external proof it relied on. External proof should be described narrowly: what it observed, where, and what it does not prove.
 
-Preferred delivery is direct return to the coordinator thread when the worker prompt provides an exact coordinator thread id and a thread-send tool is available. If direct delivery is unavailable, return the packet in the worker thread starting with `Coordinator handoff - manual relay required` and include the coordinator thread id. The coordinator is responsible for confirming receipt before continuing; a fallback packet is not delivered until it is relayed into the coordinator thread.
-
-`Manual relay required` is a valid completed worker outcome, not a failed handoff. Use it whenever the prompt lacks an exact coordinator thread id or no thread-send tool is available.
-
-Workers must not forward coordinator prompts, create duplicate handoff threads, or send packets to their own worker thread. If a thread-send tool is used, the target `threadId` must be the coordinator thread id from the prompt, never the worker's current thread id, source thread id, or a newly created thread. If the prompt lacks an exact coordinator thread id or no thread-send tool is available, emit the manual-relay packet as the final message in the worker thread.
-
-Every final non-coordinator packet must fill `Coordinator thread id` and `Return path used` so the coordinator can distinguish direct delivery from manual relay.
-
-Coordinators should not poll or read active worker threads while waiting. Continue only after a returned packet/blocker, a human inspection request, or an explicit timeout/recovery step. If a worker has finished but no direct packet arrived, one collection read is allowed to relay the fallback packet.
+Workers follow the Worker Handoff Contract in `AGENTS.md` and the exact path in their task prompt. Every final non-coordinator packet fills `Coordinator thread id` and `Return path used`. Coordinator-side delivery and recovery mechanics live in `docs/process/thread-operations.md`.
 
 - Coordinator kickoff: `docs/process/handoff-packets/coordinator-kickoff.md`
 - Coordinator reset/rollover: `docs/process/handoff-packets/coordinator-reset.md`

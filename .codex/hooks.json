@@ -25,18 +25,6 @@
         ]
       }
     ],
-    "SubagentStart": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "root=\"$(git rev-parse --show-toplevel 2>/dev/null || pwd)\"; /usr/bin/python3 \"$root/.codex/hooks/subagent_start_context.py\"",
-            "timeout": 10,
-            "statusMessage": "Adding Mamkin subagent handoff context"
-          }
-        ]
-      }
-    ],
     "Stop": [
       {
         "hooks": [

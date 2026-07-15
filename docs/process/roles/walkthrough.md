@@ -42,7 +42,4 @@ You are the walkthrough/testing worker for an implemented slice. Your job is to 
 ## Return
 
 Use `docs/process/handoff-packets/walkthrough-defect.md` or `docs/process/handoff-packets/walkthrough-readiness.md`.
-
-Send the packet to the coordinator thread when the prompt provides an exact coordinator thread id and a thread-send tool is available. If direct delivery is unavailable, return a coordinator-ready packet as the final message in this worker thread starting with `Coordinator handoff - manual relay required for coordinator thread <id>`.
-
-Do not forward prompts, create duplicate handoff threads, or send packets to your own worker thread. Do not continue after emitting the packet.
+Follow the Worker Handoff Contract in `AGENTS.md`. Return one packet, then stop.

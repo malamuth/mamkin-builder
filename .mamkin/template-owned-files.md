@@ -17,8 +17,12 @@ These files are reusable workflow surface. They may usually be updated from the 
 - `docs/process/handoff-packets/*.md`
 - `docs/process/roles/*.md`
 - `docs/process/context-health-audit.md`
+- `docs/process/thread-operations.md`
+- `docs/process/prompt-evals.md`
 - `docs/process/template-sync.md`
 - `docs/templates/*.md`
+- `evals/mamkin-prompt-cases.json`
+- `scripts/validate_prompt_contracts.py`
 - `features/README.md`
 
 ### Mixed Ownership

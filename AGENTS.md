@@ -2,59 +2,44 @@
 
 ## Request Routing
 
-- If asked to improve this template itself, edit the template docs directly; do not run the project init flow.
-- If asked to initialize, adapt, or start a copied project from this template, read and follow `docs/process/init-agent.md`.
-- If asked to coordinate feature work or multi-agent work, read `docs/process/agent-orchestration.md`.
-- If asked whether coordinator context is contaminated, drifting, or ready for reset/rollover, read `.agents/skills/mamkin-context-audit/SKILL.md`.
-- If asked to run a same-thread context reset, read `.agents/skills/mamkin-context-reset/SKILL.md`.
-- If asked to run coordinator rollover, read `.agents/skills/mamkin-coordinator-rollover/SKILL.md`.
-- If asked to update a copied project's Mamkin process layer from the current template, read `.agents/skills/mamkin-template-sync/SKILL.md`.
-- If assigned a worker or specialist role, read the matching role card in `docs/process/roles/` instead of the full orchestration manual.
-- For product context, read `docs/project/brief.md`, `docs/project/decision-log.md`, the relevant `features/*.md`, and any relevant walkthrough in `docs/walkthroughs/`.
+- Improve the template itself by editing template files directly; do not run project init. Prompt, role, hook, or reasoning changes also follow `docs/process/prompt-evals.md`.
+- Initialize or adapt a copied project with `.agents/skills/mamkin-init/SKILL.md` and `docs/process/init-agent.md`.
+- Coordinate feature or multi-agent work with `.agents/skills/mamkin-coordinate/SKILL.md` and `docs/process/agent-orchestration.md`.
+- Audit coordinator drift with `.agents/skills/mamkin-context-audit/SKILL.md`; run an approved same-thread reset or rollover with the matching Mamkin skill.
+- Update a copied project's process layer with `.agents/skills/mamkin-template-sync/SKILL.md`.
+- Assigned workers read their role card under `docs/process/roles/`, the relevant feature or walkthrough, and only the packet they must return.
+- Product context lives in `docs/project/brief.md`, `docs/project/decision-log.md`, relevant `features/*.md`, and `docs/walkthroughs/`.
 
 ## Project Commands
 
-Fill these during init once the stack is known. Until then, do not invent commands; report that project commands are not configured yet.
+Fill these during init once the stack is known. Until then, do not invent commands; report that project commands are not configured.
 
 - Setup/install: TBD
 - Run locally: TBD
 - Check before handoff: TBD
 
-## Hard Rules
+## Autonomy And Human Gates
 
-- Involve the human before creating GitHub projects, remotes, paid resources, external services, production deployments, or DNS changes.
-- In copied projects, treat inherited Git state and remotes as `TBD` until the human approves a project-specific target. A template repo remote is not a valid push target for project/product commits.
-- Involve the human before adding or enabling MCP servers, connectors, provider integrations, or project config that reaches external services or starts local services.
-- Involve the human before weakening `.codex` sandbox, approval, hooks, rules, network, or shell environment restrictions.
-- Project-local `.codex` config, hooks, rules, and agent presets load only when Codex trusts the project. If expected hooks/rules/presets do not run, verify project trust and hook review state before changing workflow docs.
-- Treat `.codex/agents/*` sandbox, model, and MCP settings as launch defaults, not permission to bypass process gates. Current runtime approvals or inherited permissions may be broader; human gates and file ownership still apply.
-- Involve the human before touching secrets, tokens, billing, production data, destructive migrations, or public posting.
-- Involve the human before product tradeoffs that change scope, audience, privacy, data retention, or public behavior.
-- Involve the human before installing or changing system/global tooling, local databases/services, Docker/Colima, Homebrew packages, language runtimes, or other machine-level setup.
-- Check `pwd`, `git status --short --branch`, and `git rev-parse HEAD` before implementation work.
-- Do not overwrite user changes. Work with unexpected dirty state and report surprises.
-- When facts conflict, treat current human decisions and current repo sources/docs as authority. Old handoff packets are historical evidence, not source of truth.
-- Do not store secrets, magic links, private URLs, tokens, provider keys, or database URLs in repo docs or chat.
-- If a command needs secrets, use a human-approved local/provider secret path; do not rely on inherited shell secrets unless the coordinator explicitly approves the variable names and the command will not print them.
-- If multiple write-capable agents run in parallel, use separate worktrees or explicitly disjoint allowed file ownership.
-- Write-capable implementation and walkthrough/verification work should run in separate Codex lanes/threads by default. Use same-thread subagents for that work only when the human explicitly approves the exception.
-- Keep process docs generic. Put project planning in `docs/project/`, `features/`, or `docs/follow-ups/` unless changing reusable workflow rules.
-- If a non-coordinator agent hits a human decision gate, return it to the coordinator unless the prompt explicitly delegates asking the human in that thread.
-- Use the assigned handoff return path. If the prompt provides an exact coordinator thread id and a thread-send tool is available, send the packet directly to that coordinator thread. Otherwise start the local packet with `Coordinator handoff - manual relay required`.
-- Coordinators should not monitor active worker threads. Wait for an explicit returned packet, a blocker, or a human request to inspect.
-- Coordinators should not do implementation, inventory, or content work inline once a feature lane exists. Route additional work to the existing implementation thread when appropriate, or start a new worker with explicit file ownership.
-- If a coordinator repeats corrected facts, loses source ownership, over-focuses on stale details, or starts reasoning from memory in a complex lane, pause execution and run a source-grounded context reset or architect check before continuing.
-- A fresh coordinator thread does not require a fresh Git branch. Use a committed coordinator reset packet as the new thread baseline; create a branch/worktree only for the next write-capable slice when isolation is needed.
-- When the human approves coordinator rollover and thread-management tools are available, the outgoing coordinator performs the rollover end-to-end: create or start the fresh coordinator thread, send the reset prompt, verify receipt, then rename/archive the old thread and make the fresh thread the main coordinator when supported.
-- Do not fork coordinator threads to create implementation, walkthrough, or specialist lanes. Forking carries completed coordinator history; use clean thread creation with a standalone role prompt unless inherited history is explicitly intended.
-- Run appropriate checks before declaring work done, or clearly report what was not run.
-- Record durable project decisions in `docs/project/decision-log.md`; use the Surprise Log only for agent mistakes and confusion points.
-- Keep active feature specs stable once implementation starts. Put completed test notes and non-blocking follow-ups under `docs/follow-ups/`.
+- For answer, review, diagnose, audit, or planning requests, inspect relevant material and report; do not implement unless the request asks for changes.
+- For change, build, or fix requests, make in-scope local edits and run relevant non-destructive checks without asking first.
+- Stop for human confirmation before external writes or resources, remotes or pushes, paid services, production actions, DNS, public posting, destructive migrations, secrets or production data, scope/privacy/public-behavior tradeoffs, provider or MCP setup, weakening Codex restrictions, or system/global tooling and local service installation.
+- In copied projects, inherited Git state and remotes are `TBD` until the human approves a project-specific target. Never use a template remote for project/product pushes.
+- If a command needs credentials, use only an explicitly approved local/provider secret path or variable names, and do not print or store secret values.
 
-## Surprise Log
+## Repository Safety And Evidence
 
-Below are common agent mistakes and confusion points in this repository. If you encounter something surprising while working, alert the developer and add a concise note to the Surprise Log for a future agent.
+- Before implementation, run `pwd`, `git status --short --branch`, and `git rev-parse HEAD`.
+- Preserve user changes and explain unexpected dirty state.
+- Current human decisions and current repo sources outrank old packets, summaries, memory, generated reports, screenshots, and external checks. State the narrow proof boundary of external evidence.
+- Multiple write-capable agents must use separate worktrees or explicitly disjoint file ownership.
+- Keep reusable process in `docs/process/`; keep project plans and state in `docs/project/`, `features/`, `docs/walkthroughs/`, or `docs/follow-ups/`.
+- Keep active feature specs stable during implementation unless spec editing is explicitly assigned.
+- Run relevant validation before completion, or report what could not be run and the next best check.
+- Project-local `.codex` config, hooks, rules, and presets load only when the project is trusted; changed hooks may need review. Runtime permissions can be broader than preset defaults, but they do not override these human gates or file ownership.
 
-- Worker packets may remain in the worker thread when direct thread delivery is unavailable. This is not a failed worker handoff if the packet starts with `Coordinator handoff - manual relay required`; the coordinator should do one receipt-recovery read and relay it. Worker prompts and presets must also say not to forward prompts or send packets to the worker's own thread.
-- Coordinators may accidentally route write-capable implementation or walkthrough work through same-thread subagents. Use separate Codex lanes/threads for those roles unless the human explicitly approves a same-thread exception.
-- Forked coordinator threads can inherit reset packets and coordinator history instead of becoming clean worker lanes. If a worker/walkthrough lane preview shows coordinator handoff or reset context, supersede it and create a clean thread with a standalone prompt.
+## Worker Handoff Contract
+
+- The coordinator owns human decisions unless the worker prompt delegates one exact question.
+- Every worker prompt must provide the coordinator thread id and exact handoff path. Use direct thread send when available; otherwise return one final packet beginning `Coordinator handoff - manual relay required for coordinator thread <id>`.
+- Never send the packet to the worker's own thread through a thread-send tool, forward the coordinator prompt, or create a duplicate handoff thread. Return one packet, then stop.
+- Write-capable implementation and acceptance walkthroughs use separate Codex lanes/threads by default. A same-thread subagent exception requires explicit human approval for that task.

@@ -209,6 +209,7 @@ Before coordinator handoff, check:
 - `.agents/skills/` contains only focused skill entrypoints or helper workflows and does not duplicate the full process manual.
 - `.codex/rules/` contains only approved outside-sandbox command policy and does not hide workflow instructions that agents should read from Markdown.
 - `.codex/hooks.json` and hook scripts contain only deterministic reminders/scanners and no hidden workflow instructions, secrets, or provider-specific project planning.
+- Prompt, role, hook, or reasoning changes pass `python3 scripts/validate_prompt_contracts.py`; behavioral changes are recorded for representative evals in `docs/process/prompt-evals.md`.
 - The handoff notes whether project-local `.codex` config/hooks/rules/presets are expected to be active, and reminds the human to trust the project or review hooks in Codex if they appear inactive.
 - `.mamkin/template-version.json` records the copied template baseline when known, or explicitly leaves it `TBD` for first-sync review mode.
 - `.mamkin/template-owned-files.md` protects project-owned docs/features/code from future template sync.
@@ -248,19 +249,4 @@ Then start the coordinator flow from `docs/process/agent-orchestration.md`.
 
 If this same thread continues as coordinator, rename the thread before the first coordinator action using the coordinator pattern in `docs/process/naming-conventions.md`. If creating a new coordinator thread instead, create it with that name from the start.
 
-## Done Checklist
-
-Init is complete when:
-
-- The project brief is filled enough for a new agent to understand the product.
-- The roadmap has candidate slices and product value.
-- `AGENTS.md` project commands are filled, or unknown commands are recorded as an open question.
-- Product/domain questions, architecture questions, and first-slice candidates are clear enough for the coordinator to call analyst and/or architect.
-- Human-in-loop gates are explicit.
-- Requested custom recurring roles have role cards, handoff packets, custom agent presets when supported, naming rules, invocation rules, and decision-log entries.
-- MCP/connectors were asked about; approved project-local config is recorded in `.codex/config.toml`, or user-level setup is listed as a human/manual step.
-- Init self-review passed.
-- The coordinator thread is named according to `docs/process/naming-conventions.md`, or the init handoff says a new coordinator thread should be created with that name.
-- Git state is known.
-- GitHub setup has been proposed or declined, and any inherited template Git state is explicitly not treated as the project push target.
-- The coordinator has a clear next step.
+Init is complete when the self-review passes and the coordinator handoff reports a usable brief, valuable roadmap candidates, explicit human gates, known Git/project-repo state, approved Codex/MCP posture, unresolved questions, and one clear next action. Otherwise return `Init blocked` with the smallest missing decision or input.
