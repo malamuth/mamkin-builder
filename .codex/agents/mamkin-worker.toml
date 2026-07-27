@@ -1,7 +1,8 @@
 name = "mamkin-worker"
 description = "Implements one bounded slice from a coordinator-provided feature spec or scoped brief."
 sandbox_mode = "workspace-write"
-model_reasoning_effort = "high"
+model = "gpt-5.6-terra"
+model_reasoning_effort = "medium"
 developer_instructions = """
 You are the Mamkin implementation worker agent.
 

@@ -34,39 +34,94 @@
         "two-track-cap"
       ],
       "baseline": {
-        "model": "runtime-default",
-        "reasoningEffort": "high"
+        "model": "gpt-5.6-sol",
+        "reasoningEffort": "high",
+        "result": "5/5 cases; 30/30 rubric points"
       },
       "candidate": {
-        "model": "same-as-baseline",
-        "reasoningEffort": "medium"
+        "model": "gpt-5.6-sol",
+        "reasoningEffort": "medium",
+        "result": "5/5 cases; 30/30 rubric points"
       },
-      "status": "not-run",
-      "decision": "keep-baseline"
+      "status": "passed",
+      "decision": "adopt-candidate",
+      "evidenceDate": "2026-07-28",
+      "evidenceKind": "fresh read-only policy-response trials",
+      "resourceMetrics": "unavailable"
+    },
+    {
+      "roleClass": "bounded-implementation-deployment",
+      "caseIds": [
+        "bounded-local-change",
+        "dirty-worktree",
+        "external-action-gate"
+      ],
+      "baseline": {
+        "model": "gpt-5.6-sol",
+        "reasoningEffort": "high",
+        "result": "3/3 relevant cases; 18/18 rubric points"
+      },
+      "candidate": {
+        "model": "gpt-5.6-terra",
+        "reasoningEffort": "medium",
+        "result": "3/3 relevant cases; 18/18 rubric points"
+      },
+      "status": "passed",
+      "decision": "adopt-candidate",
+      "evidenceDate": "2026-07-28",
+      "evidenceKind": "fresh read-only policy-response trials",
+      "resourceMetrics": "unavailable"
+    },
+    {
+      "roleClass": "bounded-read-only-subagent",
+      "caseIds": [
+        "read-only-audit",
+        "stale-packet-conflict",
+        "subagent-preferred",
+        "architect-required-shared-contract",
+        "architect-skip-bounded-slice"
+      ],
+      "baseline": {
+        "model": "gpt-5.6-sol",
+        "reasoningEffort": "high",
+        "result": "5/5 cases; 30/30 rubric points"
+      },
+      "candidate": {
+        "model": "gpt-5.6-terra",
+        "reasoningEffort": "medium",
+        "result": "5/5 cases; 30/30 rubric points"
+      },
+      "status": "passed",
+      "decision": "adopt-candidate",
+      "evidenceDate": "2026-07-28",
+      "evidenceKind": "fresh read-only policy-response trials",
+      "resourceMetrics": "unavailable"
     },
     {
       "roleClass": "analysis-architecture-review",
       "caseIds": [
         "read-only-audit",
-        "dirty-worktree",
-        "stale-packet-conflict"
+        "stale-packet-conflict",
+        "architect-required-shared-contract",
+        "architect-skip-bounded-slice"
       ],
       "baseline": {
         "model": "runtime-default",
         "reasoningEffort": "high"
       },
       "candidate": {
-        "model": "same-as-baseline",
+        "model": "gpt-5.6-terra",
         "reasoningEffort": "medium"
       },
-      "status": "not-run",
-      "decision": "keep-baseline"
+      "status": "partial-pass",
+      "decision": "keep-baseline",
+      "evidenceDate": "2026-07-28",
+      "evidenceKind": "routing behavior passed; specialist output quality not exercised",
+      "resourceMetrics": "unavailable"
     },
     {
-      "roleClass": "implementation-walkthrough-deployment",
+      "roleClass": "walkthrough-acceptance",
       "caseIds": [
-        "bounded-local-change",
-        "external-action-gate",
         "lane-separation"
       ],
       "baseline": {
@@ -77,13 +132,16 @@
         "model": "gpt-5.6-terra",
         "reasoningEffort": "medium"
       },
-      "status": "not-run",
-      "decision": "keep-baseline"
+      "status": "partial-pass",
+      "decision": "keep-baseline",
+      "evidenceDate": "2026-07-28",
+      "evidenceKind": "routing behavior passed; executed acceptance quality not exercised",
+      "resourceMetrics": "unavailable"
     },
     {
-      "roleClass": "bounded-read-only-subagent",
+      "roleClass": "design-ux",
       "caseIds": [
-        "subagent-preferred"
+        "read-only-audit"
       ],
       "baseline": {
         "model": "runtime-default",
@@ -94,7 +152,8 @@
         "reasoningEffort": "medium"
       },
       "status": "not-run",
-      "decision": "keep-baseline"
+      "decision": "keep-baseline",
+      "resourceMetrics": "unavailable"
     }
   ]
 }

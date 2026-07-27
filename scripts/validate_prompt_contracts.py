@@ -34,8 +34,8 @@ def main():
     if cases.get("schemaVersion") != 1:
         fail(errors, "prompt cases schemaVersion must be 1")
     entries = cases.get("cases") or []
-    if len(entries) < 13:
-        fail(errors, "prompt eval suite must contain at least 13 cases")
+    if len(entries) < 15:
+        fail(errors, "prompt eval suite must contain at least 15 cases")
 
     ids = []
     required_case = {"id", "title", "request", "setup", "expected"}
@@ -63,6 +63,8 @@ def main():
         "two-track-admission",
         "two-track-hidden-conflict",
         "two-track-cap",
+        "architect-required-shared-contract",
+        "architect-skip-bounded-slice",
     }
     missing_ids = required_ids - set(ids)
     if missing_ids:
@@ -84,6 +86,8 @@ def main():
                 fail(errors, f"model experiment {experiment.get('roleClass')} missing {field}")
         if experiment.get("status") == "not-run" and experiment.get("decision") != "keep-baseline":
             fail(errors, f"unrun model experiment {experiment.get('roleClass')} must keep baseline")
+        if experiment.get("decision") == "adopt-candidate" and experiment.get("status") != "passed":
+            fail(errors, f"adopted model experiment {experiment.get('roleClass')} must have passed")
         experiment_case_ids = experiment.get("caseIds")
         if not experiment_case_ids or not set(experiment_case_ids).issubset(set(ids)):
             fail(errors, f"model experiment {experiment.get('roleClass')} needs known case ids")
@@ -111,25 +115,46 @@ def main():
         fail(errors, f"AGENTS.md exceeds 750-word always-loaded budget ({words(agents)})")
 
     orchestration_text = orchestration.read_text(encoding="utf-8")
-    contract_fields = [
+    core_contract_fields = [
         "Role:",
         "Goal:",
         "Success criteria:",
         "Required evidence and source authority:",
         "Scope and allowed files:",
+        "Human and permission boundaries:",
         "Validation required:",
         "Output packet:",
         "Stop and fallback rules:",
         "Execution mode:",
-        "Parent lane owner:",
-        "Subagents:",
-        "Parallel track:",
+        "Assigned return destination:",
+        "Read first:",
     ]
-    positions = [orchestration_text.find(field) for field in contract_fields]
+    positions = [orchestration_text.find(field) for field in core_contract_fields]
     if any(position < 0 for position in positions) or positions != sorted(positions):
-        fail(errors, "worker prompt contract is missing outcome-first fields or has them out of order")
-    if words(orchestration) > 4200:
-        fail(errors, f"coordinator manual exceeds 4,200-word core budget ({words(orchestration)})")
+        fail(errors, "worker prompt core is missing outcome-first fields or has them out of order")
+    core_start = orchestration_text.find("Every worker prompt includes this core:")
+    core_end = orchestration_text.find("Add only applicable extensions.")
+    core_block = orchestration_text[core_start:core_end]
+    for conditional_field in ["Parent lane owner:", "Parallel track:", "Agent preset:", "Do not edit:"]:
+        if conditional_field in core_block:
+            fail(errors, f"worker prompt core contains conditional field {conditional_field}")
+    for heading in [
+        "### Separate-Task Extension",
+        "### Subagent Extension",
+        "### Write-Capable Extension",
+        "### Parallel-Track Extension",
+    ]:
+        if heading not in orchestration_text:
+            fail(errors, f"worker prompt contract missing conditional extension {heading}")
+    if words(orchestration) > 3200:
+        fail(errors, f"coordinator manual exceeds 3,200-word core budget ({words(orchestration)})")
+    for phrase in [
+        "Use an architect before implementation when any applies",
+        "Skip the architect when all apply",
+        "Do not include parallel fields for a single-track assignment",
+    ]:
+        if phrase not in orchestration_text:
+            fail(errors, f"coordinator manual missing optimization invariant: {phrase}")
     lane_text = lane_routing.read_text(encoding="utf-8")
     for phrase in [
         "Prefer a subagent when every subagent condition",
@@ -139,8 +164,15 @@ def main():
     ]:
         if phrase not in lane_text:
             fail(errors, f"execution lane routing missing invariant: {phrase}")
+    for vague_phrase in ["non-trivial slice", "trivial edit", "complex lane", "major routing"]:
+        if vague_phrase in lane_text or vague_phrase in orchestration_text:
+            fail(errors, f"routing still relies on vague threshold: {vague_phrase}")
     if words(lane_routing) > 1200:
         fail(errors, f"execution lane routing exceeds 1,200-word conditional budget ({words(lane_routing)})")
+
+    coordinate_skill_text = (ROOT / ".agents/skills/mamkin-coordinate/SKILL.md").read_text(encoding="utf-8")
+    if "Read `docs/process/naming-conventions.md` and `docs/process/handoff-packets.md`" in coordinate_skill_text:
+        fail(errors, "coordinate skill still loads naming and packet indexes unconditionally")
 
     for role in sorted((ROOT / "docs/process/roles").glob("*.md")):
         text = role.read_text(encoding="utf-8")
@@ -215,6 +247,25 @@ def main():
         if count > 120:
             fail(errors, f"{preset.relative_to(ROOT)} exceeds 120-word wrapper budget ({count})")
 
+    config_text = config.read_text(encoding="utf-8")
+    if 'model_reasoning_effort = "medium"' not in config_text:
+        fail(errors, "coordinator reasoning default must match the accepted medium experiment")
+    for preset_name in ["mamkin-worker.toml", "mamkin-deployment.toml"]:
+        preset_text = (ROOT / f".codex/agents/{preset_name}").read_text(encoding="utf-8")
+        if 'model = "gpt-5.6-terra"' not in preset_text or 'model_reasoning_effort = "medium"' not in preset_text:
+            fail(errors, f"{preset_name} must match the accepted Terra/medium experiment")
+    for preset_name in [
+        "mamkin-analyst.toml",
+        "mamkin-architect.toml",
+        "mamkin-reviewer.toml",
+        "mamkin-walkthrough.toml",
+        "mamkin-designer.toml",
+        "mamkin-ux.toml",
+    ]:
+        preset_text = (ROOT / f".codex/agents/{preset_name}").read_text(encoding="utf-8")
+        if 'model_reasoning_effort = "high"' not in preset_text:
+            fail(errors, f"{preset_name} must remain high until role-specific execution evals pass")
+
     init_text = (ROOT / "docs/process/init-agent.md").read_text(encoding="utf-8")
     if "## Done Checklist" in init_text:
         fail(errors, "init-agent.md duplicates self-review with a Done Checklist")
@@ -283,21 +334,28 @@ def main():
     if version.get("ownershipManifest") != ".mamkin/process-manifest.json":
         fail(errors, "template version must point to the machine-readable process manifest")
 
-    coordinator_paths = [
+    coordinator_default_paths = [
         agents,
         ROOT / ".agents/skills/mamkin-coordinate/SKILL.md",
         orchestration,
-        ROOT / "docs/process/naming-conventions.md",
-        handoffs,
         ROOT / "docs/project/brief.md",
         ROOT / "docs/project/decision-log.md",
         ROOT / "features/00-roadmap.md",
+    ]
+    conditional_delegation_paths = [
+        ROOT / "docs/process/naming-conventions.md",
+        handoffs,
+        lane_routing,
+        ROOT / "docs/process/thread-operations.md",
     ]
     metrics = {
         "agents_words": words(agents),
         "orchestration_words": words(orchestration),
         "execution_lane_routing_words": words(lane_routing),
-        "coordinator_default_words": sum(words(path) for path in coordinator_paths),
+        "coordinator_default_words": sum(words(path) for path in coordinator_default_paths),
+        "coordinator_delegation_words": sum(
+            words(path) for path in coordinator_default_paths + conditional_delegation_paths
+        ),
         "manual_relay_occurrences": relay_hits,
         "high_reasoning_settings": len(re.findall(r'model_reasoning_effort\s*=\s*"high"', config.read_text(encoding="utf-8") + "\n" + "\n".join(path.read_text(encoding="utf-8") for path in (ROOT / ".codex/agents").glob("mamkin-*.toml")))),
         "eval_cases": len(entries),

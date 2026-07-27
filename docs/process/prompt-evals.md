@@ -57,9 +57,9 @@ A case passes only with all six points. Treat tokens, cost, latency, calls, and 
 
 ## Reasoning-Effort Decision
 
-Keep the current `high` settings as the behavioral baseline until the cases can run at both `high` and `medium` on the same model and task state. Test one role at a time. Prefer the lower setting only when all cases for that role still pass; keep `high` where it produces a measured gain on ambiguity, correctness, or risk detection.
+Use the accepted settings in `evals/mamkin-role-model-matrix.json`. Test one role class at a time on the same cases and source state. Prefer the lower setting only when every quality dimension still passes; keep `high` where specialist output quality, ambiguity, correctness, or risk detection has not been exercised adequately.
 
-Record the accepted reasoning matrix and evidence in the Decision History below before changing defaults.
+Record the accepted reasoning matrix and evidence below before changing defaults. Missing token, latency, or cost telemetry must be marked unavailable rather than estimated.
 
 ## Role Model Matrix
 
@@ -79,3 +79,4 @@ Use capable/high reasoning for ambiguous coordination, architecture, security-se
 | --- | --- | --- | --- | --- |
 | 2026-07-15 | Centralized worker contract, slimmed always-loaded instructions, routed rare thread/reset paths, and removed workflow injection from `SubagentStart`. | `AGENTS.md` 548 words; coordinator default 5,746 words; orchestration 3,752 words; one active manual-relay invariant. | Not run before refactor; representative suite added for future fresh-task runs. | Keep root and role presets at `high` until same-case `high` versus `medium` evidence exists. |
 | 2026-07-28 | Added choice-first init rounds, evidence-shaped review and walkthrough packets, optional disabled post-edit formatting, change-aware validation, guarded process sync, and an experiments-only role matrix. | Deterministic contracts and tool unit tests pass; active prompt budgets remain enforced. | Fresh behavioral task cases not yet run; no comparative quality claim. | Active defaults remain `high`; run the recorded role experiments before changing a preset. |
+| 2026-07-28 | Consolidated coordinator policy, made delegation references conditional, split prompt extensions, and replaced vague routing thresholds with observable triggers. | Coordinator default 2,641 words; delegation path 4,826 words; orchestration manual 1,357 words; one active manual-relay invariant. | Fresh policy-response trials: coordinator high and medium each 5/5; role baseline and Terra medium each 6/6; architect/subagent follow-up each 3/3. Token/latency telemetry unavailable. | Adopt coordinator medium and Terra/medium for bounded implementation, deployment, and read-only subagents. Keep analysis, architecture, review, walkthrough, design, and UX high pending role-specific execution fixtures. |

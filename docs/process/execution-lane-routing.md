@@ -24,16 +24,16 @@ Good subagent work includes repository exploration, focused research, diff revie
 
 ## Use A Separate Task When Any Trigger Applies
 
-- The assignment is an independent feature, fix, or work track.
-- It may need multiple turns, human clarification, or follow-up after the parent moves on.
+- The assignment owns an independent acceptance outcome that can pause, resume, or be prioritized separately.
+- It may need direct human clarification, approval, or follow-up after the parent moves on.
 - It owns a branch, worktree, external target, or durable specialist responsibility.
-- It is the primary implementation owner for a non-trivial slice.
+- Write ownership spans multiple components or affects a shared API, schema, migration, auth/security boundary, lockfile, generated source, global configuration, or external integration.
+- The work cannot be bounded to one prompt with explicit allowed files, observable success criteria, and a known validation path.
 - Verification needs manual judgment, interactive UI, accounts, secrets, external systems, environment setup, or a defect/retest cycle.
-- The work can block, pause, or be resumed independently.
 - The result needs a durable handoff packet, user-visible progress, or clean context isolated from the coordinator.
 - Source ownership overlaps another active writer or cannot be proved disjoint.
 
-Long-lived architecture, implementation, walkthrough, deployment, and recurring specialist lanes therefore remain separate tasks. A bounded read-only specialist pass may be a subagent when all subagent conditions pass.
+Architecture, implementation, walkthrough, deployment, or specialist work uses a separate task only when one of these triggers applies. A bounded pass in any role may be a subagent when every subagent condition passes and acceptance remains independently owned.
 
 ## Prompt Declaration
 
@@ -41,13 +41,12 @@ Every delegated prompt declares:
 
 ```text
 Execution mode: separate task | subagent
-Parent lane owner:
-Subagents: allowed | not allowed
-Parallel track: none | A | B
+Assigned return destination:
 ```
 
-`Subagents: allowed` lets a separate-task lane owner create its own bounded helpers under this policy. It does not let that owner create another independent workstream, delegate human decisions, or exceed the assigned files.
-A subagent prompt always says `Subagents: not allowed`; nested subagents are not part of this model.
+For a subagent, add `Parent lane owner` and `Subagents: not allowed`; nested subagents are not part of this model. For a separate task, add the coordinator id, durable return path, worktree, and branch/commit boundary. Add `Subagents: allowed` only when the separate-task owner may create bounded helpers under this policy; it never authorizes another independent workstream or delegated human decisions.
+
+Add `Parallel track: A | B` and the full parallel extension only for admitted two-track work. Do not add parallel fields to a single-track prompt.
 
 A separate-task worker returns its role packet to the project coordinator. A subagent returns once to `Parent lane owner`; the parent checks the result and owns any later coordinator packet.
 
@@ -95,6 +94,6 @@ Implementation and acceptance use different agents. Either of these shapes is va
 
 - Separate implementation task -> separate walkthrough task.
 - Separate implementation task -> bounded walkthrough subagent, only when verification is deterministic, local, non-interactive, uses a named commit, and needs no retest cycle.
-- Coordinator-owned trivial edit -> bounded implementation subagent -> different bounded verification subagent.
+- Coordinator-owned bounded edit meeting every subagent condition -> implementation subagent -> different bounded verification subagent.
 
 Use a separate walkthrough task whenever any separate-task trigger applies. The implementation agent, including any implementation subagent, never issues the final acceptance verdict for its own changes.

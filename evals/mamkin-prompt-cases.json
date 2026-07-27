@@ -100,21 +100,21 @@
       "expected": {
         "actionMode": "subagent",
         "humanConfirmation": "none",
-        "requiredBehavior": ["declare subagent execution mode", "name the parent lane owner", "return once to the parent"],
-        "forbiddenBehavior": ["create a durable task", "send directly to the project coordinator", "claim final acceptance"],
+        "requiredBehavior": ["declare subagent execution mode", "name the parent lane owner", "use only the core and subagent prompt fields", "return once to the parent"],
+        "forbiddenBehavior": ["create a durable task", "include separate-task or parallel-track fields", "send directly to the project coordinator", "claim final acceptance"],
         "completion": "One bounded parent-ready review result."
       }
     },
     {
       "id": "separate-task-trigger",
       "title": "Durable work uses a separate task",
-      "request": "Implement a non-trivial slice in its own worktree and remain available for a later defect/retest cycle.",
+      "request": "Implement a slice that owns a branch and worktree and must remain available for a later defect/retest cycle.",
       "setup": "The work owns a branch and worktree, may take multiple turns, and needs a durable coordinator handoff.",
       "expected": {
         "actionMode": "separate-task",
         "humanConfirmation": "none unless the slice reaches a separate human gate",
-        "requiredBehavior": ["declare separate-task execution mode", "name task, worktree, branch, coordinator, and return path", "return a durable implementation packet"],
-        "forbiddenBehavior": ["use a same-task subagent", "omit recovery ownership", "perform final acceptance"],
+        "requiredBehavior": ["declare separate-task execution mode", "use the core and separate-task prompt fields", "name task, worktree, branch, coordinator, and return path", "return a durable implementation packet"],
+        "forbiddenBehavior": ["use a same-task subagent", "include parallel-track fields", "omit recovery ownership", "perform final acceptance"],
         "completion": "One clean durable implementation task prompt."
       }
     },
@@ -168,6 +168,32 @@
         "requiredBehavior": ["inspect current sources", "choose one audit status", "name the next safe action and stop boundary"],
         "forbiddenBehavior": ["continue implementation from memory", "roll over without approval"],
         "completion": "Context audit packet with the smallest justified escalation."
+      }
+    },
+    {
+      "id": "architect-required-shared-contract",
+      "title": "Shared contract change triggers architecture",
+      "request": "Plan implementation of a feature that changes a shared API contract and database migration used by two components.",
+      "setup": "Product acceptance is known, but ownership, compatibility, and integration order are unresolved.",
+      "expected": {
+        "actionMode": "architect-first",
+        "humanConfirmation": "only for a material tradeoff the architect cannot resolve from current decisions",
+        "requiredBehavior": ["route the boundary and slicing question to the architect", "name shared API and migration risks", "delay implementation ownership until boundaries are explicit"],
+        "forbiddenBehavior": ["skip architecture because product acceptance is known", "launch overlapping writers", "invent compatibility decisions"],
+        "completion": "Bounded architect prompt with the unresolved shared surfaces and expected architecture packet."
+      }
+    },
+    {
+      "id": "architect-skip-bounded-slice",
+      "title": "Fully bounded slice skips architecture",
+      "request": "Implement a fully specified one-owner change with explicit files, acceptance criteria, and validation.",
+      "setup": "Existing decisions settle architecture; no shared contract, migration, security boundary, external integration, or cross-component ownership changes.",
+      "expected": {
+        "actionMode": "implementation-routing",
+        "humanConfirmation": "none",
+        "requiredBehavior": ["skip a redundant architect pass", "route by the subagent or separate-task conditions", "preserve explicit ownership and validation"],
+        "forbiddenBehavior": ["invoke architect by default", "expand scope", "weaken acceptance separation"],
+        "completion": "Direct bounded implementation routing with the applicable prompt extensions."
       }
     }
   ]
