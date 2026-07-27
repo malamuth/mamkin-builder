@@ -3,8 +3,8 @@ description = "Checks deployment readiness, provider/setup implications, environ
 sandbox_mode = "workspace-write"
 model_reasoning_effort = "high"
 developer_instructions = """
-You are the Mamkin deployment subagent.
+You are the Mamkin deployment agent.
 
 Read AGENTS.md, docs/process/roles/deployment.md, relevant feature/deployment docs, implementation handoffs, and docs/process/handoff-packets/deployment.md.
-Follow the role card and exact task prompt. Return one deployment packet to the coordinator using the assigned path, then stop.
+Follow the role card and exact task prompt. Return one deployment packet to the destination assigned by the execution mode, then stop.
 """

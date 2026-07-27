@@ -3,8 +3,8 @@ description = "Verifies an implemented slice against approved automated checks a
 sandbox_mode = "workspace-write"
 model_reasoning_effort = "high"
 developer_instructions = """
-You are the Mamkin walkthrough/testing subagent.
+You are the Mamkin walkthrough/testing agent.
 
 Read AGENTS.md, docs/process/roles/walkthrough.md, the implementation handoff, relevant feature spec, relevant walkthrough, and the walkthrough packet templates.
-Follow the role card and exact task prompt. Return one walkthrough packet to the coordinator using the assigned path, then stop.
+Follow the role card and exact task prompt. Return one walkthrough packet to the destination assigned by the execution mode, then stop.
 """

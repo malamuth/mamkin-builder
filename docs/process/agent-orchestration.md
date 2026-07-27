@@ -12,10 +12,10 @@ Edit this file only when the coordination model, reusable workflow rules, custom
 
 - Coordinator reads this file and the needed packet files.
 - Workers read `AGENTS.md`, their role card under `docs/process/roles/`, the relevant feature or walkthrough docs, and only the packet file they must return.
+- Read `docs/process/execution-lane-routing.md` before choosing a subagent, launching two parallel tracks, or accepting a prompt that allows subagents.
 - Read `docs/process/thread-operations.md` only when starting, receiving from, or recovering a separate worker lane.
-- Long-lived implementation, review, walkthrough, deployment, and research lanes should run as separate Codex threads by default.
-- Write-capable implementation and walkthrough/verification work must use separate Codex lanes/threads unless the human explicitly approves a same-thread subagent exception for that exact task.
-- Same-thread subagents are only for bounded sidecar tasks, mock runs, quick read-only analysis, or experiments where the coordinator will immediately inspect and integrate the result.
+- Prefer subagents for bounded work only when every subagent condition passes; use separate Codex tasks when any separate-task trigger applies.
+- Independent workstreams always use separate tasks. Parallel mode has one coordinator and at most two admitted tracks.
 - New worker/specialist lanes should be clean thread creations with standalone role prompts. Do not fork the coordinator thread to create implementation, walkthrough, review, deployment, or specialist lanes unless the human explicitly wants inherited conversation history.
 
 ## Source Authority
@@ -71,19 +71,19 @@ When the user asks to create new features, the coordinator should usually call t
 Coordinator -> Analyst if needed -> Architect -> Implementation worker -> optional reviewer -> walkthrough/testing -> Coordinator final report
 ```
 
-Every non-coordinator agent returns its final packet to the coordinator. Agents should not hand work directly to peer agents or start follow-up threads unless the coordinator explicitly delegates that path.
+Separate-task workers return final packets to the coordinator. Subagents return once to their named parent lane owner, which inspects the result and owns any coordinator handoff. Agents do not hand work directly to peers or start follow-up tasks unless the coordinator explicitly delegates that path.
 
 ## Thread Delivery Contract
 
-Workers follow the handoff invariant in `AGENTS.md`. Every dynamic worker prompt supplies the exact coordinator thread id, return path, output packet, and stop rule. The coordinator confirms receipt before routing follow-up work.
+Workers follow the handoff invariant in `AGENTS.md`. Every dynamic prompt supplies execution mode, assigned destination, output shape, and stop rule. Separate-task prompts also supply the exact coordinator thread id and return path. The receiving parent or coordinator confirms receipt before routing follow-up work.
 
-For clean thread creation, start-health checks, manual-relay recovery, and polling boundaries, read `docs/process/thread-operations.md`.
+For execution-mode selection and two-track admission, read `docs/process/execution-lane-routing.md`. For clean task creation, start-health checks, manual-relay recovery, and polling boundaries, read `docs/process/thread-operations.md`.
 
 ## Decision Routing
 
 Human decisions are coordinator-owned by default.
 
-When a worker packet says `Needs human decision`, `Blocked` on a human gate, `Human judgment needed`, or `Human/manual steps expected`, the worker should return the packet to the coordinator and stop. The worker should not treat its own thread as the approval lane unless the coordinator prompt explicitly delegates that exact human question.
+When a worker result says `Needs human decision`, `Blocked` on a human gate, `Human judgment needed`, or `Human/manual steps expected`, a separate-task worker returns it to the coordinator; a subagent returns it to its parent for coordinator escalation. The worker does not treat its own task as the approval lane unless the coordinator prompt explicitly delegates that exact human question.
 
 The coordinator then summarizes the options, asks the human in the coordinator thread, records durable decisions in `docs/project/decision-log.md` and the relevant brief/feature spec when needed, and resumes the lane with a new worker prompt or retest request.
 
@@ -135,7 +135,7 @@ Packet templates are indexed in `docs/process/handoff-packets.md` and split unde
 
 Codex runtime presets live under `.codex/agents/`. They are short launch wrappers for sandbox, reasoning posture, and the handoff return path; they do not replace role cards, packet templates, or feature docs.
 
-When starting a separate Codex thread for a built-in role, use the matching `mamkin-*` preset when the platform supports custom agents. If custom agents are unavailable, include the same role card, packet template, thread name, coordinator thread id, and return-path instructions directly in the prompt.
+When starting a separate Codex task for a built-in role, use the matching `mamkin-*` preset when the platform supports custom agents. If custom agents are unavailable, include the same role card, packet template, thread name, coordinator thread id, and return-path instructions directly in the prompt.
 
 Preset sandbox, model, MCP, and reasoning settings are desired launch defaults. They do not replace human gates, file ownership rules, or the prompt's allowed-work boundary, because a running Codex session may apply live runtime approvals or inherited permissions when spawning a child. If a preset and the current runtime disagree, follow the stricter project process and ask the human before relying on broader access.
 
@@ -152,7 +152,7 @@ If a needed custom role is missing those artifacts, ask the human before scaffol
 - Check `docs/follow-ups/` before planning; assess whether each unresolved follow-up should become part of the current feature, the next feature spec, a later roadmap candidate, or a deferred note.
 - Before sending a next feature spec to an architect for fine-tuning, review all unimplemented follow-ups and explicitly decide which are relevant to that architect lane.
 - Keep the roadmap status current at every feature-cycle transition: spec proposed/ready, implementation started, review or walkthrough started/completed, follow-ups deferred/resolved, and commit/push completed.
-- Recommend the smallest useful team and ask the human before adding specialist roles.
+- Recommend the smallest useful team and ask the human before adding durable specialist tasks. Bounded subagents need no separate confirmation when every routing condition passes and their role stays inside approved scope.
 - Use custom roles only after their role card, packet, custom agent preset when supported, naming rule, invocation rule, and human gates exist.
 - Create or assign feature-spec drafting before implementation starts; init only creates roadmap candidates.
 - Ensure every feature spec follows `docs/templates/feature-spec.md` unless the coordinator explicitly records why a different structure is needed.
@@ -160,8 +160,8 @@ If a needed custom role is missing those artifacts, ask the human before scaffol
 - Own the walkthrough definition; write it or explicitly assign someone to draft/update it before walkthrough starts.
 - Ensure every walkthrough follows `docs/templates/walkthrough.md` unless the coordinator explicitly records why a different structure is needed.
 - Before starting implementation, prefer a clean planning baseline commit that contains the accepted feature spec, walkthrough/runbook, roadmap status, and relevant decisions. If committing is not approved or Git is unavailable, record the exact baseline state in the worker prompt instead.
-- Start real team members as separate threads by default.
-- Do not use same-turn subagents for write-capable implementation or walkthrough/verification lanes unless the human explicitly approved that exception. If thread creation is failing, return a manual starter prompt or ask the human how to proceed instead of silently changing execution mode for write-capable work.
+- Apply `docs/process/execution-lane-routing.md` before every delegation. Prefer a subagent only when every subagent condition passes; never use task-creation failure as a reason to weaken the routing boundary.
+- Admit no more than two parallel tracks, keep one project coordinator, and record their common base, isolated ownership, shared exclusions, integration order, and combined checks.
 - For parallel write-capable workers, use separate worktrees or explicitly disjoint `Allowed files to edit` ownership.
 - Set the worker thread name from `docs/process/naming-conventions.md`, include it in the worker prompt, and rename or request rename if the platform auto-generates a different title.
 - Follow `docs/process/thread-operations.md` for clean creation, start-health checks, delivery, receipt recovery, and fallback.
@@ -176,7 +176,7 @@ If a needed custom role is missing those artifacts, ask the human before scaffol
 - Recommend `.codex/config.toml`, `.codex/rules/`, or process-doc corrections when repeated runtime or routing friction appears; ask before changing config/rules during feature work.
 - Before final status, perform a coordinator quality gate: inspect returned packets, confirm expected files/scope, reconcile roadmap/docs/follow-ups, verify required checks were run or gaps are explicit, and look for obvious process or acceptance-rule violations. Route source or artifact fixes back to the proper lane instead of fixing them inline.
 - Decide whether a result is merge-ready, verified with follow-ups, blocked, or not ready.
-- After the final report, start, fork, or rename a fresh coordinator thread for the next coherent feature when context is heavy or the work direction changes.
+- After all active tracks reach a terminal state, start, fork, or rename a fresh coordinator task for the next coherent feature when context is heavy or the work direction changes.
 
 ## Worker Prompt Contract
 
@@ -192,6 +192,10 @@ Human and permission boundaries:
 Validation required:
 Output packet:
 Stop and fallback rules:
+Execution mode: separate task | subagent
+Parent lane owner:
+Subagents: allowed | not allowed
+Parallel track: none | A | B
 Project:
 Feature/Slice:
 Agent preset:
@@ -202,6 +206,11 @@ Coordinator thread id:
 Expected worktree:
 Expected branch or commit:
 Allowed worktree sharing: separate worktree | disjoint files only | read-only
+Common base commit:
+Integration target:
+Shared surfaces excluded:
+Cross-track assumptions:
+Integration order:
 Read first:
 Do not edit:
 Handoff return path:
@@ -210,6 +219,7 @@ Handoff return path:
 The `Read first` list should stay short. Prefer:
 
 - `AGENTS.md`
+- `docs/process/execution-lane-routing.md` when execution mode is `subagent`, subagents are allowed, or a parallel track is assigned
 - one role card
 - one feature spec or walkthrough, when one exists
 - one relevant packet file
@@ -217,13 +227,13 @@ The `Read first` list should stay short. Prefer:
 
 Do not start implementation workers from roadmap candidates alone unless the coordinator writes an equivalent scoped brief directly in the prompt.
 
-For `Thread name`, use `docs/process/naming-conventions.md`. If the platform creates a different title, rename the thread or request rename before treating the worker as properly started. Do not rely on auto-generated titles from the first prompt words.
+For a separate task's `Thread name`, use `docs/process/naming-conventions.md`. If the platform creates a different title, rename the thread or request rename before treating the worker as properly started. A subagent uses the platform's bounded task name and does not claim a durable thread title.
 
 Lead with the result the lane must produce. `Success criteria` names the observable completion bar; `Required evidence and source authority` names the inputs that support important claims; `Validation required` names checks that matter and how to report gaps.
 
-For `Coordinator thread id`, provide the exact delivery target. `Worker thread id` is only an anti-self-send and recovery handle. `Handoff return path` supplies the direct-send target and the manual fallback required by `AGENTS.md`.
+For a separate task, `Coordinator thread id` is the exact delivery target, `Worker thread id` is only an anti-self-send and recovery handle, and `Handoff return path` supplies the direct-send target and manual fallback. For a subagent, `Parent lane owner` is the return target; the parent owns any coordinator delivery.
 
-`Stop and fallback rules` should say `Return one packet, then stop`, and require a blocker packet when the worker cannot access required sources, reaches a human gate, or cannot satisfy the completion bar.
+`Stop and fallback rules` should say `Return once, then stop`, name the assigned destination, and require a blocker result when the worker cannot access required sources, reaches a human gate, or cannot satisfy the completion bar.
 
 ## Human Gates
 
@@ -258,7 +268,7 @@ Before creating or sending a feature doc to an architect, the coordinator must i
 
 ## Lifecycle
 
-1. Kickoff: coordinator checks repo state, reads source docs, triages unresolved follow-ups, updates roadmap status if prior work moved, recommends team shape, and defines the planning lane.
+1. Kickoff: coordinator checks repo state, reads source docs, triages unresolved follow-ups, updates roadmap status if prior work moved, recommends team shape, chooses execution modes, and defines one track or admits two under `docs/process/execution-lane-routing.md`.
 2. Analysis pass: optional; use when user, problem, workflow, business rules, or domain constraints are unclear.
 3. Architecture pass: use after init and whenever boundaries, data model, integrations, or tradeoffs are unclear; pass relevant unresolved follow-ups into the architect prompt and update the roadmap when a candidate becomes a ready feature spec.
 4. Planning baseline: before implementation, prefer a clean commit containing the accepted feature spec, walkthrough/runbook, roadmap status, and relevant decisions. If a commit is not approved or Git is unavailable, record the exact baseline state in the worker prompt.
@@ -266,13 +276,13 @@ Before creating or sending a feature doc to an architect, the coordinator must i
 6. Review: optional code/diff review before walkthrough; use when correctness, security, migration, API contract, or regression risk warrants a second engineering read; keep roadmap status aligned with review outcome.
 7. Walkthrough: required acceptance verification after implementation or review; use to run the approved checks/manual flows against the exact branch/commit and decide merge readiness; record pass/blocker/follow-up status in the roadmap.
 8. Coordinator quality gate: inspect packets, scope, docs, roadmap, checks, generated churn, and unresolved follow-ups before committing or reporting final status. Send fixes back to the correct lane.
-9. Final report: coordinator records status, test gaps, human steps, follow-ups, commit/push state when applicable, and next action in both the final report and roadmap.
+9. Final report: coordinator records per-track status, integration status when parallel, test gaps, human steps, follow-ups, commit/push state when applicable, and next action in both the final report and roadmap.
 
 Use only the needed packet file from `docs/process/handoff-packets/` at each step.
 
 Post-implementation verification is a separate lane. The coordinator should not run local/test database smoke, Docker smoke, deployment smoke, production setup, or provider setup inline by default. Use a walkthrough/testing worker for local and acceptance checks, and a deployment guide for environment, provider, or production setup. The coordinator may run a trivial already-available check inline only when it states why it is safe and no new tooling, service, account, secret, or production access is needed.
 
-Walkthrough/testing workers should also run as separate Codex lanes by default. A same-thread subagent may summarize or inspect read-only evidence, but it should not be the acceptance walkthrough for a changed worktree unless the human explicitly approves that exception.
+Walkthrough/testing follows the acceptance-separation rules in `docs/process/execution-lane-routing.md`. Deterministic local verification may use a different bounded subagent; interactive, external, long-lived, or retest-capable verification uses a separate task.
 
 Approval of a verification lane does not approve installing missing tooling. If required local tooling is absent, stop and ask the human to choose: provide an existing endpoint/tool, approve a specific install/setup, use an already available alternative, or defer the check.
 
@@ -288,7 +298,7 @@ Project brief -> decision log -> feature spec -> implementation handoff -> tests
 
 Record durable decisions in `docs/project/decision-log.md`. Record non-blocking discovered work in `docs/follow-ups/`. Do not put temporary thread ownership, live branch status, or secrets in feature specs.
 
-The roadmap should reflect the current durable feature state, not just initial spec creation. If roadmap status and feature docs disagree, update the roadmap before starting the next lane or finalizing a cycle.
+The roadmap should reflect each feature's current durable state, not just initial spec creation. If roadmap status and feature docs disagree, update the roadmap before starting the next lane or finalizing that track.
 
 ## Context Health, Reset, And Rollover
 
@@ -308,7 +318,9 @@ Rollover transfers coordinator authority and is not a Git-branching action. The 
 
 ## Completion Rules
 
-- One implementation owner per slice; parallel writers need isolated or disjoint ownership.
+- One implementation owner per slice; parallel mode has at most two tracks, and parallel writers need isolated or disjoint ownership.
+- A track is not integration-verified until the declared combined checks pass on the integrated state.
+- Implementation and final acceptance use different agents.
 - Test the exact expected branch/commit and keep external proof narrower than the claim it supports.
 - Route source confusion to context audit/reset instead of continuing from memory.
 - Keep coordinator, implementation, review, walkthrough, and deployment ownership distinct once their lanes exist.

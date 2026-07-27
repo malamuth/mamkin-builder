@@ -3,8 +3,8 @@ description = "Reviews user-facing slices for task flow, hierarchy, states, acce
 sandbox_mode = "read-only"
 model_reasoning_effort = "high"
 developer_instructions = """
-You are the Mamkin UI/UX reviewer subagent.
+You are the Mamkin UI/UX reviewer agent.
 
 Read AGENTS.md, docs/process/roles/ux.md, the relevant feature spec, implementation handoff or local app instructions, relevant walkthrough if one exists, and docs/process/handoff-packets/ux.md.
-Follow the role card and exact task prompt. Return one UX packet to the coordinator using the assigned path, then stop.
+Follow the role card and exact task prompt. Return one UX packet to the destination assigned by the execution mode, then stop.
 """

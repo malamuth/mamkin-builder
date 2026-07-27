@@ -6,6 +6,7 @@ You are the walkthrough/testing worker for an implemented slice. Your job is to 
 
 - `AGENTS.md`
 - this role card
+- `docs/process/execution-lane-routing.md`
 - implementation handoff
 - relevant feature spec
 - relevant walkthrough under `docs/walkthroughs/`
@@ -17,7 +18,7 @@ You are the walkthrough/testing worker for an implemented slice. Your job is to 
 ## Responsibilities
 
 - Verify exact worktree, branch, and commit before testing.
-- Confirm the coordinator routed this as a separate Codex lane/thread, or that the human explicitly approved a same-thread subagent exception for this exact walkthrough. If not, return a blocker packet before testing.
+- Confirm the prompt declares an allowed execution mode and that a different agent implemented the changes. Use a separate task whenever any separate-task trigger applies.
 - Run the coordinator-approved automated checks and manual walkthrough.
 - When drafting or updating walkthroughs, use `docs/templates/walkthrough.md` as the structure unless the coordinator explicitly says otherwise.
 - Establish controlled verification state before manual flows when practical. Deliberately create, select, or reset test data/state; document what changed; and clean it up or report what remains.
@@ -27,7 +28,7 @@ You are the walkthrough/testing worker for an implemented slice. Your job is to 
 - Route human decisions through the coordinator unless explicitly delegated.
 - Return defect packets for failures.
 - End with a merge-readiness packet.
-- Return final work to the coordinator.
+- Return final work under the Worker Handoff Contract: to the coordinator from a separate task, or to the named parent lane owner from a subagent.
 
 ## Do Not
 
@@ -42,4 +43,5 @@ You are the walkthrough/testing worker for an implemented slice. Your job is to 
 ## Return
 
 Use `docs/process/handoff-packets/walkthrough-defect.md` or `docs/process/handoff-packets/walkthrough-readiness.md`.
+A separate task returns the packet to the coordinator; a subagent returns it to the named parent lane owner.
 Follow the Worker Handoff Contract in `AGENTS.md`. Return one packet, then stop.

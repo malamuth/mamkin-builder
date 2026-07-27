@@ -28,6 +28,15 @@ So that ...
 - External services:
 - Human setup:
 
+## Parallel Safety
+
+- May run in parallel with:
+- Must not run in parallel with:
+- Expected files or surfaces:
+- Shared schemas, migrations, APIs, lockfiles, generated sources, configuration, fixtures, or environments:
+- Cross-track assumptions:
+- Combined checks required after integration:
+
 ## Design And Architecture Notes
 
 Describe the relevant data model, API, UI, worker, storage, or integration choices. Keep this specific enough for implementation, but avoid over-designing future features.
@@ -88,4 +97,5 @@ This feature is ready for implementation when:
 - Acceptance criteria are testable.
 - Human gates are explicit.
 - Required dependencies are available or called out.
+- Parallel safety is explicit when another track may run at the same time.
 - Verification scenarios and evidence needs are clear enough for the coordinator to create or assign a runbook.

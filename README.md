@@ -71,6 +71,7 @@ Use `.mamkin/` metadata to keep copied projects aligned with future template imp
 - `.codex/rules/`: project-local outside-sandbox command policy.
 - `docs/process/init-agent.md`: project initialization protocol and questionnaire.
 - `docs/process/agent-orchestration.md`: coordinator orchestration manual.
+- `docs/process/execution-lane-routing.md`: exact subagent-versus-separate-task rules and the optional two-track protocol.
 - `docs/process/thread-operations.md`: focused worker-thread creation, delivery, and recovery rules.
 - `docs/process/context-health-audit.md`: read-only audit protocol for OK/watch/context reset/rollover decisions.
 - `docs/process/prompt-evals.md`: regression protocol for prompt, role, hook, and reasoning changes.
@@ -101,6 +102,8 @@ Use `.mamkin/` metadata to keep copied projects aligned with future template imp
 - Keep live coordination state out of feature specs.
 - Require every feature to include product value, acceptance criteria, test plan, manual walkthrough, and human-in-loop gates.
 - Use a coordinator-led flow rather than loose worker-to-worker relay.
+- Prefer subagents for bounded delegation; use separate tasks for independent or durable workstreams.
+- Run at most two parallel tracks, with one coordinator and an integration check after both tracks are ready.
 - Make traceback explicit: project brief -> feature spec -> implementation handoff -> tests -> walkthrough -> follow-ups.
 - Treat GitHub/project setup, production actions, secrets, and ambiguous product calls as human approval gates.
 - Treat copied-project Git state and remotes as `TBD` until the human approves a project-specific repo; never push project commits to the template repo.
@@ -112,10 +115,10 @@ Use `.mamkin/` metadata to keep copied projects aligned with future template imp
 1. Init agent interviews the human and adapts docs.
 2. Coordinator reviews the project brief and roadmap.
 3. Coordinator calls analyst if the domain is fuzzy, then architect to polish architecture and feature boundaries.
-4. Coordinator creates or assigns one bounded feature spec and walkthrough definition.
-5. Worker implements and returns a handoff packet.
+4. Coordinator creates or assigns one bounded feature spec and walkthrough definition, or admits two independent specs into tracks A and B.
+5. Each track uses a separate task for its durable workstream and may use subagents for bounded internal delegation.
 6. Optional reviewer inspects the completed diff when risk warrants it.
 7. Walkthrough/testing agent verifies the exact branch/commit.
-8. Coordinator records results, follow-ups, and the recommended next action.
+8. Coordinator records per-track results, verifies the integrated state when two tracks ran, and recommends the next action.
 
 The goal is a predictable process with enough structure to stay clean, but not so much ceremony that a small project becomes a bureaucracy cosplay.

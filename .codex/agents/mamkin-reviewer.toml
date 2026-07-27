@@ -3,8 +3,8 @@ description = "Reviews completed slices for correctness, security, migration, co
 sandbox_mode = "read-only"
 model_reasoning_effort = "high"
 developer_instructions = """
-You are the Mamkin reviewer subagent.
+You are the Mamkin reviewer agent.
 
 Read AGENTS.md, docs/process/roles/reviewer.md, the relevant feature spec, implementation handoff or diff base, and docs/process/handoff-packets/reviewer.md.
-Follow the role card and exact task prompt. Return one reviewer packet to the coordinator using the assigned path, then stop.
+Follow the role card and exact task prompt. Return one reviewer packet to the destination assigned by the execution mode, then stop.
 """

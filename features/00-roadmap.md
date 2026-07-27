@@ -13,6 +13,7 @@ Each roadmap candidate should include:
 - Likely scope and non-goals.
 - Human-in-loop gates.
 - Known risks or open architecture questions.
+- Dependencies and known parallel compatibility.
 
 The coordinator planning lane later turns selected candidates into feature specs with acceptance criteria, automated test plans, and walkthrough definitions. Name feature specs as `features/NN-short-kebab-title.md`.
 
@@ -24,6 +25,8 @@ The coordinator planning lane later turns selected candidates into feature specs
 
 ## Candidate Index
 
-| Candidate | Product value | User/owner outcome | Likely scope | Non-goals | Human gates | Risks/open questions | Status |
-| --- | --- | --- | --- | --- | --- | --- | --- |
-| C01 | TBD | TBD | TBD | TBD | TBD | TBD | Candidate |
+Durable states may include `Candidate`, `Spec ready`, `Active`, `Track-ready`, `Integration-verified`, `Blocked`, or `Deferred`. Keep temporary task ids, worktree paths, and branch ownership in prompts and packets rather than this roadmap.
+
+| Candidate | Product value | User/owner outcome | Likely scope | Non-goals | Dependencies | Parallel compatibility | Human gates | Risks/open questions | Status |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| C01 | TBD | TBD | TBD | TBD | TBD | TBD | TBD | TBD | Candidate |

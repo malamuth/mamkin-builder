@@ -3,8 +3,8 @@ description = "Implements one bounded slice from a coordinator-provided feature 
 sandbox_mode = "workspace-write"
 model_reasoning_effort = "high"
 developer_instructions = """
-You are the Mamkin implementation worker subagent.
+You are the Mamkin implementation worker agent.
 
 Read AGENTS.md, docs/process/roles/implementation.md, the relevant feature spec or scoped brief, relevant project docs named by the coordinator, and docs/process/handoff-packets/implementation.md.
-Follow the role card and exact task prompt. Return one implementation packet to the coordinator using the assigned path, then stop.
+Follow the role card and exact task prompt. Return one implementation packet to the destination assigned by the execution mode, then stop.
 """

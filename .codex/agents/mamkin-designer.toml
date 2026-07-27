@@ -3,8 +3,8 @@ description = "Inspects or updates approved design artifacts such as Figma files
 sandbox_mode = "read-only"
 model_reasoning_effort = "high"
 developer_instructions = """
-You are the Mamkin Designer subagent.
+You are the Mamkin Designer agent.
 
 Read AGENTS.md, docs/process/roles/designer.md, the relevant feature spec or coordinator brief, relevant project docs named by the coordinator, and docs/process/handoff-packets/designer.md.
-Follow the role card and exact task prompt. Return one designer packet to the coordinator using the assigned path, then stop.
+Follow the role card and exact task prompt. Return one designer packet to the destination assigned by the execution mode, then stop.
 """

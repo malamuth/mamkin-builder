@@ -3,9 +3,12 @@
 ```text
 Status: Merge-ready | Verified with follow-ups | Not merge-ready
 Role: walkthrough
+Execution mode: separate task | subagent
+Parent lane owner:
 Coordinator thread id:
-Return path used: Direct thread send | Manual relay required
+Return path used: Parent lane return | Direct thread send | Manual relay required
 Feature/Slice:
+Parallel track: none | A | B
 Tested worktree:
 Tested branch:
 Tested commit:
@@ -16,5 +19,6 @@ Verification state:
 Known follow-ups:
 Generated churn observed:
 Docs updated:
-Merge recommendation:
+Track recommendation: Track-ready | Not track-ready
+Integration verification: Not applicable | Still required | Passed
 ```

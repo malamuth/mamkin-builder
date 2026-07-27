@@ -64,7 +64,7 @@ Recommended questions:
 10. What does "done" mean for the first milestone?
 11. What should the agents explicitly avoid building?
 12. Should the project use GitHub, and if so, should setup be repo only, issues, milestones, or a GitHub Project board?
-13. How much orchestration is appropriate: solo agent, coordinator plus worker, or coordinator plus architect/reviewer/walkthrough?
+13. How much orchestration is appropriate: solo agent, coordinator plus worker, coordinator plus architect/reviewer/walkthrough, and whether occasional two-track work is expected?
 14. Does this project need recurring custom specialist roles beyond the built-in roles?
 15. Are there existing notes, links, designs, repos, or files the agent should inspect before finalizing docs?
 
@@ -81,7 +81,7 @@ Keep each doc narrow:
 - `docs/process/agent-orchestration.md` should change only when the coordination model, reusable process rules, or custom-role wiring changes. Put first-slice focus in the brief, roadmap, init handoff, or coordinator prompt instead.
 - `docs/process/naming-conventions.md` owns naming rules and the chosen project prefix only. Replace template placeholders; do not append duplicate prefix examples.
 - `.codex/config.toml` owns project-local Codex runtime config: approvals, sandbox defaults, multi-agent settings, and approved project-local MCP servers. Do not store secrets, token values, provider keys, private URLs, or one-off planning notes there.
-- `.codex/agents/` owns short project-local Codex subagent presets. Keep them as launch wrappers for role identity, sandbox/reasoning posture, and coordinator return path; do not duplicate full role cards or feature plans there. Preset sandbox/model/MCP settings are desired launch defaults, not a substitute for process gates; active runtime approvals may still be broader.
+- `.codex/agents/` owns short project-local Codex custom-agent presets. Keep them as launch wrappers for role identity, sandbox/reasoning posture, and execution-mode return path; do not duplicate full role cards or feature plans there. Preset sandbox/model/MCP settings are desired launch defaults, not a substitute for process gates; active runtime approvals may still be broader.
 - `.agents/skills/` owns repo-scoped Codex skill entrypoints. Keep skills focused and discoverable; they may point to process docs, scripts, or references, but should not duplicate full manuals.
 - `.codex/rules/` owns project-local command escalation policy for outside-sandbox commands. Do not put workflow rules, project plans, or role instructions there.
 - `.codex/hooks.json` and `.codex/hooks/` own project-local runtime reminders and scanners. Hooks may warn, add context, or request continuation, but workflow rules still live in Markdown. Changed project hooks may need Codex trust/review before they run.
@@ -99,7 +99,7 @@ Update or create these docs:
 - `docs/project/decision-log.md`: init decisions and assumptions.
 - `features/00-roadmap.md`: high-level roadmap with product value and candidate slices.
 - `.codex/config.toml`: project-level Codex runtime config. Extend it only for approved project-local MCP servers or runtime defaults.
-- `.codex/agents/`: project-level Codex subagent presets. Extend it only for approved recurring custom roles or project-specific runtime posture.
+- `.codex/agents/`: project-level Codex custom-agent presets. Extend it only for approved recurring custom roles or project-specific runtime posture.
 - `.agents/skills/`: repo-scoped Codex skill entrypoints. Extend only for reusable workflows that benefit from implicit or explicit skill invocation.
 - `.codex/rules/`: project-level outside-sandbox command policy. Extend it only for approved command approval/forbid rules.
 - `.codex/hooks.json` and `.codex/hooks/`: project-level lifecycle automation. Extend only for deterministic checks that support the Markdown process.
@@ -205,7 +205,7 @@ Before coordinator handoff, check:
 - `docs/process/*` contains only reusable process changes, not one-off first-slice planning notes.
 - `docs/process/naming-conventions.md` has one project prefix and no stale template/example project prefixes.
 - `.codex/config.toml` contains only approved runtime/MCP config, excludes ambient secret patterns by default, and has no secrets, token values, private URLs, provider keys, or personal-only workspace config.
-- `.codex/agents/` contains only concise subagent presets and does not duplicate full role cards, feature plans, secrets, or product-specific private context.
+- `.codex/agents/` contains only concise custom-agent presets and does not duplicate full role cards, feature plans, secrets, or product-specific private context.
 - `.agents/skills/` contains only focused skill entrypoints or helper workflows and does not duplicate the full process manual.
 - `.codex/rules/` contains only approved outside-sandbox command policy and does not hide workflow instructions that agents should read from Markdown.
 - `.codex/hooks.json` and hook scripts contain only deterministic reminders/scanners and no hidden workflow instructions, secrets, or provider-specific project planning.

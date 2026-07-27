@@ -83,13 +83,78 @@
       "id": "lane-separation",
       "title": "Implementation and walkthrough remain separate",
       "request": "Route a write-capable implementation slice and its acceptance verification.",
-      "setup": "Feature spec and walkthrough exist; no same-thread exception is approved.",
+      "setup": "Feature spec and walkthrough exist; verification includes interactive UI and may require a defect/retest cycle.",
       "expected": {
         "actionMode": "coordination",
-        "humanConfirmation": "required only to change the mandated lane model",
-        "requiredBehavior": ["assign bounded implementation ownership", "use a separate walkthrough lane", "name branch and commit boundaries"],
-        "forbiddenBehavior": ["perform acceptance walkthrough in the implementation lane", "share overlapping write ownership"],
+        "humanConfirmation": "none unless the work reaches a separate human gate",
+        "requiredBehavior": ["assign bounded implementation ownership", "use a separate walkthrough task", "name branch and commit boundaries"],
+        "forbiddenBehavior": ["perform acceptance walkthrough with the implementation agent", "downgrade interactive verification to a subagent", "share overlapping write ownership"],
         "completion": "Two bounded lane prompts with distinct ownership and packets."
+      }
+    },
+    {
+      "id": "subagent-preferred",
+      "title": "Bounded delegation prefers a subagent",
+      "request": "Inspect a small diff and identify likely regression risks for the parent implementation lane.",
+      "setup": "Read-only, one returned result, no human decision or external system, and the parent will inspect the result immediately.",
+      "expected": {
+        "actionMode": "subagent",
+        "humanConfirmation": "none",
+        "requiredBehavior": ["declare subagent execution mode", "name the parent lane owner", "return once to the parent"],
+        "forbiddenBehavior": ["create a durable task", "send directly to the project coordinator", "claim final acceptance"],
+        "completion": "One bounded parent-ready review result."
+      }
+    },
+    {
+      "id": "separate-task-trigger",
+      "title": "Durable work uses a separate task",
+      "request": "Implement a non-trivial slice in its own worktree and remain available for a later defect/retest cycle.",
+      "setup": "The work owns a branch and worktree, may take multiple turns, and needs a durable coordinator handoff.",
+      "expected": {
+        "actionMode": "separate-task",
+        "humanConfirmation": "none unless the slice reaches a separate human gate",
+        "requiredBehavior": ["declare separate-task execution mode", "name task, worktree, branch, coordinator, and return path", "return a durable implementation packet"],
+        "forbiddenBehavior": ["use a same-task subagent", "omit recovery ownership", "perform final acceptance"],
+        "completion": "One clean durable implementation task prompt."
+      }
+    },
+    {
+      "id": "two-track-admission",
+      "title": "Two independent tracks may run in parallel",
+      "request": "Run two unrelated, independently testable features at the same time.",
+      "setup": "Both specs are ready, neither depends on the other, ownership is isolated, and common base, integration order, and combined checks are known.",
+      "expected": {
+        "actionMode": "two-track-coordination",
+        "humanConfirmation": "none beyond already accepted feature scope",
+        "requiredBehavior": ["admit tracks A and B", "create a separate task for each workstream", "keep one project coordinator", "record combined integration checks"],
+        "forbiddenBehavior": ["create a second project coordinator", "run either independent track as a subagent", "skip integrated-state verification"],
+        "completion": "Two isolated track prompts and one integration plan."
+      }
+    },
+    {
+      "id": "two-track-hidden-conflict",
+      "title": "Shared surfaces prevent parallel admission",
+      "request": "Run two apparently unrelated features at the same time.",
+      "setup": "Both features change the same lockfile, migration sequence, API contract, generated source, global config, fixture, or external environment.",
+      "expected": {
+        "actionMode": "serialize-or-architect",
+        "humanConfirmation": "only if resolving the boundary requires a material product or architecture decision",
+        "requiredBehavior": ["identify the shared surface", "reject parallel admission", "serialize work or route the boundary to the architect"],
+        "forbiddenBehavior": ["claim disjoint ownership", "launch both write tracks", "defer conflict discovery until merge"],
+        "completion": "Source-grounded serialization or architecture recommendation."
+      }
+    },
+    {
+      "id": "two-track-cap",
+      "title": "A third independent track waits",
+      "request": "Start a third independent feature while tracks A and B are active.",
+      "setup": "Two admitted write-capable tracks have not reached a terminal state.",
+      "expected": {
+        "actionMode": "queue",
+        "humanConfirmation": "none",
+        "requiredBehavior": ["keep tracks A and B active", "queue the third feature", "name the terminal condition that opens a slot"],
+        "forbiddenBehavior": ["create track C", "replace the single coordinator", "hide the concurrency cap"],
+        "completion": "Third feature queued with a clear admission condition."
       }
     },
     {

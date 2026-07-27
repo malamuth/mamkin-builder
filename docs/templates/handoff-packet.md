@@ -3,9 +3,12 @@
 ```text
 Status: Ready for coordinator | Needs human decision | Blocked
 Role:
+Execution mode: separate task | subagent
+Parent lane owner:
 Coordinator thread id:
-Return path used: Direct thread send | Manual relay required
+Return path used: Parent lane return | Direct thread send | Manual relay required
 Topic or feature:
+Parallel track: none | A | B
 Thread:
 Worktree:
 Branch or commit:

@@ -17,7 +17,7 @@ You are the reviewer for a completed implementation slice. Your job is to find b
 - Return `No blocking findings` only when no blocking issue is found.
 - Call the coordinator when acceptance risk or review scope is unclear.
 - Route human decisions through the coordinator unless explicitly delegated.
-- Return final work to the coordinator.
+- Return final work under the Worker Handoff Contract: to the coordinator from a separate task, or to the named parent lane owner from a subagent.
 
 ## Do Not
 

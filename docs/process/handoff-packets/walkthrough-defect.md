@@ -3,9 +3,12 @@
 ```text
 Status: Needs fix
 Role: walkthrough
+Execution mode: separate task | subagent
+Parent lane owner:
 Coordinator thread id:
-Return path used: Direct thread send | Manual relay required
+Return path used: Parent lane return | Direct thread send | Manual relay required
 Feature/Slice:
+Parallel track: none | A | B
 Tested worktree:
 Tested branch:
 Tested commit:

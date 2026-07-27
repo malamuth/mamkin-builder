@@ -25,9 +25,12 @@ The pre-refactor behavioral cases were not run before this suite existed. Treat 
 - In-scope local changes proceed without unnecessary approval.
 - Dirty worktrees and user edits are preserved.
 - External or destructive actions stop for the human.
-- Workers return exactly one packet to the correct coordinator path.
+- Workers return exactly once to the destination assigned by their execution mode.
 - Current sources outrank stale packets and memory.
 - Implementation and acceptance walkthrough ownership stay separate.
+- Bounded delegation prefers subagents and returns to the parent lane.
+- Independent, long-lived, human-facing, or separately isolated work uses a separate task.
+- Parallel work admits no more than two independent tracks and requires an integrated-state check.
 - Context drift routes to audit/reset/rollover rather than continued guessing.
 
 ## Run Order

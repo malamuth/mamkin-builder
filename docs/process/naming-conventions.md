@@ -1,6 +1,6 @@
 # Naming Conventions
 
-Use this file when creating durable docs or separate agent threads.
+Use this file when creating durable docs or separate Codex tasks.
 
 Project prefix: TBD
 
@@ -17,9 +17,9 @@ Use predictable kebab-case names for docs produced by agents:
 
 Do not store live thread ownership, temporary branch state, secrets, tokens, or magic links in durable docs.
 
-## Thread Naming
+## Task Naming
 
-Use predictable names for separate agent threads:
+Use predictable names for separate agent tasks:
 
 ```text
 <project-prefix> <slice-id> <role> - <short-scope>
@@ -59,7 +59,8 @@ Rules:
 - When init continues in the same thread as coordinator, rename that thread to the coordinator pattern before the first coordinator action.
 - After coordinator rollover, the fresh coordinator should use the main coordinator title; the old coordinator should be archived or renamed with the archived pattern when tooling supports it.
 - Do not leave two unarchived coordinator threads with titles that both read as active. If cleanup tooling is unavailable, the outgoing coordinator must say so in its final response and stop coordinating.
-- Coordinator prompts for separate worker threads must include the exact `Thread name:`. If the created thread title differs, rename it or request rename before continuing.
+- Coordinator prompts for separate worker tasks must include the exact `Thread name:`. If the created task title differs, rename it or request rename before continuing.
+- Subagents use a short bounded task name inside their parent task; they do not claim a durable thread title.
 - Use `C##` for roadmap candidates and `F##` for feature specs.
 - Use role names from `docs/process/roles/`: `Analyst`, `Architect`, `Implementation`, `Reviewer`, `Walkthrough`, `Deployment`, `Designer`, `UX`, or an initialized custom role display name.
 - Keep short scope human-readable and kebab-free enough to scan in thread lists.

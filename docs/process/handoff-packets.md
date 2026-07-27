@@ -8,7 +8,7 @@ Handoff packets are evidence, not permanent authority. If an older packet confli
 
 When a packet makes architecture, source-ownership, generated-artifact, deployment, data, or integration claims, it should name the files, docs, reports, branch/commit, environment, or external proof it relied on. External proof should be described narrowly: what it observed, where, and what it does not prove.
 
-Workers follow the Worker Handoff Contract in `AGENTS.md` and the exact path in their task prompt. Every final non-coordinator packet fills `Coordinator thread id` and `Return path used`. Coordinator-side delivery and recovery mechanics live in `docs/process/thread-operations.md`.
+Workers follow the Worker Handoff Contract in `AGENTS.md` and the exact path in their task prompt. Every separate-task packet fills `Coordinator thread id` and `Return path used`. A subagent fills `Parent lane owner`, returns once to that parent, and does not perform a separate coordinator delivery. Coordinator-side delivery and recovery mechanics live in `docs/process/thread-operations.md`.
 
 - Coordinator kickoff: `docs/process/handoff-packets/coordinator-kickoff.md`
 - Coordinator reset/rollover: `docs/process/handoff-packets/coordinator-reset.md`
