@@ -58,14 +58,14 @@ Project-local Codex config, hooks, rules, and agent presets load only after Code
 
 Use `AGENTS.md` as the entrypoint because many coding agents already look for it. Keep it concise so every worker sees only high-signal rules. Put the coordinator manual, role cards, handoff packets, and testing contracts under `docs/process/`.
 
-Use `.mamkin/` metadata to keep copied projects aligned with future template improvements. `mamkin-template-sync` updates the reusable process layer from the upstream template while protecting project-owned docs, feature specs, code, secrets, and remotes. For mature projects, `mamkin-project-evolution-audit` then evaluates which newly available mechanics have enough project-specific evidence and net value to adopt; it remains read-only and does not turn every upstream addition into a recommendation.
+Use `.mamkin/` metadata to keep copied projects aligned with future template improvements. `mamkin-template-sync` updates the reusable process layer from the upstream template while protecting project-owned docs, feature specs, code, secrets, and remotes. For mature projects, `mamkin-project-evolution-audit` then evaluates both newly available mechanics and repeated project-native lessons. It recommends the smallest profitable action—keep knowledge in place, consolidate an existing source, add a deterministic check, create a project-local skill, retire redundancy, or propose a project-agnostic Mamkin improvement—without applying changes or leaking domain details upstream.
 
 ## After Updating Mamkin
 
 Use the smallest post-update sequence the project needs:
 
 1. Run `$mamkin-template-sync` in review mode, approve any apply or mixed-file merge separately, and validate the resulting project state.
-2. After a major capability update, several prior syncs, substantial project customization, or recurring coordination friction, run the read-only `$mamkin-project-evolution-audit`. Skip it for routine minor syncs.
+2. After a major capability update, several prior syncs, substantial project customization, recurring coordination friction, or accumulated decision/surprise lessons, run the read-only `$mamkin-project-evolution-audit`. Any recommended project skill is a separate, human-approved `$skill-creator` step. Skip the audit for routine minor syncs.
 3. If the active coordinator task predates a material process update, or may retain old routing, ownership, handoff, or source-authority assumptions, run the read-only `$mamkin-context-audit`.
 
 Follow the context-audit result:

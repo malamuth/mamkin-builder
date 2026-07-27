@@ -1,6 +1,6 @@
 ---
 name: mamkin-project-evolution-audit
-description: Audit a mature Mamkin project after one or more template/process updates and recommend only evidence-backed, net-positive project-process improvements. Use after major Mamkin syncs, when newer hooks, validation, model routing, subagent mechanics, or recovery tooling may be absent, or when recurring project-specific coordination friction suggests the current process should evolve.
+description: Audit a mature Mamkin project and recommend evidence-backed, net-positive evolution from template capabilities and project-native learning. Use after major Mamkin syncs; when newer process mechanics may be absent; or when decision logs, surprise logs, follow-ups, repeated artifacts, or project-specific skills suggest a reusable check, reference, skill update, new skill, consolidation, or upstream improvement.
 ---
 
 # Mamkin Project Evolution Audit
@@ -20,15 +20,16 @@ Run a read-only capability and profitability audit. Do not sync or apply changes
      --format json
    ```
 
-4. Inspect only evidence needed to judge candidates: project brief, decision log, follow-ups, relevant custom skills/hooks/config, validation commands, and bounded Git history.
-5. Apply the protocol's evidence and net-benefit gates. Absence alone is not a recommendation.
+4. Inspect only evidence needed to judge candidates: project brief, decision and learning logs, follow-ups, repeated artifacts, relevant custom skills/hooks/config, validation commands, and bounded Git history.
+5. Apply the protocol's evidence, action-ladder, and net-benefit gates. Absence or a log entry alone is not a recommendation.
 6. Render `docs/process/handoff-packets/project-evolution-audit.md` in the response. Do not create a report file.
 
 ## Boundaries
 
-- Keep template sync and project evolution separate: sync transfers process files; this skill judges project-specific value.
+- Keep template sync separate: sync transfers files; this skill judges project value.
 - A dirty or unverified template may inform the audit, but any proposed sync must wait for a committed, clean, verified source.
 - Never edit, install, enable hooks, change models, create external resources, commit, or push during the audit.
-- Preserve project-specific skills, commands, human gates, and process adaptations.
+- Never create or update a project skill during the audit. Recommend an exact candidate first; after human approval, use `skill-creator` in a separate implementation step.
+- Preserve project skills, commands, human gates, and adaptations.
 - Recommend at most five `Adopt now` items, ordered by expected net value.
 - Put uncertain but reversible ideas under `Bounded experiments`; explicitly reject low-value novelty.

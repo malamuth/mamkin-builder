@@ -3,6 +3,7 @@
 
 import argparse
 import json
+import re
 import subprocess
 import sys
 from pathlib import Path
@@ -19,6 +20,17 @@ SIGNAL_PATTERNS = {
     "context-friction": ["context drift", "stale assumption", "rollover", "context reset"],
     "automation-candidate": ["repeated step", "automate", "hook", "formatting"],
 }
+
+LEARNING_HEADINGS = (
+    "surprise",
+    "lesson",
+    "pitfall",
+    "incident",
+    "retrospective",
+    "known gap",
+    "confusion",
+)
+STALE_SKILL_SIGNALS = ("legacy", "deprecated", "superseded", "obsolete")
 
 
 def run_git(root, *args):
@@ -116,6 +128,96 @@ def relative_files(root, pattern):
     return sorted(path.relative_to(root).as_posix() for path in root.glob(pattern) if path.is_file())
 
 
+def skill_frontmatter(text):
+    if not text.startswith("---\n"):
+        return {}
+    end = text.find("\n---", 4)
+    if end < 0:
+        return {}
+    values = {}
+    for line in text[4:end].splitlines():
+        key, separator, value = line.partition(":")
+        if separator and key.strip() in {"name", "description"}:
+            values[key.strip()] = value.strip().strip("\"'")
+    return values
+
+
+def custom_skill_details(project, skills):
+    details = []
+    for relative in skills:
+        path = project / relative
+        try:
+            text = path.read_text(encoding="utf-8")
+        except OSError:
+            continue
+        frontmatter = skill_frontmatter(text)
+        searchable = f"{frontmatter.get('description', '')}\n{text[:4_000]}".lower()
+        details.append(
+            {
+                "path": relative,
+                "name": frontmatter.get("name"),
+                "description": frontmatter.get("description"),
+                "wordCount": len(text.split()),
+                "referenceFiles": len(
+                    [
+                        candidate
+                        for candidate in (path.parent / "references").rglob("*")
+                        if candidate.is_file()
+                    ]
+                )
+                if (path.parent / "references").is_dir()
+                else 0,
+                "statusSignals": [
+                    signal for signal in STALE_SKILL_SIGNALS if signal in searchable
+                ],
+            }
+        )
+    return details
+
+
+def learning_section_counts(text):
+    headings = []
+    candidate_items = 0
+    active_level = None
+    for line in text.splitlines():
+        heading = re.match(r"^(#{1,6})\s+(.+?)\s*$", line)
+        if heading:
+            level = len(heading.group(1))
+            title = heading.group(2).strip()
+            if active_level is not None and level <= active_level:
+                active_level = None
+            if any(signal in title.lower() for signal in LEARNING_HEADINGS):
+                headings.append(title)
+                active_level = level
+            continue
+        if active_level is not None and re.match(r"^\s*(?:[-*+]|\d+[.)])\s+", line):
+            candidate_items += 1
+    return headings, candidate_items
+
+
+def project_knowledge_sources(project):
+    sources = []
+    for path in signal_files(project):
+        try:
+            text = path.read_text(encoding="utf-8")
+        except OSError:
+            continue
+        headings, candidate_items = learning_section_counts(text[:500_000])
+        relative = path.relative_to(project).as_posix()
+        if headings or relative == "docs/project/decision-log.md":
+            sources.append(
+                {
+                    "path": relative,
+                    "kind": "decision-log"
+                    if relative == "docs/project/decision-log.md"
+                    else "learning-log",
+                    "matchedHeadings": headings,
+                    "candidateItems": candidate_items,
+                }
+            )
+    return sources
+
+
 def project_customizations(project):
     skills = [
         path
@@ -136,10 +238,12 @@ def project_customizations(project):
     )
     return {
         "customSkills": skills,
+        "customSkillDetails": custom_skill_details(project, skills),
         "customAgents": agents,
         "hookEvents": sorted((hooks.get("hooks") or {}).keys()),
         "projectValidationConfigured": project_check is not None,
         "projectValidationCommand": project_check,
+        "knowledgeSources": project_knowledge_sources(project),
     }
 
 
@@ -159,9 +263,19 @@ def maturity(project):
 
 def signal_files(project):
     candidates = []
-    fixed = [project / "docs/project/decision-log.md"]
+    fixed = [
+        project / "docs/project/decision-log.md",
+        project / "AGENTS.md",
+    ]
     fixed.extend(project.glob("docs/follow-ups/**/*.md"))
-    fixed.extend(project.glob("docs/project/**/*notes*.md"))
+    fixed.extend(
+        path
+        for path in project.glob("docs/project/**/*.md")
+        if any(
+            signal in path.name.lower()
+            for signal in ("note", "surprise", "lesson", "incident", "retrospective")
+        )
+    )
     for path in fixed:
         if path.is_file() and path not in candidates:
             candidates.append(path)
@@ -249,6 +363,7 @@ def build_inventory(project, template, catalog):
         "proofBoundary": [
             "Presence, absence, activation state, and bounded text counts are deterministic.",
             "Text counts indicate recurrence only and require source inspection before recommendation.",
+            "Learning headings and skill status signals are discovery metadata, not proof that a capability should be created, changed, or retired.",
             "No capability is recommended by this inventory.",
         ],
     }
@@ -276,8 +391,14 @@ def render_markdown(inventory):
     ]
     for item in inventory["capabilities"]:
         lines.append(f"| {item['title']} | {item['category']} | {item['state']} |")
+    customizations = project["customizations"]
     lines.extend(
         [
+            "",
+            "## Project-Native Evidence",
+            "",
+            f"- Custom skills: `{len(customizations['customSkillDetails'])}`",
+            f"- Decision/learning sources: `{len(customizations['knowledgeSources'])}`",
             "",
             "This is a read-only inventory, not a recommendation report.",
         ]

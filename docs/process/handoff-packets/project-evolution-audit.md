@@ -12,23 +12,30 @@ Recorded last sync commit:
 Baseline confidence:
 Inventory command:
 Project maturity evidence:
+Project-native evidence inspected:
+Existing custom skills/checks:
 
 Adopt now:
   - Mechanic:
+    Candidate origin: Template capability | Project-native learning
+    Preferred action: Keep source | Update/consolidate existing | Add validator/check | Create project skill | Propose upstream | Merge/retire
     Project evidence:
-    Capability state: Missing | Partial | Inactive | Present but misfit
+    Capability state: Missing | Partial | Inactive | Present but misfit | Not applicable
     Benefit score:
     Cost score:
     Net value:
+    Why a smaller action is insufficient:
     Exact surfaces:
     Success measure:
     Validation:
     Rollback:
+    Maintenance source and review/retirement trigger:
     Human/trust action:
 
 Bounded experiments:
   - Mechanic:
     Evidence and uncertainty:
+    Preferred action:
     Net value:
     Experiment and stop condition:
     Success measure:
@@ -40,6 +47,7 @@ Do not adopt:
     Reconsider only if:
 
 Existing project mechanics to preserve:
+Project-specific knowledge that must not move upstream:
 Audit limitations:
 Human decisions needed:
 Recommended next action:

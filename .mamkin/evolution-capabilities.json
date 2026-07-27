@@ -117,6 +117,17 @@
         ".codex/hooks.json"
       ],
       "benefitHypothesis": "Surface missing validation and trust notes before final handoff."
+    },
+    {
+      "id": "project-native-capability-mining",
+      "title": "Project-native capability mining",
+      "category": "project-learning",
+      "paths": [
+        ".agents/skills/mamkin-project-evolution-audit/SKILL.md",
+        "docs/process/project-evolution-audit.md",
+        "scripts/audit_mamkin_evolution.py"
+      ],
+      "benefitHypothesis": "Turn repeated project lessons into the smallest profitable source, check, skill, consolidation, or upstream candidate without leaking domain details."
     }
   ]
 }

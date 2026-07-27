@@ -7,9 +7,9 @@ Use this protocol to decide which current Mamkin mechanics would materially impr
 - Mature project worktree and current Mamkin template worktree.
 - `.mamkin/template-version.json` and ownership metadata when available.
 - Deterministic inventory from `scripts/audit_mamkin_evolution.py`.
-- Current project brief, decision log, follow-ups, validation commands, hooks, rules, presets, skills, and relevant recent Git history.
+- Current project brief, decision and learning logs, follow-ups, repeated artifacts, validation commands, hooks, rules, presets, skills, and relevant recent Git history.
 
-Current project sources outrank old packets or memories. Git history and text-signal counts show recurrence, not root cause. The inventory proves presence, absence, or activation state only; it does not prove usefulness.
+Current project sources outrank old packets or memories. Decision and surprise/lesson logs are discovery inputs, not self-proving instructions. Git history, headings, status signals, and text counts show possible recurrence or lifecycle state, not root cause or current authority. The inventory never proves usefulness.
 
 ## Audit Sequence
 
@@ -18,7 +18,7 @@ Current project sources outrank old packets or memories. Git history and text-si
 3. Run the inventory script from the current template.
 4. Classify candidates:
    - **Upgrade gap:** a current template capability is absent, partial, or inactive.
-   - **Project leverage:** project scale, custom workflows, or repeated friction creates a project-specific opportunity.
+   - **Project leverage:** project scale, specialized knowledge, custom workflows, or repeated friction creates a project-specific opportunity.
    - **Redundancy:** an old project mechanism duplicates or conflicts with the current protocol.
    - **No-fit:** a capability is absent but has no demonstrated project value.
 5. Read only the project evidence needed to evaluate plausible candidates.
@@ -36,6 +36,21 @@ A recommendation needs at least one:
 - A measured prompt, latency, validation, or handoff regression that the mechanic directly addresses.
 
 Do not recommend a hook, model change, new role, extra document, or automation because it exists upstream. Name exact evidence and its source.
+
+## Project-Native Capability Pass
+
+Inspect bounded current evidence: decision logs, surprise/lesson/incident sections, accepted follow-ups, repeated task artifacts, existing project skills and references, deterministic checks, and relevant history. Verify every candidate against current human decisions and current project sources; reject stale or contradicted log entries.
+
+Choose the smallest primary action:
+
+1. Keep the knowledge in its current source.
+2. Update or consolidate an existing skill, reference, role, or process source.
+3. Add a deterministic validator/check when the rule is mechanically testable.
+4. Create a project-local skill only for a distinct recurring invocation.
+5. Propose an upstream Mamkin improvement only when the mechanism is project-agnostic and evidenced beyond one project's domain details.
+6. Merge, retire, or mark legacy a redundant capability.
+
+Do not recommend several surfaces for the same lesson unless each has a separate job. Prefer references for detailed domain knowledge and keep skill entrypoints concise. A project-native recommendation remains owned by that project and must not leak project names, private targets, domain rules, or identifiers into Mamkin.
 
 ## Profitability Score
 
@@ -59,6 +74,8 @@ Recommend at most five adopt-now items. Prefer one smaller mechanism with direct
 
 - **Hooks:** require a deterministic trigger, repeat-safe command, bounded timeout, visible failure, no secret output, and a project trust/reload note.
 - **Validation:** require a real project command or deterministic check; never invent one from the stack.
+- **Project skills:** require repeated use, a stable trigger, named inputs and output, explicit stop conditions, measurable benefit, and no clean existing owner. Explain why a note, reference, existing-skill update, or validator is insufficient. After human approval, implement separately with `skill-creator`.
+- **Skill consolidation:** treat legacy/deprecated text or high word count as inspection signals only. Recommend consolidation or retirement only after current sources and actual usage confirm redundancy.
 - **Models/reasoning:** require same-case quality evals. Keep high-risk roles at their current setting without role-specific evidence.
 - **Subagents/tasks:** require observable routing triggers and preserved implementation/acceptance separation.
 - **New roles/docs:** require repeated responsibility that existing roles or project sources cannot own cleanly.
@@ -75,6 +92,7 @@ Each adopt-now or experiment item must name:
 - Review date or event.
 - Rollback or disable path.
 - Human decision or trust/restart action, if any.
+- Maintenance source and review/retirement trigger.
 
 ## Output
 

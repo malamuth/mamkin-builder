@@ -39,8 +39,8 @@ def main():
     if cases.get("schemaVersion") != 1:
         fail(errors, "prompt cases schemaVersion must be 1")
     entries = cases.get("cases") or []
-    if len(entries) < 17:
-        fail(errors, "prompt eval suite must contain at least 17 cases")
+    if len(entries) < 19:
+        fail(errors, "prompt eval suite must contain at least 19 cases")
 
     ids = []
     required_case = {"id", "title", "request", "setup", "expected"}
@@ -72,6 +72,8 @@ def main():
         "architect-skip-bounded-slice",
         "project-evolution-profit-gate",
         "project-evolution-no-auto-apply",
+        "project-native-capability-ladder",
+        "project-native-stale-learning",
     }
     missing_ids = required_ids - set(ids)
     if missing_ids:
@@ -187,7 +189,8 @@ def main():
         fail(errors, "project evolution audit skill still contains scaffold TODOs")
     for phrase in [
         "name: mamkin-project-evolution-audit",
-        "Absence alone is not a recommendation.",
+        "Absence or a log entry alone is not a recommendation.",
+        "Never create or update a project skill during the audit.",
         "Never edit, install, enable hooks, change models, create external resources, commit, or push",
     ]:
         if phrase not in evolution_skill_text:
@@ -197,7 +200,7 @@ def main():
     evolution_ui_text = evolution_skill_ui.read_text(encoding="utf-8")
     for phrase in [
         'display_name: "Mamkin Project Evolution Audit"',
-        'short_description: "Find profitable Mamkin upgrades for mature projects"',
+        'short_description: "Find profitable project and Mamkin process upgrades"',
         "$mamkin-project-evolution-audit",
     ]:
         if phrase not in evolution_ui_text:
@@ -210,6 +213,9 @@ def main():
         "Do not recommend a hook",
         "Do not write the packet or apply recommendations.",
         "it is not an executable sync source",
+        "Choose the smallest primary action:",
+        "Create a project-local skill only for a distinct recurring invocation.",
+        "must not leak project names, private targets, domain rules, or identifiers into Mamkin",
     ]:
         if phrase not in evolution_protocol_text:
             fail(errors, f"project evolution audit protocol missing invariant: {phrase}")
@@ -219,6 +225,9 @@ def main():
         "Bounded experiments:",
         "Do not adopt:",
         "Existing project mechanics to preserve:",
+        "Project-specific knowledge that must not move upstream:",
+        "Preferred action:",
+        "Maintenance source and review/retirement trigger:",
         "Rollback:",
     ]:
         if field not in evolution_packet_text:
@@ -396,8 +405,10 @@ def main():
         fail(errors, "evolution capability catalog schemaVersion must be 1")
     capabilities = evolution_catalog.get("capabilities") or []
     capability_ids = [capability.get("id") for capability in capabilities]
-    if len(capabilities) < 10 or len(capability_ids) != len(set(capability_ids)):
-        fail(errors, "evolution capability catalog needs at least ten unique capabilities")
+    if len(capabilities) < 11 or len(capability_ids) != len(set(capability_ids)):
+        fail(errors, "evolution capability catalog needs at least eleven unique capabilities")
+    if "project-native-capability-mining" not in capability_ids:
+        fail(errors, "evolution capability catalog missing project-native capability mining")
     for index, capability in enumerate(capabilities):
         for field in ["id", "title", "category", "paths", "benefitHypothesis"]:
             if not capability.get(field):
@@ -412,6 +423,18 @@ def main():
                 fail(errors, f"evolution capability {capability.get('id')} has invalid activation target")
             if len(valid_predicates) != 1:
                 fail(errors, f"evolution capability {capability.get('id')} needs one activation predicate")
+
+    for path in [
+        evolution_skill,
+        evolution_skill_ui,
+        evolution_protocol,
+        evolution_packet,
+        evolution_catalog_path,
+        ROOT / "scripts/audit_mamkin_evolution.py",
+        ROOT / "README.md",
+    ]:
+        if "sambl" in path.read_text(encoding="utf-8").lower():
+            fail(errors, f"{path.relative_to(ROOT)} leaks a project fixture into Mamkin")
 
     coordinator_default_paths = [
         agents,

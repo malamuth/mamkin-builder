@@ -1,4 +1,4 @@
 interface:
   display_name: "Mamkin Project Evolution Audit"
-  short_description: "Find profitable Mamkin upgrades for mature projects"
-  default_prompt: "Use $mamkin-project-evolution-audit to identify evidence-backed process improvements for this mature project."
+  short_description: "Find profitable project and Mamkin process upgrades"
+  default_prompt: "Use $mamkin-project-evolution-audit to identify evidence-backed template and project-native process improvements for this mature project."

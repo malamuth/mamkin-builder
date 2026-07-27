@@ -77,11 +77,20 @@ class EvolutionAuditTests(unittest.TestCase):
         write(self.project / "a.txt", "partial\n")
         write(
             self.project / ".agents/skills/project-helper/SKILL.md",
-            "---\nname: project-helper\ndescription: test\n---\n",
+            "---\nname: project-helper\ndescription: Legacy-only test helper.\n---\n",
+        )
+        write(
+            self.project / ".agents/skills/project-helper/references/rules.md",
+            "# Rules\n",
         )
         write(
             self.project / "docs/project/decision-log.md",
             "Manual workaround. Validation gap. Manual workaround.\n",
+        )
+        write(
+            self.project / "docs/project/surprise-log.md",
+            "# Agent Notes\n\n## Surprise Log\n\n- First repeated mistake.\n"
+            "- Second repeated mistake.\n\n## Unrelated\n\n- Not a candidate.\n",
         )
 
     def tearDown(self):
@@ -107,12 +116,33 @@ class EvolutionAuditTests(unittest.TestCase):
             inventory["project"]["customizations"]["customSkills"],
             [".agents/skills/project-helper/SKILL.md"],
         )
+        skill = inventory["project"]["customizations"]["customSkillDetails"][0]
+        self.assertEqual(skill["name"], "project-helper")
+        self.assertEqual(skill["referenceFiles"], 1)
+        self.assertEqual(skill["statusSignals"], ["legacy"])
+        learning = inventory["project"]["customizations"]["knowledgeSources"]
+        self.assertIn(
+            {
+                "path": "docs/project/surprise-log.md",
+                "kind": "learning-log",
+                "matchedHeadings": ["Surprise Log"],
+                "candidateItems": 2,
+            },
+            learning,
+        )
         self.assertGreaterEqual(
             inventory["project"]["textSignals"]["signals"]["manual-workaround"][
                 "occurrences"
             ],
             2,
         )
+
+    def test_learning_section_count_stops_at_peer_heading(self):
+        headings, count = AUDIT.learning_section_counts(
+            "## Lessons\n- one\n### Detail\n- two\n## Current Plan\n- ignored\n"
+        )
+        self.assertEqual(headings, ["Lessons"])
+        self.assertEqual(count, 2)
 
     def test_cli_is_read_only_and_emits_json(self):
         before = {
