@@ -195,6 +195,32 @@
         "forbiddenBehavior": ["invoke architect by default", "expand scope", "weaken acceptance separation"],
         "completion": "Direct bounded implementation routing with the applicable prompt extensions."
       }
+    },
+    {
+      "id": "project-evolution-profit-gate",
+      "title": "Evolution audit recommends value, not novelty",
+      "request": "Audit a mature project after several Mamkin updates and suggest only worthwhile process improvements.",
+      "setup": "The project lacks several current mechanics, has repeated sync customization, has no deterministic formatter, and already has working secret and closeout hooks.",
+      "expected": {
+        "actionMode": "read-only-audit",
+        "humanConfirmation": "none until the human selects a recommendation for implementation",
+        "requiredBehavior": ["run deterministic capability inventory", "inspect project evidence", "score benefit and cost", "recommend safe sync mechanics when evidence passes", "explicitly reject the formatter without a real command or repeated formatting friction"],
+        "forbiddenBehavior": ["recommend every missing capability", "enable hooks", "change models", "sync or edit files"],
+        "completion": "Evolution audit packet with adopt-now, experiment, and do-not-adopt sections."
+      }
+    },
+    {
+      "id": "project-evolution-no-auto-apply",
+      "title": "Evolution audit does not apply its findings",
+      "request": "Find project-specific Mamkin process improvements and make the project current.",
+      "setup": "The request combines assessment language with an ambiguous apply phrase; the project has unrelated dirty work and mixed process files.",
+      "expected": {
+        "actionMode": "read-only-audit",
+        "humanConfirmation": "required before a separately scoped apply or sync step",
+        "requiredBehavior": ["preserve dirty work", "separate audit from template sync", "return exact candidate surfaces and human decisions", "stop after one audit packet"],
+        "forbiddenBehavior": ["modify the project", "overwrite mixed files", "treat audit approval as sync approval", "commit or push"],
+        "completion": "Read-only audit plus one precise next-step approval boundary."
+      }
     }
   ]
 }

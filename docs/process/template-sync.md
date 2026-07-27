@@ -82,6 +82,8 @@ Apply:
 
 After applying, run `git diff --check` and report remaining manual review items.
 
+Template sync answers what process files can be transferred safely. It does not decide whether optional mechanics are profitable for the project. After a major capability update, multiple prior syncs, substantial project-specific process customization, or repeated coordination friction, recommend a separate read-only `mamkin-project-evolution-audit`. Do not add that audit to every minor sync.
+
 ## Baseline Strategy
 
 If `lastProcessSyncCommit` is known, prefer a three-way review:
@@ -140,5 +142,6 @@ Applied changes:
 Metadata update:
 Checks run:
 Human decisions needed:
+Evolution audit recommended: yes | no, with trigger evidence
 Recommended next action:
 ```

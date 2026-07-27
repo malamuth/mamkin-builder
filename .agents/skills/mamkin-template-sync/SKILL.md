@@ -11,7 +11,7 @@ Use this skill when a copied project should align its Mamkin process files with 
 
 1. Read `AGENTS.md`.
 2. Read `docs/process/template-sync.md`.
-3. Read `.mamkin/template-version.json` and `.mamkin/template-owned-files.md` when present.
+3. Read `.mamkin/template-version.json`, `.mamkin/process-manifest.json`, and `.mamkin/template-owned-files.md` when present.
 4. Check repo state with `pwd`, `git status --short --branch`, `git rev-parse HEAD`, and `git remote -v`.
 5. Locate the target upstream template:
    - Prefer a verified local path when available: it must be clean and its HEAD must match `origin/main`, unless the human explicitly approves a local-only state.
@@ -20,6 +20,7 @@ Use this skill when a copied project should align its Mamkin process files with 
 7. Run review mode first. Classify changes as template-owned, mixed, project-owned, or never-sync.
 8. Apply changes only after the human approves the patch plan or explicitly requested apply mode.
 9. After applying, update `.mamkin/template-version.json`, run `git diff --check`, and return the sync packet from `docs/process/template-sync.md`.
+10. Recommend `mamkin-project-evolution-audit` only after a major capability update, multiple prior syncs, substantial project-specific process customization, or recurring coordination friction. Do not run it automatically after a minor sync.
 
 ## Boundaries
 
@@ -29,3 +30,4 @@ Use this skill when a copied project should align its Mamkin process files with 
 - Do not call a local checkout "latest GitHub" unless it is clean and HEAD matches `origin/main`, or the human explicitly approves local-only template state.
 - If template metadata is missing or `TBD`, use heuristic first-sync review mode and ask before applying mixed-file changes.
 - This skill updates the Mamkin process layer only; it does not implement product features.
+- Project-specific profitability decisions belong to `mamkin-project-evolution-audit`, not this sync skill.

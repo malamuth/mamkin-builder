@@ -10,11 +10,12 @@ Use this guide when syncing a copied project with a newer `mamkin-builder` templ
 
 These files are reusable workflow surface. They may usually be updated from the upstream template after reviewing diffs:
 
-- `.agents/skills/mamkin-*/SKILL.md`
+- `.agents/skills/mamkin-*/**`
 - `.codex/agents/mamkin-*.toml`
 - `.codex/hooks.json`
 - `.codex/hooks/*.py`
 - `.codex/rules/mamkin.rules`
+- `.mamkin/evolution-capabilities.json`
 - `.mamkin/validation-map.json`
 - `docs/process/handoff-packets.md`
 - `docs/process/handoff-packets/*.md`
@@ -23,14 +24,17 @@ These files are reusable workflow surface. They may usually be updated from the 
 - `docs/process/execution-lane-routing.md`
 - `docs/process/thread-operations.md`
 - `docs/process/prompt-evals.md`
+- `docs/process/project-evolution-audit.md`
 - `docs/process/template-sync.md`
 - `docs/templates/*.md`
 - `evals/mamkin-prompt-cases.json`
 - `evals/mamkin-role-model-matrix.json`
+- `scripts/audit_mamkin_evolution.py`
 - `scripts/plan_validation.py`
 - `scripts/sync_mamkin_process.py`
 - `scripts/validate_prompt_contracts.py`
 - `tests/__init__.py`
+- `tests/test_audit_mamkin_evolution.py`
 - `tests/test_plan_validation.py`
 - `tests/test_sync_mamkin_process.py`
 - `features/README.md`

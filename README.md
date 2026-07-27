@@ -58,7 +58,23 @@ Project-local Codex config, hooks, rules, and agent presets load only after Code
 
 Use `AGENTS.md` as the entrypoint because many coding agents already look for it. Keep it concise so every worker sees only high-signal rules. Put the coordinator manual, role cards, handoff packets, and testing contracts under `docs/process/`.
 
-Use `.mamkin/` metadata to keep copied projects aligned with future template improvements. `mamkin-template-sync` updates the reusable process layer from the upstream template while protecting project-owned docs, feature specs, code, secrets, and remotes.
+Use `.mamkin/` metadata to keep copied projects aligned with future template improvements. `mamkin-template-sync` updates the reusable process layer from the upstream template while protecting project-owned docs, feature specs, code, secrets, and remotes. For mature projects, `mamkin-project-evolution-audit` then evaluates which newly available mechanics have enough project-specific evidence and net value to adopt; it remains read-only and does not turn every upstream addition into a recommendation.
+
+## After Updating Mamkin
+
+Use the smallest post-update sequence the project needs:
+
+1. Run `$mamkin-template-sync` in review mode, approve any apply or mixed-file merge separately, and validate the resulting project state.
+2. After a major capability update, several prior syncs, substantial project customization, or recurring coordination friction, run the read-only `$mamkin-project-evolution-audit`. Skip it for routine minor syncs.
+3. If the active coordinator task predates a material process update, or may retain old routing, ownership, handoff, or source-authority assumptions, run the read-only `$mamkin-context-audit`.
+
+Follow the context-audit result:
+
+- `OK` or `watch`: continue in the current coordinator task; record the watch trigger when applicable.
+- `context reset recommended`: run `$mamkin-context-reset` in the same coordinator task before more routing, implementation, or live validation.
+- `rollover recommended`: after explicit human approval, run `$mamkin-coordinator-rollover` to promote a fresh coordinator task from a source-grounded reset baseline. The outgoing coordinator stops coordinating.
+
+Do not reset or roll over merely because a sync occurred. A minor update usually needs only a reread of the changed process sources. After any sync that changes hooks, rules, config, or presets, review project trust and hook review state before relying on the new runtime behavior.
 
 ## Included Files
 
@@ -74,6 +90,7 @@ Use `.mamkin/` metadata to keep copied projects aligned with future template imp
 - `docs/process/execution-lane-routing.md`: exact subagent-versus-separate-task rules and the optional two-track protocol.
 - `docs/process/thread-operations.md`: focused worker-thread creation, delivery, and recovery rules.
 - `docs/process/context-health-audit.md`: read-only audit protocol for OK/watch/context reset/rollover decisions.
+- `docs/process/project-evolution-audit.md`: profitability-gated review of current Mamkin mechanics against a mature copied project.
 - `docs/process/prompt-evals.md`: regression protocol for prompt, role, hook, and reasoning changes.
 - `docs/process/template-sync.md`: safe sync protocol for updating copied projects from the current template.
 - `docs/process/naming-conventions.md`: doc and agent-thread naming rules.

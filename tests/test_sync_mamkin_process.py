@@ -124,6 +124,21 @@ class ProcessSyncTests(unittest.TestCase):
             "base\n",
         )
 
+    def test_skill_package_pattern_includes_nested_ui_metadata(self):
+        pattern = [".agents/skills/mamkin-*/**"]
+        self.assertTrue(
+            SYNC.matches(
+                ".agents/skills/mamkin-project-evolution-audit/SKILL.md",
+                pattern,
+            )
+        )
+        self.assertTrue(
+            SYNC.matches(
+                ".agents/skills/mamkin-project-evolution-audit/agents/openai.yaml",
+                pattern,
+            )
+        )
+
     def test_apply_requires_reviewed_commit_and_updates_safe_file(self):
         write(self.source / "docs/process/example.md", "upstream\n")
         source_head = self.commit_source()

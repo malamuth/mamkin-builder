@@ -1,0 +1,122 @@
+{
+  "schemaVersion": 1,
+  "capabilities": [
+    {
+      "id": "machine-process-ownership",
+      "title": "Machine-readable process ownership",
+      "category": "sync-safety",
+      "paths": [
+        ".mamkin/process-manifest.json"
+      ],
+      "benefitHypothesis": "Make later process syncs allowlisted and protect project-owned customizations."
+    },
+    {
+      "id": "guarded-process-sync",
+      "title": "Guarded dry-run-first process sync",
+      "category": "sync-safety",
+      "paths": [
+        "scripts/sync_mamkin_process.py",
+        "tests/test_sync_mamkin_process.py"
+      ],
+      "benefitHypothesis": "Reduce manual merge risk across repeated Mamkin updates."
+    },
+    {
+      "id": "execution-lane-routing",
+      "title": "Subagent, separate-task, and two-track routing",
+      "category": "orchestration",
+      "paths": [
+        "docs/process/execution-lane-routing.md"
+      ],
+      "benefitHypothesis": "Use cheaper bounded subagents while retaining durable isolation where needed."
+    },
+    {
+      "id": "change-aware-validation",
+      "title": "Change-aware validation planning",
+      "category": "validation",
+      "paths": [
+        ".mamkin/validation-map.json",
+        "scripts/plan_validation.py",
+        "tests/test_plan_validation.py"
+      ],
+      "activation": {
+        "path": ".mamkin/validation-map.json",
+        "jsonPath": [
+          "checks",
+          "project_check",
+          "command"
+        ],
+        "notNull": true
+      },
+      "benefitHypothesis": "Run relevant checks without paying for unrelated validation."
+    },
+    {
+      "id": "prompt-regression-contracts",
+      "title": "Prompt regression contracts",
+      "category": "prompt-quality",
+      "paths": [
+        "evals/mamkin-prompt-cases.json",
+        "scripts/validate_prompt_contracts.py"
+      ],
+      "benefitHypothesis": "Prevent prompt and routing simplifications from silently weakening behavior."
+    },
+    {
+      "id": "measured-model-routing",
+      "title": "Measured role model and reasoning routing",
+      "category": "runtime-cost",
+      "paths": [
+        "evals/mamkin-role-model-matrix.json"
+      ],
+      "benefitHypothesis": "Lower model cost only where same-case quality evidence supports it."
+    },
+    {
+      "id": "optional-post-edit-format",
+      "title": "Optional post-edit formatter",
+      "category": "automation",
+      "paths": [
+        ".codex/hooks/post_edit_format.py",
+        ".mamkin/validation-map.json"
+      ],
+      "activation": {
+        "path": ".mamkin/validation-map.json",
+        "jsonPath": [
+          "postEdit",
+          "mode"
+        ],
+        "equals": "enabled"
+      },
+      "benefitHypothesis": "Remove repeated formatting cleanup when a safe deterministic formatter exists."
+    },
+    {
+      "id": "context-recovery",
+      "title": "Context audit, reset, and rollover",
+      "category": "reliability",
+      "paths": [
+        ".agents/skills/mamkin-context-audit/SKILL.md",
+        ".agents/skills/mamkin-context-reset/SKILL.md",
+        ".agents/skills/mamkin-coordinator-rollover/SKILL.md",
+        "docs/process/context-health-audit.md"
+      ],
+      "benefitHypothesis": "Recover long-running coordinators from stale assumptions without restarting blindly."
+    },
+    {
+      "id": "secret-scan-hook",
+      "title": "Secret-shaped text scan hook",
+      "category": "safety",
+      "paths": [
+        ".codex/hooks/secret_scan.py",
+        ".codex/hooks.json"
+      ],
+      "benefitHypothesis": "Catch common secret-shaped text before it spreads into prompts, files, or commits."
+    },
+    {
+      "id": "closeout-hook",
+      "title": "Turn closeout reminder hook",
+      "category": "reliability",
+      "paths": [
+        ".codex/hooks/stop_process_check.py",
+        ".codex/hooks.json"
+      ],
+      "benefitHypothesis": "Surface missing validation and trust notes before final handoff."
+    }
+  ]
+}

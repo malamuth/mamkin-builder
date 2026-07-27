@@ -7,6 +7,7 @@
 - Coordinate feature or multi-agent work with `.agents/skills/mamkin-coordinate/SKILL.md` and `docs/process/agent-orchestration.md`.
 - Audit coordinator drift with `.agents/skills/mamkin-context-audit/SKILL.md`; run an approved same-thread reset or rollover with the matching Mamkin skill.
 - Update a copied project's process layer with `.agents/skills/mamkin-template-sync/SKILL.md`.
+- Audit a mature copied project's net-positive process evolution with `.agents/skills/mamkin-project-evolution-audit/SKILL.md` after major syncs or recurring coordination friction.
 - Assigned workers read their role card under `docs/process/roles/`, the relevant feature or walkthrough, and only the packet they must return.
 - Product context lives in `docs/project/brief.md`, `docs/project/decision-log.md`, relevant `features/*.md`, and `docs/walkthroughs/`.
 

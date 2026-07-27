@@ -28,14 +28,19 @@ def main():
     hooks_path = ROOT / ".codex/hooks.json"
     validation_map_path = ROOT / ".mamkin/validation-map.json"
     process_manifest_path = ROOT / ".mamkin/process-manifest.json"
+    evolution_catalog_path = ROOT / ".mamkin/evolution-capabilities.json"
     version_path = ROOT / ".mamkin/template-version.json"
+    evolution_skill = ROOT / ".agents/skills/mamkin-project-evolution-audit/SKILL.md"
+    evolution_skill_ui = evolution_skill.parent / "agents/openai.yaml"
+    evolution_protocol = ROOT / "docs/process/project-evolution-audit.md"
+    evolution_packet = ROOT / "docs/process/handoff-packets/project-evolution-audit.md"
 
     cases = json.loads(cases_path.read_text(encoding="utf-8"))
     if cases.get("schemaVersion") != 1:
         fail(errors, "prompt cases schemaVersion must be 1")
     entries = cases.get("cases") or []
-    if len(entries) < 15:
-        fail(errors, "prompt eval suite must contain at least 15 cases")
+    if len(entries) < 17:
+        fail(errors, "prompt eval suite must contain at least 17 cases")
 
     ids = []
     required_case = {"id", "title", "request", "setup", "expected"}
@@ -65,6 +70,8 @@ def main():
         "two-track-cap",
         "architect-required-shared-contract",
         "architect-skip-bounded-slice",
+        "project-evolution-profit-gate",
+        "project-evolution-no-auto-apply",
     }
     missing_ids = required_ids - set(ids)
     if missing_ids:
@@ -96,6 +103,7 @@ def main():
     prompt_files += sorted((ROOT / ".codex/agents").glob("mamkin-*.toml"))
     prompt_files += sorted((ROOT / "docs/process/roles").glob("*.md"))
     prompt_files += sorted((ROOT / ".codex/hooks").glob("*.py"))
+    prompt_files += sorted((ROOT / ".agents/skills").glob("mamkin-*/SKILL.md"))
     relay_phrase = "Coordinator handoff - manual relay required"
     relay_hits = sum(path.read_text(encoding="utf-8").count(relay_phrase) for path in prompt_files)
     if relay_hits > 2:
@@ -173,6 +181,48 @@ def main():
     coordinate_skill_text = (ROOT / ".agents/skills/mamkin-coordinate/SKILL.md").read_text(encoding="utf-8")
     if "Read `docs/process/naming-conventions.md` and `docs/process/handoff-packets.md`" in coordinate_skill_text:
         fail(errors, "coordinate skill still loads naming and packet indexes unconditionally")
+
+    evolution_skill_text = evolution_skill.read_text(encoding="utf-8")
+    if "[TODO" in evolution_skill_text:
+        fail(errors, "project evolution audit skill still contains scaffold TODOs")
+    for phrase in [
+        "name: mamkin-project-evolution-audit",
+        "Absence alone is not a recommendation.",
+        "Never edit, install, enable hooks, change models, create external resources, commit, or push",
+    ]:
+        if phrase not in evolution_skill_text:
+            fail(errors, f"project evolution audit skill missing invariant: {phrase}")
+    if words(evolution_skill) > 300:
+        fail(errors, f"project evolution audit skill exceeds 300-word budget ({words(evolution_skill)})")
+    evolution_ui_text = evolution_skill_ui.read_text(encoding="utf-8")
+    for phrase in [
+        'display_name: "Mamkin Project Evolution Audit"',
+        'short_description: "Find profitable Mamkin upgrades for mature projects"',
+        "$mamkin-project-evolution-audit",
+    ]:
+        if phrase not in evolution_ui_text:
+            fail(errors, f"project evolution audit UI metadata missing: {phrase}")
+
+    evolution_protocol_text = evolution_protocol.read_text(encoding="utf-8")
+    for phrase in [
+        "Net value = Benefit - Cost",
+        "**Adopt now:**",
+        "Do not recommend a hook",
+        "Do not write the packet or apply recommendations.",
+        "it is not an executable sync source",
+    ]:
+        if phrase not in evolution_protocol_text:
+            fail(errors, f"project evolution audit protocol missing invariant: {phrase}")
+    evolution_packet_text = evolution_packet.read_text(encoding="utf-8")
+    for field in [
+        "Adopt now:",
+        "Bounded experiments:",
+        "Do not adopt:",
+        "Existing project mechanics to preserve:",
+        "Rollback:",
+    ]:
+        if field not in evolution_packet_text:
+            fail(errors, f"project evolution audit packet missing field {field}")
 
     for role in sorted((ROOT / "docs/process/roles").glob("*.md")):
         text = role.read_text(encoding="utf-8")
@@ -290,6 +340,7 @@ def main():
         "prompt_contracts",
         "validation_planner_tests",
         "template_sync_tests",
+        "evolution_audit_tests",
         "project_check",
     ]:
         if required_check not in checks:
@@ -319,20 +370,48 @@ def main():
                 fail(errors, f"process manifest duplicates {pattern} across ownership classes")
             ownership_values[pattern] = ownership
     for path in [
+        ".mamkin/evolution-capabilities.json",
         ".mamkin/validation-map.json",
+        "docs/process/project-evolution-audit.md",
         "evals/mamkin-role-model-matrix.json",
+        "scripts/audit_mamkin_evolution.py",
         "scripts/plan_validation.py",
         "scripts/sync_mamkin_process.py",
+        "tests/test_audit_mamkin_evolution.py",
         "tests/test_plan_validation.py",
         "tests/test_sync_mamkin_process.py",
     ]:
         if path not in process_manifest.get("templateOwned", []):
             fail(errors, f"process manifest does not own {path}")
+    if ".agents/skills/mamkin-*/**" not in process_manifest.get("templateOwned", []):
+        fail(errors, "process manifest must include complete Mamkin skill packages")
     if ".mamkin/process-manifest.json" not in process_manifest.get("mixed", []):
         fail(errors, "process manifest must treat its own sync authority as mixed ownership")
     version = json.loads(version_path.read_text(encoding="utf-8"))
     if version.get("ownershipManifest") != ".mamkin/process-manifest.json":
         fail(errors, "template version must point to the machine-readable process manifest")
+
+    evolution_catalog = json.loads(evolution_catalog_path.read_text(encoding="utf-8"))
+    if evolution_catalog.get("schemaVersion") != 1:
+        fail(errors, "evolution capability catalog schemaVersion must be 1")
+    capabilities = evolution_catalog.get("capabilities") or []
+    capability_ids = [capability.get("id") for capability in capabilities]
+    if len(capabilities) < 10 or len(capability_ids) != len(set(capability_ids)):
+        fail(errors, "evolution capability catalog needs at least ten unique capabilities")
+    for index, capability in enumerate(capabilities):
+        for field in ["id", "title", "category", "paths", "benefitHypothesis"]:
+            if not capability.get(field):
+                fail(errors, f"evolution capability {index} missing {field}")
+        for path in capability.get("paths") or []:
+            if Path(path).is_absolute() or ".." in Path(path).parts:
+                fail(errors, f"evolution capability {capability.get('id')} has unsafe path {path}")
+        activation = capability.get("activation")
+        if activation is not None:
+            valid_predicates = {"equals", "notNull"} & set(activation)
+            if not activation.get("path") or not isinstance(activation.get("jsonPath"), list):
+                fail(errors, f"evolution capability {capability.get('id')} has invalid activation target")
+            if len(valid_predicates) != 1:
+                fail(errors, f"evolution capability {capability.get('id')} needs one activation predicate")
 
     coordinator_default_paths = [
         agents,

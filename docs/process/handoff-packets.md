@@ -23,4 +23,5 @@ Workers follow the Worker Handoff Contract in `AGENTS.md` and the exact path in 
 - Walkthrough defect: `docs/process/handoff-packets/walkthrough-defect.md`
 - Walkthrough readiness: `docs/process/handoff-packets/walkthrough-readiness.md`
 - Retest request: `docs/process/handoff-packets/retest-request.md`
+- Project evolution audit: `docs/process/handoff-packets/project-evolution-audit.md`
 - Custom role packets: add `docs/process/handoff-packets/<role-name>.md` during init or coordinator-approved setup, using `docs/templates/handoff-packet.md`.
