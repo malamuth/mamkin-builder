@@ -32,6 +32,7 @@ The pre-refactor behavioral cases were not run before this suite existed. Treat 
 - Independent, long-lived, human-facing, or separately isolated work uses a separate task.
 - Parallel work admits no more than two independent tracks and requires an integrated-state check.
 - Context drift routes to audit/reset/rollover rather than continued guessing.
+- Optional post-edit automation remains inert until explicitly enabled and never hides a failed formatter.
 
 ## Run Order
 
@@ -60,8 +61,21 @@ Keep the current `high` settings as the behavioral baseline until the cases can 
 
 Record the accepted reasoning matrix and evidence in the Decision History below before changing defaults.
 
+## Role Model Matrix
+
+`evals/mamkin-role-model-matrix.json` records experiments, not active runtime defaults. For each role class:
+
+1. Keep the same task fixture, repo state, permissions, and acceptance rubric.
+2. Run the baseline and candidate configuration in fresh tasks.
+3. Record pass rate, tokens, latency, turns, tool calls, unnecessary approvals, and unsafe or missing actions.
+4. Reject a cheaper candidate after any quality-gate failure. Do not average a safety or correctness failure away.
+5. Change `.codex/config.toml` or a role preset only after the matrix entry has sufficient same-case evidence and a decision is added below.
+
+Use capable/high reasoning for ambiguous coordination, architecture, security-sensitive review, and difficult root-cause work until measured otherwise. Test balanced/medium candidates first for bounded implementation, walkthrough execution, deployment checks, and read-only exploration. Model availability is runtime-specific; an unavailable candidate is `not-run`, not a failed quality result.
+
 ## Decision History
 
 | Date | Change | Structural result | Behavioral evidence | Reasoning decision |
 | --- | --- | --- | --- | --- |
 | 2026-07-15 | Centralized worker contract, slimmed always-loaded instructions, routed rare thread/reset paths, and removed workflow injection from `SubagentStart`. | `AGENTS.md` 548 words; coordinator default 5,746 words; orchestration 3,752 words; one active manual-relay invariant. | Not run before refactor; representative suite added for future fresh-task runs. | Keep root and role presets at `high` until same-case `high` versus `medium` evidence exists. |
+| 2026-07-28 | Added choice-first init rounds, evidence-shaped review and walkthrough packets, optional disabled post-edit formatting, change-aware validation, guarded process sync, and an experiments-only role matrix. | Deterministic contracts and tool unit tests pass; active prompt budgets remain enforced. | Fresh behavioral task cases not yet run; no comparative quality claim. | Active defaults remain `high`; run the recorded role experiments before changing a preset. |

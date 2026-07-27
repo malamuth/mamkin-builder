@@ -1,0 +1,104 @@
+{
+  "schemaVersion": 1,
+  "postEdit": {
+    "mode": "disabled",
+    "command": null,
+    "note": "Init may enable one deterministic local formatter as an argv array after human approval."
+  },
+  "always": [
+    "diff_check"
+  ],
+  "checks": {
+    "diff_check": {
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ]
+    },
+    "prompt_contracts": {
+      "command": [
+        "python3",
+        "scripts/validate_prompt_contracts.py"
+      ]
+    },
+    "validation_planner_tests": {
+      "command": [
+        "python3",
+        "-m",
+        "unittest",
+        "tests.test_plan_validation"
+      ]
+    },
+    "template_sync_tests": {
+      "command": [
+        "python3",
+        "-m",
+        "unittest",
+        "tests.test_sync_mamkin_process"
+      ]
+    },
+    "project_check": {
+      "command": null,
+      "note": "Set during init when the stack-specific check command is known."
+    }
+  },
+  "rules": [
+    {
+      "patterns": [
+        "AGENTS.md",
+        ".agents/skills/**",
+        ".codex/agents/**",
+        ".codex/hooks.json",
+        ".codex/hooks/**",
+        ".codex/config.toml",
+        "docs/process/**",
+        "docs/templates/**",
+        "evals/**",
+        "scripts/validate_prompt_contracts.py"
+      ],
+      "checks": [
+        "prompt_contracts"
+      ]
+    },
+    {
+      "patterns": [
+        ".mamkin/validation-map.json",
+        "scripts/plan_validation.py",
+        "tests/test_plan_validation.py"
+      ],
+      "checks": [
+        "validation_planner_tests"
+      ]
+    },
+    {
+      "patterns": [
+        ".mamkin/process-manifest.json",
+        ".mamkin/template-owned-files.md",
+        ".mamkin/template-version.json",
+        "scripts/sync_mamkin_process.py",
+        "tests/test_sync_mamkin_process.py"
+      ],
+      "checks": [
+        "template_sync_tests"
+      ]
+    }
+  ],
+  "processOnlyPatterns": [
+    ".mamkin/**",
+    ".agents/**",
+    ".codex/**",
+    "docs/**",
+    "evals/**",
+    "features/**",
+    "scripts/plan_validation.py",
+    "scripts/sync_mamkin_process.py",
+    "scripts/validate_prompt_contracts.py",
+    "tests/__init__.py",
+    "tests/test_plan_validation.py",
+    "tests/test_sync_mamkin_process.py",
+    "README.md",
+    "AGENTS.md"
+  ],
+  "unknownPathCheck": "project_check"
+}

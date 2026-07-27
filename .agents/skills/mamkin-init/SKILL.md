@@ -11,7 +11,7 @@ Use this skill when a copied Mamkin Builder template should become a concrete pr
 
 1. Read `AGENTS.md`.
 2. Read and follow `docs/process/init-agent.md`.
-3. Keep the init pass lightweight and interview-driven.
+3. Keep the init pass lightweight and interview-driven. Use the choice-first rounds in the protocol: one to three high-leverage questions, a recommended option when a real choice exists, then a compact decision/assumption summary.
 4. Adapt project-facing docs and approved Codex config surfaces only.
 5. Do not implement product code during init.
 6. Do not create GitHub remotes, external resources, paid services, production systems, MCP/provider config, or secret-dependent setup without explicit human approval.

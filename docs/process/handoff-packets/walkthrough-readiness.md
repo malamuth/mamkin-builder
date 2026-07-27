@@ -14,6 +14,15 @@ Tested branch:
 Tested commit:
 Automated checks:
 Manual checks:
+Scenario coverage:
+  Success:
+  Failure/recovery:
+  Boundary:
+  Repeated/idempotent:
+  Persistence/state transition:
+  Retry/cancellation:
+  Stale/partial input:
+Omitted scenarios and rationale:
 Deployment checks:
 Verification state:
 Known follow-ups:

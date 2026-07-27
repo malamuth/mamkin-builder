@@ -23,6 +23,17 @@
             "statusMessage": "Scanning tool use for secret-shaped text"
           }
         ]
+      },
+      {
+        "matcher": "^apply_patch$|Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "root=\"$(git rev-parse --show-toplevel 2>/dev/null || pwd)\"; /usr/bin/python3 \"$root/.codex/hooks/post_edit_format.py\"",
+            "timeout": 30,
+            "statusMessage": "Running the approved local post-edit formatter"
+          }
+        ]
       }
     ],
     "Stop": [

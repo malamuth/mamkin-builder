@@ -5,7 +5,7 @@
   "templateCommit": "TBD",
   "lastProcessSyncCommit": "TBD",
   "initializedProject": false,
-  "ownershipManifest": ".mamkin/template-owned-files.md",
+  "ownershipManifest": ".mamkin/process-manifest.json",
   "notes": [
     "In copied projects, init should replace templateCommit with the copied template commit when known.",
     "If the copied project has no inherited Git metadata, leave templateCommit as TBD and use template sync in review mode.",

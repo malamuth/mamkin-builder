@@ -48,25 +48,25 @@ In addition to the `AGENTS.md` hard rules, ask before installing dependencies, r
 
 ## Interview
 
-Ask enough questions to initialize the project, but keep the first pass lightweight. If the human does not know an answer, propose a conservative default and mark it as an assumption.
+Ask enough questions to initialize the project, but keep the first pass lightweight. Run the interview in focused rounds instead of presenting one long questionnaire.
 
-Recommended questions:
+For each round:
 
-1. What is the project name and one-sentence product idea?
-2. Who is the primary user, and what painful or valuable job should the product do for them?
-3. What first thin slice or milestone would prove the project is real?
-4. What interfaces are expected: web app, mobile, API, CLI, bot, browser extension, data pipeline, or something else?
-5. What stack, hosting, database, AI providers, design systems, or constraints are already preferred?
-6. Which MCP servers, connectors, or external workspace tools should Codex use for this project, if any?
-7. What data is sensitive, private, regulated, expensive, or hard to recover?
-8. Which local/provider secret paths should agents use when commands need secrets, without exposing values in chat or docs?
-9. Which decisions must involve the human, and which should usually involve the human?
-10. What does "done" mean for the first milestone?
-11. What should the agents explicitly avoid building?
-12. Should the project use GitHub, and if so, should setup be repo only, issues, milestones, or a GitHub Project board?
-13. How much orchestration is appropriate: solo agent, coordinator plus worker, coordinator plus architect/reviewer/walkthrough, and whether occasional two-track work is expected?
-14. Does this project need recurring custom specialist roles beyond the built-in roles?
-15. Are there existing notes, links, designs, repos, or files the agent should inspect before finalizing docs?
+- Ask one to three high-leverage questions.
+- When a real choice exists, offer two or three context-specific options, state the recommended default and its tradeoff, and allow a free-form override.
+- Ask factual questions directly; do not force artificial choices.
+- Reuse answers already present in the repo or conversation.
+- If the human does not know, propose a conservative default and mark it as an assumption.
+- Close with a compact summary of decisions, assumptions, and unresolved questions before moving on.
+
+Recommended rounds:
+
+1. **Product proof**: project name and idea, primary user and valuable job, first thin slice, and what makes that milestone done.
+2. **Product boundary**: expected interfaces, explicit non-goals, existing notes/designs/repos, and any required stack or platform constraints.
+3. **Data and risk**: integrations and MCP/connectors, sensitive or hard-to-recover data, approved secret paths, and `MUST` or `SHOULD` human decisions.
+4. **Delivery shape**: setup/run/check commands when known, GitHub setup, suitable orchestration level, occasional two-track work, and any genuinely recurring custom roles.
+
+Do not ask every example question when the answer will not change the initialized project. Continue naturally when the current answer resolves later-round questions.
 
 ## Document Ownership
 
@@ -103,8 +103,10 @@ Update or create these docs:
 - `.agents/skills/`: repo-scoped Codex skill entrypoints. Extend only for reusable workflows that benefit from implicit or explicit skill invocation.
 - `.codex/rules/`: project-level outside-sandbox command policy. Extend it only for approved command approval/forbid rules.
 - `.codex/hooks.json` and `.codex/hooks/`: project-level lifecycle automation. Extend only for deterministic checks that support the Markdown process.
+- Optional post-edit formatting: after the stack and formatter are known, ask before enabling `.mamkin/validation-map.json` `postEdit`. Use one deterministic local argv command; do not enable networked, install, generation, migration, or broad rewrite commands.
 - `.mamkin/template-version.json`: record the copied template commit when known. If the project was copied without Git metadata, leave commit fields as `TBD` and note that first sync must run in review mode.
 - `.mamkin/template-owned-files.md`: keep the ownership classes unless the project deliberately changes what is considered template-owned, mixed, or project-owned.
+- `.mamkin/validation-map.json`: fill `project_check` with the known check command as an argv array. Leave it unconfigured and report the gap when the stack is still unknown.
 
 Optionally update:
 
@@ -209,7 +211,9 @@ Before coordinator handoff, check:
 - `.agents/skills/` contains only focused skill entrypoints or helper workflows and does not duplicate the full process manual.
 - `.codex/rules/` contains only approved outside-sandbox command policy and does not hide workflow instructions that agents should read from Markdown.
 - `.codex/hooks.json` and hook scripts contain only deterministic reminders/scanners and no hidden workflow instructions, secrets, or provider-specific project planning.
+- The post-edit formatter remains disabled, or its enabled argv command was explicitly approved and is local, deterministic, and safe to repeat.
 - Prompt, role, hook, or reasoning changes pass `python3 scripts/validate_prompt_contracts.py`; behavioral changes are recorded for representative evals in `docs/process/prompt-evals.md`.
+- `.mamkin/validation-map.json` selects the project check for product paths, or the missing command is an explicit open question rather than an invented command.
 - The handoff notes whether project-local `.codex` config/hooks/rules/presets are expected to be active, and reminds the human to trust the project or review hooks in Codex if they appear inactive.
 - `.mamkin/template-version.json` records the copied template baseline when known, or explicitly leaves it `TBD` for first-sync review mode.
 - `.mamkin/template-owned-files.md` protects project-owned docs/features/code from future template sync.

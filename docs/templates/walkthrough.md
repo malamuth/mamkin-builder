@@ -83,7 +83,21 @@ Expected result:
 - Any state that cannot be controlled is documented as a test limitation.
 - Any state changed during verification is either cleaned up later or explicitly reported in the result packet.
 
-## 6. Manual Flow
+## 6. Scenario Matrix
+
+Select only scenarios that can expose a risk in this slice. Mark the rest `Not applicable` with a short reason.
+
+| Scenario | Risk addressed | Setup | Steps | Expected result |
+| --- | --- | --- | --- | --- |
+| Success | TBD | TBD | TBD | TBD |
+| Failure and recovery | TBD | TBD | TBD | TBD |
+| Boundary | TBD | TBD | TBD | TBD |
+| Repeated or idempotent action | TBD | TBD | TBD | TBD |
+| Persistence or state transition | TBD | TBD | TBD | TBD |
+| Retry or cancellation | TBD | TBD | TBD | TBD |
+| Stale or partial input | TBD | TBD | TBD | TBD |
+
+## 7. Execute Manual Scenarios
 
 1. TBD
 2. TBD
@@ -91,17 +105,8 @@ Expected result:
 
 Expected result:
 
-- TBD
-
-## 7. Boundary Flow
-
-1. TBD
-2. TBD
-3. TBD
-
-Expected result:
-
-- TBD
+- Each selected scenario has an observed result.
+- Skipped scenarios are reported with their rationale.
 
 ## 8. Cleanup
 

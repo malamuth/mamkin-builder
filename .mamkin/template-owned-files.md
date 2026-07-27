@@ -1,6 +1,8 @@
 # Mamkin Template Ownership
 
-Use this manifest when syncing a copied project with a newer `mamkin-builder` template. The goal is to update reusable Mamkin process files without overwriting project/product data.
+Use this guide when syncing a copied project with a newer `mamkin-builder` template. The goal is to update reusable Mamkin process files without overwriting project/product data.
+
+`.mamkin/process-manifest.json` is the machine-readable allowlist used by sync tooling. This document explains the ownership policy and should remain aligned with it.
 
 ## Ownership Classes
 
@@ -13,6 +15,7 @@ These files are reusable workflow surface. They may usually be updated from the 
 - `.codex/hooks.json`
 - `.codex/hooks/*.py`
 - `.codex/rules/mamkin.rules`
+- `.mamkin/validation-map.json`
 - `docs/process/handoff-packets.md`
 - `docs/process/handoff-packets/*.md`
 - `docs/process/roles/*.md`
@@ -23,7 +26,13 @@ These files are reusable workflow surface. They may usually be updated from the 
 - `docs/process/template-sync.md`
 - `docs/templates/*.md`
 - `evals/mamkin-prompt-cases.json`
+- `evals/mamkin-role-model-matrix.json`
+- `scripts/plan_validation.py`
+- `scripts/sync_mamkin_process.py`
 - `scripts/validate_prompt_contracts.py`
+- `tests/__init__.py`
+- `tests/test_plan_validation.py`
+- `tests/test_sync_mamkin_process.py`
 - `features/README.md`
 
 ### Mixed Ownership
@@ -36,10 +45,13 @@ These files contain both reusable process and project-local adaptations. Never o
 - `docs/process/agent-orchestration.md`
 - `docs/process/init-agent.md`
 - `docs/process/naming-conventions.md`
+- `.mamkin/process-manifest.json`
 - `.mamkin/template-version.json`
 - `.mamkin/template-owned-files.md`
 
 When syncing mixed files, preserve project-specific commands, project prefix, approved MCP/runtime config, human gates, project repo/remotes, and any intentional project-specific process additions.
+
+Treat upstream expansions of `.mamkin/process-manifest.json` as new sync authority: review and merge them explicitly before they may authorize additional template-owned paths.
 
 ### Project-Owned
 

@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "templateOwned": [
+    ".agents/skills/mamkin-*/SKILL.md",
+    ".codex/agents/mamkin-*.toml",
+    ".codex/hooks.json",
+    ".codex/hooks/*.py",
+    ".codex/rules/mamkin.rules",
+    ".mamkin/validation-map.json",
+    "docs/process/handoff-packets.md",
+    "docs/process/handoff-packets/*.md",
+    "docs/process/roles/*.md",
+    "docs/process/context-health-audit.md",
+    "docs/process/execution-lane-routing.md",
+    "docs/process/thread-operations.md",
+    "docs/process/prompt-evals.md",
+    "docs/process/template-sync.md",
+    "docs/templates/*.md",
+    "evals/mamkin-prompt-cases.json",
+    "evals/mamkin-role-model-matrix.json",
+    "scripts/plan_validation.py",
+    "scripts/sync_mamkin_process.py",
+    "scripts/validate_prompt_contracts.py",
+    "tests/__init__.py",
+    "tests/test_plan_validation.py",
+    "tests/test_sync_mamkin_process.py",
+    "features/README.md"
+  ],
+  "mixed": [
+    "AGENTS.md",
+    "README.md",
+    ".codex/config.toml",
+    "docs/process/agent-orchestration.md",
+    "docs/process/init-agent.md",
+    "docs/process/naming-conventions.md",
+    ".mamkin/process-manifest.json",
+    ".mamkin/template-version.json",
+    ".mamkin/template-owned-files.md"
+  ],
+  "projectOwned": [
+    "docs/project/**",
+    "features/00-roadmap.md",
+    "features/[0-9][0-9]-*.md",
+    "docs/follow-ups/**",
+    "docs/walkthroughs/**"
+  ],
+  "neverSync": [
+    ".git/**",
+    ".env",
+    ".env.*"
+  ]
+}

@@ -9,7 +9,8 @@ This is a process sync, not a product migration. It must not overwrite project p
 - Current copied project worktree.
 - Upstream template source, preferably `https://github.com/malamuth/mamkin-builder.git` or a verified local clone/path.
 - `.mamkin/template-version.json`, if present.
-- `.mamkin/template-owned-files.md`, if present.
+- `.mamkin/process-manifest.json`, if present.
+- `.mamkin/template-owned-files.md`, if present, for the human-readable policy.
 
 If the copied project lacks `.mamkin/` metadata, run in first-sync review mode and create the metadata only after human approval.
 
@@ -27,7 +28,7 @@ A local checkout is acceptable as the upstream source only when it is clean and 
 
 ## Ownership
 
-Use `.mamkin/template-owned-files.md` as the source of truth for file classes:
+Use `.mamkin/process-manifest.json` as the machine-readable source of truth and `.mamkin/template-owned-files.md` as the human-readable policy:
 
 - Template-owned files can usually be updated from upstream after diff review.
 - Mixed files require merge review and preservation notes.
@@ -38,7 +39,13 @@ Use `.mamkin/template-owned-files.md` as the source of truth for file classes:
 
 ### Review Mode
 
-Default mode. Produce a report only:
+Default mode. With a verified local clone, produce a non-mutating report:
+
+```bash
+python3 scripts/sync_mamkin_process.py --source /verified/local/mamkin-builder
+```
+
+The allowlist comes from the copied project's manifest, not from the upstream checkout. The manifest is mixed/trusted project state; upstream expansions require an explicit merge before they authorize new paths. Review:
 
 - Current project HEAD and dirty state.
 - Current recorded template commit and last sync commit.
@@ -50,7 +57,24 @@ Default mode. Produce a report only:
 
 ### Apply Mode
 
-Only run apply mode after the human approves the patch plan. Apply:
+Only run apply mode after the human approves the patch plan. Pin the exact reviewed source commit:
+
+```bash
+python3 scripts/sync_mamkin_process.py \
+  --source /verified/local/mamkin-builder \
+  --apply \
+  --expected-source-commit <reviewed-commit>
+```
+
+The tool refuses a dirty source, a dirty target, or a source commit that differs from the reviewed commit. It applies only template-owned files whose three-way state is safe. It reports mixed files for manual merge and never copies project-owned files.
+
+Additional explicit gates:
+
+- Use `--accept-two-way` only after reviewing a first sync whose baseline is unknown.
+- Use `--prune` only when the approved plan includes deletion of removed template-owned files.
+- After manually merging or intentionally preserving a reported mixed conflict, pass its exact path with `--acknowledge-mixed <path>`. The tool never copies mixed files, and an upstream-only mixed update must actually be merged before apply.
+
+Apply:
 
 - Template-owned changes that are safe and process-only.
 - Mixed-file merges where project-specific data is preserved.
