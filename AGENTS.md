@@ -4,6 +4,7 @@
 
 - Improve the template itself by editing template files directly; do not run project init. Prompt, role, hook, or reasoning changes also follow `docs/process/prompt-evals.md`.
 - Initialize or adapt a copied template with `.agents/skills/mamkin-init/SKILL.md` and `docs/process/init-agent.md`.
+- Bootstrap Mamkin on a machine or repository where Mamkin is not discoverable with `.agents/skills/mamkin-bootstrap/SKILL.md`.
 - Adopt Mamkin into an existing non-Mamkin repository with `.agents/skills/mamkin-adopt/SKILL.md` and `docs/process/adopt-existing-project.md`.
 - Coordinate feature or multi-agent work with `.agents/skills/mamkin-coordinate/SKILL.md` and `docs/process/agent-orchestration.md`.
 - Audit coordinator drift with `.agents/skills/mamkin-context-audit/SKILL.md`; run an approved same-thread reset or rollover with the matching Mamkin skill.

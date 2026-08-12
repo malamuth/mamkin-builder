@@ -1,11 +1,13 @@
 ---
 name: mamkin-adopt
-description: Adopt Mamkin Builder into an existing project that was created without Mamkin. Use for brownfield repository audits, safe process-layer bootstrap, project-context reconstruction, ownership reconciliation, baseline validation, and coordinator handoff. Do not use for a new copied template or a project with valid Mamkin metadata.
+description: Adopt Mamkin Builder into an existing project after a verified Mamkin source is available. Use for brownfield repository audits, guarded process-layer seeding, project-context reconstruction, ownership reconciliation, baseline validation, and coordinator handoff. If this project has no Mamkin skills yet, install and use `mamkin-bootstrap` first. Do not use for a new copied template or a project with valid Mamkin metadata.
 ---
 
 # Mamkin Adopt
 
 Use this skill when an existing repository should gain the Mamkin workflow without replacing its product code, Git history, remotes, deployment state, or project-specific instructions.
+
+If this skill is unavailable in the target, install the global `mamkin-bootstrap` skill from GitHub rather than copying one Mamkin skill into the project.
 
 ## Workflow
 

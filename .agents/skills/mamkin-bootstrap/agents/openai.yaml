@@ -1,0 +1,4 @@
+interface:
+  display_name: "Mamkin Bootstrap"
+  short_description: "Install Mamkin into any existing project"
+  default_prompt: "Use $mamkin-bootstrap to install and adopt Mamkin Builder into this existing project."

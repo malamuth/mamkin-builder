@@ -38,6 +38,8 @@ def main():
     adoption_skill_ui = adoption_skill.parent / "agents/openai.yaml"
     adoption_protocol = ROOT / "docs/process/adopt-existing-project.md"
     adoption_packet = ROOT / "docs/process/handoff-packets/adoption.md"
+    bootstrap_skill = ROOT / ".agents/skills/mamkin-bootstrap/SKILL.md"
+    bootstrap_skill_ui = bootstrap_skill.parent / "agents/openai.yaml"
 
     cases = json.loads(cases_path.read_text(encoding="utf-8"))
     if cases.get("schemaVersion") != 1:
@@ -80,6 +82,7 @@ def main():
         "project-native-stale-learning",
         "brownfield-adoption-review",
         "brownfield-adoption-apply-gate",
+        "portable-mamkin-bootstrap",
     }
     missing_ids = required_ids - set(ids)
     if missing_ids:
@@ -380,6 +383,34 @@ def main():
         if field not in adoption_packet_text:
             fail(errors, f"adoption packet missing field {field}")
 
+    bootstrap_skill_text = bootstrap_skill.read_text(encoding="utf-8")
+    for phrase in [
+        "name: mamkin-bootstrap",
+        "Do not copy this skill into the target manually",
+        "https://github.com/malamuth/mamkin-builder.git",
+        "Apply nothing until the human approves that exact plan.",
+        "Do not stop after seeding files.",
+    ]:
+        if phrase not in bootstrap_skill_text:
+            fail(errors, f"bootstrap skill missing invariant: {phrase}")
+    if words(bootstrap_skill) > 400:
+        fail(errors, f"bootstrap skill exceeds 400-word budget ({words(bootstrap_skill)})")
+    bootstrap_ui_text = bootstrap_skill_ui.read_text(encoding="utf-8")
+    for phrase in [
+        'display_name: "Mamkin Bootstrap"',
+        'short_description: "Install Mamkin into any existing project"',
+        "$mamkin-bootstrap",
+    ]:
+        if phrase not in bootstrap_ui_text:
+            fail(errors, f"bootstrap skill UI metadata missing: {phrase}")
+    for phrase in [
+        "https://github.com/malamuth/mamkin-builder/tree/main/.agents/skills/mamkin-bootstrap",
+        "The installed skill becomes available on the next turn.",
+        "Do not manually copy a lone Mamkin skill into the target",
+    ]:
+        if phrase not in adoption_protocol_text:
+            fail(errors, f"adoption protocol missing portable bootstrap contract: {phrase}")
+
     validation_map = json.loads(validation_map_path.read_text(encoding="utf-8"))
     if validation_map.get("schemaVersion") != 1:
         fail(errors, "validation map schemaVersion must be 1")
@@ -475,6 +506,8 @@ def main():
                 fail(errors, f"evolution capability {capability.get('id')} needs one activation predicate")
 
     for path in [
+        bootstrap_skill,
+        bootstrap_skill_ui,
         adoption_skill,
         adoption_skill_ui,
         adoption_protocol,

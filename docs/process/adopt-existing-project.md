@@ -2,6 +2,19 @@
 
 Use this protocol to add the Mamkin process layer to a brownfield repository without transplanting the product into a template clone. The target repository, its current human decisions, product sources, Git history, remote, and deployment configuration remain authoritative.
 
+## Portable Bootstrap
+
+The target cannot discover a project-local `mamkin-adopt` skill before adoption. Do not manually copy a lone Mamkin skill into the target; that creates partial-adoption markers without the complete process layer.
+
+On any Codex machine, install the self-contained global entrypoint from GitHub:
+
+```text
+Use $skill-installer to install:
+https://github.com/malamuth/mamkin-builder/tree/main/.agents/skills/mamkin-bootstrap
+```
+
+The installed skill becomes available on the next turn. From the target project, invoke `$mamkin-bootstrap`. It acquires a verified full Mamkin source, then hands execution to this adoption protocol. The approved adoption apply installs all project-local Mamkin skills and process files together.
+
 ## Scope And Routing
 
 Use adoption when an existing project has no valid Mamkin initialization metadata.

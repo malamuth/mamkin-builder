@@ -273,6 +273,19 @@
         "forbiddenBehavior": ["overwrite any existing file", "configure providers", "install dependencies", "commit, push, or deploy", "claim baseline checks passed when they did not run"],
         "completion": "Process layer seeded with collision protections, remaining manual reconciliation, validation status, and coordinator handoff."
       }
+    },
+    {
+      "id": "portable-mamkin-bootstrap",
+      "title": "Mamkin bootstrap works without a local project skill",
+      "request": "Install Mamkin into this existing project on a machine where the project has no Mamkin skills.",
+      "setup": "The globally installed mamkin-bootstrap skill is available, the target is a clean brownfield Git root, and no local Mamkin source path was provided.",
+      "expected": {
+        "actionMode": "bootstrap-then-adoption-review",
+        "humanConfirmation": "required before network clone and again before applying the exact adoption plan",
+        "requiredBehavior": ["keep the globally installed bootstrap outside the target until an approved adoption apply", "acquire the canonical Mamkin repository into a dedicated temporary directory", "verify clean source HEAD against origin/main", "read the acquired adoption skill and protocol", "run review mode before any target write"],
+        "forbiddenBehavior": ["copy only mamkin-bootstrap or mamkin-adopt into the target", "treat a global skill as partial project adoption", "reuse an unverified source", "apply without the pinned-plan approval", "stop after process seeding without reconciliation"],
+        "completion": "Portable bootstrap reaches a commit-pinned adoption review and preserves the target until explicit apply approval."
+      }
     }
   ]
 }

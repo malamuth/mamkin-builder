@@ -35,13 +35,20 @@ The workflow is built for projects run by an init agent, a coordinator, optional
 
 ## Adopt An Existing Project
 
-For a repository that already contains a real project and was not copied from Mamkin, keep its product code, Git history, remote, and deployment state in place. Open that repository in Codex and run:
+For a repository that already contains a real project and was not copied from Mamkin, first install the portable bootstrap skill once per Codex machine:
 
 ```text
-$mamkin-adopt
+Use $skill-installer to install:
+https://github.com/malamuth/mamkin-builder/tree/main/.agents/skills/mamkin-bootstrap
 ```
 
-The adopter audits the repository read-only, interviews only for missing facts, and produces a commit-pinned process-overlay plan. It applies nothing until that exact plan is approved. After approval, it seeds only missing Mamkin-owned files, protects every existing collision, reconstructs project docs from current evidence, runs safe existing checks, and hands the adopted project to the coordinator. Use `mamkin-init` for new copied templates and `mamkin-template-sync` only after init or adoption has established valid `.mamkin/` metadata.
+The skill installer makes `$mamkin-bootstrap` available on the next turn. Open the existing project and run:
+
+```text
+$mamkin-bootstrap
+```
+
+Bootstrap acquires and verifies the full Mamkin source from GitHub, then starts the adopter. The adopter audits the repository read-only, interviews only for missing facts, and produces a commit-pinned process-overlay plan. It applies nothing until that exact plan is approved. After approval, it seeds all project-local Mamkin skills and process files together, protects every existing collision, reconstructs project docs from current evidence, runs safe existing checks, and hands the adopted project to the coordinator. Do not manually copy `mamkin-adopt` into the target. Use `mamkin-init` for new copied templates and `mamkin-template-sync` only after init or adoption has established valid `.mamkin/` metadata.
 
 ## Start From GitHub
 
@@ -89,7 +96,8 @@ Do not reset or roll over merely because a sync occurred. A minor update usually
 ## Included Files
 
 - `AGENTS.md`: short always-on agent entrypoint.
-- `.agents/skills/`: repo-scoped Codex skill entrypoints.
+- `.agents/skills/mamkin-bootstrap/`: portable global entrypoint that can be installed from GitHub before a target has Mamkin.
+- `.agents/skills/`: repo-scoped Codex workflow entrypoints installed together during init or adoption.
 - `.mamkin/`: template version and file ownership metadata for safe process sync.
 - `.codex/agents/`: project-scoped Codex custom agent presets.
 - `.codex/config.toml`: conservative project Codex runtime defaults.
