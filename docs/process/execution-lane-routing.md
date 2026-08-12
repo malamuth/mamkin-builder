@@ -10,6 +10,7 @@ Use this file to choose between a same-task subagent and a separate Codex task, 
 - The parent task remains accountable for subagent scope, evidence, edits, and validation.
 - One subagent must not both implement a change and provide its acceptance verdict.
 - Git delivery is orthogonal to task routing: `docs/process/git-delivery.md` chooses the branch, worktree, integration path, merge method, authority, and closeout owner before a write-capable feature starts.
+- A repository boundary is also a task boundary for writes. Work targeting another Git repository requires a separate human-approved task with that repository as project context; a subagent or adjacent checkout does not extend the parent task's write authority. Explicitly assigned worktrees of the current repository remain governed by the normal lane and Git-delivery rules.
 
 ## Use A Subagent Only When Every Condition Passes
 
@@ -28,6 +29,7 @@ Good subagent work includes repository exploration, focused research, diff revie
 - The assignment owns an independent acceptance outcome that can pause, resume, or be prioritized separately.
 - It may need direct human clarification, approval, or follow-up after the parent moves on.
 - It owns a branch, worktree, external target, or durable specialist responsibility.
+- It would write to a different Git repository, including an upstream template or reusable-tool repository.
 - Write ownership spans multiple components or affects a shared API, schema, migration, auth/security boundary, lockfile, generated source, global configuration, or external integration.
 - The work cannot be bounded to one prompt with explicit allowed files, observable success criteria, and a known validation path.
 - Verification needs manual judgment, interactive UI, accounts, secrets, external systems, environment setup, or a defect/retest cycle.

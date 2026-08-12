@@ -48,6 +48,11 @@ Do not adopt:
 
 Existing project mechanics to preserve:
 Project-specific knowledge that must not move upstream:
+Upstream proposals (handoff only; no template mutation in this task):
+  - Generic problem and anonymized evidence:
+    Candidate Mamkin surfaces:
+    Success measure and validation:
+    Separate Mamkin task required: yes | not applicable
 Audit limitations:
 Human decisions needed:
 Recommended next action:

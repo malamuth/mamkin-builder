@@ -17,6 +17,7 @@ Use this skill when a copied project should align its Mamkin process files with 
    - Prefer a verified local path when available: it must be clean and its HEAD must match `origin/main`, unless the human explicitly approves a local-only state.
    - Otherwise use `https://github.com/malamuth/mamkin-builder.git` after asking for network approval if the environment requires it.
 6. For a local upstream checkout, run `git status --short --branch`, `git rev-parse HEAD`, and `git rev-parse origin/main` in that checkout and report the result.
+   - Reject it as a sync source if the current copied-project task created or modified that checkout, branch, or commit. A human cannot convert same-task cross-repository output into a trusted source by approving it after the fact.
 7. Run review mode first. Classify changes as template-owned, mixed, project-owned, or never-sync.
 8. Apply changes only after the human approves the patch plan or explicitly requested apply mode.
 9. After applying, update `.mamkin/template-version.json`, run `git diff --check`, and return the sync packet from `docs/process/template-sync.md`.
@@ -28,6 +29,7 @@ Use this skill when a copied project should align its Mamkin process files with 
 - Never sync `.git`, remotes, secrets, private URLs, provider keys, production data, or machine-local state.
 - Mixed files require merge review and preservation notes.
 - Do not call a local checkout "latest GitHub" unless it is clean and HEAD matches `origin/main`, or the human explicitly approves local-only template state.
+- Local-only approval applies only to a pre-existing, provenance-declared source. It never authorizes the copied-project task to edit Mamkin and feed that result back into its own sync.
 - If template metadata is missing or `TBD`, use heuristic first-sync review mode and ask before applying mixed-file changes.
 - If the target has no recognizable Mamkin process layer or metadata, use `mamkin-adopt`; first-sync review is only for legacy copied projects with an existing Mamkin layer.
 - This skill updates the Mamkin process layer only; it does not implement product features.

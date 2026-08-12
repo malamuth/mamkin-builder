@@ -135,6 +135,13 @@ def main():
     for heading in ["## Autonomy And Human Gates", "## Repository Safety And Evidence", "## Worker Handoff Contract"]:
         if heading not in agents_text:
             fail(errors, f"AGENTS.md missing {heading}")
+    for phrase in [
+        "Treat the current project repository and its assigned worktrees as the write boundary.",
+        "an upstream Mamkin candidate is proposal-only",
+        "or a template commit manufactured for the project's own sync",
+    ]:
+        if phrase not in agents_text:
+            fail(errors, f"AGENTS.md missing repository-boundary invariant: {phrase}")
     if words(agents) > 750:
         fail(errors, f"AGENTS.md exceeds 750-word always-loaded budget ({words(agents)})")
 
@@ -238,6 +245,8 @@ def main():
         "name: mamkin-project-evolution-audit",
         "Absence or a log entry alone is not a recommendation.",
         "Never create or update a project skill during the audit.",
+        "Treat `Propose upstream` as a handoff-only result.",
+        "Task creation authorizes reassessment only unless its starter scope explicitly authorizes implementation.",
         "Never edit, install, enable hooks, change models, create external resources, commit, or push",
     ]:
         if phrase not in evolution_skill_text:
@@ -263,6 +272,9 @@ def main():
         "Choose the smallest primary action:",
         "Create a project-local skill only for a distinct recurring invocation.",
         "must not leak project names, private targets, domain rules, or identifiers into Mamkin",
+        "`Propose upstream` produces a proposal packet, never a cross-repository implementation.",
+        "Approval to create that task authorizes reassessment only",
+        "The copied-project task cannot create that exception for itself.",
     ]:
         if phrase not in evolution_protocol_text:
             fail(errors, f"project evolution audit protocol missing invariant: {phrase}")
@@ -273,12 +285,28 @@ def main():
         "Do not adopt:",
         "Existing project mechanics to preserve:",
         "Project-specific knowledge that must not move upstream:",
+        "Upstream proposals (handoff only; no template mutation in this task):",
         "Preferred action:",
         "Maintenance source and review/retirement trigger:",
         "Rollback:",
     ]:
         if field not in evolution_packet_text:
             fail(errors, f"project evolution audit packet missing field {field}")
+
+    template_sync_skill_text = (ROOT / ".agents/skills/mamkin-template-sync/SKILL.md").read_text(encoding="utf-8")
+    for phrase in [
+        "Reject it as a sync source if the current copied-project task created or modified that checkout",
+        "Local-only approval applies only to a pre-existing, provenance-declared source.",
+    ]:
+        if phrase not in template_sync_skill_text:
+            fail(errors, f"template sync skill missing repository-boundary invariant: {phrase}")
+    template_sync_protocol_text = (ROOT / "docs/process/template-sync.md").read_text(encoding="utf-8")
+    for phrase in [
+        "Provenance is an additional gate.",
+        "Do not ask the human to bless that same-task cross-repository mutation after the fact.",
+    ]:
+        if phrase not in template_sync_protocol_text:
+            fail(errors, f"template sync protocol missing repository-boundary invariant: {phrase}")
 
     for role in sorted((ROOT / "docs/process/roles").glob("*.md")):
         text = role.read_text(encoding="utf-8")
