@@ -27,6 +27,10 @@ Mamkin metadata:
 Project trust or hook review state:
 First coordinator focus:
 Recommended orchestration model:
+Coordinator transition: fresh task recommended | fresh task approved | same-task and rename explicitly approved | not applicable
+Coordinator task id and title:
+Starter prompt delivered or manual fallback:
+Adoption task final state: waiting for human choice | coordination transferred | same-task coordinator approved | not applicable
 Human decisions needed:
 Open questions:
 Recommended next action:

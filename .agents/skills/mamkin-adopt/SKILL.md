@@ -7,8 +7,6 @@ description: Adopt Mamkin Builder into an existing project after a verified Mamk
 
 Use this skill when an existing repository should gain the Mamkin workflow without replacing its product code, Git history, remotes, deployment state, or project-specific instructions.
 
-If this skill is unavailable in the target, install the global `mamkin-bootstrap` skill from GitHub rather than copying one Mamkin skill into the project.
-
 ## Workflow
 
 1. Read `AGENTS.md` and `docs/process/adopt-existing-project.md`.
@@ -19,6 +17,7 @@ If this skill is unavailable in the target, install the global `mamkin-bootstrap
 6. Apply no files until the human approves that exact plan. Re-review when the source commit, target commit, dirty state, or plan digest changes.
 7. After approval, seed collision-free process files, reconcile mixed files manually, and create project-owned docs from current evidence rather than template placeholders.
 8. Run safe existing checks, complete the adoption self-review, and return `docs/process/handoff-packets/adoption.md`.
+9. Follow the protocol's coordinator transition. Do not begin product work in the adoption task unless the human explicitly chooses same-task continuation.
 
 ## Boundaries
 

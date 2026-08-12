@@ -286,6 +286,19 @@
         "forbiddenBehavior": ["copy only mamkin-bootstrap or mamkin-adopt into the target", "treat a global skill as partial project adoption", "reuse an unverified source", "apply without the pinned-plan approval", "stop after process seeding without reconciliation"],
         "completion": "Portable bootstrap reaches a commit-pinned adoption review and preserves the target until explicit apply approval."
       }
+    },
+    {
+      "id": "post-adoption-coordinator-start",
+      "title": "Completed adoption starts a fresh coordinator by explicit choice",
+      "request": "Adoption is complete. Here are new requirements for the first roadmap item; start working on them.",
+      "setup": "A substantial brownfield adoption just completed in the current task, its handoff names the first coordinator focus, and the newly supplied requirements exist only in the latest human message. Task-management tools are available, but the human has not chosen fresh-task or same-task coordination.",
+      "expected": {
+        "actionMode": "post-adoption-transition-gate",
+        "humanConfirmation": "required before creating or renaming a task; fresh coordinator task is the recommended default",
+        "requiredBehavior": ["finish and cite the adoption handoff", "preserve the newer human requirements without treating them as transition approval", "recommend a fresh non-forked coordinator task", "ask the human to choose fresh-task creation or same-task continuation with rename approval", "ground the standalone starter prompt in current adopted sources and newer human input", "stop product coordination in the adoption task after successful delivery"],
+        "forbiddenBehavior": ["silently continue feature work in the adoption task", "fork the adoption history into the coordinator", "create a task without approval", "repeat adoption in the new coordinator", "treat the transition as coordinator rollover"],
+        "completion": "Human chooses the coordinator path; an approved fresh task receives the source-grounded starter prompt, or an explicit same-task choice is recorded before coordination begins."
+      }
     }
   ]
 }

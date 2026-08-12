@@ -57,6 +57,7 @@ Rules:
 
 - During init or coordinator kickoff, replace `Project prefix: TBD` with one short project prefix. Do not append a second prefix rule or keep stale project examples.
 - When init continues in the same thread as coordinator, rename that thread to the coordinator pattern before the first coordinator action.
+- After brownfield adoption, recommend a fresh non-forked coordinator task with the main coordinator title. Continue in the adoption task only after the human explicitly chooses that path; then rename it before the first coordinator action when approved and supported.
 - After coordinator rollover, the fresh coordinator should use the main coordinator title; the old coordinator should be archived or renamed with the archived pattern when tooling supports it.
 - Do not leave two unarchived coordinator threads with titles that both read as active. If cleanup tooling is unavailable, the outgoing coordinator must say so in its final response and stop coordinating.
 - Coordinator prompts for separate worker tasks must include the exact `Thread name:`. If the created task title differs, rename it or request rename before continuing.

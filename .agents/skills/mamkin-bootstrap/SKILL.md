@@ -18,7 +18,7 @@ Bootstrap Mamkin from outside the target repository. Do not copy this skill into
 5. Read the acquired source's `.agents/skills/mamkin-adopt/SKILL.md` and `docs/process/adopt-existing-project.md` completely.
 6. Run its `scripts/adopt_mamkin_process.py` in review mode against the target. Present the classification, both commits, clean states, plan digest, collisions, manual reconciliation, and human gates.
 7. Apply nothing until the human approves that exact plan. After approval, run apply with the expected source commit, target commit, and plan digest.
-8. Continue the acquired adoption protocol through project reconciliation, baseline validation, self-review, and the adoption handoff. Do not stop after seeding files.
+8. Continue the acquired adoption protocol through project reconciliation, baseline validation, self-review, handoff, and its explicit coordinator-transition decision. Do not stop after seeding files or begin product work in the bootstrap/adoption task by default.
 9. Remove only a temporary checkout created by this run, using its exact path, after adoption evidence no longer depends on it. Preserve a human-provided checkout.
 
 ## Boundaries

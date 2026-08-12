@@ -48,7 +48,7 @@ The skill installer makes `$mamkin-bootstrap` available on the next turn. Open t
 $mamkin-bootstrap
 ```
 
-Bootstrap acquires and verifies the full Mamkin source from GitHub, then starts the adopter. The adopter audits the repository read-only, interviews only for missing facts, and produces a commit-pinned process-overlay plan. It applies nothing until that exact plan is approved. After approval, it seeds all project-local Mamkin skills and process files together, protects every existing collision, reconstructs project docs from current evidence, runs safe existing checks, and hands the adopted project to the coordinator. Do not manually copy `mamkin-adopt` into the target. Use `mamkin-init` for new copied templates and `mamkin-template-sync` only after init or adoption has established valid `.mamkin/` metadata.
+Bootstrap acquires and verifies the full Mamkin source from GitHub, then starts the adopter. The adopter audits the repository read-only, interviews only for missing facts, and produces a commit-pinned process-overlay plan. It applies nothing until that exact plan is approved. After approval, it seeds all project-local Mamkin skills and process files together, protects every existing collision, reconstructs project docs from current evidence, and runs safe existing checks. Completed adoption recommends a fresh coordinator task and asks before creating it; continuing product work in the adoption task requires an explicit human choice. Do not manually copy `mamkin-adopt` into the target. Use `mamkin-init` for new copied templates and `mamkin-template-sync` only after init or adoption has established valid `.mamkin/` metadata.
 
 ## Start From GitHub
 

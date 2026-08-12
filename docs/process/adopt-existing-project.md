@@ -156,3 +156,17 @@ Confirm:
 ## Handoff
 
 Return `docs/process/handoff-packets/adoption.md`. Use `Adoption applied` only when the self-review passes and no required reconciliation remains. Use `Adopted with baseline gaps` when process adoption is complete but current checks or validation coverage have named gaps. Otherwise return the smallest blocker or review decision.
+
+## Coordinator Transition
+
+Completed adoption is a durable context boundary, not implicit authorization to start the first product slice in the same task.
+
+1. Recommend a fresh, non-forked coordinator task using `docs/process/thread-operations.md` and the coordinator title in `docs/process/naming-conventions.md`.
+2. Ask the human to choose: create the recommended fresh task, or explicitly continue here and approve renaming this task. Adoption approval and newly supplied feature requirements do not select either path.
+3. After fresh-task approval, create the coordinator with the target repository as its project context and a standalone starter prompt grounded in the adoption handoff, brief, decision log, roadmap, and any newer human requirements. Verify receipt once, report its id, and stop product coordination in the adoption task.
+4. If task tools are unavailable, return the exact starter prompt for manual paste.
+5. Same-task continuation is allowed only when the human explicitly chooses it. Re-read the named current sources, rename the task to the coordinator pattern when approved and supported, then invoke `mamkin-coordinate` before feature work.
+
+This is a post-adoption coordinator start, not a coordinator rollover: the adoption task never owned ongoing product coordination.
+
+The adoption task owns the transition fields in the handoff. Initially record `fresh task recommended` and `waiting for human choice`. After fresh-task receipt, record the id/title, delivered prompt, and `adoption task complete - coordination transferred`; for same-task choice, record the explicit choice and approved rename before invoking `mamkin-coordinate`.

@@ -83,6 +83,7 @@ def main():
         "brownfield-adoption-review",
         "brownfield-adoption-apply-gate",
         "portable-mamkin-bootstrap",
+        "post-adoption-coordinator-start",
     }
     missing_ids = required_ids - set(ids)
     if missing_ids:
@@ -349,6 +350,7 @@ def main():
         "Never overwrite an existing target file automatically.",
         "Apply no files until the human approves that exact plan.",
         "Adoption installs process only",
+        "Do not begin product work in the adoption task unless the human explicitly chooses same-task continuation.",
     ]:
         if phrase not in adoption_skill_text:
             fail(errors, f"adoption skill missing invariant: {phrase}")
@@ -368,6 +370,9 @@ def main():
         "Re-review when the source commit, target commit, dirty state, or plan digest changes.",
         "Rolls back files created during the run when an apply error occurs.",
         "Adopted with baseline gaps",
+        "Completed adoption is a durable context boundary",
+        "This is a post-adoption coordinator start, not a coordinator rollover",
+        "newly supplied feature requirements do not select either path",
     ]:
         if phrase not in adoption_protocol_text:
             fail(errors, f"adoption protocol missing invariant: {phrase}")
@@ -379,6 +384,9 @@ def main():
         "Baseline failures or gaps:",
         "External configuration unchanged:",
         "First coordinator focus:",
+        "Coordinator transition:",
+        "Coordinator task id and title:",
+        "Adoption task final state:",
     ]:
         if field not in adoption_packet_text:
             fail(errors, f"adoption packet missing field {field}")
@@ -389,7 +397,8 @@ def main():
         "Do not copy this skill into the target manually",
         "https://github.com/malamuth/mamkin-builder.git",
         "Apply nothing until the human approves that exact plan.",
-        "Do not stop after seeding files.",
+        "Do not stop after seeding files",
+        "explicit coordinator-transition decision",
     ]:
         if phrase not in bootstrap_skill_text:
             fail(errors, f"bootstrap skill missing invariant: {phrase}")

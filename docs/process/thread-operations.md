@@ -1,6 +1,6 @@
 # Thread Operations And Recovery
 
-Read this only when starting, receiving from, or recovering a separate worker task. Normal role behavior, execution-mode selection, and the worker handoff invariant live in `AGENTS.md` and `docs/process/execution-lane-routing.md`; this file owns coordinator-side task mechanics.
+Read this when starting, receiving from, or recovering a separate worker task, or when starting a coordinator after adoption. Normal role behavior, execution-mode selection, and the worker handoff invariant live in `AGENTS.md` and `docs/process/execution-lane-routing.md`; this file owns coordinator-side task mechanics.
 
 ## Start A Clean Lane
 
@@ -29,3 +29,15 @@ Confirm receipt before routing follow-up work. Old packets are evidence only and
 ## Coordinator Rollover
 
 Coordinator rollover is not an ordinary worker-thread recovery path. Use `.agents/skills/mamkin-coordinator-rollover/SKILL.md` and `docs/process/handoff-packets/coordinator-reset.md` after human approval.
+
+## Post-Adoption Coordinator Start
+
+After adoption completes, recommend a fresh coordinator task and ask for explicit human approval to create it. Do not fork the adoption history. Use the adopted repository as project context and the main coordinator title from `docs/process/naming-conventions.md`.
+
+Send this standalone starter prompt, replacing bracketed values from current sources:
+
+```text
+Use $mamkin-coordinate as the project coordinator for [project]. Adoption is complete at [exact repo state]. Read AGENTS.md, docs/process/handoff-packets/adoption.md, docs/project/brief.md, docs/project/decision-log.md, and features/00-roadmap.md as current sources. Newer human input to carry forward: [requirements or decisions supplied after the handoff, or none]. Begin with the handoff's First coordinator focus, reconciling that newer input as authoritative. Reconfirm unresolved human decisions and define one bounded slice before implementation. Do not repeat adoption or treat other old task context as authority.
+```
+
+Perform one receipt check. Report the new task id and stop product coordination in the adoption task. If creation or delivery is unavailable, return the filled prompt for manual paste. If the human explicitly chooses same-task continuation and approves the rename, do a source-grounded reread, rename the task to the coordinator pattern when supported, invoke `mamkin-coordinate`, and record that choice in the adoption handoff. Supplying feature requirements alone approves neither transition path.
