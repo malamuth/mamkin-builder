@@ -33,6 +33,8 @@ Fill these during init once the stack is known. Until then, do not invent comman
 
 - Before implementation, run `pwd`, `git status --short --branch`, and `git rev-parse HEAD`.
 - Preserve user changes and explain unexpected dirty state.
+- Treat the current project repository and its assigned worktrees as the write boundary. Another repository may be inspected, never mutated. Cross-repository implementation requires a separate human-approved task in that repository.
+- In a copied project, an upstream Mamkin candidate is proposal-only. Project approval never authorizes `mamkin-builder` changes or a template commit manufactured for the project's own sync.
 - Current human decisions and current repo sources outrank old packets, summaries, memory, generated reports, screenshots, and external checks. State the narrow proof boundary of external evidence.
 - Multiple write-capable agents must use separate worktrees or explicitly disjoint file ownership.
 - Use `docs/process/execution-lane-routing.md` to choose between a same-task subagent and a separate Codex task, and before running two independent work tracks.

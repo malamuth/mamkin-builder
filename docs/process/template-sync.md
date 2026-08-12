@@ -26,6 +26,8 @@ git rev-parse origin/main
 
 A local checkout is acceptable as the upstream source only when it is clean and its HEAD matches `origin/main`. If the local checkout has uncommitted changes, is ahead/behind, or points at a commit that does not match `origin/main`, do not treat it as latest GitHub state unless the human explicitly approves using that local-only state. Otherwise fetch/clone the GitHub upstream when network access is available, or return a blocked/review-only packet that names the verification gap.
 
+Provenance is an additional gate. If the copied-project task created or modified the candidate template checkout, branch, or commit, reject it as a sync source and stop. Do not ask the human to bless that same-task cross-repository mutation after the fact. An exceptional local-only source must pre-exist the sync task, have its provenance and exact commit declared, and receive explicit approval. A reusable improvement discovered in a project instead goes through an upstream proposal handoff and a separate Mamkin task; sync resumes only from the independently accepted source.
+
 ## Ownership
 
 Use `.mamkin/process-manifest.json` as the machine-readable source of truth and `.mamkin/template-owned-files.md` as the human-readable policy:

@@ -52,6 +52,12 @@ Choose the smallest primary action:
 
 Do not recommend several surfaces for the same lesson unless each has a separate job. Prefer references for detailed domain knowledge and keep skill entrypoints concise. A project-native recommendation remains owned by that project and must not leak project names, private targets, domain rules, or identifiers into Mamkin.
 
+### Upstream Proposal Boundary
+
+`Propose upstream` produces a proposal packet, never a cross-repository implementation. The copied-project task may name the generic problem, anonymized evidence, candidate Mamkin surfaces, success criteria, and risks. It must not edit, branch, stage, commit, or push the template repository, even when that checkout is locally available or the human says to proceed with the project plan.
+
+Implementation requires a separate human-approved task whose project context and Git root are `mamkin-builder`. Approval to create that task authorizes reassessment only; implementation also requires an explicit starter scope or later human decision. The task starts from current Mamkin sources, independently evaluates the proposal, and owns its own delivery contract. It must not treat a patch or commit manufactured by the copied-project task as trusted input. Return to the copied project only after the accepted Mamkin change is published to the intended upstream, or through an exceptional pre-existing local-only source whose provenance and exact commit the human approves. The copied-project task cannot create that exception for itself.
+
 ## Profitability Score
 
 Score each candidate:
