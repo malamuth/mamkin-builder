@@ -5,6 +5,8 @@ Feature/Slice:
 Source thread:
 Worktree:
 Base branch or commit:
+Git delivery contract:
+Git authority approved:
 Recommended team:
 Specialists considered:
 Why this team is enough:

@@ -21,6 +21,7 @@ def main():
     agents = ROOT / "AGENTS.md"
     orchestration = ROOT / "docs/process/agent-orchestration.md"
     lane_routing = ROOT / "docs/process/execution-lane-routing.md"
+    git_delivery = ROOT / "docs/process/git-delivery.md"
     handoffs = ROOT / "docs/process/handoff-packets.md"
     config = ROOT / ".codex/config.toml"
     cases_path = ROOT / "evals/mamkin-prompt-cases.json"
@@ -84,6 +85,9 @@ def main():
         "brownfield-adoption-apply-gate",
         "portable-mamkin-bootstrap",
         "post-adoption-coordinator-start",
+        "feature-git-delivery-gate",
+        "authorized-git-closeout",
+        "authorized-pr-closeout",
     }
     missing_ids = required_ids - set(ids)
     if missing_ids:
@@ -189,6 +193,39 @@ def main():
             fail(errors, f"routing still relies on vague threshold: {vague_phrase}")
     if words(lane_routing) > 1200:
         fail(errors, f"execution lane routing exceeds 1,200-word conditional budget ({words(lane_routing)})")
+
+    git_delivery_text = git_delivery.read_text(encoding="utf-8")
+    for phrase in [
+        "Delivery mode: feature branch | direct-to-base exception",
+        "Use `feature branch` by default",
+        "Do not stash, reset, discard, or silently move a mixed worktree.",
+        "At kickoff, the coordinator may ask once for exact external authority",
+        "For `pull request`, push the feature branch and open/update the PR",
+        "Do not locally integrate first.",
+        "Do not rebase an accepted commit during closeout.",
+        "Immediately before remote branch deletion, fetch/compare its tip again",
+        "the result cannot be `Merge-ready` until an exact committed state exists",
+        "After acceptance, the coordinator owns closeout",
+        "Do not call a feature `Delivered` merely because implementation or walkthrough finished",
+    ]:
+        if phrase not in git_delivery_text:
+            fail(errors, f"Git delivery protocol missing invariant: {phrase}")
+    if words(git_delivery) > 1100:
+        fail(errors, f"Git delivery protocol exceeds 1,100-word conditional budget ({words(git_delivery)})")
+
+    feature_template_text = (ROOT / "docs/templates/feature-spec.md").read_text(encoding="utf-8")
+    for field in [
+        "## Git Delivery Contract",
+        "Feature branch: `codex/fNN-short-scope`",
+        "Direct-to-base rationale and approval:",
+        "Integration path:",
+        "Merge method:",
+        "Remote and base target:",
+        "External Git authority:",
+        "Closeout owner: coordinator",
+    ]:
+        if field not in feature_template_text:
+            fail(errors, f"feature template missing Git delivery field: {field}")
 
     coordinate_skill_text = (ROOT / ".agents/skills/mamkin-coordinate/SKILL.md").read_text(encoding="utf-8")
     if "Read `docs/process/naming-conventions.md` and `docs/process/handoff-packets.md`" in coordinate_skill_text:
@@ -373,12 +410,14 @@ def main():
         "Completed adoption is a durable context boundary",
         "This is a post-adoption coordinator start, not a coordinator rollover",
         "newly supplied feature requirements do not select either path",
+        "Do not stash, reset, discard, or silently move them merely to unblock adoption.",
     ]:
         if phrase not in adoption_protocol_text:
             fail(errors, f"adoption protocol missing invariant: {phrase}")
     adoption_packet_text = adoption_packet.read_text(encoding="utf-8")
     for field in [
         "Target HEAD reviewed:",
+        "Dirty-target recovery decision:",
         "Mamkin source commit:",
         "Existing collisions protected:",
         "Baseline failures or gaps:",
@@ -470,6 +509,7 @@ def main():
         ".mamkin/validation-map.json",
         "docs/process/project-evolution-audit.md",
         "docs/process/adopt-existing-project.md",
+        "docs/process/git-delivery.md",
         "evals/mamkin-role-model-matrix.json",
         "scripts/audit_mamkin_evolution.py",
         "scripts/adopt_mamkin_process.py",
@@ -499,6 +539,8 @@ def main():
         fail(errors, "evolution capability catalog needs at least eleven unique capabilities")
     if "project-native-capability-mining" not in capability_ids:
         fail(errors, "evolution capability catalog missing project-native capability mining")
+    if "feature-git-delivery-contract" not in capability_ids:
+        fail(errors, "evolution capability catalog missing feature Git delivery contract")
     for index, capability in enumerate(capabilities):
         for field in ["id", "title", "category", "paths", "benefitHypothesis"]:
             if not capability.get(field):
@@ -521,6 +563,7 @@ def main():
         adoption_skill_ui,
         adoption_protocol,
         adoption_packet,
+        git_delivery,
         ROOT / "scripts/adopt_mamkin_process.py",
         evolution_skill,
         evolution_skill_ui,
@@ -545,12 +588,14 @@ def main():
         ROOT / "docs/process/naming-conventions.md",
         handoffs,
         lane_routing,
+        git_delivery,
         ROOT / "docs/process/thread-operations.md",
     ]
     metrics = {
         "agents_words": words(agents),
         "orchestration_words": words(orchestration),
         "execution_lane_routing_words": words(lane_routing),
+        "git_delivery_words": words(git_delivery),
         "coordinator_default_words": sum(words(path) for path in coordinator_default_paths),
         "coordinator_delegation_words": sum(
             words(path) for path in coordinator_default_paths + conditional_delegation_paths

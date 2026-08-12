@@ -25,7 +25,7 @@ The coordinator planning lane later turns selected candidates into feature specs
 
 ## Candidate Index
 
-Durable states may include `Candidate`, `Spec ready`, `Active`, `Track-ready`, `Integration-verified`, `Blocked`, or `Deferred`. Keep temporary task ids, worktree paths, and branch ownership in prompts and packets rather than this roadmap.
+Durable states may include `Candidate`, `Spec ready`, `Active`, `Track-ready`, `Integration-verified`, `Merge-ready`, `Ready for Git closeout`, `Delivered`, `Blocked`, or `Deferred`. `Delivered` requires the feature's Git delivery contract to be complete, not only accepted implementation. Keep temporary task ids, worktree paths, and branch ownership in prompts and packets rather than this roadmap.
 
 | Candidate | Product value | User/owner outcome | Likely scope | Non-goals | Dependencies | Parallel compatibility | Human gates | Risks/open questions | Status |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |

@@ -12,6 +12,7 @@ Parallel track: none | A | B
 Tested worktree:
 Tested branch:
 Tested commit:
+Committed state clean: Yes | No
 Automated checks:
 Manual checks:
 Scenario coverage:
@@ -30,4 +31,6 @@ Generated churn observed:
 Docs updated:
 Track recommendation: Track-ready | Not track-ready
 Integration verification: Not applicable | Still required | Passed
+Git recommendation: Merge-ready | Not merge-ready
+Git actions performed: none
 ```

@@ -26,6 +26,7 @@ Expected result:
 
 - Worktree matches the coordinator prompt.
 - Branch/commit matches the implementation handoff.
+- The intended feature state is committed and clean; otherwise the result cannot be `Merge-ready`.
 - Unexpected dirty state is explained before testing.
 
 ## 2. Install Or Prepare
@@ -120,6 +121,7 @@ Expected result:
 
 - Local test artifacts are removed or documented.
 - Controlled verification state is restored, removed, or listed in the readiness/defect packet if it remains.
+- Feature branch integration and worktree/branch deletion remain coordinator-owned Git closeout, not walkthrough cleanup.
 
 ## Result Packet
 

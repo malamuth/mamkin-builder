@@ -8,6 +8,7 @@ Target branch:
 Target HEAD reviewed:
 Target HEAD applied:
 Target dirty state:
+Dirty-target recovery decision:
 Mamkin source:
 Mamkin source commit:
 Upstream verification:
@@ -18,6 +19,7 @@ Mixed files requiring or receiving reconciliation:
 Existing collisions protected:
 Project docs created or adapted:
 Project commands discovered:
+Git delivery defaults:
 Baseline checks run:
 Baseline failures or gaps:
 MUST involve human gates:

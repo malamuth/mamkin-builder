@@ -66,7 +66,7 @@ Recommended rounds:
 1. **Product proof**: project name and idea, primary user and valuable job, first thin slice, and what makes that milestone done.
 2. **Product boundary**: expected interfaces, explicit non-goals, existing notes/designs/repos, and any required stack or platform constraints.
 3. **Data and risk**: integrations and MCP/connectors, sensitive or hard-to-recover data, approved secret paths, and `MUST` or `SHOULD` human decisions.
-4. **Delivery shape**: setup/run/check commands when known, GitHub setup, suitable orchestration level, occasional two-track work, and any genuinely recurring custom roles.
+4. **Delivery shape**: setup/run/check commands when known; GitHub setup; default remote/base, integration path, merge method, local commit authority, per-feature external Git approval, and branch cleanup; suitable orchestration level; occasional two-track work; and recurring custom roles.
 
 Do not ask every example question when the answer will not change the initialized project. Continue naturally when the current answer resolves later-round questions.
 
@@ -76,7 +76,7 @@ Keep each doc narrow:
 
 - `README.md` is a short human entrypoint. Use `docs/templates/project-readme.md`; do not duplicate roadmap details, acceptance criteria, full human gates, or long future-plan notes.
 - `AGENTS.md` owns always-on request routing, hard rules, and stack-specific project commands. Keep it short, but fill the project command placeholders once the stack is known.
-- `docs/project/brief.md` owns product intent, milestone, success criteria, constraints, risks, human gates, and recommended orchestration model.
+- `docs/project/brief.md` owns product intent, milestone, success criteria, constraints, risks, human gates, recommended orchestration model, and project-wide Git delivery defaults. Each feature spec owns its exact branch and authority override.
 - `features/00-roadmap.md` owns roadmap candidates and future slices.
 - `docs/project/decision-log.md` owns durable decisions and assumptions.
 - `docs/process/*` owns reusable workflow rules. Do not put one-off project planning notes there.
@@ -195,6 +195,7 @@ The init agent should:
 5. Ask whether to create or connect a project-specific GitHub repository.
 6. Ask whether to create issues/milestones/project board from the roadmap.
 7. Default to recommendation only. Do not push, create remotes, create issues, or create a GitHub Project unless the human explicitly asks this init run to perform that setup.
+8. Record named feature branches as the default. Ask for the preferred remote/base, integration path, merge method, local branch/commit authority, and cleanup preference. External push/PR/merge authority remains scoped to a named feature and may be approved once at its kickoff.
 
 If GitHub setup is approved, record the chosen shape in `docs/project/brief.md` and `docs/project/decision-log.md`.
 
@@ -220,6 +221,7 @@ Before coordinator handoff, check:
 - `.mamkin/template-version.json` records the copied template baseline when known, or explicitly leaves it `TBD` for first-sync review mode.
 - `.mamkin/template-owned-files.md` protects project-owned docs/features/code from future template sync.
 - Any inherited template Git branch, dirty state, or remote has been treated as `TBD` for the copied project; no project/product commits were pushed to the template repository.
+- The brief records Git delivery defaults, with named feature branches as the default and no implied external authority.
 - Remaining `TBD` placeholders are intentional open questions, not forgotten template residue.
 - No secrets, private URLs, tokens, provider keys, or magic links were added.
 
@@ -243,6 +245,7 @@ MUST involve human gates:
 SHOULD involve human gates:
 Git status:
 GitHub setup recommendation:
+Git delivery defaults:
 Project repo target:
 Codex/MCP config:
 Mamkin template metadata:
