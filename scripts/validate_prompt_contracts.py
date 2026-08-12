@@ -34,6 +34,10 @@ def main():
     evolution_skill_ui = evolution_skill.parent / "agents/openai.yaml"
     evolution_protocol = ROOT / "docs/process/project-evolution-audit.md"
     evolution_packet = ROOT / "docs/process/handoff-packets/project-evolution-audit.md"
+    adoption_skill = ROOT / ".agents/skills/mamkin-adopt/SKILL.md"
+    adoption_skill_ui = adoption_skill.parent / "agents/openai.yaml"
+    adoption_protocol = ROOT / "docs/process/adopt-existing-project.md"
+    adoption_packet = ROOT / "docs/process/handoff-packets/adoption.md"
 
     cases = json.loads(cases_path.read_text(encoding="utf-8"))
     if cases.get("schemaVersion") != 1:
@@ -74,6 +78,8 @@ def main():
         "project-evolution-no-auto-apply",
         "project-native-capability-ladder",
         "project-native-stale-learning",
+        "brownfield-adoption-review",
+        "brownfield-adoption-apply-gate",
     }
     missing_ids = required_ids - set(ids)
     if missing_ids:
@@ -334,6 +340,46 @@ def main():
     if "## Manual Test Flows" in (ROOT / "docs/templates/feature-spec.md").read_text(encoding="utf-8"):
         fail(errors, "feature spec duplicates detailed walkthrough steps")
 
+    adoption_skill_text = adoption_skill.read_text(encoding="utf-8")
+    for phrase in [
+        "name: mamkin-adopt",
+        "Never overwrite an existing target file automatically.",
+        "Apply no files until the human approves that exact plan.",
+        "Adoption installs process only",
+    ]:
+        if phrase not in adoption_skill_text:
+            fail(errors, f"adoption skill missing invariant: {phrase}")
+    if words(adoption_skill) > 320:
+        fail(errors, f"adoption skill exceeds 320-word budget ({words(adoption_skill)})")
+    adoption_ui_text = adoption_skill_ui.read_text(encoding="utf-8")
+    for phrase in [
+        'display_name: "Mamkin Adopt"',
+        'short_description: "Safely adopt Mamkin in an existing project"',
+        "$mamkin-adopt",
+    ]:
+        if phrase not in adoption_ui_text:
+            fail(errors, f"adoption skill UI metadata missing: {phrase}")
+    adoption_protocol_text = adoption_protocol.read_text(encoding="utf-8")
+    for phrase in [
+        "An existing target path always outranks upstream ownership.",
+        "Re-review when the source commit, target commit, dirty state, or plan digest changes.",
+        "Rolls back files created during the run when an apply error occurs.",
+        "Adopted with baseline gaps",
+    ]:
+        if phrase not in adoption_protocol_text:
+            fail(errors, f"adoption protocol missing invariant: {phrase}")
+    adoption_packet_text = adoption_packet.read_text(encoding="utf-8")
+    for field in [
+        "Target HEAD reviewed:",
+        "Mamkin source commit:",
+        "Existing collisions protected:",
+        "Baseline failures or gaps:",
+        "External configuration unchanged:",
+        "First coordinator focus:",
+    ]:
+        if field not in adoption_packet_text:
+            fail(errors, f"adoption packet missing field {field}")
+
     validation_map = json.loads(validation_map_path.read_text(encoding="utf-8"))
     if validation_map.get("schemaVersion") != 1:
         fail(errors, "validation map schemaVersion must be 1")
@@ -346,6 +392,7 @@ def main():
         fail(errors, "PostToolUse must route through the optional post-edit formatter")
     for required_check in [
         "diff_check",
+        "adoption_tests",
         "prompt_contracts",
         "validation_planner_tests",
         "template_sync_tests",
@@ -382,11 +429,14 @@ def main():
         ".mamkin/evolution-capabilities.json",
         ".mamkin/validation-map.json",
         "docs/process/project-evolution-audit.md",
+        "docs/process/adopt-existing-project.md",
         "evals/mamkin-role-model-matrix.json",
         "scripts/audit_mamkin_evolution.py",
+        "scripts/adopt_mamkin_process.py",
         "scripts/plan_validation.py",
         "scripts/sync_mamkin_process.py",
         "tests/test_audit_mamkin_evolution.py",
+        "tests/test_adopt_mamkin_process.py",
         "tests/test_plan_validation.py",
         "tests/test_sync_mamkin_process.py",
     ]:
@@ -425,6 +475,11 @@ def main():
                 fail(errors, f"evolution capability {capability.get('id')} needs one activation predicate")
 
     for path in [
+        adoption_skill,
+        adoption_skill_ui,
+        adoption_protocol,
+        adoption_packet,
+        ROOT / "scripts/adopt_mamkin_process.py",
         evolution_skill,
         evolution_skill_ui,
         evolution_protocol,

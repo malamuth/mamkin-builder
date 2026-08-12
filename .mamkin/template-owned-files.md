@@ -21,6 +21,7 @@ These files are reusable workflow surface. They may usually be updated from the 
 - `docs/process/handoff-packets/*.md`
 - `docs/process/roles/*.md`
 - `docs/process/context-health-audit.md`
+- `docs/process/adopt-existing-project.md`
 - `docs/process/execution-lane-routing.md`
 - `docs/process/thread-operations.md`
 - `docs/process/prompt-evals.md`
@@ -30,10 +31,12 @@ These files are reusable workflow surface. They may usually be updated from the 
 - `evals/mamkin-prompt-cases.json`
 - `evals/mamkin-role-model-matrix.json`
 - `scripts/audit_mamkin_evolution.py`
+- `scripts/adopt_mamkin_process.py`
 - `scripts/plan_validation.py`
 - `scripts/sync_mamkin_process.py`
 - `scripts/validate_prompt_contracts.py`
 - `tests/__init__.py`
+- `tests/test_adopt_mamkin_process.py`
 - `tests/test_audit_mamkin_evolution.py`
 - `tests/test_plan_validation.py`
 - `tests/test_sync_mamkin_process.py`

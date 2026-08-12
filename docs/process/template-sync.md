@@ -12,7 +12,7 @@ This is a process sync, not a product migration. It must not overwrite project p
 - `.mamkin/process-manifest.json`, if present.
 - `.mamkin/template-owned-files.md`, if present, for the human-readable policy.
 
-If the copied project lacks `.mamkin/` metadata, run in first-sync review mode and create the metadata only after human approval.
+If a legacy copied project has a recognizable Mamkin process layer but lacks `.mamkin/` metadata, run in first-sync review mode and create the metadata only after human approval. If an existing project has no Mamkin process layer, route it through `mamkin-adopt` instead.
 
 ## Upstream Verification
 

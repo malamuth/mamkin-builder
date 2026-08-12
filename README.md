@@ -33,6 +33,16 @@ The workflow is built for projects run by an init agent, a coordinator, optional
    - custom role cards and packets, if the project needs recurring specialist roles
 5. The init agent verifies git state, calls out any inherited template branch, dirty state, or remote, proposes GitHub setup, and hands off to the coordinator flow.
 
+## Adopt An Existing Project
+
+For a repository that already contains a real project and was not copied from Mamkin, keep its product code, Git history, remote, and deployment state in place. Open that repository in Codex and run:
+
+```text
+$mamkin-adopt
+```
+
+The adopter audits the repository read-only, interviews only for missing facts, and produces a commit-pinned process-overlay plan. It applies nothing until that exact plan is approved. After approval, it seeds only missing Mamkin-owned files, protects every existing collision, reconstructs project docs from current evidence, runs safe existing checks, and hands the adopted project to the coordinator. Use `mamkin-init` for new copied templates and `mamkin-template-sync` only after init or adoption has established valid `.mamkin/` metadata.
+
 ## Start From GitHub
 
 If you want the fresh published template but a new project that is not the `mamkin-builder` repo, first create and enter your new project folder. Then clone the template into that folder and detach the copied Git history before init:
@@ -58,7 +68,7 @@ Project-local Codex config, hooks, rules, and agent presets load only after Code
 
 Use `AGENTS.md` as the entrypoint because many coding agents already look for it. Keep it concise so every worker sees only high-signal rules. Put the coordinator manual, role cards, handoff packets, and testing contracts under `docs/process/`.
 
-Use `.mamkin/` metadata to keep copied projects aligned with future template improvements. `mamkin-template-sync` updates the reusable process layer from the upstream template while protecting project-owned docs, feature specs, code, secrets, and remotes. For mature projects, `mamkin-project-evolution-audit` then evaluates both newly available mechanics and repeated project-native lessons. It recommends the smallest profitable action—keep knowledge in place, consolidate an existing source, add a deterministic check, create a project-local skill, retire redundancy, or propose a project-agnostic Mamkin improvement—without applying changes or leaking domain details upstream.
+Use `.mamkin/` metadata to keep initialized and adopted projects aligned with future template improvements. `mamkin-template-sync` updates the reusable process layer from the upstream template while protecting project-owned docs, feature specs, code, secrets, and remotes. For mature projects, `mamkin-project-evolution-audit` then evaluates both newly available mechanics and repeated project-native lessons. It recommends the smallest profitable action—keep knowledge in place, consolidate an existing source, add a deterministic check, create a project-local skill, retire redundancy, or propose a project-agnostic Mamkin improvement—without applying changes or leaking domain details upstream.
 
 ## After Updating Mamkin
 
@@ -85,6 +95,7 @@ Do not reset or roll over merely because a sync occurred. A minor update usually
 - `.codex/config.toml`: conservative project Codex runtime defaults.
 - `.codex/hooks.json` and `.codex/hooks/`: project lifecycle reminders and scanners.
 - `.codex/rules/`: project-local outside-sandbox command policy.
+- `docs/process/adopt-existing-project.md`: guarded brownfield adoption protocol for existing repositories.
 - `docs/process/init-agent.md`: project initialization protocol and questionnaire.
 - `docs/process/agent-orchestration.md`: coordinator orchestration manual.
 - `docs/process/execution-lane-routing.md`: exact subagent-versus-separate-task rules and the optional two-track protocol.
@@ -110,6 +121,7 @@ Do not reset or roll over merely because a sync occurred. A minor update usually
 - `docs/templates/handoff-packet.md`: scaffold for custom role handoff packets.
 - `evals/mamkin-prompt-cases.json`: representative behavior cases for prompt regressions.
 - `scripts/validate_prompt_contracts.py`: deterministic prompt-contract and size checks.
+- `scripts/adopt_mamkin_process.py`: deterministic review/apply tool for collision-free brownfield process seeding.
 
 ## Design Principles
 
@@ -129,7 +141,7 @@ Do not reset or roll over merely because a sync occurred. A minor update usually
 
 ## Normal Operating Loop
 
-1. Init agent interviews the human and adapts docs.
+1. Init or adoption establishes the project brief, roadmap, commands, human gates, and Mamkin metadata.
 2. Coordinator reviews the project brief and roadmap.
 3. Coordinator calls analyst if the domain is fuzzy, then architect to polish architecture and feature boundaries.
 4. Coordinator creates or assigns one bounded feature spec and walkthrough definition, or admits two independent specs into tracks A and B.

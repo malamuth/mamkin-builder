@@ -13,6 +13,7 @@ Workers follow the Worker Handoff Contract in `AGENTS.md` and the exact path in 
 - Coordinator kickoff: `docs/process/handoff-packets/coordinator-kickoff.md`
 - Coordinator reset/rollover: `docs/process/handoff-packets/coordinator-reset.md`
 - Coordinator final report: `docs/process/handoff-packets/coordinator-final.md`
+- Brownfield adoption: `docs/process/handoff-packets/adoption.md`
 - Analysis: `docs/process/handoff-packets/analysis.md`
 - Architecture: `docs/process/handoff-packets/architecture.md`
 - Implementation: `docs/process/handoff-packets/implementation.md`

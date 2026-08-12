@@ -1,0 +1,4 @@
+interface:
+  display_name: "Mamkin Adopt"
+  short_description: "Safely adopt Mamkin in an existing project"
+  default_prompt: "Use $mamkin-adopt to review and safely adopt Mamkin Builder into this existing repository."

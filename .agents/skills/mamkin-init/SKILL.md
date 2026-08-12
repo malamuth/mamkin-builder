@@ -22,4 +22,5 @@ Use this skill when a copied Mamkin Builder template should become a concrete pr
 
 - `docs/process/init-agent.md` is the source of truth for init.
 - This skill is only a discoverable entrypoint; do not duplicate the full init protocol here.
+- If the target is an existing project that was not copied from Mamkin, use `mamkin-adopt` instead.
 - If the user asks to improve the template itself, edit the template docs directly instead of running init.

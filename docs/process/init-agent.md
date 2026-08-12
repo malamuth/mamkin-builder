@@ -8,6 +8,8 @@ You are not here to implement the product yet. You are here to make the coordina
 
 Run this flow once when a copied template becomes a real project. Rerun it only when the project needs deliberate re-initialization, such as changing the orchestration model, replacing the project brief, or reorganizing the roadmap.
 
+If the target is an existing project that was not copied from Mamkin, stop and use `mamkin-adopt` with `docs/process/adopt-existing-project.md` instead.
+
 ## Read First
 
 - `AGENTS.md`

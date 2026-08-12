@@ -16,6 +16,14 @@
         "--check"
       ]
     },
+    "adoption_tests": {
+      "command": [
+        "python3",
+        "-m",
+        "unittest",
+        "tests.test_adopt_mamkin_process"
+      ]
+    },
     "evolution_audit_tests": {
       "command": [
         "python3",
@@ -52,6 +60,18 @@
     }
   },
   "rules": [
+    {
+      "patterns": [
+        ".agents/skills/mamkin-adopt/**",
+        "docs/process/adopt-existing-project.md",
+        "docs/process/handoff-packets/adoption.md",
+        "scripts/adopt_mamkin_process.py",
+        "tests/test_adopt_mamkin_process.py"
+      ],
+      "checks": [
+        "adoption_tests"
+      ]
+    },
     {
       "patterns": [
         ".mamkin/evolution-capabilities.json",
@@ -110,10 +130,12 @@
     "evals/**",
     "features/**",
     "scripts/plan_validation.py",
+    "scripts/adopt_mamkin_process.py",
     "scripts/audit_mamkin_evolution.py",
     "scripts/sync_mamkin_process.py",
     "scripts/validate_prompt_contracts.py",
     "tests/__init__.py",
+    "tests/test_adopt_mamkin_process.py",
     "tests/test_audit_mamkin_evolution.py",
     "tests/test_plan_validation.py",
     "tests/test_sync_mamkin_process.py",

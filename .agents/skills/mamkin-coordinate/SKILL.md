@@ -21,4 +21,4 @@ Use this skill when the project has already been initialized and the user wants 
 
 - `docs/process/agent-orchestration.md` is the source of truth for coordination.
 - This skill is a discoverable entrypoint, not a second coordination manual.
-- If the project has not been initialized yet, run `mamkin-init` or follow `docs/process/init-agent.md` first.
+- If the project has not been initialized or adopted yet, run `mamkin-init` for a copied template or `mamkin-adopt` for an existing project first.

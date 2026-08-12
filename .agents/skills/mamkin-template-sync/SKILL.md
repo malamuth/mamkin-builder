@@ -29,5 +29,6 @@ Use this skill when a copied project should align its Mamkin process files with 
 - Mixed files require merge review and preservation notes.
 - Do not call a local checkout "latest GitHub" unless it is clean and HEAD matches `origin/main`, or the human explicitly approves local-only template state.
 - If template metadata is missing or `TBD`, use heuristic first-sync review mode and ask before applying mixed-file changes.
+- If the target has no recognizable Mamkin process layer or metadata, use `mamkin-adopt`; first-sync review is only for legacy copied projects with an existing Mamkin layer.
 - This skill updates the Mamkin process layer only; it does not implement product features.
 - Project-specific profitability decisions belong to `mamkin-project-evolution-audit`, not this sync skill.
