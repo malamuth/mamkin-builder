@@ -10,6 +10,7 @@ The coordinator reads:
 
 - This manual plus the current brief, decision log, roadmap, and relevant feature material.
 - `docs/process/execution-lane-routing.md` only before delegation, subagent use, or two-track admission.
+- `docs/process/git-delivery.md` when activating a write-capable feature, assigning its implementation lane, or closing it out.
 - `docs/process/thread-operations.md` only when creating, receiving from, or recovering a separate task.
 - `docs/process/naming-conventions.md` only when naming or renaming a durable task or follow-up document.
 - The one packet file needed for the current handoff. Use `docs/process/handoff-packets.md` only when the correct packet is unclear.
@@ -72,12 +73,13 @@ Use `gpt-5.6-terra` at medium effort for bounded implementation, deployment, and
 1. **Orient:** verify repo state; read current project sources; triage unresolved follow-ups.
 2. **Specify:** use analyst or architect only under the triggers above. Produce an accepted feature spec or equivalent brief plus walkthrough coverage.
 3. **Baseline:** prefer a clean commit containing accepted planning state. Otherwise record the exact branch, commit, and dirty-state boundary.
-4. **Route:** choose subagent or separate task with `execution-lane-routing.md`; admit at most tracks `A` and `B`.
-5. **Implement:** one owner per slice; preserve feature-spec stability unless editing it is assigned.
-6. **Review:** add only when the risk triggers above apply.
-7. **Verify:** a different agent runs approved checks and applicable walkthrough scenarios against the exact state.
-8. **Integrate:** for two tracks, integrate in the declared order and run combined checks before `Integration-verified`.
-9. **Close:** inspect packets and changed scope, reconcile roadmap/decisions/follow-ups, report validation and gaps, and name the next action.
+4. **Delivery:** declare the Git delivery contract. Use a named feature branch by default; obtain any external closeout authority for that exact branch separately.
+5. **Route:** choose subagent or separate task with `execution-lane-routing.md`; admit at most tracks `A` and `B`.
+6. **Implement:** one owner per slice; preserve feature-spec stability unless editing it is assigned.
+7. **Review:** add only when the risk triggers above apply.
+8. **Verify:** a different agent runs approved checks and applicable walkthrough scenarios against the exact committed state.
+9. **Integrate:** the coordinator follows `git-delivery.md`; for two tracks, integrate in order and run combined checks before `Integration-verified`.
+10. **Close:** finish authorized Git closeout, reconcile roadmap/decisions/follow-ups, report validation and retained state, and name the next action.
 
 Update roadmap state at cycle transitions rather than repeating live state in process docs.
 
@@ -192,6 +194,7 @@ The coordinator verifies:
 - Implementation and final acceptance were performed by different agents.
 - Parallel tracks are reported separately from integrated-state verification.
 - Roadmap, decisions, walkthrough results, and follow-ups are reconciled.
-- Final status is `merge-ready`, `verified with follow-ups`, `blocked`, or `not ready`.
+- The Git delivery contract was followed; `Merge-ready` is not reported as `Delivered` before integration and required cleanup.
+- Final status is `delivered`, `ready for Git closeout`, `merge-ready`, `verified with follow-ups`, `blocked`, or `not ready`.
 
 Project commands and human gates come from `AGENTS.md`; do not duplicate them here. Git or external writes still require the applicable human authorization. Context audit/reset/rollover details live in their focused skills and process docs.

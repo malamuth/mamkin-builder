@@ -299,6 +299,45 @@
         "forbiddenBehavior": ["silently continue feature work in the adoption task", "fork the adoption history into the coordinator", "create a task without approval", "repeat adoption in the new coordinator", "treat the transition as coordinator rollover"],
         "completion": "Human chooses the coordinator path; an approved fresh task receives the source-grounded starter prompt, or an explicit same-task choice is recorded before coordination begins."
       }
+    },
+    {
+      "id": "feature-git-delivery-gate",
+      "title": "Feature work declares a branch contract before writes",
+      "request": "Implement accepted feature F12 now.",
+      "setup": "The coordinator is on clean main, the feature spec is accepted but lacks a Git delivery contract, and no other writer is active.",
+      "expected": {
+        "actionMode": "declare-delivery-then-implement",
+        "humanConfirmation": "required only for unresolved delivery choices, external Git authority, or a direct-to-base exception",
+        "requiredBehavior": ["record the Git delivery contract before feature writes", "recommend codex/f12-short-scope from the clean accepted base", "separate local branch and commit authority from external Git authority", "assign coordinator closeout ownership"],
+        "forbiddenBehavior": ["write feature code directly on main", "treat a feature branch as requiring a separate task by itself", "infer push or merge authority", "leave integration ownership unspecified"],
+        "completion": "F12 has an explicit branch, worktree, integration path, merge method, remote/base target, authority scope, cleanup choice, and closeout owner before implementation starts."
+      }
+    },
+    {
+      "id": "authorized-git-closeout",
+      "title": "Coordinator completes approved Git closeout",
+      "request": "Finish the feature.",
+      "setup": "The exact feature commit passed independent walkthrough. Full closeout for the named branch, origin/main, local integration path, and fast-forward method was approved at kickoff; the feature worktree is clean and the base has not drifted.",
+      "expected": {
+        "actionMode": "coordinator-git-closeout",
+        "humanConfirmation": "already granted for the exact conditional closeout; ask again only if state, scope, branch, method, or gates changed",
+        "requiredBehavior": ["verify the accepted commit is the feature tip and authority is still valid", "integrate locally by fast-forward", "run required post-integration checks", "push and verify origin/main", "clean only verified merged branches and clean worktrees", "report Delivered only after clean base verification"],
+        "forbiddenBehavior": ["stop at Merge-ready", "ask the human to repeat unchanged approval", "delete an unmerged branch or dirty worktree", "rewrite shared history", "start the next feature before closeout"],
+        "completion": "Accepted feature is integrated and published as authorized, cleanup is verified, and the base is clean; otherwise the coordinator reports the exact closeout blocker."
+      }
+    },
+    {
+      "id": "authorized-pr-closeout",
+      "title": "Coordinator follows the approved pull-request closeout order",
+      "request": "Finish the accepted feature through GitHub.",
+      "setup": "The accepted feature tip is clean. Full closeout for the named branch, origin/main, pull-request path, squash method, and remote branch deletion was approved; required GitHub checks are available.",
+      "expected": {
+        "actionMode": "coordinator-pr-closeout",
+        "humanConfirmation": "already granted for this exact conditional lifecycle; changed state or failed gates require a new decision",
+        "requiredBehavior": ["verify the accepted local tip and exact authority", "push the feature branch before opening or updating the PR", "wait for required checks or review", "squash merge into origin/main", "verify the resulting remote base and intended diff", "synchronize clean local base and perform authorized cleanup"],
+        "forbiddenBehavior": ["locally integrate before opening the PR", "merge before required checks", "delete a branch containing unaccepted commits", "ask for unchanged approval again", "report Delivered before remote and cleanup verification"],
+        "completion": "The PR path completes in the declared order and reports Delivered only after origin/main and cleanup are verified."
+      }
     }
   ]
 }

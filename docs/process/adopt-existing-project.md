@@ -43,6 +43,8 @@ Run the equivalent status and commit checks in the Mamkin source. Prefer a verif
 
 Review mode may inspect a dirty target but must report the dirty boundary. Automatic apply requires a clean source and target. Preserve all user changes. Re-review when the source commit, target commit, dirty state, or plan digest changes.
 
+If the target is dirty, record the original HEAD and exact dirty paths. Do not stash, reset, discard, or silently move them merely to unblock adoption. Ask for the smallest ownership decision. A human may approve preserving one coherent dirty scope on a named branch/commit, or using a separate clean adoption worktree only after proving it will not bypass or overwrite the dirty paths. Then rerun review against the resulting clean pinned target and record the recovery decision in the adoption handoff.
+
 Inspect environment-variable names and committed configuration only. Never print, copy, or store secret values, private URLs, provider keys, production data, or machine-local state.
 
 ## Repository Classification And Inventory
@@ -66,7 +68,7 @@ Ask one to three high-leverage questions per round and reuse repository evidence
 1. **Current production truth:** users, valuable jobs, shipped interfaces, protected behavior, authoritative sources, and current operational state.
 2. **Change intent:** upcoming milestone, smallest reversible valuable slice, non-goals, completion evidence, and compatibility requirements.
 3. **Operational risk:** sensitive or hard-to-recover data, migrations, auth, privacy, external services, previews, rollback, secrets path, and human gates.
-4. **Delivery model:** existing local checks, CI coverage, deployment ownership, Git practices, recommended orchestration, occasional parallel work, and genuinely recurring custom roles.
+4. **Delivery model:** existing local checks, CI coverage, deployment ownership, base branch, feature-branch and integration preference, local commit authority, per-feature external Git approval, cleanup preference, recommended orchestration, occasional parallel work, and genuinely recurring custom roles.
 
 ## Deterministic Adoption Review
 
@@ -127,6 +129,7 @@ After the deterministic seed, manually adapt only the approved surfaces:
 - Merge Mamkin request routing, safety rules, and handoff boundaries into the existing `AGENTS.md`; preserve project architecture and coding rules.
 - Keep `README.md` as the project entrypoint and add concise links instead of replacing established product documentation.
 - Create `docs/project/brief.md`, `docs/project/decision-log.md`, and `features/00-roadmap.md` from repository evidence and interview decisions, not copied placeholders.
+- Record project-wide Git delivery defaults in the brief. Do not infer push, PR, merge, or remote-cleanup authority from existing remotes or history.
 - Set one project prefix in `docs/process/naming-conventions.md`.
 - Configure `.mamkin/validation-map.json` only with existing deterministic local argv commands. Do not create or install a formatter implicitly.
 - Add project-local Codex runtime, MCP, hook, rule, or agent configuration only after the applicable human review.
@@ -149,6 +152,7 @@ Confirm:
 - No secret value, private target, provider credential, or production data was captured.
 - Mixed files preserve project-specific knowledge.
 - Brief, decision log, roadmap, validation map, and human gates are usable or their exact gaps are reported.
+- Git delivery defaults are usable, named feature branches remain the default, and external authority is not implied.
 - No upcoming product feature was implemented during adoption.
 - The first coordinator action is one bounded, valuable, reversible slice or baseline-stabilization item.
 - Project trust and hook review requirements are reported when project-local Codex surfaces were added.

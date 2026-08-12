@@ -14,6 +14,7 @@
     "docs/process/context-health-audit.md",
     "docs/process/adopt-existing-project.md",
     "docs/process/execution-lane-routing.md",
+    "docs/process/git-delivery.md",
     "docs/process/thread-operations.md",
     "docs/process/prompt-evals.md",
     "docs/process/project-evolution-audit.md",

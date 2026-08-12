@@ -28,6 +28,21 @@ So that ...
 - External services:
 - Human setup:
 
+## Git Delivery Contract
+
+- Base branch:
+- Feature branch: `codex/fNN-short-scope`
+- Worktree: current | separate
+- Delivery mode: feature branch | direct-to-base exception
+- Direct-to-base rationale and approval: N/A | exact decision
+- Integration path: pull request | local
+- Merge method: merge commit | squash | fast-forward
+- Remote and base target: `<remote>/<base branch>`
+- Local Git authority: branch + commit | working tree only
+- External Git authority: none | push branch + open PR | full closeout
+- Remote branch cleanup: retain | delete after verified integration
+- Closeout owner: coordinator
+
 ## Parallel Safety
 
 - May run in parallel with:
@@ -97,5 +112,6 @@ This feature is ready for implementation when:
 - Acceptance criteria are testable.
 - Human gates are explicit.
 - Required dependencies are available or called out.
+- Git delivery, authority, and closeout ownership are explicit; direct-to-base has a human-approved rationale.
 - Parallel safety is explicit when another track may run at the same time.
 - Verification scenarios and evidence needs are clear enough for the coordinator to create or assign a runbook.

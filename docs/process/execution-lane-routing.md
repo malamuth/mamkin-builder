@@ -9,6 +9,7 @@ Use this file to choose between a same-task subagent and a separate Codex task, 
 - Prefer a subagent when every subagent condition below passes. Use a separate task when any separate-task trigger applies.
 - The parent task remains accountable for subagent scope, evidence, edits, and validation.
 - One subagent must not both implement a change and provide its acceptance verdict.
+- Git delivery is orthogonal to task routing: `docs/process/git-delivery.md` chooses the branch, worktree, integration path, merge method, authority, and closeout owner before a write-capable feature starts.
 
 ## Use A Subagent Only When Every Condition Passes
 
@@ -34,6 +35,8 @@ Good subagent work includes repository exploration, focused research, diff revie
 - Source ownership overlaps another active writer or cannot be proved disjoint.
 
 Architecture, implementation, walkthrough, deployment, or specialist work uses a separate task only when one of these triggers applies. A bounded pass in any role may be a subagent when every subagent condition passes and acceptance remains independently owned.
+
+A feature branch does not by itself require a separate task. One write-capable lane may use the current worktree on the declared branch; concurrent or independently recoverable writers use separate worktrees. Direct-to-base feature work is not a routing shortcut.
 
 ## Prompt Declaration
 

@@ -25,6 +25,12 @@ Use predictable names for separate agent tasks:
 <project-prefix> <slice-id> <role> - <short-scope>
 ```
 
+## Branch Naming
+
+Use `codex/fNN-short-scope` for an accepted feature spec, where `NN` matches `features/NN-*.md`. Use `codex/cNN-short-scope` only when a roadmap candidate has an explicitly approved write-capable experiment before promotion to a feature spec. Process maintenance may use `codex/short-process-scope`.
+
+Do not encode agent names, status, worktree paths, or dates unless the project has a documented collision. The feature's Git delivery contract owns the exact base, branch, worktree, integration path, merge method, and cleanup choice.
+
 For the main coordinator thread, use:
 
 ```text

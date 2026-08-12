@@ -10,6 +10,8 @@ When a packet makes architecture, source-ownership, generated-artifact, deployme
 
 Workers follow the Worker Handoff Contract in `AGENTS.md` and the exact path in their task prompt. Every separate-task packet fills `Coordinator thread id` and `Return path used`. A subagent fills `Parent lane owner`, returns once to that parent, and does not perform a separate coordinator delivery. Coordinator-side delivery and recovery mechanics live in `docs/process/thread-operations.md`.
 
+Implementation and walkthrough packets report Git evidence but never silently own integration. The coordinator follows `docs/process/git-delivery.md`, and the final packet distinguishes `Merge-ready`, `Ready for Git closeout`, and `Delivered`.
+
 - Coordinator kickoff: `docs/process/handoff-packets/coordinator-kickoff.md`
 - Coordinator reset/rollover: `docs/process/handoff-packets/coordinator-reset.md`
 - Coordinator final report: `docs/process/handoff-packets/coordinator-final.md`

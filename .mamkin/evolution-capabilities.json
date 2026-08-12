@@ -30,6 +30,17 @@
       "benefitHypothesis": "Use cheaper bounded subagents while retaining durable isolation where needed."
     },
     {
+      "id": "feature-git-delivery-contract",
+      "title": "Feature branch and Git closeout contract",
+      "category": "delivery-reliability",
+      "paths": [
+        "docs/process/git-delivery.md",
+        "docs/templates/feature-spec.md",
+        "docs/process/handoff-packets/coordinator-final.md"
+      ],
+      "benefitHypothesis": "Make branch choice, local commits, integration authority, and post-acceptance cleanup predictable for every feature."
+    },
+    {
       "id": "change-aware-validation",
       "title": "Change-aware validation planning",
       "category": "validation",

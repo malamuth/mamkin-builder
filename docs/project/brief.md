@@ -115,6 +115,17 @@ Next likely slices:
 
 - TBD
 
+Git delivery defaults:
+
+- Base branch: TBD
+- Feature delivery: named feature branch
+- Integration path: TBD
+- Merge method: TBD
+- Default remote/base target: TBD
+- Local Git authority: TBD
+- External Git actions: approve per named feature scope
+- Remote branch cleanup: TBD
+
 ## Testing And Walkthrough
 
 Automated checks:

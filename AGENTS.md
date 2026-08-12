@@ -38,6 +38,7 @@ Fill these during init once the stack is known. Until then, do not invent comman
 - Use `docs/process/execution-lane-routing.md` to choose between a same-task subagent and a separate Codex task, and before running two independent work tracks.
 - Keep reusable process in `docs/process/`; keep project plans and state in `docs/project/`, `features/`, `docs/walkthroughs/`, or `docs/follow-ups/`.
 - Keep active feature specs stable during implementation unless spec editing is explicitly assigned.
+- Before feature writes, require the Git delivery contract in `docs/process/git-delivery.md`; feature branches are the default, and the coordinator owns integration and cleanup.
 - Run relevant validation before completion, or report what could not be run and the next best check.
 - Project-local `.codex` config, hooks, rules, and presets load only when the project is trusted; changed hooks may need review. Runtime permissions can be broader than preset defaults, but they do not override these human gates or file ownership.
 
