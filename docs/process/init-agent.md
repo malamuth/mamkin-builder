@@ -109,6 +109,7 @@ Update or create these docs:
 - `.mamkin/template-version.json`: record the copied template commit when known. If the project was copied without Git metadata, leave commit fields as `TBD` and note that first sync must run in review mode.
 - `.mamkin/template-owned-files.md`: keep the ownership classes unless the project deliberately changes what is considered template-owned, mixed, or project-owned.
 - `.mamkin/validation-map.json`: fill `project_check` with the known check command as an argv array. Leave it unconfigured and report the gap when the stack is still unknown.
+- `.mamkin/model-routing.json`: preserve the default risk floors. Project-specific model changes require same-case eval evidence; availability alone does not justify a downgrade.
 
 Optionally update:
 

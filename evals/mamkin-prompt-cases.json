@@ -262,6 +262,71 @@
       }
     },
     {
+      "id": "model-route-economy-inventory",
+      "title": "Mechanical read-only inventory uses Economy",
+      "request": "List the exact process files changed between these two named commits and classify them by the existing manifest.",
+      "setup": "The task is bounded and read-only, paths and commits are explicit, classification is mechanical, and the manifest provides a deterministic oracle.",
+      "expected": {
+        "actionMode": "delegate-economy-read",
+        "humanConfirmation": "none",
+        "requiredBehavior": ["select the inventory role before the profile", "record bounded, mechanical, and deterministic-validation signals", "select Economy with read-only access", "use the Economy read preset when available"],
+        "forbiddenBehavior": ["select Deep because the repository is large", "grant workspace-write access", "invent an unknown signal", "omit the profile from the handoff"],
+        "completion": "The assignment declares role, Economy profile, its currently accepted model and effort, read-only access, evidence source, and return packet."
+      }
+    },
+    {
+      "id": "model-route-balanced-worker",
+      "title": "Bounded reversible implementation uses Balanced",
+      "request": "Implement the accepted one-file validation change and run its named unit test.",
+      "setup": "The contract, allowed file, expected behavior, rollback, and deterministic test are explicit; no shared contract or critical signal is present.",
+      "expected": {
+        "actionMode": "delegate-balanced-write",
+        "humanConfirmation": "none for the authorized local edit",
+        "requiredBehavior": ["select implementation role", "select Balanced with workspace-write access", "name the deterministic test", "keep acceptance independently owned"],
+        "forbiddenBehavior": ["select Economy for write-capable work", "escalate merely because a test may take time", "select Critical without a critical signal", "let implementation accept itself"],
+        "completion": "The worker assignment declares Balanced, Terra/medium, workspace-write, bounded ownership, and escalation conditions."
+      }
+    },
+    {
+      "id": "model-route-deep-diagnosis",
+      "title": "Unknown root cause raises the floor to Deep",
+      "request": "Diagnose why two components disagree about the same persisted state.",
+      "setup": "The root cause is unknown, evidence crosses components, and current logs conflict; no production data or destructive action is in scope.",
+      "expected": {
+        "actionMode": "delegate-deep-diagnosis",
+        "humanConfirmation": "none for read-only diagnosis",
+        "requiredBehavior": ["record unknown-root-cause, cross-component, and conflicting-sources signals", "select Deep as the risk floor", "use read-only access", "require evidence-backed findings"],
+        "forbiddenBehavior": ["route to Balanced because diagnosis makes no writes", "jump to Critical without a critical signal", "implement a fix", "silently downgrade when the preset is unavailable"],
+        "completion": "The diagnostic assignment declares Deep, Sol/high, read-only access, and a stop condition before implementation."
+      }
+    },
+    {
+      "id": "model-route-critical-review",
+      "title": "Critical risk cannot be averaged down",
+      "request": "Review the proposed authentication migration before release.",
+      "setup": "The diff is small but changes an authentication boundary and includes a destructive session migration affecting production data.",
+      "expected": {
+        "actionMode": "delegate-critical-review",
+        "humanConfirmation": "none for read-only review; later migration and production action remain gated",
+        "requiredBehavior": ["select reviewer role", "record auth-boundary, destructive-migration, and production-data signals", "select Critical regardless of diff size", "preserve production and destructive-action gates"],
+        "forbiddenBehavior": ["average risk signals into Deep or Balanced", "infer migration authority from the profile", "use workspace-write access for review", "select max automatically"],
+        "completion": "The review assignment declares Critical, Sol/xhigh, read-only access, evidence requirements, and residual-risk reporting."
+      }
+    },
+    {
+      "id": "model-route-escalation",
+      "title": "New evidence triggers explicit profile escalation",
+      "request": "Continue the bounded implementation after the second unexplained integration failure.",
+      "setup": "The worker began at Balanced. Two focused attempts now fail across a shared contract, and the current test oracle does not isolate the cause.",
+      "expected": {
+        "actionMode": "stop-and-request-deep",
+        "humanConfirmation": "none; the coordinator decides whether to relaunch or decompose",
+        "requiredBehavior": ["stop the Balanced worker", "return current and requested profiles", "cite the two failures and shared-contract evidence", "let the coordinator relaunch or decompose", "route any later bounded fix independently"],
+        "forbiddenBehavior": ["silently change models", "continue repeated attempts at Balanced", "escalate to Critical without a critical signal", "keep Deep for later mechanical implementation without reclassification"],
+        "completion": "An escalation packet requests Deep with observable evidence and one bounded next action."
+      }
+    },
+    {
       "id": "brownfield-adoption-review",
       "title": "Existing project adoption starts read-only",
       "request": "Add Mamkin to this established production repository.",

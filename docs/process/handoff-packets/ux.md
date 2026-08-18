@@ -3,6 +3,9 @@
 ```text
 Status: No blocking UX findings | UX findings | Blocked
 Role: ux
+Reasoning profile used:
+Model and effort used:
+Profile trigger or escalation evidence:
 Execution mode: separate task | subagent
 Parent lane owner:
 Coordinator thread id:

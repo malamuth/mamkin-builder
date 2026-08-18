@@ -3,6 +3,9 @@
 ```text
 Status: Ready for feature decomposition | Needs human decision | Blocked
 Role: architect
+Reasoning profile used:
+Model and effort used:
+Profile trigger or escalation evidence:
 Execution mode: separate task | subagent
 Parent lane owner:
 Coordinator thread id:

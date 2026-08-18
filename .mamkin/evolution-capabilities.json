@@ -75,7 +75,12 @@
       "title": "Measured role model and reasoning routing",
       "category": "runtime-cost",
       "paths": [
-        "evals/mamkin-role-model-matrix.json"
+        ".mamkin/model-routing.json",
+        ".codex/agents/mamkin-*.toml",
+        "docs/process/model-routing.md",
+        "evals/mamkin-role-model-matrix.json",
+        "scripts/select_model_profile.py",
+        "tests/test_model_routing.py"
       ],
       "benefitHypothesis": "Lower model cost only where same-case quality evidence supports it."
     },

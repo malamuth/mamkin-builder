@@ -42,6 +42,8 @@ The pre-refactor behavioral cases were not run before this suite existed. Treat 
 - Completed adoption recommends a fresh non-forked coordinator task, gates task creation, and never silently starts product work in the adoption task.
 - Feature implementation declares a named-branch Git delivery contract before writes; direct-to-base is an explicit narrow exception.
 - The coordinator completes an unchanged, pre-authorized Git closeout after acceptance and reserves `Delivered` for verified integration and cleanup.
+- Model routing selects economy only for bounded deterministic read-only work, balanced for ordinary reversible work, deep for ambiguity or shared-contract risk, and critical for named high-risk boundaries.
+- A worker escalates on newly discovered evidence and never silently downgrades or changes its own profile.
 
 ## Run Order
 
@@ -66,7 +68,7 @@ A case passes only with all six points. Treat tokens, cost, latency, calls, and 
 
 ## Reasoning-Effort Decision
 
-Use the accepted settings in `evals/mamkin-role-model-matrix.json`. Test one role class at a time on the same cases and source state. Prefer the lower setting only when every quality dimension still passes; keep `high` where specialist output quality, ambiguity, correctness, or risk detection has not been exercised adequately.
+Use `docs/process/model-routing.md` and `.mamkin/model-routing.json` for deterministic profile selection, then use the accepted settings in `evals/mamkin-role-model-matrix.json`. Test one adjacent profile pair at a time on the same cases and source state. Prefer the lower profile only when every quality dimension still passes; keep the configured risk floor where specialist output quality, ambiguity, correctness, or risk detection has not been exercised adequately.
 
 Record the accepted reasoning matrix and evidence below before changing defaults. Missing token, latency, or cost telemetry must be marked unavailable rather than estimated.
 
@@ -80,7 +82,7 @@ Record the accepted reasoning matrix and evidence below before changing defaults
 4. Reject a cheaper candidate after any quality-gate failure. Do not average a safety or correctness failure away.
 5. Change `.codex/config.toml` or a role preset only after the matrix entry has sufficient same-case evidence and a decision is added below.
 
-Use capable/high reasoning for ambiguous coordination, architecture, security-sensitive review, and difficult root-cause work until measured otherwise. Test balanced/medium candidates first for bounded implementation, walkthrough execution, deployment checks, and read-only exploration. Model availability is runtime-specific; an unavailable candidate is `not-run`, not a failed quality result.
+Economy is restricted to bounded, mechanical, deterministic read-only work. Balanced is the ordinary reversible-work default. Deep is the floor for ambiguity, architecture, shared contracts, difficult diagnosis, or material judgment. Critical is the floor for the named security, production, financial, destructive, irreversible, or concurrency signals. Model availability is runtime-specific; an unavailable candidate is `not-run`, not a failed quality result, and never authorizes a silent downgrade.
 
 ## Decision History
 
@@ -96,3 +98,4 @@ Use capable/high reasoning for ambiguous coordination, architecture, security-se
 | 2026-08-12 | Made completed brownfield adoption an explicit coordinator boundary with fresh-task recommendation, task-creation approval, and deliberate same-task fallback. | Prompt contracts, JSON validation, Python compilation, diff checks, and all 41 process tests pass; the suite now has 23 cases. | Fresh read-only forward evaluation passed the transition gate and exposed a chat-only requirements handoff gap. The corrected contract carries newer human input into the clean coordinator prompt without treating it as task-creation or same-task approval. | No model default changed; coordinator task creation remains human-approved. |
 | 2026-08-12 | Added an explicit feature Git delivery contract with named-branch default, scoped authority, coordinator-owned integration, and verified cleanup. | Prompt contracts, JSON validation, Python compilation, diff checks, and all 41 process tests pass; the suite now has 26 cases. | Fresh read-only forward evaluation passes branch-first startup, local fast-forward closeout, PR squash closeout, and dirty-base recovery. It exposed and the final contract corrected PR ordering, remote/base ambiguity, worker closeout leakage, accepted-commit rebase risk, and remote deletion races. | No model default changed; external Git authority remains human-scoped to the named feature lifecycle. |
 | 2026-08-12 | Made repository roots hard write boundaries and converted project-discovered upstream improvements into proposal-only handoffs for separate Mamkin tasks. | Prompt contracts, JSON validation, Python compilation, diff checks, and the process test suite pass; the suite now covers same-task upstream mutation and self-supplied sync sources. | A production-project trace exposed a task that edited and committed the adjacent template checkout, then offered that commit back as its sync source. A fresh read-only forward test rejected that provenance, preserved the generic proposal, and exposed the task-creation-versus-implementation ambiguity now closed in the contract. | No model default changed; approval to proceed within one project never expands to another repository. |
+| 2026-08-18 | Added adaptive role-independent Economy, Balanced, Deep, and Critical profiles with deterministic risk floors, explicit escalation, and access-specific presets. | Structural routing, focused unit tests, prompt cases, profile presets, ownership, and validation wiring added. | In a fresh same-state 34-path inventory, Terra/medium returned the complete 28-template/6-mixed classification; Luna/low misstated both totals and contradicted its own list. | Keep Economy on Terra/medium and reject Luna/low for now. Deep and Critical remain mandatory risk floors for their named signals; other profile changes still require same-case evidence. |

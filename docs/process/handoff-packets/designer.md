@@ -3,6 +3,9 @@
 ```text
 Status: Design complete | Design findings | Needs human decision | Blocked
 Role: designer
+Reasoning profile used:
+Model and effort used:
+Profile trigger or escalation evidence:
 Execution mode: separate task | subagent
 Parent lane owner:
 Coordinator thread id:

@@ -3,6 +3,9 @@
 ```text
 Status: Deployment-ready | Smoke passed | Smoke failed | Blocked
 Role: deployment
+Reasoning profile used:
+Model and effort used:
+Profile trigger or escalation evidence:
 Execution mode: separate task | subagent
 Parent lane owner:
 Coordinator thread id:

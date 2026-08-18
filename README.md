@@ -98,7 +98,7 @@ Do not reset or roll over merely because a sync occurred. A minor update usually
 - `AGENTS.md`: short always-on agent entrypoint.
 - `.agents/skills/mamkin-bootstrap/`: portable global entrypoint that can be installed from GitHub before a target has Mamkin.
 - `.agents/skills/`: repo-scoped Codex workflow entrypoints installed together during init or adoption.
-- `.mamkin/`: template version and file ownership metadata for safe process sync.
+- `.mamkin/`: template version, file ownership, validation, and adaptive model-routing policy.
 - `.codex/agents/`: project-scoped Codex custom agent presets.
 - `.codex/config.toml`: conservative project Codex runtime defaults.
 - `.codex/hooks.json` and `.codex/hooks/`: project lifecycle reminders and scanners.
@@ -108,6 +108,7 @@ Do not reset or roll over merely because a sync occurred. A minor update usually
 - `docs/process/agent-orchestration.md`: coordinator orchestration manual.
 - `docs/process/execution-lane-routing.md`: exact subagent-versus-separate-task rules and the optional two-track protocol.
 - `docs/process/git-delivery.md`: feature branch, authority, integration, and cleanup lifecycle.
+- `docs/process/model-routing.md`: role-independent Economy, Balanced, Deep, and Critical selection with deterministic risk floors.
 - `docs/process/thread-operations.md`: focused worker-thread creation, delivery, and recovery rules.
 - `docs/process/context-health-audit.md`: read-only audit protocol for OK/watch/context reset/rollover decisions.
 - `docs/process/project-evolution-audit.md`: profitability-gated review of current Mamkin mechanics against a mature copied project.

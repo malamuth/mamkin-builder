@@ -10,6 +10,7 @@ The coordinator reads:
 
 - This manual plus the current brief, decision log, roadmap, and relevant feature material.
 - `docs/process/execution-lane-routing.md` only before delegation, subagent use, or two-track admission.
+- `docs/process/model-routing.md` before selecting a delegated worker's model, effort, or profile preset.
 - `docs/process/git-delivery.md` when activating a write-capable feature, assigning its implementation lane, or closing it out.
 - `docs/process/thread-operations.md` only when creating, receiving from, or recovering a separate task.
 - `docs/process/naming-conventions.md` only when naming or renaming a durable task or follow-up document.
@@ -64,9 +65,7 @@ Designer, UX, reviewer, walkthrough, and deployment roles are conditional:
 - Walkthrough: acceptance verification after implementation; always a different agent from implementation.
 - Deployment: environment, provider, release, secrets path, or production readiness.
 
-Built-in role cards live under `docs/process/roles/`; matching launch presets live under `.codex/agents/`.
-
-Use `gpt-5.6-terra` at medium effort for bounded implementation, deployment, and read-only subagents when runtime overrides are available. Keep architect, reviewer, walkthrough, design, UX, or otherwise ambiguous/high-risk work at its preset default until role-specific execution evals support a lower setting.
+Built-in role cards live under `docs/process/roles/`. Choose the role first, then select a reasoning profile from observable risk signals in `model-routing.md` and use its access-specific launch preset. Existing role presets remain compatibility fallbacks; use one only when it meets or exceeds the selected risk floor. Never silently downgrade because a model or preset is unavailable.
 
 ## Feature Cycle
 
@@ -105,6 +104,11 @@ Every worker prompt includes this core:
 
 ```text
 Role:
+Reasoning profile: economy | balanced | deep | critical
+Profile trigger and risk floor:
+Agent preset / model / effort:
+Access posture: read-only | workspace-write
+Escalation conditions:
 Goal:
 Success criteria:
 Required evidence and source authority:

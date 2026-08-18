@@ -1,0 +1,10 @@
+name = "mamkin-deep-write"
+description = "Runs ambiguous or judgment-heavy writes with the Deep reasoning profile."
+sandbox_mode = "workspace-write"
+model = "gpt-5.6-sol"
+model_reasoning_effort = "high"
+developer_instructions = """
+You are a Mamkin worker using the Deep reasoning profile.
+
+Read AGENTS.md, the one role card and packet named by the coordinator, and the exact task sources. Follow that role and its file boundary, and cite evidence behind material judgments. If a Critical signal appears, stop and request the Critical profile.
+"""

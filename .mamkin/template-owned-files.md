@@ -23,6 +23,7 @@ These files are reusable workflow surface. They may usually be updated from the 
 - `docs/process/context-health-audit.md`
 - `docs/process/adopt-existing-project.md`
 - `docs/process/execution-lane-routing.md`
+- `docs/process/model-routing.md`
 - `docs/process/thread-operations.md`
 - `docs/process/prompt-evals.md`
 - `docs/process/project-evolution-audit.md`
@@ -33,12 +34,14 @@ These files are reusable workflow surface. They may usually be updated from the 
 - `scripts/audit_mamkin_evolution.py`
 - `scripts/adopt_mamkin_process.py`
 - `scripts/plan_validation.py`
+- `scripts/select_model_profile.py`
 - `scripts/sync_mamkin_process.py`
 - `scripts/validate_prompt_contracts.py`
 - `tests/__init__.py`
 - `tests/test_adopt_mamkin_process.py`
 - `tests/test_audit_mamkin_evolution.py`
 - `tests/test_plan_validation.py`
+- `tests/test_model_routing.py`
 - `tests/test_sync_mamkin_process.py`
 - `features/README.md`
 
@@ -49,6 +52,7 @@ These files contain both reusable process and project-local adaptations. Never o
 - `AGENTS.md`
 - `README.md`
 - `.codex/config.toml`
+- `.mamkin/model-routing.json`
 - `docs/process/agent-orchestration.md`
 - `docs/process/init-agent.md`
 - `docs/process/naming-conventions.md`
@@ -56,7 +60,7 @@ These files contain both reusable process and project-local adaptations. Never o
 - `.mamkin/template-version.json`
 - `.mamkin/template-owned-files.md`
 
-When syncing mixed files, preserve project-specific commands, project prefix, approved MCP/runtime config, human gates, project repo/remotes, and any intentional project-specific process additions.
+When syncing mixed files, preserve project-specific commands, project prefix, approved MCP/runtime config, human gates, project repo/remotes, accepted model-routing experiments, and any intentional project-specific process additions.
 
 Treat upstream expansions of `.mamkin/process-manifest.json` as new sync authority: review and merge them explicitly before they may authorize additional template-owned paths.
 

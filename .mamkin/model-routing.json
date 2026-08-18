@@ -1,0 +1,68 @@
+{
+  "schemaVersion": 1,
+  "profileOrder": [
+    "economy",
+    "balanced",
+    "deep",
+    "critical"
+  ],
+  "profiles": {
+    "economy": {
+      "model": "gpt-5.6-terra",
+      "reasoningEffort": "medium",
+      "presets": {
+        "read-only": "mamkin-economy-read"
+      }
+    },
+    "balanced": {
+      "model": "gpt-5.6-terra",
+      "reasoningEffort": "medium",
+      "presets": {
+        "read-only": "mamkin-balanced-read",
+        "workspace-write": "mamkin-balanced-write"
+      }
+    },
+    "deep": {
+      "model": "gpt-5.6-sol",
+      "reasoningEffort": "high",
+      "presets": {
+        "read-only": "mamkin-deep-read",
+        "workspace-write": "mamkin-deep-write"
+      }
+    },
+    "critical": {
+      "model": "gpt-5.6-sol",
+      "reasoningEffort": "xhigh",
+      "presets": {
+        "read-only": "mamkin-critical-read",
+        "workspace-write": "mamkin-critical-write"
+      }
+    }
+  },
+  "criticalSignals": [
+    "auth-boundary",
+    "concurrency-correctness",
+    "destructive-migration",
+    "irreversible-external-state",
+    "payments",
+    "production-data",
+    "production-incident",
+    "security-boundary"
+  ],
+  "deepSignals": [
+    "architecture-tradeoff",
+    "conflicting-sources",
+    "cross-component",
+    "material-product-judgment",
+    "nondeterministic-validation",
+    "shared-contract",
+    "unknown-root-cause"
+  ],
+  "economyRequirements": [
+    "bounded",
+    "deterministic-validation",
+    "mechanical"
+  ],
+  "maxPolicy": "never-automatic",
+  "unavailableProfilePolicy": "stop-no-silent-downgrade"
+}

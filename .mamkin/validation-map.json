@@ -46,6 +46,14 @@
         "tests.test_plan_validation"
       ]
     },
+    "model_routing_tests": {
+      "command": [
+        "python3",
+        "-m",
+        "unittest",
+        "tests.test_model_routing"
+      ]
+    },
     "template_sync_tests": {
       "command": [
         "python3",
@@ -101,6 +109,22 @@
     },
     {
       "patterns": [
+        ".mamkin/model-routing.json",
+        ".codex/agents/mamkin-economy-*.toml",
+        ".codex/agents/mamkin-balanced-*.toml",
+        ".codex/agents/mamkin-deep-*.toml",
+        ".codex/agents/mamkin-critical-*.toml",
+        "docs/process/model-routing.md",
+        "scripts/select_model_profile.py",
+        "tests/test_model_routing.py"
+      ],
+      "checks": [
+        "model_routing_tests",
+        "prompt_contracts"
+      ]
+    },
+    {
+      "patterns": [
         ".mamkin/validation-map.json",
         "scripts/plan_validation.py",
         "tests/test_plan_validation.py"
@@ -130,6 +154,7 @@
     "evals/**",
     "features/**",
     "scripts/plan_validation.py",
+    "scripts/select_model_profile.py",
     "scripts/adopt_mamkin_process.py",
     "scripts/audit_mamkin_evolution.py",
     "scripts/sync_mamkin_process.py",
@@ -138,6 +163,7 @@
     "tests/test_adopt_mamkin_process.py",
     "tests/test_audit_mamkin_evolution.py",
     "tests/test_plan_validation.py",
+    "tests/test_model_routing.py",
     "tests/test_sync_mamkin_process.py",
     "README.md",
     "AGENTS.md"

@@ -3,6 +3,9 @@
 ```text
 Status: Findings | No blocking findings
 Role: reviewer
+Reasoning profile used:
+Model and effort used:
+Profile trigger or escalation evidence:
 Execution mode: separate task | subagent
 Parent lane owner:
 Coordinator thread id:

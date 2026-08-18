@@ -3,6 +3,9 @@
 ```text
 Status: Merge-ready | Verified with follow-ups | Not merge-ready
 Role: walkthrough
+Reasoning profile used:
+Model and effort used:
+Profile trigger or escalation evidence:
 Execution mode: separate task | subagent
 Parent lane owner:
 Coordinator thread id:

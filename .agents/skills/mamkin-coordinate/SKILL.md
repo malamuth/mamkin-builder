@@ -13,9 +13,10 @@ Use this skill when the project has already been initialized and the user wants 
 2. Read and follow `docs/process/agent-orchestration.md`.
 3. Read current project sources and only the conditional process docs named by the manual.
 4. Use the smallest team and the manual's concrete role triggers.
-5. Before delegation or two-track work, read `docs/process/execution-lane-routing.md`.
-6. Wait for returned packets, blockers, human requests, or explicit recovery; do not poll active tasks.
-7. Use the focused context audit, reset, or rollover skill when its trigger fires.
+5. Before delegation, read `docs/process/model-routing.md`, select the role, reasoning profile, and access posture, and record the trigger and risk floor in the worker prompt.
+6. Before delegation or two-track work, read `docs/process/execution-lane-routing.md`.
+7. Wait for returned packets, blockers, human requests, or explicit recovery; do not poll active tasks.
+8. Use the focused context audit, reset, or rollover skill when its trigger fires.
 
 ## Boundaries
 

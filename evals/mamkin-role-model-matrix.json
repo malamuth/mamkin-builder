@@ -154,6 +154,78 @@
       "status": "not-run",
       "decision": "keep-baseline",
       "resourceMetrics": "unavailable"
+    },
+    {
+      "roleClass": "economy-read-inventory",
+      "caseIds": [
+        "model-route-economy-inventory"
+      ],
+      "baseline": {
+        "model": "gpt-5.6-terra",
+        "reasoningEffort": "medium",
+        "result": "1/1 inventory complete; 28 template-owned and 6 mixed paths classified consistently"
+      },
+      "candidate": {
+        "model": "gpt-5.6-luna",
+        "reasoningEffort": "low",
+        "result": "failed outcome/evidence: reported 27 template-owned and 7 mixed while listing only 6 mixed paths"
+      },
+      "status": "failed",
+      "decision": "keep-baseline",
+      "evidenceDate": "2026-08-18",
+      "evidenceKind": "fresh same-state read-only inventory comparison",
+      "resourceMetrics": "unavailable"
+    },
+    {
+      "roleClass": "bounded-implementation",
+      "caseIds": [
+        "model-route-balanced-worker"
+      ],
+      "baseline": {
+        "model": "gpt-5.6-sol",
+        "reasoningEffort": "high"
+      },
+      "candidate": {
+        "model": "gpt-5.6-terra",
+        "reasoningEffort": "medium"
+      },
+      "status": "not-run",
+      "decision": "keep-baseline",
+      "resourceMetrics": "unavailable"
+    },
+    {
+      "roleClass": "deep-diagnosis",
+      "caseIds": [
+        "model-route-deep-diagnosis"
+      ],
+      "baseline": {
+        "model": "gpt-5.6-sol",
+        "reasoningEffort": "high"
+      },
+      "candidate": {
+        "model": "gpt-5.6-terra",
+        "reasoningEffort": "medium"
+      },
+      "status": "not-run",
+      "decision": "keep-baseline",
+      "resourceMetrics": "unavailable"
+    },
+    {
+      "roleClass": "deep-vs-critical-review",
+      "caseIds": [
+        "model-route-critical-review"
+      ],
+      "baseline": {
+        "model": "gpt-5.6-sol",
+        "reasoningEffort": "xhigh"
+      },
+      "candidate": {
+        "model": "gpt-5.6-sol",
+        "reasoningEffort": "high"
+      },
+      "status": "not-run",
+      "decision": "keep-baseline",
+      "resourceMetrics": "unavailable"
     }
   ]
 }

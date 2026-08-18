@@ -28,6 +28,7 @@ def main():
     matrix_path = ROOT / "evals/mamkin-role-model-matrix.json"
     hooks_path = ROOT / ".codex/hooks.json"
     validation_map_path = ROOT / ".mamkin/validation-map.json"
+    model_routing_path = ROOT / ".mamkin/model-routing.json"
     process_manifest_path = ROOT / ".mamkin/process-manifest.json"
     evolution_catalog_path = ROOT / ".mamkin/evolution-capabilities.json"
     version_path = ROOT / ".mamkin/template-version.json"
@@ -88,6 +89,11 @@ def main():
         "feature-git-delivery-gate",
         "authorized-git-closeout",
         "authorized-pr-closeout",
+        "model-route-economy-inventory",
+        "model-route-balanced-worker",
+        "model-route-deep-diagnosis",
+        "model-route-critical-review",
+        "model-route-escalation",
     }
     missing_ids = required_ids - set(ids)
     if missing_ids:
@@ -114,6 +120,69 @@ def main():
         experiment_case_ids = experiment.get("caseIds")
         if not experiment_case_ids or not set(experiment_case_ids).issubset(set(ids)):
             fail(errors, f"model experiment {experiment.get('roleClass')} needs known case ids")
+
+    model_routing = json.loads(model_routing_path.read_text(encoding="utf-8"))
+    expected_profiles = {
+        "economy": ("gpt-5.6-terra", "medium", {"read-only": "mamkin-economy-read"}),
+        "balanced": (
+            "gpt-5.6-terra",
+            "medium",
+            {"read-only": "mamkin-balanced-read", "workspace-write": "mamkin-balanced-write"},
+        ),
+        "deep": (
+            "gpt-5.6-sol",
+            "high",
+            {"read-only": "mamkin-deep-read", "workspace-write": "mamkin-deep-write"},
+        ),
+        "critical": (
+            "gpt-5.6-sol",
+            "xhigh",
+            {"read-only": "mamkin-critical-read", "workspace-write": "mamkin-critical-write"},
+        ),
+    }
+    if model_routing.get("schemaVersion") != 1:
+        fail(errors, "model routing schemaVersion must be 1")
+    if model_routing.get("profileOrder") != list(expected_profiles):
+        fail(errors, "model routing profile order must be economy, balanced, deep, critical")
+    if model_routing.get("maxPolicy") != "never-automatic":
+        fail(errors, "model routing must never select max automatically")
+    if model_routing.get("unavailableProfilePolicy") != "stop-no-silent-downgrade":
+        fail(errors, "model routing must stop instead of silently downgrading")
+    if set(model_routing.get("criticalSignals") or []) & set(model_routing.get("deepSignals") or []):
+        fail(errors, "model routing critical and deep signals must be disjoint")
+    if set(model_routing.get("economyRequirements") or []) != {
+        "bounded",
+        "deterministic-validation",
+        "mechanical",
+    }:
+        fail(errors, "model routing economy requirements must remain bounded, deterministic, and mechanical")
+    for profile_name, (model, effort, presets) in expected_profiles.items():
+        profile = (model_routing.get("profiles") or {}).get(profile_name, {})
+        if (profile.get("model"), profile.get("reasoningEffort"), profile.get("presets")) != (
+            model,
+            effort,
+            presets,
+        ):
+            fail(errors, f"model routing profile {profile_name} does not match its accepted defaults")
+        for access, preset_name in presets.items():
+            preset_path = ROOT / f".codex/agents/{preset_name}.toml"
+            if not preset_path.exists():
+                fail(errors, f"model routing profile {profile_name} missing preset {preset_name}")
+                continue
+            preset_text = preset_path.read_text(encoding="utf-8")
+            fields = dict(
+                re.findall(
+                    r'^(name|model|model_reasoning_effort|sandbox_mode)\s*=\s*"([^"]+)"\s*$',
+                    preset_text,
+                    flags=re.MULTILINE,
+                )
+            )
+            if fields.get("name") != preset_name:
+                fail(errors, f"profile preset {preset_name} has the wrong name")
+            if fields.get("model") != model or fields.get("model_reasoning_effort") != effort:
+                fail(errors, f"profile preset {preset_name} does not match model routing policy")
+            if fields.get("sandbox_mode") != access:
+                fail(errors, f"profile preset {preset_name} does not match access posture {access}")
 
     prompt_files = [agents, orchestration, lane_routing, handoffs]
     prompt_files += sorted((ROOT / ".codex/agents").glob("mamkin-*.toml"))
@@ -148,6 +217,11 @@ def main():
     orchestration_text = orchestration.read_text(encoding="utf-8")
     core_contract_fields = [
         "Role:",
+        "Reasoning profile:",
+        "Profile trigger and risk floor:",
+        "Agent preset / model / effort:",
+        "Access posture:",
+        "Escalation conditions:",
         "Goal:",
         "Success criteria:",
         "Required evidence and source authority:",
@@ -183,6 +257,8 @@ def main():
         "Use an architect before implementation when any applies",
         "Skip the architect when all apply",
         "Do not include parallel fields for a single-track assignment",
+        "Choose the role first, then select a reasoning profile from observable risk signals",
+        "Never silently downgrade",
     ]:
         if phrase not in orchestration_text:
             fail(errors, f"coordinator manual missing optimization invariant: {phrase}")
@@ -195,6 +271,10 @@ def main():
     ]:
         if phrase not in lane_text:
             fail(errors, f"execution lane routing missing invariant: {phrase}")
+    coordinate_skill_text = (ROOT / ".agents/skills/mamkin-coordinate/SKILL.md").read_text(encoding="utf-8")
+    for phrase in ["docs/process/model-routing.md", "trigger and risk floor"]:
+        if phrase not in coordinate_skill_text:
+            fail(errors, f"coordinate skill missing adaptive model-routing invariant: {phrase}")
     for vague_phrase in ["non-trivial slice", "trivial edit", "complex lane", "major routing"]:
         if vague_phrase in lane_text or vague_phrase in orchestration_text:
             fail(errors, f"routing still relies on vague threshold: {vague_phrase}")
@@ -351,7 +431,14 @@ def main():
     ]
     for packet in worker_packets:
         text = packet.read_text(encoding="utf-8")
-        for field in ["Execution mode:", "Parent lane owner:", "Parallel track:"]:
+        for field in [
+            "Execution mode:",
+            "Parent lane owner:",
+            "Parallel track:",
+            "Reasoning profile used:",
+            "Model and effort used:",
+            "Profile trigger or escalation evidence:",
+        ]:
             if field not in text:
                 fail(errors, f"{packet.relative_to(ROOT)} missing execution-lane field {field}")
         if words(packet) > 250:
@@ -501,6 +588,7 @@ def main():
         "diff_check",
         "adoption_tests",
         "prompt_contracts",
+        "model_routing_tests",
         "validation_planner_tests",
         "template_sync_tests",
         "evolution_audit_tests",
@@ -538,14 +626,17 @@ def main():
         "docs/process/project-evolution-audit.md",
         "docs/process/adopt-existing-project.md",
         "docs/process/git-delivery.md",
+        "docs/process/model-routing.md",
         "evals/mamkin-role-model-matrix.json",
         "scripts/audit_mamkin_evolution.py",
         "scripts/adopt_mamkin_process.py",
         "scripts/plan_validation.py",
+        "scripts/select_model_profile.py",
         "scripts/sync_mamkin_process.py",
         "tests/test_audit_mamkin_evolution.py",
         "tests/test_adopt_mamkin_process.py",
         "tests/test_plan_validation.py",
+        "tests/test_model_routing.py",
         "tests/test_sync_mamkin_process.py",
     ]:
         if path not in process_manifest.get("templateOwned", []):
@@ -554,6 +645,8 @@ def main():
         fail(errors, "process manifest must include complete Mamkin skill packages")
     if ".mamkin/process-manifest.json" not in process_manifest.get("mixed", []):
         fail(errors, "process manifest must treat its own sync authority as mixed ownership")
+    if ".mamkin/model-routing.json" not in process_manifest.get("mixed", []):
+        fail(errors, "process manifest must treat model routing policy as mixed ownership")
     version = json.loads(version_path.read_text(encoding="utf-8"))
     if version.get("ownershipManifest") != ".mamkin/process-manifest.json":
         fail(errors, "template version must point to the machine-readable process manifest")
@@ -617,6 +710,7 @@ def main():
         handoffs,
         lane_routing,
         git_delivery,
+        ROOT / "docs/process/model-routing.md",
         ROOT / "docs/process/thread-operations.md",
     ]
     metrics = {

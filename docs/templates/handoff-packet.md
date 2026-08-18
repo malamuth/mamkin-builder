@@ -3,6 +3,9 @@
 ```text
 Status: Ready for coordinator | Needs human decision | Blocked
 Role:
+Reasoning profile used:
+Model and effort used:
+Profile trigger or escalation evidence:
 Execution mode: separate task | subagent
 Parent lane owner:
 Coordinator thread id:

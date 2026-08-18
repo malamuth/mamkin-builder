@@ -8,6 +8,9 @@ Base branch or commit:
 Git delivery contract:
 Git authority approved:
 Recommended team:
+Reasoning profile per assignment:
+Risk floor and signals:
+Access posture and selected preset:
 Specialists considered:
 Why this team is enough:
 Worker responsibilities:
