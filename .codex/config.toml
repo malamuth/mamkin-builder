@@ -6,8 +6,8 @@ approval_policy = "on-request"
 approvals_reviewer = "user"
 sandbox_mode = "workspace-write"
 web_search = "cached"
-# User-directed Astra pilot; comparative execution evidence is pending in prompt-evals.md.
-model = "gpt-6-astra"
+# Coordinator baseline retained after incomplete Astra policy gate; see prompt-evals.md.
+model = "gpt-5.6-sol"
 model_reasoning_effort = "medium"
 personality = "pragmatic"
 

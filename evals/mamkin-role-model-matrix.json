@@ -230,25 +230,59 @@
     {
       "roleClass": "astra-coordinator",
       "caseIds": [
+        "read-only-audit",
+        "bounded-local-change",
+        "dirty-worktree",
+        "external-action-gate",
+        "manual-relay-handoff",
+        "stale-packet-conflict",
+        "lane-separation",
+        "subagent-preferred",
+        "separate-task-trigger",
+        "two-track-admission",
+        "two-track-hidden-conflict",
+        "two-track-cap",
+        "context-drift",
+        "architect-required-shared-contract",
+        "architect-skip-bounded-slice",
+        "project-evolution-profit-gate",
+        "project-evolution-no-auto-apply",
+        "project-native-capability-ladder",
+        "project-native-stale-learning",
+        "project-upstream-repository-boundary",
+        "model-route-economy-inventory",
+        "model-route-balanced-worker",
+        "model-route-deep-diagnosis",
+        "model-route-critical-review",
+        "model-route-escalation",
+        "brownfield-adoption-review",
+        "brownfield-adoption-apply-gate",
+        "portable-mamkin-bootstrap",
+        "post-adoption-coordinator-start",
+        "feature-git-delivery-gate",
+        "authorized-git-closeout",
+        "authorized-pr-closeout",
         "authorization-reuse",
         "skill-pause-source",
         "mid-task-steering",
-        "proportionate-verification",
-        "subagent-preferred",
-        "two-track-hidden-conflict"
+        "proportionate-verification"
       ],
       "baseline": {
         "model": "gpt-5.6-sol",
-        "reasoningEffort": "medium"
+        "reasoningEffort": "medium",
+        "result": "22/36 strict policy responses; independent bounded implementation 6/6 rubric dimensions"
       },
       "candidate": {
         "model": "gpt-6-astra",
-        "reasoningEffort": "medium"
+        "reasoningEffort": "medium",
+        "result": "31/36 strict policy responses; one failure has source/oracle ambiguity; independent bounded implementation 6/6 rubric dimensions"
       },
-      "status": "not-run",
+      "status": "failed",
       "decision": "keep-baseline",
-      "evidenceKind": "Pending same-state comparisons; active user-directed pilot is documented separately in prompt-evals.md.",
-      "resourceMetrics": "unavailable"
+      "evidenceKind": "One fresh subagent per model, 36 batched policy scenarios, blinded scoring, and independently accepted synthetic implementation; not executed coordinator workflows.",
+      "resourceMetrics": "Comparable latency, tokens, tool counts and cost unavailable; observation boundaries differ.",
+      "evidenceDate": "2026-09-08",
+      "evidencePath": "mamkin-builder: docs/follow-ups/astra-evaluation-2026-09-08/"
     },
     {
       "roleClass": "astra-deep",
@@ -259,16 +293,20 @@
       ],
       "baseline": {
         "model": "gpt-5.6-sol",
-        "reasoningEffort": "high"
+        "reasoningEffort": "high",
+        "result": "5/6 synthetic diagnosis rubric dimensions: correct defect, incorrect Balanced risk classification"
       },
       "candidate": {
         "model": "gpt-6-astra",
-        "reasoningEffort": "high"
+        "reasoningEffort": "high",
+        "result": "6/6 synthetic diagnosis rubric dimensions: correct defect, Deep floor, preserved sources"
       },
-      "status": "not-run",
+      "status": "partial-pass",
       "decision": "keep-baseline",
-      "evidenceKind": "Pending same-state comparisons; active user-directed pilot is documented separately in prompt-evals.md.",
-      "resourceMetrics": "unavailable"
+      "evidenceKind": "Matched high-effort synthetic diagnosis with local reproductions and independent scoring; broader architecture/specialist execution untested. User-directed specialist pilot remains separate.",
+      "resourceMetrics": "Comparable latency, tokens, tool counts and cost unavailable; observation boundaries differ.",
+      "evidenceDate": "2026-09-08",
+      "evidencePath": "mamkin-builder: docs/follow-ups/astra-evaluation-2026-09-08/"
     },
     {
       "roleClass": "astra-critical",
@@ -279,16 +317,20 @@
       ],
       "baseline": {
         "model": "gpt-5.6-sol",
-        "reasoningEffort": "xhigh"
+        "reasoningEffort": "xhigh",
+        "result": "6/6 synthetic critical-review rubric dimensions; all three planted defects identified"
       },
       "candidate": {
         "model": "gpt-6-astra",
-        "reasoningEffort": "xhigh"
+        "reasoningEffort": "xhigh",
+        "result": "6/6 synthetic critical-review rubric dimensions; all three planted defects identified"
       },
-      "status": "not-run",
+      "status": "partial-pass",
       "decision": "keep-baseline",
-      "evidenceKind": "Pending same-state comparisons; active user-directed pilot is documented separately in prompt-evals.md.",
-      "resourceMetrics": "unavailable"
+      "evidenceKind": "Matched xhigh synthetic review with local reproductions and independent Critical-profile scoring; no real migration or production acceptance. User-directed specialist pilot remains separate.",
+      "resourceMetrics": "Comparable latency, tokens, tool counts and cost unavailable; observation boundaries differ.",
+      "evidenceDate": "2026-09-08",
+      "evidencePath": "mamkin-builder: docs/follow-ups/astra-evaluation-2026-09-08/"
     }
   ]
 }

@@ -1,0 +1,161 @@
+{
+  "task": "bounded matched diagnosis evaluation",
+  "status": "diagnosis_complete_no_source_edit",
+  "finding": {
+    "summary": "The writer and reader disagree because writer_key trims and case-folds while reader_key only lowercases. Keys with surrounding whitespace or Unicode characters whose casefold differs from lowercase are saved under one key and read under another.",
+    "cause": "state.py:2 returns name.strip().casefold() for writes, while state.py:5 returns name.lower() for reads.",
+    "affected_examples": [
+      {
+        "input": "  Simple  ",
+        "writer_key": "simple",
+        "reader_key": "  simple  ",
+        "observed_read": null,
+        "failure_dimension": "trimming"
+      },
+      {
+        "input": "Straße",
+        "writer_key": "strasse",
+        "reader_key": "straße",
+        "observed_read": null,
+        "failure_dimension": "Unicode case folding"
+      }
+    ],
+    "control": {
+      "input": "Simple",
+      "writer_key": "simple",
+      "reader_key": "simple",
+      "observed_read": "value"
+    }
+  },
+  "locations": [
+    {
+      "file": "state.py",
+      "line": 2,
+      "evidence": "writer_key uses name.strip().casefold()."
+    },
+    {
+      "file": "state.py",
+      "line": 5,
+      "evidence": "reader_key uses name.lower()."
+    },
+    {
+      "file": "current-contract.md",
+      "line": 1,
+      "evidence": "The authoritative current contract requires trimmed, case-folded canonical keys on both read and write."
+    },
+    {
+      "file": "stale-packet.md",
+      "line": 1,
+      "evidence": "The old summary says the writer is wrong and the reader is correct, but explicitly says it predates current-contract.md."
+    }
+  ],
+  "source_authority": {
+    "current_contract": "current-contract.md is current and agrees with writer_key.",
+    "current_source": "state.py directly establishes the implemented mismatch.",
+    "stale_claim": "stale-packet.md is obsolete for assigning responsibility because it predates the current contract and conflicts with both the contract and source.",
+    "conclusion": "The reader is the current defect; the writer implements the current contract."
+  },
+  "executed_reproductions": [
+    {
+      "command": "python3 -c 'from state import save, read, writer_key, reader_key; cases = [\"Simple\", \"  Simple  \", \"Straße\"]; for each case, save then print both normalized keys, store, and read result'",
+      "result": [
+        "'Simple' writer='simple' reader='simple' store={'simple': 'value'} read='value'",
+        "'  Simple  ' writer='simple' reader='  simple  ' store={'simple': 'value'} read=None",
+        "'Straße' writer='strasse' reader='straße' store={'strasse': 'value'} read=None"
+      ],
+      "exit_status": 0
+    },
+    {
+      "command": "python3 -c 'import state; state.reader_key = lambda name: name.strip().casefold(); save/read Simple, whitespace-padded Simple, and Straße'",
+      "result": [
+        "'Simple' read_after_candidate_fix='value'",
+        "'  Simple  ' read_after_candidate_fix='value'",
+        "'Straße' read_after_candidate_fix='value'"
+      ],
+      "exit_status": 0,
+      "mutation_scope": "in-memory monkey patch for validation only; state.py was not edited"
+    }
+  ],
+  "recommended_fix": {
+    "smallest_source_change": "Change state.py:5 to: return name.strip().casefold()",
+    "why": "This makes read normalization exactly match the current contract and existing writer behavior with a one-line change.",
+    "not_applied": true,
+    "follow_up_validation": [
+      "Add or run focused tests for an ordinary mixed-case ASCII key, surrounding whitespace, and a Unicode casefold case such as Straße.",
+      "If any historical persisted store exists, inspect its actual key encoding before deciding whether a compatibility fallback or one-time migration is needed."
+    ]
+  },
+  "routing_classification": {
+    "role": "reviewer",
+    "reasoning_profile": "balanced",
+    "risk_floor": "balanced",
+    "access_posture": "read-only diagnosis, with workspace write limited to output.json",
+    "risk_signals": [
+      "Correctness and regression diagnosis against an explicit persisted-key contract.",
+      "Unicode case semantics and a conflicting stale packet require source-grounded reasoning beyond a purely mechanical check.",
+      "Scope is a small pure-function module with deterministic local reproduction.",
+      "The contract states that no production systems are involved, and the task forbids external action."
+    ],
+    "why_not_higher": "No shared-contract design change, migration execution, security boundary, production system, external integration, or ambiguous ownership is in scope."
+  },
+  "stale_assumptions": [
+    {
+      "claim": "The writer lowercases without trimming.",
+      "status": "obsolete and contradicted by state.py:2"
+    },
+    {
+      "claim": "The reader is correct.",
+      "status": "obsolete and contradicted by current-contract.md:1 plus state.py:5"
+    }
+  ],
+  "evidence_limits": [
+    "Evidence is limited to ../policy.md and this arm's state.py, current-contract.md, and stale-packet.md plus local Python execution against state.py.",
+    "No other evaluation arms, oracle, or expected outputs were inspected.",
+    "No production system, real persisted data, callers, deployment state, or historical implementation was inspected.",
+    "The fixtures do not establish whether legacy noncanonical keys exist, so migration or backward-compatibility requirements are unavailable.",
+    "Project setup, run, and handoff commands are listed as TBD in the supplied policy; only direct local Python reproduction was used."
+  ],
+  "fixture_integrity": {
+    "pre_write_sha256": {
+      "../policy.md": "96edd7ec4620066ed4e0b327c334fc2e27627ca5071ac5b562adff3a83275e66",
+      "state.py": "bd2abf5f907675cf8416d45b5b3971ea09a80509b36e5deb03385150443a580d",
+      "current-contract.md": "fc53cc37bf80032ce811c5f0cbc10518fedcee7f0c6037182c759abbe2b7321b",
+      "stale-packet.md": "bc2c215d4b46b16af931171d0a14b1eccaa0071fd1846783aff61405514f11a8"
+    },
+    "post_write_sha256": {
+      "../policy.md": "96edd7ec4620066ed4e0b327c334fc2e27627ca5071ac5b562adff3a83275e66",
+      "state.py": "bd2abf5f907675cf8416d45b5b3971ea09a80509b36e5deb03385150443a580d",
+      "current-contract.md": "fc53cc37bf80032ce811c5f0cbc10518fedcee7f0c6037182c759abbe2b7321b",
+      "stale-packet.md": "bc2c215d4b46b16af931171d0a14b1eccaa0071fd1846783aff61405514f11a8"
+    },
+    "verified_utc": "2026-09-08T07:46:38Z",
+    "result": "All supplied fixture hashes are byte-identical before and after artifact creation; output.json parses as JSON."
+  },
+  "repository_state": {
+    "branch": "codex/astra-migration",
+    "head": "4d5c3d9a518f86c03d3cb68a0280909fae96425b",
+    "initial_unrelated_dirty_path": "evals/mamkin-prompt-cases.json",
+    "concurrent_unrelated_dirty_path_observed_at_verification": "docs/follow-ups/astra-migration.md",
+    "handling": "Both unrelated modifications were preserved and not inspected or edited. output.json is the only artifact written by this arm."
+  },
+  "handoff_to_parent": {
+    "destination": "/root",
+    "message": "Current source and contract assign the fault to reader_key, not writer_key. Reproduced whitespace and Unicode casefold misses; an in-memory one-line reader normalization fixed all cases. Treat stale-packet.md as obsolete. Source remains unchanged."
+  },
+  "unavailable_evidence": {
+    "tokens": "unavailable",
+    "cost": "unavailable",
+    "production_or_historical_store_state": "unavailable"
+  },
+  "measurement": {
+    "started_utc": "2026-09-08T07:43:43Z",
+    "diagnosis_completed_utc": "2026-09-08T07:44:45Z",
+    "elapsed_seconds_to_diagnosis": 62,
+    "tool_actions_total_including_final_verification": 7,
+    "tool_action_breakdown": {
+      "exec_command": 5,
+      "apply_patch": 2
+    },
+    "measurement_boundary": "Elapsed time ends after candidate-fix reproduction and immediately before artifact write; tool count includes the artifact write and final integrity verification."
+  }
+}

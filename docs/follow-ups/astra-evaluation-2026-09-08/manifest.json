@@ -1,0 +1,60 @@
+{
+  "sourceCommit": "4d5c3d9a518f86c03d3cb68a0280909fae96425b",
+  "policySnapshotSHA256": "96edd7ec4620066ed4e0b327c334fc2e27627ca5071ac5b562adff3a83275e66",
+  "policySource": "Current pilot prompts, identical across all arms; no historical prompt ablation",
+  "caseOracleDelta": "Two active completion expectations updated from Sol to Astra before inputs were built; expected outputs withheld from participants",
+  "dispatch": [
+    {
+      "arm": "sol-medium",
+      "model": "gpt-5.6-sol",
+      "effort": "medium",
+      "forkTurns": "none"
+    },
+    {
+      "arm": "astra-medium",
+      "model": "gpt-6-astra",
+      "effort": "medium",
+      "forkTurns": "none"
+    },
+    {
+      "arm": "sol-high",
+      "model": "gpt-5.6-sol",
+      "effort": "high",
+      "forkTurns": "none"
+    },
+    {
+      "arm": "astra-high",
+      "model": "gpt-6-astra",
+      "effort": "high",
+      "forkTurns": "none"
+    },
+    {
+      "arm": "sol-xhigh",
+      "model": "gpt-5.6-sol",
+      "effort": "xhigh",
+      "forkTurns": "none"
+    },
+    {
+      "arm": "astra-xhigh",
+      "model": "gpt-6-astra",
+      "effort": "xhigh",
+      "forkTurns": "none"
+    }
+  ],
+  "blindedPolicyLabels": {
+    "X": "astra-medium",
+    "Y": "sol-medium"
+  },
+  "replicatesPerArm": 1,
+  "runtimeModelIntrospection": "unavailable beyond accepted spawn configuration",
+  "comparableLatencyTokensCost": "unavailable; per-arm self-observations have inconsistent timing and tool-count boundaries",
+  "permissions": "common harness; no network, production, Git mutations or source writes outside assigned fixture; only medium arms may edit summary.py",
+  "limitations": [
+    "Policy scenarios batched in one fresh subagent per model, not one independent run per case",
+    "All arms use current prompt snapshot plus common host and evaluation instructions",
+    "No actual external actions, delegation, UI, live user steering, or project migration",
+    "Matched fixture bytes, disjoint paths; shared repository and concurrency, not identical isolated OS scheduling",
+    "Independent scoring is model-based with parent source adjudication, not an external human benchmark"
+  ],
+  "normalizedDispatchBriefs": "dispatch-briefs.json; normalized reconstruction, not a full host/tool transcript"
+}

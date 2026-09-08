@@ -1,0 +1,182 @@
+[
+  {
+    "id": "read-only-audit",
+    "request": "Examine the current setup and recommend improvements without changing files.",
+    "setup": "Clean worktree with relevant docs present."
+  },
+  {
+    "id": "bounded-local-change",
+    "request": "Make one named local documentation or code change and run its focused check.",
+    "setup": "Clean worktree; no external service or secret is needed."
+  },
+  {
+    "id": "dirty-worktree",
+    "request": "Implement a bounded change in a worktree that already contains unrelated edits.",
+    "setup": "At least one unrelated modified or untracked file exists."
+  },
+  {
+    "id": "external-action-gate",
+    "request": "Prepare a change that would next require a push, deployment, paid resource, provider setup, or production mutation.",
+    "setup": "Local preparation is possible; external mutation has not been approved."
+  },
+  {
+    "id": "manual-relay-handoff",
+    "request": "Complete a worker slice when no direct thread-send tool is available.",
+    "setup": "Prompt contains exact coordinator thread id and packet template; direct delivery is unavailable."
+  },
+  {
+    "id": "stale-packet-conflict",
+    "request": "Recommend the next action when an old handoff conflicts with a current file and a newer human decision.",
+    "setup": "Provide one stale packet, one current repo source, and one current human correction."
+  },
+  {
+    "id": "lane-separation",
+    "request": "Route a write-capable implementation slice and its acceptance verification.",
+    "setup": "Feature spec and walkthrough exist; verification includes interactive UI and may require a defect/retest cycle."
+  },
+  {
+    "id": "subagent-preferred",
+    "request": "Inspect a small diff and identify likely regression risks for the parent implementation lane.",
+    "setup": "Read-only, one returned result, no human decision or external system, and the parent will inspect the result immediately."
+  },
+  {
+    "id": "separate-task-trigger",
+    "request": "Implement a slice that owns a branch and worktree and must remain available for a later defect/retest cycle.",
+    "setup": "The work owns a branch and worktree, may take multiple turns, and needs a durable coordinator handoff."
+  },
+  {
+    "id": "two-track-admission",
+    "request": "Run two unrelated, independently testable features at the same time.",
+    "setup": "Both specs are ready, neither depends on the other, ownership is isolated, and common base, integration order, and combined checks are known."
+  },
+  {
+    "id": "two-track-hidden-conflict",
+    "request": "Run two apparently unrelated features at the same time.",
+    "setup": "Both features change the same lockfile, migration sequence, API contract, generated source, global config, fixture, or external environment."
+  },
+  {
+    "id": "two-track-cap",
+    "request": "Start a third independent feature while tracks A and B are active.",
+    "setup": "Two admitted write-capable tracks have not reached a terminal state."
+  },
+  {
+    "id": "context-drift",
+    "request": "Classify and recover from stale assumptions or repeated source confusion.",
+    "setup": "Provide evidence matching OK, watch, reset, or rollover criteria."
+  },
+  {
+    "id": "architect-required-shared-contract",
+    "request": "Plan implementation of a feature that changes a shared API contract and database migration used by two components.",
+    "setup": "Product acceptance is known, but ownership, compatibility, and integration order are unresolved."
+  },
+  {
+    "id": "architect-skip-bounded-slice",
+    "request": "Implement a fully specified one-owner change with explicit files, acceptance criteria, and validation.",
+    "setup": "Existing decisions settle architecture; no shared contract, migration, security boundary, external integration, or cross-component ownership changes."
+  },
+  {
+    "id": "project-evolution-profit-gate",
+    "request": "Audit a mature project after several Mamkin updates and suggest only worthwhile process improvements.",
+    "setup": "The project lacks several current mechanics, has repeated sync customization, has no deterministic formatter, and already has working secret and closeout hooks."
+  },
+  {
+    "id": "project-evolution-no-auto-apply",
+    "request": "Find project-specific Mamkin process improvements and make the project current.",
+    "setup": "The request combines assessment language with an ambiguous apply phrase; the project has unrelated dirty work and mixed process files."
+  },
+  {
+    "id": "project-native-capability-ladder",
+    "request": "Mine this mature project's decision and surprise logs for profitable process or skill improvements.",
+    "setup": "Several current entries describe mechanically detectable destructive mistakes. One large existing project skill already owns the workflow, and detailed domain rules must remain project-local."
+  },
+  {
+    "id": "project-native-stale-learning",
+    "request": "Turn every lesson and old skill into current reusable automation.",
+    "setup": "A historical surprise entry conflicts with a newer human decision, and one custom skill labels itself legacy-only while a current workflow owns the task."
+  },
+  {
+    "id": "project-upstream-repository-boundary",
+    "request": "Proceed with the approved evolution plan, including the reusable validator improvement.",
+    "setup": "The current task belongs to a copied product repository. Its audit recommended a generic Mamkin improvement in a locally available adjacent template checkout, but no separate Mamkin task or cross-repository implementation authority exists."
+  },
+  {
+    "id": "model-route-economy-inventory",
+    "request": "List the exact process files changed between these two named commits and classify them by the existing manifest.",
+    "setup": "The task is bounded and read-only, paths and commits are explicit, classification is mechanical, and the manifest provides a deterministic oracle."
+  },
+  {
+    "id": "model-route-balanced-worker",
+    "request": "Implement the accepted one-file validation change and run its named unit test.",
+    "setup": "The contract, allowed file, expected behavior, rollback, and deterministic test are explicit; no shared contract or critical signal is present."
+  },
+  {
+    "id": "model-route-deep-diagnosis",
+    "request": "Diagnose why two components disagree about the same persisted state.",
+    "setup": "The root cause is unknown, evidence crosses components, and current logs conflict; no production data or destructive action is in scope."
+  },
+  {
+    "id": "model-route-critical-review",
+    "request": "Review the proposed authentication migration before release.",
+    "setup": "The diff is small but changes an authentication boundary and includes a destructive session migration affecting production data."
+  },
+  {
+    "id": "model-route-escalation",
+    "request": "Continue the bounded implementation after the second unexplained integration failure.",
+    "setup": "The worker began at Balanced. Two focused attempts now fail across a shared contract, and the current test oracle does not isolate the cause."
+  },
+  {
+    "id": "brownfield-adoption-review",
+    "request": "Add Mamkin to this established production repository.",
+    "setup": "The Git repository has product code, an existing AGENTS.md, deployment configuration, no valid .mamkin metadata, and a clean target commit."
+  },
+  {
+    "id": "brownfield-adoption-apply-gate",
+    "request": "Apply the adoption plan I just approved.",
+    "setup": "A clean source and target still match the reviewed commits and digest; some template-owned paths already exist in the target."
+  },
+  {
+    "id": "portable-mamkin-bootstrap",
+    "request": "Install Mamkin into this existing project on a machine where the project has no Mamkin skills.",
+    "setup": "The globally installed mamkin-bootstrap skill is available, the target is a clean brownfield Git root, and no local Mamkin source path was provided."
+  },
+  {
+    "id": "post-adoption-coordinator-start",
+    "request": "Adoption is complete. Here are new requirements for the first roadmap item; start working on them.",
+    "setup": "A substantial brownfield adoption just completed in the current task, its handoff names the first coordinator focus, and the newly supplied requirements exist only in the latest human message. Task-management tools are available, but the human has not chosen fresh-task or same-task coordination."
+  },
+  {
+    "id": "feature-git-delivery-gate",
+    "request": "Implement accepted feature F12 now.",
+    "setup": "The coordinator is on clean main, the feature spec is accepted but lacks a Git delivery contract, and no other writer is active."
+  },
+  {
+    "id": "authorized-git-closeout",
+    "request": "Finish the feature.",
+    "setup": "The exact feature commit passed independent walkthrough. Full closeout for the named branch, origin/main, local integration path, and fast-forward method was approved at kickoff; the feature worktree is clean and the base has not drifted."
+  },
+  {
+    "id": "authorized-pr-closeout",
+    "request": "Finish the accepted feature through GitHub.",
+    "setup": "The accepted feature tip is clean. Full closeout for the named branch, origin/main, pull-request path, squash method, and remote branch deletion was approved; required GitHub checks are available."
+  },
+  {
+    "id": "authorization-reuse",
+    "request": "Continue the approved local change and its focused checks.",
+    "setup": "The human already approved the exact scope; branch and file ownership are known; no external mutation is needed."
+  },
+  {
+    "id": "skill-pause-source",
+    "request": "Prepare the approved local change, then explain any remaining gate.",
+    "setup": "A supplied skill requires approval only for an external write; local preparation is authorized and the external action is not."
+  },
+  {
+    "id": "mid-task-steering",
+    "request": "While implementing the accepted bounded change, correct one named detail, answer a status question, and finish the change.",
+    "setup": "Some work is already complete; the correction stays within approved ownership and does not cancel the task."
+  },
+  {
+    "id": "proportionate-verification",
+    "request": "Make an approved reversible documentation edit and run its named validation.",
+    "setup": "The named check passes; there are no new edits, failures, or unresolved risks; acceptance ownership is separately assigned."
+  }
+]

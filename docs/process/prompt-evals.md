@@ -95,6 +95,19 @@ Follow [OpenAI's Astra migration guidance](https://developers.openai.com/api/doc
 
 Run the same baseline and candidate cases on the same source state, permissions, and tool surface in fresh tasks. First compare models with identical prompts, then compare the focused prompt changes separately. Include executed bounded implementation, diagnosis, and independent acceptance fixtures alongside policy-response cases. Record missing telemetry as unavailable. Passing structural checks or policy-response trials alone does not validate executed specialist quality. Do not lower effort, replace Terra, or claim pilot success until the six-dimension quality gate passes. If a comparison fails, retain the evidence and restore the affected pre-pilot model setting rather than relaxing a risk floor.
 
+### First Matched Evaluation (2026-09-08)
+
+This supersedes the coordinator portion of the initial activation above. Identical current prompt snapshots and initial fixture bytes were supplied to fresh Sol/Astra subagents at medium, high, and xhigh. Each arm ran once. All 36 coordinator scenarios were batched policy responses; local implementation, diagnosis, and critical review used separate executed synthetic fixtures and independent scoring.
+
+- Strict blinded policy score: Astra 31/36, Sol 22/36. One Astra adoption-apply failure is disputed: the oracle forbids all existing-file changes, while current adoption guidance permits explicitly approved manual adaptations. Keep the original score and source-conflict note; do not count it alone as a model failure. Four other Astra responses omit required details, so the coordinator quality gate remains incomplete.
+- Implementation: both 6/6 rubric dimensions; three assigned tests plus five independent checks per implementation passed. Initial fixture hashes show only the two allowed implementation files changed.
+- Diagnosis: Astra 6/6, Sol 5/6. Both identified the normalization defect; Sol incorrectly classified the conflicting-source/shared-contract diagnosis as Balanced. No actual runtime downgrade was observed.
+- Critical review: both 6/6; all three authorization, tenant-isolation, and session-preservation defects found. Evidence is synthetic and source-scoped, not release acceptance.
+
+Retain an explicit Sol/medium coordinator baseline while preparing a focused retest. This is conservative enforcement of the existing all-dimensions gate, not a claim that Sol scored better. Keep Astra/high and Astra/xhigh only as the existing user-directed specialist pilots; their matrix entries are partial-pass until broader project execution is evaluated. No effort reduction or Terra replacement is supported. Comparable latency, tokens, tool-call totals, and cost are unavailable because observations use different boundaries.
+
+Raw evidence is retained in the template repository at `docs/follow-ups/astra-evaluation-2026-09-08/` (README, source snapshots, hashes, all arm outputs, and independent scores); it is project-owned evaluation history, not a process file to copy into downstream projects. Live user steering, actual delegation, UI work, production/external gates, repeated-run variance, and historical-prompt ablation remain untested. Two stale Sol names in active routing expectations were corrected before these trials; historical matrix evidence was preserved.
+
 | Date | Change | Structural result | Behavioral evidence | Reasoning decision |
 | --- | --- | --- | --- | --- |
 | 2026-07-15 | Centralized worker contract, slimmed always-loaded instructions, routed rare thread/reset paths, and removed workflow injection from `SubagentStart`. | `AGENTS.md` 548 words; coordinator default 5,746 words; orchestration 3,752 words; one active manual-relay invariant. | Not run before refactor; representative suite added for future fresh-task runs. | Keep root and role presets at `high` until same-case `high` versus `medium` evidence exists. |

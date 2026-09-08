@@ -1,0 +1,223 @@
+{
+  "status": "Findings",
+  "role": "reviewer / bounded root-cause diagnosis",
+  "reasoning": {
+    "profile": "deep",
+    "model_and_effort_assignment": "gpt-6-astra / high (astra-high arm)",
+    "effective_runtime_model_verification": "unavailable; assignment label only",
+    "risk_floor": "deep",
+    "signals": [
+      "unknown root cause at assignment",
+      "conflicting stale packet and current sources",
+      "shared persisted-key normalization contract"
+    ],
+    "critical_signals_observed": [],
+    "risk_explanation": "The small code size does not remove the Deep floor for diagnosis across a shared contract and conflicting claims. No security, auth, payments, production, destructive migration, irreversible state, or concurrency signal is present.",
+    "escalation": "none; local deterministic reproduction explains the cause"
+  },
+  "scope": {
+    "workdir": "/Users/bo/Codex/mamkin-builder/tmp/astra-eval-20260908/astra-high",
+    "execution_mode": "subagent",
+    "parent_lane_owner": "/root",
+    "subagents": "not allowed; none spawned",
+    "only_write": "output.json",
+    "source_edits": [],
+    "git_mutations": [],
+    "external_actions": [],
+    "other_arms_or_oracle_inspected": false
+  },
+  "source_authority": {
+    "authoritative_contract": {
+      "path": "current-contract.md",
+      "line": 1,
+      "requirement": "Persisted keys and both read/write normalization are trimmed and casefolded; values are strings; no production systems are involved."
+    },
+    "implementation": "state.py, inspected and executed from supplied bytes",
+    "obsolete_source": {
+      "path": "stale-packet.md",
+      "line": 1
+    },
+    "policy": "../policy.md; source authority, reviewer packet, model routing, lane routing"
+  },
+  "findings": [
+    {
+      "severity": "P2",
+      "location": {
+        "path": "state.py",
+        "start_line": 4,
+        "end_line": 5,
+        "symbol": "reader_key"
+      },
+      "related_locations": [
+        {
+          "path": "state.py",
+          "line": 2,
+          "symbol": "writer_key"
+        },
+        {
+          "path": "state.py",
+          "line": 8,
+          "symbol": "save"
+        },
+        {
+          "path": "state.py",
+          "line": 11,
+          "symbol": "read"
+        }
+      ],
+      "failure_mode": "save stores name.strip().casefold(), while read searches name.lower(). Leading/trailing whitespace is retained in the lookup and some Unicode lowercase forms differ from casefold. Existing saved string values therefore return None for affected lookups.",
+      "evidence_kind": [
+        "Executed",
+        "Static inspection"
+      ],
+      "examples": [
+        "save({}, ' Alice ', 'stored value') stores key 'alice'; reading ' Alice ' searches ' alice ' and returns None.",
+        "Saving 'Straße' stores 'strasse'; reading 'Straße' searches 'straße' and returns None."
+      ],
+      "smallest_safe_correction": "Replace reader_key's return name.lower() with return writer_key(name). This reuses the existing canonical normalizer and preserves the current persisted-key format.",
+      "alternative": "return name.strip().casefold() also restores the contract but duplicates the normalization expression.",
+      "scope_note": "No source edit was made. Do not change the writer to match the obsolete summary."
+    }
+  ],
+  "stale_assumptions": [
+    {
+      "claim": "Writer lowercases without trimming.",
+      "disposition": "obsolete and contradicted by state.py:2, which calls strip().casefold()."
+    },
+    {
+      "claim": "Reader is correct.",
+      "disposition": "obsolete and contradicted by current-contract.md:1, state.py:5, and executed whitespace/Unicode failures."
+    }
+  ],
+  "validation": {
+    "executed": [
+      {
+        "command": "python3 -B - <<'PY'\nfrom pathlib import Path\nimport hashlib, json\nfrom datetime import datetime, timezone\npaths = [Path('../policy.md'), Path('state.py'), Path('current-contract.md'), Path('stale-packet.md')]\nbefore = {str(p): hashlib.sha256(p.read_bytes()).hexdigest() for p in paths}\nns = {}\nexec(compile(Path('state.py').read_bytes(), 'state.py', 'exec'), ns)\ncases = [\n    ('ascii', 'Alice', 'ALICE'),\n    ('whitespace', ' Alice ', ' Alice '),\n    ('unicode_casefold', 'Straße', 'Straße'),\n    ('combined', ' Straße ', ' STRAẞE '),\n    ('canonical_lookup', ' Straße ', 'strasse'),\n    ('empty_after_trim', '   ', '   '),\n    ('trim_lookup_only', 'Alice', '\\tALICE\\n'),\n    ('missing', 'Alice', 'Bob'),\n]\nrows = []\nfor label, saved_name, read_name in cases:\n    store = {}\n    ns['save'](store, saved_name, 'stored value')\n    actual = ns['read'](store, read_name)\n    expected = store.get(read_name.strip().casefold())\n    row = dict(case=label, saved_name=saved_name, read_name=read_name,\n               writer_key=ns['writer_key'](saved_name), reader_key=ns['reader_key'](read_name),\n               actual=actual, contract_expected=expected)\n    rows.append(row)\nassert [r['case'] for r in rows if r['actual'] != r['contract_expected']] == [\n    'whitespace', 'unicode_casefold', 'combined', 'empty_after_trim', 'trim_lookup_only']\n# Hypothesis validation only: replace the reader normalizer in memory, never on disk.\nns['reader_key'] = ns['writer_key']\nfor label, saved_name, read_name in cases:\n    store = {}\n    ns['save'](store, saved_name, 'stored value')\n    assert ns['read'](store, read_name) == store.get(read_name.strip().casefold()), label\nafter = {str(p): hashlib.sha256(p.read_bytes()).hexdigest() for p in paths}\nassert before == after\nprint(json.dumps(dict(rows=rows, observed_mismatches=5, cases=8,\n                     in_memory_fix_cases_passed=8,\n                     fixture_sha256=after, fixtures_unchanged=True,\n                     completed_utc=datetime.now(timezone.utc).isoformat()), ensure_ascii=False, indent=2))\nPY",
+        "exit_code": 0,
+        "result": {
+          "rows": [
+            {
+              "case": "ascii",
+              "saved_name": "Alice",
+              "read_name": "ALICE",
+              "writer_key": "alice",
+              "reader_key": "alice",
+              "actual": "stored value",
+              "contract_expected": "stored value"
+            },
+            {
+              "case": "whitespace",
+              "saved_name": " Alice ",
+              "read_name": " Alice ",
+              "writer_key": "alice",
+              "reader_key": " alice ",
+              "actual": null,
+              "contract_expected": "stored value"
+            },
+            {
+              "case": "unicode_casefold",
+              "saved_name": "Straße",
+              "read_name": "Straße",
+              "writer_key": "strasse",
+              "reader_key": "straße",
+              "actual": null,
+              "contract_expected": "stored value"
+            },
+            {
+              "case": "combined",
+              "saved_name": " Straße ",
+              "read_name": " STRAẞE ",
+              "writer_key": "strasse",
+              "reader_key": " straße ",
+              "actual": null,
+              "contract_expected": "stored value"
+            },
+            {
+              "case": "canonical_lookup",
+              "saved_name": " Straße ",
+              "read_name": "strasse",
+              "writer_key": "strasse",
+              "reader_key": "strasse",
+              "actual": "stored value",
+              "contract_expected": "stored value"
+            },
+            {
+              "case": "empty_after_trim",
+              "saved_name": "   ",
+              "read_name": "   ",
+              "writer_key": "",
+              "reader_key": "   ",
+              "actual": null,
+              "contract_expected": "stored value"
+            },
+            {
+              "case": "trim_lookup_only",
+              "saved_name": "Alice",
+              "read_name": "\tALICE\n",
+              "writer_key": "alice",
+              "reader_key": "\talice\n",
+              "actual": null,
+              "contract_expected": "stored value"
+            },
+            {
+              "case": "missing",
+              "saved_name": "Alice",
+              "read_name": "Bob",
+              "writer_key": "alice",
+              "reader_key": "bob",
+              "actual": null,
+              "contract_expected": null
+            }
+          ],
+          "observed_mismatches": 5,
+          "cases": 8,
+          "in_memory_fix_cases_passed": 8,
+          "fixture_sha256": {
+            "../policy.md": "96edd7ec4620066ed4e0b327c334fc2e27627ca5071ac5b562adff3a83275e66",
+            "state.py": "bd2abf5f907675cf8416d45b5b3971ea09a80509b36e5deb03385150443a580d",
+            "current-contract.md": "fc53cc37bf80032ce811c5f0cbc10518fedcee7f0c6037182c759abbe2b7321b",
+            "stale-packet.md": "bc2c215d4b46b16af931171d0a14b1eccaa0071fd1846783aff61405514f11a8"
+          },
+          "fixtures_unchanged": true,
+          "completed_utc": "2026-09-08T07:44:33.776603+00:00"
+        }
+      }
+    ],
+    "summary": "Five of eight original cases reproduce contract violations. ASCII, canonical lookup, and missing-key controls behave as expected. Rebinding reader_key to writer_key in memory yields contract-consistent results for all eight cases.",
+    "proof_boundary": "Evidence covers the supplied Python functions, a local dictionary, string values, and the eight listed inputs only. The hypothetical fix was executed only in memory, not implemented or accepted.",
+    "fixture_preservation": "SHA-256 equality verified before and after reproduction for the four supplied files; final artifact writer also checks these hashes.",
+    "project_commands": "Not configured in supplied policy (TBD); focused local Python reproduction was explicitly assigned."
+  },
+  "recommended_next_bounded_action": "Parent may assign the one-line reader normalization fix and focused regression coverage for whitespace, Unicode casefold, combined input, ordinary ASCII, and missing keys. Reassess implementation profile independently against the remaining risk signals and arrange independent verification of the changed state. This diagnosis does not authorize source changes or issue acceptance.",
+  "handoff": {
+    "destination": "/root",
+    "return_path": "Parent lane return",
+    "parent_responsibility": "Inspect diagnosis and evidence, own any next implementation assignment and final acceptance.",
+    "acceptance_claim": "none"
+  },
+  "unavailable_evidence": [
+    "Actual runtime model/effort metadata beyond the assignment label",
+    "Full model token usage and monetary cost",
+    "Production or legacy persisted data, integrations, concurrency, and deployment behavior",
+    "Repository-wide test suite or configured project commands",
+    "Post-edit regression, independent acceptance, and merge readiness; no source edit exists",
+    "Other comparison arms, hidden oracle, or expected outputs, deliberately not inspected"
+  ],
+  "measurements": {
+    "observed_start_utc": "2026-09-08T07:43:55+00:00",
+    "start_boundary": "First measured UTC timestamp, obtained after initial pwd and fixture-read calls; excludes launch and initial read latency.",
+    "tool_calls": {
+      "functions_exec": 4,
+      "exec_command": 6,
+      "clock_curr_time": 1,
+      "nested_tools_total": 7,
+      "orchestration_plus_nested_total": 11,
+      "count_boundary": "Includes artifact-writing call; no further tool calls planned."
+    },
+    "tokens": null,
+    "cost": null,
+    "tokens_cost_status": "unavailable",
+    "artifact_written_utc": "2026-09-08T07:45:35.444991+00:00",
+    "measured_elapsed_seconds": 100.444991
+  }
+}

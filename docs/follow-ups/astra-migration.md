@@ -27,3 +27,15 @@ The human requested this rollout after the review. Activation is a user-directed
 ## Validation And Acceptance
 
 Run prompt contracts, model-routing tests, and the change-aware validation plan. Independently inspect the committed diff for configuration consistency, permission preservation, and truthful evaluation status. Actual same-state baseline/Astra execution trials remain a follow-up before calling the pilot behaviorally validated or lowering effort. No pushes, external resources, or global configuration changes are authorized.
+
+## Behavioral Evaluation Scope
+
+The human approved the proposed next step on 2026-09-08: matched local template evaluation before a separately scoped sambl-design migration. Continue on the same branch and Git contract. No project migration, publishing, or remote action is included.
+
+Compare Sol and Astra at identical effort and with the same current Mamkin prompt snapshot: medium for all 36 policy-response scenarios and a bounded implementation fixture, high for executed read-only diagnosis, and xhigh for executed security/migration review. Preserve identical initial fixture bytes and disjoint ownership. Keep the six-dimension rubric and independent scoring; never count hypothetical policy actions as executed workflows.
+
+This bounded evaluation does not exercise real external writes, interactive UI, actual coordinator delegation, live mid-turn user steering, repeated-run variance, or historical-prompt ablation. The explicit test-harness restrictions also mean unauthorized external-action prevention is not independently attributable to Mamkin prompts. Record unavailable runtime telemetry rather than estimating it.
+
+## Evaluation Outcome
+
+The first matched evaluation is recorded in `astra-evaluation-2026-09-08/README.md`. Coordinator policy gate incomplete: restore explicit Sol/medium, despite Astra's higher strict score. Retain Astra/high and Astra/xhigh as specialist pilots with bounded fixture support, not a global quality claim. No effort reduction is justified. Sambl remains untouched; its separate migration should start with review, preserve high effort, and treat coordinator activation as pending a focused retest. Publishing or use of this local-only source still requires its own exact authorization.

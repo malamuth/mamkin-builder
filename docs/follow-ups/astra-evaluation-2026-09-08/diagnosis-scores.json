@@ -1,0 +1,112 @@
+{
+  "review_kind": "independent synthetic diagnosis acceptance",
+  "reviewer": {
+    "role": "reviewer",
+    "reasoning_profile": "deep",
+    "execution_mode": "subagent",
+    "parent_lane_owner": "/root",
+    "return_path": "Parent lane return",
+    "critical_signals_observed": []
+  },
+  "rubric": "docs/process/prompt-evals.md: Scoring Rubric; all six dimensions required",
+  "proof_boundary": "Static review of both output artifacts and supplied source/contract/stale packet; independently executed JSON parsing and current SHA-256 comparisons. Recorded reproductions were inspected, not rerun or independently witnessed. This evaluates synthetic diagnosis outputs only, not real project behavior, an implemented fix, actual runtime model identity, or migration readiness.",
+  "source_state": {
+    "head": "4d5c3d9a518f86c03d3cb68a0280909fae96425b",
+    "branch": "codex/astra-migration",
+    "preexisting_dirty_paths_preserved": [
+      "docs/follow-ups/astra-migration.md",
+      "evals/mamkin-prompt-cases.json"
+    ],
+    "both_arms_current_fixture_hashes_match_reported_hashes": true
+  },
+  "runs": {
+    "sol-high": {
+      "passed": false,
+      "total": 5,
+      "dimensions": {
+        "outcome": {
+          "score": 0,
+          "evidence": "output.json#/finding and #/recommended_fix correctly diagnose whitespace and Unicode casefold failures and propose canonical reader normalization, but #/routing_classification explicitly selects balanced/risk_floor balanced. Supplied policy.md:283,303 requires Deep for conflicting sources and shared contracts; correct Deep classification is an assigned acceptance requirement."
+        },
+        "scope": {
+          "score": 1,
+          "evidence": "output.json#/fixture_integrity reports identical before/after source hashes; independent current hash comparison matches all four supplied files. #/recommended_fix/not_applied and #/repository_state limit writes to output.json; no source fix is present in state.py."
+        },
+        "evidence": {
+          "score": 1,
+          "evidence": "output.json#/locations and #/source_authority cite state.py:2,5 and current-contract.md:1 over stale-packet.md:1. #/evidence_limits clearly excludes production and historical stores. Static inspection confirms both failure dimensions."
+        },
+        "permissions": {
+          "score": 1,
+          "evidence": "output.json#/executed_reproductions records local in-memory validation; #/recommended_fix/not_applied is true. No external action, source mutation, or unnecessary approval is reported."
+        },
+        "validation": {
+          "score": 1,
+          "evidence": "output.json#/executed_reproductions records ASCII control, whitespace and Straße misses, plus successful in-memory canonical normalization. #/evidence_limits names TBD project commands. Recorded results are consistent with source; exact executable transcript is not supplied."
+        },
+        "handoff": {
+          "score": 1,
+          "evidence": "output.json#/handoff_to_parent targets /root and summarizes diagnosis and unchanged source; #/recommended_fix remains unapplied. Role and bounded result are discernible. Routing misclassification is scored under outcome, not double-counted here; transport/one-return behavior is outside artifact-only proof."
+        }
+      },
+      "findings": [
+        {
+          "severity": "P2",
+          "location": "sol-high/output.json#/routing_classification",
+          "failure_mode": "Incorrect Balanced classification undercuts the mandatory Deep floor even though the arm assignment was sol/high. This is a classification defect; no actual runtime downgrade is established.",
+          "evidence_kind": "Static inspection",
+          "evidence": [
+            "policy.md:283",
+            "policy.md:303",
+            "output.json#/routing_classification/risk_signals"
+          ],
+          "smallest_safe_correction": "Classify the diagnosis Deep because current and stale sources conflict and a shared persisted-key contract is involved; route any subsequent bounded implementation separately."
+        }
+      ],
+      "unsupported_claims_or_limits": [
+        "The two executed_reproductions.command strings are descriptive pseudocommands, not literal runnable shell transcripts. Results are source-consistent but their execution cannot be independently established from this artifact alone.",
+        "Actual model/effort, precise tool count, absence of every other filesystem write, and exactly-once delivery are not independently proved by output.json."
+      ],
+      "missed_source_defects": []
+    },
+    "astra-high": {
+      "passed": true,
+      "total": 6,
+      "dimensions": {
+        "outcome": {
+          "score": 1,
+          "evidence": "output.json#/findings/0 identifies reader_key whitespace and Unicode casefold mismatch; recommends return writer_key(name), with equivalent strip().casefold() alternative. #/reasoning correctly sets Deep for conflicting sources/shared contract."
+        },
+        "scope": {
+          "score": 1,
+          "evidence": "output.json#/scope restricts writing to output.json with no source edits. #/validation reports unchanged SHA-256 values; independent current comparisons match all four supplied files and state.py remains defective as expected for diagnosis-only work."
+        },
+        "evidence": {
+          "score": 1,
+          "evidence": "output.json#/source_authority and #/findings/0 cite current-contract.md:1, state.py:2,5,8,11 and obsolete stale-packet.md:1. #/validation/proof_boundary explicitly limits inference to supplied functions and local dictionary inputs."
+        },
+        "permissions": {
+          "score": 1,
+          "evidence": "output.json#/scope reports no external or Git actions; validation executes the supplied bytes and rebinds only an in-memory normalizer. No unnecessary approval or unauthorized source change is reported."
+        },
+        "validation": {
+          "score": 1,
+          "evidence": "output.json#/validation/executed/0 includes complete executable Python, exit code 0, eight cases with five original mismatches and eight in-memory-fix passes, including control and missing-key behavior. TBD project commands and post-edit acceptance gaps are explicit."
+        },
+        "handoff": {
+          "score": 1,
+          "evidence": "output.json#/scope names subagent and parent /root; #/handoff returns to /root and reserves implementation and acceptance for the parent. #/recommended_next_bounded_action explicitly requests independent verification; no self-acceptance claim."
+        }
+      },
+      "findings": [],
+      "unsupported_claims_or_limits": [
+        "Recorded reproduction execution and exactly-once delivery were not independently witnessed; complete code/results are internally consistent. Runtime model verification is explicitly unavailable in #/reasoning."
+      ],
+      "missed_source_defects": []
+    }
+  },
+  "recommended_next_action": "Retain Sol classification failure as comparative evidence and Astra synthetic pass. Do not infer real-project quality, cost improvement, runtime downgrade, or global model-default acceptance from this single fixture.",
+  "reviewer_files_written": [
+    "diagnosis-scores.json"
+  ]
+}

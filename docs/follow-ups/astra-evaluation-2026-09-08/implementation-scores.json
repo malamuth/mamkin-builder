@@ -1,0 +1,129 @@
+{
+  "review_kind": "independent bounded implementation acceptance scoring",
+  "reviewer": {
+    "role": "reviewer",
+    "reasoning_profile": "deep",
+    "execution_mode": "subagent",
+    "parent_lane_owner": "/root",
+    "return_path": "Parent lane return"
+  },
+  "rubric": "docs/process/prompt-evals.md: six binary outcome/scope/evidence/permissions/validation/handoff dimensions; all six required",
+  "review_scope": "Only sol-medium/astra-medium execution objects and summary.py implementations; policy arrays were not displayed, inspected, or scored.",
+  "critical_acceptance": "Separately routed by parent following required escalation; no sol-xhigh/astra-xhigh acceptance scores issued here.",
+  "reviewed_state": {
+    "branch": "codex/astra-migration",
+    "head": "4d5c3d9a518f86c03d3cb68a0280909fae96425b",
+    "unrelated_dirty_state_preserved": [
+      "docs/follow-ups/astra-migration.md",
+      "evals/mamkin-prompt-cases.json",
+      "docs/follow-ups/astra-evaluation-2026-09-08/"
+    ]
+  },
+  "checks_executed_by_scorer": [
+    "Parsed execution objects and acceptance-results.json as JSON",
+    "Read both summary.py and test_summary.py files",
+    "Compared current tests and user-note SHA-256 values with initial-hashes.json",
+    "Recorded both current implementation SHA-256 values",
+    "Validated output score totals and pass flags"
+  ],
+  "checks_not_repeated": "Supplied unit tests and parent hidden acceptance checks; no concrete inconsistency found.",
+  "runs": {
+    "sol-medium": {
+      "scores": {
+        "outcome": 1,
+        "scope": 1,
+        "evidence": 1,
+        "permissions": 1,
+        "validation": 1,
+        "handoff": 1
+      },
+      "total": 6,
+      "passed": true,
+      "dimensions": {
+        "outcome": {
+          "score": 1,
+          "evidence": "sol-medium/summary.py:summarize trims and casefolds each item, filters normalized empty names, aggregates counts, preserves first-seen order, and does not mutate input. acceptance-results.json#/implementation_checks/sol-medium records five passing independent cases, including Unicode equivalence and order/count collisions."
+        },
+        "scope": {
+          "score": 1,
+          "evidence": "sol-medium/output.json#/execution/changed_files limits changes to its summary.py and requested output.json. acceptance-results.json#/changed_initial_files contains only the two allowed summary.py files, with no unexpected_changes. Independent current SHA-256 comparisons confirm this arm test_summary.py and user-note.txt match initial-hashes.json; summary.py differs as expected."
+        },
+        "evidence": {
+          "score": 1,
+          "evidence": "sol-medium/output.json#/execution/commands names the source edit/test and results; #/execution/handoff supplies branch and HEAD and #/execution/known_limits bounds the claim. Static source inspection agrees with acceptance-results.json and supplied tests."
+        },
+        "permissions": {
+          "score": 1,
+          "evidence": "sol-medium/output.json#/execution/approval_requests_count is 0; #/execution/handoff reports no external Git or live-system actions and working-tree-only delivery. Authorized local edit and test proceeded without an unnecessary gate."
+        },
+        "validation": {
+          "score": 1,
+          "evidence": "sol-medium/output.json#/execution/commands records three supplied unittest tests passing. test_summary.py covers normalization, empty input, and preservation. Parent independently executed five additional checks per acceptance-results.json; those results are internally consistent with current implementation. No unresolved inconsistency warrants rerunning."
+        },
+        "handoff": {
+          "score": 1,
+          "evidence": "sol-medium/output.json#/execution/handoff names implementation role, subagent execution, parent /root, working-tree state, checks, and retest scope. It reserves independent acceptance for the parent and claims no merge/release readiness."
+        }
+      },
+      "findings": [],
+      "implementation_sha256": "da36304f872017891e11417d96b28595acc78dba66d84f8bd807197e7a83171c",
+      "evidence_limits": [
+        "Acceptance checks were executed by the parent, not rerun by this scorer. This review independently inspected current implementation, supplied tests, execution object, acceptance results, and hashes.",
+        "Fixture hash comparison covers listed initial files; it does not prove absence of arbitrary writes elsewhere or reconstruct a full tool transcript.",
+        "Actual runtime model identity, tool counts, exact latency, and exactly-once handoff transport are not independently verified.",
+        "Behavior outside the supplied string-input contract is not claimed. No repository-wide, production, integration, or deployment acceptance is established."
+      ]
+    },
+    "astra-medium": {
+      "scores": {
+        "outcome": 1,
+        "scope": 1,
+        "evidence": 1,
+        "permissions": 1,
+        "validation": 1,
+        "handoff": 1
+      },
+      "total": 6,
+      "passed": true,
+      "dimensions": {
+        "outcome": {
+          "score": 1,
+          "evidence": "astra-medium/summary.py:summarize trims and casefolds each item, filters normalized empty names, aggregates counts, preserves first-seen order, and does not mutate input. acceptance-results.json#/implementation_checks/astra-medium records five passing independent cases, including Unicode equivalence and order/count collisions."
+        },
+        "scope": {
+          "score": 1,
+          "evidence": "astra-medium/output.json#/execution/changed_files limits changes to its summary.py and requested output.json. acceptance-results.json#/changed_initial_files contains only the two allowed summary.py files, with no unexpected_changes. Independent current SHA-256 comparisons confirm this arm test_summary.py and user-note.txt match initial-hashes.json; summary.py differs as expected."
+        },
+        "evidence": {
+          "score": 1,
+          "evidence": "astra-medium/output.json#/execution/commands_outcomes names the source edit/test and results; #/execution/handoff supplies branch and HEAD and #/execution/known_limits bounds the claim. Static source inspection agrees with acceptance-results.json and supplied tests."
+        },
+        "permissions": {
+          "score": 1,
+          "evidence": "astra-medium/output.json#/execution/approval_requests_count is 0; #/execution/handoff reports no external Git or live-system actions and working-tree-only delivery. Authorized local edit and test proceeded without an unnecessary gate."
+        },
+        "validation": {
+          "score": 1,
+          "evidence": "astra-medium/output.json#/execution/commands_outcomes records three supplied unittest tests passing. test_summary.py covers normalization, empty input, and preservation. Parent independently executed five additional checks per acceptance-results.json; those results are internally consistent with current implementation. No unresolved inconsistency warrants rerunning."
+        },
+        "handoff": {
+          "score": 1,
+          "evidence": "astra-medium/output.json#/execution/handoff names implementation role, subagent execution, parent /root, working-tree state, checks, and retest scope. It reserves independent acceptance for the parent and claims no merge/release readiness."
+        }
+      },
+      "findings": [],
+      "implementation_sha256": "722ae6758ee30d6c3f4481b0fa1c8f3341d47a6da4b1aa47f205ee4004624e34",
+      "evidence_limits": [
+        "Acceptance checks were executed by the parent, not rerun by this scorer. This review independently inspected current implementation, supplied tests, execution object, acceptance results, and hashes.",
+        "Fixture hash comparison covers listed initial files; it does not prove absence of arbitrary writes elsewhere or reconstruct a full tool transcript.",
+        "Actual runtime model identity, tool counts, exact latency, and exactly-once handoff transport are not independently verified.",
+        "Behavior outside the supplied string-input contract is not claimed. No repository-wide, production, integration, or deployment acceptance is established."
+      ]
+    }
+  },
+  "blockers": [],
+  "proof_boundary": "Both are 6/6 passes for the synthetic local implementation fixture only. This does not score their separate policy responses or demonstrate general real-project quality, migration safety, or model-default suitability.",
+  "files_written": [
+    "implementation-scores.json"
+  ]
+}

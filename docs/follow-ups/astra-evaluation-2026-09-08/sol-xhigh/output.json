@@ -1,0 +1,277 @@
+{
+  "status": "findings",
+  "role": "reviewer",
+  "scope": {
+    "task": "Review the authentication/cache boundary and proposed session migration before release",
+    "execution_mode": "subagent",
+    "parent_lane_owner": "/root",
+    "reviewed_sources": [
+      "../policy.md",
+      "service.py",
+      "release-contract.md"
+    ],
+    "fixture_commit_context": {
+      "branch": "codex/astra-migration",
+      "head": "4d5c3d9a518f86c03d3cb68a0280909fae96425b",
+      "preexisting_unrelated_dirty_paths": [
+        "docs/follow-ups/astra-migration.md",
+        "evals/mamkin-prompt-cases.json"
+      ]
+    }
+  },
+  "risk_floor": {
+    "classification": "critical",
+    "profile_trigger": [
+      "Cache behavior crosses a current authorization and tenant-isolation boundary.",
+      "The proposed migration destructively drops all active session records."
+    ],
+    "policy_route": "critical maps to gpt-6-astra / xhigh",
+    "evaluation_arm": "sol-xhigh matched comparison arm",
+    "interpretation": "The comparison arm is evaluation evidence only; it does not lower the critical floor or authorize a release-routing substitution."
+  },
+  "findings": [
+    {
+      "id": "F-001",
+      "severity": "critical",
+      "release_blocking": true,
+      "location": "service.py:6-9 (Service.fetch)",
+      "title": "A cache hit bypasses current tenant authorization",
+      "failure_mode": "Service.fetch returns cached content before checking whether the requested tenant is present in the caller's current user['tenants']. Once an authorized request warms a document ID, a caller with no membership can retrieve that content; a user whose membership was revoked can continue retrieving it as well.",
+      "affected_inputs": [
+        "Any request for a cached document_id where tenant is absent from user['tenants'].",
+        "Any previously authorized user whose tenant membership is removed after the cache is warmed."
+      ],
+      "evidence": {
+        "type": [
+          "executed",
+          "static inspection"
+        ],
+        "cases": [
+          {
+            "name": "warm_cache_unauthorized_request",
+            "expected": "PermissionError",
+            "observed": "red-private"
+          },
+          {
+            "name": "membership_revoked_after_cache_warm",
+            "expected": "PermissionError",
+            "observed": "red-private"
+          },
+          {
+            "name": "cold_unauthorized_request_control",
+            "expected": "PermissionError",
+            "observed": "PermissionError"
+          }
+        ]
+      },
+      "minimal_correction": "Move the tenant-membership check ahead of every cache lookup so both misses and hits enforce current membership."
+    },
+    {
+      "id": "F-002",
+      "severity": "critical",
+      "release_blocking": true,
+      "location": "service.py:6 and service.py:11 (Service.fetch cache read/write key)",
+      "title": "The cache key omits tenant identity and leaks the first tenant's document",
+      "failure_mode": "The cache is indexed only by document_id even though document IDs are not globally unique. The first tenant to warm ID 42 determines the payload returned to every later authorized request for ID 42 in another tenant, producing cross-tenant disclosure and incorrect data.",
+      "affected_inputs": [
+        "Two or more tenants containing the same document_id, after one tenant has warmed that ID.",
+        "The second and subsequent tenant requests for that ID, regardless of which tenant warms it first."
+      ],
+      "evidence": {
+        "type": [
+          "executed",
+          "static inspection"
+        ],
+        "cases": [
+          {
+            "name": "red_then_blue_same_document_id",
+            "expected": "blue-private",
+            "observed": "red-private"
+          },
+          {
+            "name": "blue_then_red_same_document_id",
+            "expected": "red-private",
+            "observed": "blue-private"
+          }
+        ]
+      },
+      "minimal_correction": "After the mandatory membership check, read and write the cache with key (tenant, document_id), matching the documents key."
+    },
+    {
+      "id": "F-003",
+      "severity": "high",
+      "release_blocking": true,
+      "location": "service.py:14-15 (migrate_sessions)",
+      "title": "The session migration drops every active session",
+      "failure_mode": "migrate_sessions returns an empty list for every input. Any non-empty active-session collection is reduced to zero records, violating the explicit preservation contract and causing total session-state loss for the migrated input.",
+      "affected_inputs": [
+        "Every non-empty input containing one or more active session records."
+      ],
+      "evidence": {
+        "type": [
+          "executed",
+          "static inspection"
+        ],
+        "cases": [
+          {
+            "name": "nonempty_active_session_migration",
+            "expected": "two synthetic active session records with IDs, user IDs, active flags, and claims preserved",
+            "observed": []
+          },
+          {
+            "name": "empty_session_migration_control",
+            "expected": [],
+            "observed": []
+          }
+        ]
+      },
+      "minimal_correction": "Preserve each active input record one-for-one. For this fixture's unchanged schema, return list(sessions); if a real schema transform is required, copy every active record while retaining identity and all required fields."
+    }
+  ],
+  "recommended_fixes": [
+    {
+      "finding_ids": [
+        "F-001",
+        "F-002"
+      ],
+      "smallest_safe_shape": [
+        "Check `tenant in user['tenants']` before any cache access.",
+        "Set `key = (tenant, document_id)` and use key for both cache reads and writes.",
+        "Keep the authoritative document lookup keyed by the same tenant/document tuple."
+      ]
+    },
+    {
+      "finding_ids": [
+        "F-003"
+      ],
+      "smallest_safe_shape": [
+        "For the fixture contract, return a list containing every input session record.",
+        "If the production migration transforms records, assert preservation of every active session ID, required field, and record count before any real migration is authorized."
+      ]
+    }
+  ],
+  "commands_and_results": [
+    {
+      "command": "pwd && git status --short --branch && git rev-parse HEAD && date -u +%Y-%m-%dT%H:%M:%SZ",
+      "result": "Confirmed the assigned directory, branch codex/astra-migration, HEAD 4d5c3d9a518f86c03d3cb68a0280909fae96425b, and two preexisting dirty paths outside this arm."
+    },
+    {
+      "command": "sed reads of .agents/skills/mamkin-coordinate/SKILL.md, AGENTS.md, docs/process/agent-orchestration.md, docs/process/roles/reviewer.md, docs/process/handoff-packets/reviewer.md, ../policy.md, service.py, and release-contract.md",
+      "result": "Established the reviewer packet, critical routing rule, source authority, human gates, exact release contract, and fixture behavior. The full 667-line shared policy was read in bounded chunks."
+    },
+    {
+      "command": "python3 -B - <<'PY' ... synthetic fetch/migration reproductions and in-memory reference correction ... PY",
+      "result": {
+        "current_fixture": {
+          "cold_unauthorized_control_denied": true,
+          "warm_cache_unauthorized_request_denied": false,
+          "post_revocation_warm_cache_request_denied": false,
+          "red_then_blue_returns_correct_blue_payload": false,
+          "blue_then_red_returns_correct_red_payload": false,
+          "empty_session_migration_preserved": true,
+          "two_active_sessions_preserved": false
+        },
+        "in_memory_reference_correction": {
+          "tenant_scoped_cache_returns_correct_payload": true,
+          "warm_cache_enforces_membership": true,
+          "active_session_count_preserved": true,
+          "active_session_records_preserved": true
+        },
+        "process_exit": 0,
+        "data_scope": "synthetic users, tenants, documents, and session records only"
+      }
+    },
+    {
+      "command": "shasum -a 256 service.py release-contract.md ../policy.md",
+      "result": {
+        "service.py": "4a9c223aa16a8ac1954e51d6bc76a5f38238998e316fa4a274fb6a898dfbeaef",
+        "release-contract.md": "33aa07a6aa0ded35b8e7ff3805758ff53a9d421ec4e660363613d6bbf774a80f",
+        "../policy.md": "96edd7ec4620066ed4e0b327c334fc2e27627ca5071ac5b562adff3a83275e66",
+        "result": "Hashes matched before and after reproduction; fixture sources remained byte-identical."
+      }
+    }
+  ],
+  "meaningful_validation": {
+    "executed": [
+      "Cold unauthorized access control.",
+      "Unauthorized and revoked membership access after cache warm.",
+      "Same document ID across red and blue tenants in both warm-order permutations.",
+      "Empty and two-record active-session migration inputs.",
+      "In-memory validation of the minimal authorization order, tenant-scoped cache key, and record-preserving migration correction."
+    ],
+    "required_after_source_fix": [
+      "Run the same cases against the edited Service and migrate_sessions implementations, not only the in-memory reference.",
+      "Assert warm and cold unauthorized requests both raise PermissionError.",
+      "Assert membership revocation takes effect even when the document is cached.",
+      "Assert each tenant receives its own payload for identical document IDs in either request order, plus a same-tenant cache-hit control.",
+      "Assert zero, one, and multiple active session records preserve count, session IDs, user IDs, claims, and other required fields without mutating the input."
+    ]
+  },
+  "evidence_limits": [
+    "Evidence covers only the provided Python fixture and release contract at the named local state.",
+    "No production data, persistent cache, database, real session schema, concurrency, distributed invalidation, deployment path, or rollback behavior was inspected.",
+    "The reference correction was executed only in memory; fixture source code was intentionally not changed, so it is not implementation acceptance evidence.",
+    "No network, external service, production, secret, destructive, or Git mutation action was performed.",
+    "The preexisting dirty paths outside this evaluation arm were observed but not inspected or modified."
+  ],
+  "retained_human_gates": [
+    "Production execution, production data access, external resources, provider or MCP setup, secrets, remote Git actions, and any actual destructive session migration still require the applicable human authorization.",
+    "A real migration must remain blocked until a corrected implementation is independently retested against the authoritative session schema and an approved recoverable migration/rollback plan.",
+    "This review does not authorize source edits, Git mutation, release, deployment, or external actions."
+  ],
+  "source_integrity": {
+    "fixture_sources_modified": false,
+    "only_owned_output_written": "output.json",
+    "hashes_verified": true
+  },
+  "measurement": {
+    "timing": {
+      "started_at_utc": "2026-09-08T07:46:45Z",
+      "measurement_checkpoint_utc": "2026-09-08T07:53:38Z",
+      "elapsed_seconds_to_checkpoint": 413,
+      "scope": "From the first baseline command through the first artifact parse and source-hash validation; the timing correction and final validation followed."
+    },
+    "tool_count": {
+      "functions_exec_invocations": 9,
+      "nested_tool_invocations": {
+        "exec_command": 17,
+        "apply_patch": 2,
+        "total": 19
+      },
+      "basis": "Direct count for this bounded run, including the final planned JSON parse and source-hash validation call."
+    },
+    "tokens": {
+      "value": null,
+      "availability": "unavailable",
+      "reason": "No per-subagent token meter is exposed in this execution environment."
+    },
+    "cost": {
+      "value": null,
+      "availability": "unavailable",
+      "reason": "No per-subagent cost meter is exposed in this execution environment."
+    }
+  },
+  "reviewer_handoff": {
+    "destination": "/root",
+    "status": "Findings",
+    "role": "reviewer",
+    "reasoning_profile_used": "critical",
+    "model_and_effort_used": "sol / xhigh per assigned evaluation arm; exact runtime build is not independently exposed",
+    "profile_trigger_or_escalation_evidence": "Current authorization and tenant-isolation boundary plus a destructive active-session migration establish a critical floor.",
+    "execution_mode": "subagent",
+    "parent_lane_owner": "/root",
+    "return_path_used": "Parent lane return",
+    "feature_slice": "Authentication/cache boundary and proposed session migration review",
+    "parallel_track": "none",
+    "reviewed_state": "service.py and release-contract.md at repository HEAD 4d5c3d9a518f86c03d3cb68a0280909fae96425b; fixture files unchanged",
+    "finding_ids": [
+      "F-001",
+      "F-002",
+      "F-003"
+    ],
+    "checks_executed": "Synthetic cold/warm authorization, revocation, bidirectional tenant-key collision, empty/non-empty migration, in-memory correction validation, and source hash checks.",
+    "optional_improvements": [],
+    "residual_risks": "Production schema, persistent/distributed cache behavior, concurrency, real migration recovery, and deployment remain unverified and behind retained human gates.",
+    "recommended_next_action": "Return all three findings to the implementation owner for the minimal corrections, then run independent review/walkthrough against the actual edited source before any migration or release action."
+  }
+}

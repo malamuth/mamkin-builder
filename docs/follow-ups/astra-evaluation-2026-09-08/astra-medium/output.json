@@ -1,0 +1,223 @@
+{
+  "policy": [
+    {
+      "id": "read-only-audit",
+      "response": "Inspect current repository state and relevant authoritative docs, then recommend improvements with source references and evidence limits. Keep this an audit: no edits, installs, commits, or implementation. Record actual checks separately from static inspection; project commands marked TBD remain unconfigured. Return findings, priorities, uncertainties, and the smallest next action, without claiming changes or acceptance."
+    },
+    {
+      "id": "bounded-local-change",
+      "response": "Verify pwd, git status --short --branch, and git rev-parse HEAD; read the scoped brief and applicable role. Confirm ownership and the Git delivery contract before substantive feature writes. Make the named local change and run the focused check under existing authorization. Preserve unrelated state; stop only for a newly crossed boundary. Return changed files, exact state, check outcomes, limitations, and an implementation handoff for independent acceptance; working-tree-only work is not merge-ready."
+    },
+    {
+      "id": "dirty-worktree",
+      "response": "Inventory paths, branch, HEAD, and dirty provenance before editing. Preserve unrelated modified and untracked files; explain their exclusion. Proceed on explicitly disjoint assigned files under the delivery contract. If ownership overlaps or mixed base recovery is needed, stop new writes and return a path-level recovery plan to the coordinator; never stash, reset, discard, or silently move mixed work. Run focused checks and return changed-file evidence with the original dirty boundary and exact handoff state."
+    },
+    {
+      "id": "external-action-gate",
+      "response": "Complete authorized local preparation and focused validation first. Identify the exact pending external action, named target <external-target>, required authority, checks, and rollback where applicable. Do not push, deploy, provision, configure providers, or mutate production without authorization. Return a concrete reviewable result and one narrow approval request through the coordinator. Report ready for Git closeout only if independent acceptance already passed; otherwise state the actual preparation or acceptance status."
+    },
+    {
+      "id": "manual-relay-handoff",
+      "response": "Complete only the assigned worker slice, recording exact state, changed files, checks actually run, and unresolved gates. With direct delivery unavailable, return one completed role packet beginning: Coordinator handoff - manual relay required for coordinator thread <coordinator-thread-id>. Use the supplied ID and exact handoff path <handoff-path>; never invent them, send to the worker itself, forward the assignment, or create a duplicate task. Stop after the single final packet; human decisions remain coordinator-owned."
+    },
+    {
+      "id": "stale-packet-conflict",
+      "response": "Read the current human correction and repo source at <current-HEAD>; compare the stale packet explicitly. The newer human decision and current source govern; mark conflicting packet claims obsolete. Cite the exact current authority, narrow external-proof boundary, and remaining uncertainty. Recommend a source-grounded next action without implementing an answer-only request. If source confusion persists, route a context audit/reset rather than relying on the old packet. Return findings and the necessary evidence for resumption."
+    },
+    {
+      "id": "lane-separation",
+      "response": "Use separate implementation and walkthrough tasks: interactive UI and a possible defect/retest cycle require durable independent acceptance. Establish each task ID, coordinator return path, branch/worktree, exact accepted spec, and validation scope. Keep writers isolated and select model profiles by observable risk. Implementation returns its committed state or working-tree-only limitation; a different walkthrough agent verifies the exact commit and returns findings. Defects return to implementation, followed by affected retesting. Coordinator owns human gates, integration, and final status."
+    },
+    {
+      "id": "subagent-preferred",
+      "response": "Prefer one read-only review subagent inside the parent implementation lane: the work is bounded, needs one immediate return, and has no human or external dependency. Name <parent-lane-owner>, prohibit nested subagents, identify the small diff and current source state, and provide the reviewer card and packet. Use Balanced unless observed deep or critical signals raise the floor. Return evidenced regression findings once to the parent; distinguish static findings from executed checks. The parent inspects the result and retains acceptance responsibility."
+    },
+    {
+      "id": "separate-task-trigger",
+      "response": "Route to a separate implementation task because branch/worktree ownership, durable recovery, and later defect/retest responsibility exceed a one-result helper. Declare <coordinator-thread-id>, <worker-thread-id-if-known>, <handoff-path>, approved branch/worktree, role, profile, scope, and checks. Confirm the Git delivery contract and preserve independent acceptance. Return one implementation packet directly to the coordinator or through the prescribed manual relay. Keep human questions coordinator-owned and remain available for a coordinator-requested correction; do not start adjacent lanes."
+    },
+    {
+      "id": "two-track-admission",
+      "response": "Admit only tracks A and B as separate tasks after recording ready specs, independent acceptance, common base <base-commit>, target <integration-target>, isolated worktrees/ownership, excluded shared surfaces, assumptions, integration order, and combined checks. Keep roadmap and decision-log ownership with the coordinator. Each track uses independent acceptance and returns a tagged packet. Passing track checks yields Track-ready only. Integrate in declared order under the Git contract, run combined checks and affected walkthroughs, then report track results separately from Integration-verified. External actions require matching authority."
+    },
+    {
+      "id": "two-track-hidden-conflict",
+      "response": "Do not admit independent concurrent writes to the shared surface, even with separate worktrees. Name the actual lockfile, schema, fixture, contract, generated source, config, or environment conflict from current sources. Serialize the tracks or route ownership and ordering to the architect; shared-contract ambiguity warrants Deep or a higher observed floor. Revise boundaries and validation before launch. Return the blocked admission reason and concrete sequencing plan; no implementation or combined-verification claim until the conflict is resolved."
+    },
+    {
+      "id": "two-track-cap",
+      "response": "Queue the third independent feature until A or B reaches a terminal state. Do not disguise it as a bounded subagent or a third track; the cap concerns independent workstreams. Record its ready spec and next admission prerequisites without launching a writer. Continue handling returned packets and blockers for A and B; avoid polling active tracks. Return the queue decision, active-track evidence, and the exact condition for reconsidering admission."
+    },
+    {
+      "id": "context-drift",
+      "response": "Use a read-only mamkin-context-audit against current decisions, repo sources, named state, and relevant packets. Without actual evidence, do not invent a classification. OK continues normally; watch names the risk and explicit reset trigger; source confusion in a recoverable task recommends context reset; repeated corrected errors or structural unreliability recommend rollover. Return the audit packet with obsolete assumptions, evidence limits, and smallest next action. Audit alone authorizes neither reset nor task creation; use the matching skill after the human approves that recovery."
+    },
+    {
+      "id": "architect-required-shared-contract",
+      "response": "Route to an architect before implementation: shared API, migration, two-component ownership, compatibility, and ordering remain unresolved. Select Deep Astra/high at minimum, escalating to Critical Astra/xhigh if security, production data, destructive migration, or other critical evidence appears. Ground the plan in current contracts and decisions; define ownership, compatibility, migration/recovery strategy, slices, integration order, and checks. Human scope or irreversible choices return to the coordinator. Return an architecture/spec packet, then establish the delivery contract and independent implementation/acceptance lanes."
+    },
+    {
+      "id": "architect-skip-bounded-slice",
+      "response": "Skip a separate architect pass because acceptance, ownership, validation, and architecture are already explicit and no escalation trigger applies. Verify repo state and delivery contract, then use a Balanced write-capable implementation owner. A bounded subagent is appropriate only if every lane condition passes and files are disjoint. Implement and run the named checks under existing authorization. Return exact changed files and state to the parent/coordinator; a different agent owns acceptance, and working-tree-only output cannot be merge-ready."
+    },
+    {
+      "id": "project-evolution-profit-gate",
+      "response": "Run mamkin-project-evolution-audit read-only: inspect both repo states, baseline, inventory, repeated customization, and current project evidence. Missing mechanics alone do not justify adoption. Evaluate a deterministic prerequisite for repeated sync customization; do not invent formatter commands or duplicate functioning secret/closeout hooks. Score benefit minus adoption and maintenance costs: adopt-now needs evidence, net value at least 6, measurable success and rollback; 3–5 supports a bounded experiment. Return the audit packet in the response, at most five adopt-now items, rejected candidates, validation, review triggers, and explicit evidence limits; apply nothing."
+    },
+    {
+      "id": "project-evolution-no-auto-apply",
+      "response": "Perform the read-only evolution assessment first, preserving unrelated dirty work and classifying mixed/project-owned files. The ambiguous make-current phrase does not select exact recommendations or authorize blanket sync. Return the concrete audit packet with evidence, net value, exact surfaces, success checks, rollback, and rejected candidates. Cite .agents/skills/mamkin-project-evolution-audit/SKILL.md: Run a read-only capability and profitability audit. Do not sync or apply changes. Ask the coordinator to obtain approval for the concrete implementation step; route approved file transfer through template-sync with a clean verified source."
+    },
+    {
+      "id": "project-native-capability-ladder",
+      "response": "Inspect current decisions, repeated incidents, actual skill usage, and deterministic failure evidence before recommending anything. Apply the smallest-action ladder: retain knowledge, update/consolidate the existing owner, add a deterministic validator for mechanically detectable destructive mistakes, create a skill only for a distinct recurring invocation lacking an owner, or propose generic upstream mechanics. Keep domain details in project references and entrypoints concise. Do not multiply surfaces for one lesson. Return evidence, net benefit, precise scope, observable success, rollback, and maintenance trigger; audit creates no skill or automation."
+    },
+    {
+      "id": "project-native-stale-learning",
+      "response": "Treat lessons and legacy labels as discovery clues, not current authority. Compare the old surprise entry to the newer human decision and current workflow; reject contradicted guidance. Inspect actual ownership and usage before recommending retirement or consolidation of a legacy skill. Do not automatically convert every lesson into automation. Choose the smallest profitable action and preserve project-private domain rules. Return current-source evidence, rejected stale candidates, conditional consolidation proposals, success checks, and rollback; approved implementation would be a separate step, with skill-creator for skill edits."
+    },
+    {
+      "id": "project-upstream-repository-boundary",
+      "response": "Continue only approved project-local evolution work. Treat the generic validator improvement as a proposal packet with anonymized evidence, candidate Mamkin surfaces, success criteria, and risks. The adjacent template is read-only from this task: no edits, branch, staging, or manufactured commit. Require a separate human-approved task in mamkin-builder; its explicit scope must authorize implementation, since task creation alone authorizes reassessment. That task establishes current sources and its own delivery contract. Return the proposal and project-local results; do not claim upstream work delivered."
+    },
+    {
+      "id": "model-route-economy-inventory",
+      "response": "Choose an inventory role with Economy, gpt-5.6-terra/medium, read-only access: explicit commits, manifest oracle, and mechanical bounded classification satisfy the economy requirements. Run the selector using actual observed signals and verify the effective preset/model at launch. Diff <from-commit>..<to-commit> and classify exact paths against the manifest without edits. Validate completeness and classifications against that deterministic source. Return one inventory result with commits, manifest version, commands actually run, and ambiguities; never silently replace an unavailable model or claim broader architectural proof."
+    },
+    {
+      "id": "model-route-balanced-worker",
+      "response": "Choose implementation with Balanced, gpt-5.6-terra/medium, workspace-write access; the explicit reversible one-file contract and deterministic unit test establish no higher floor. Confirm actual preset/model, repository state, ownership, and Git delivery authority. Make the accepted change and run the named unit test without renewed approval. Return changed files, exact state, outcomes, rollback and any limitations in the implementation packet to the named parent/coordinator. Preserve independent acceptance and report working-tree-only if commits are not authorized."
+    },
+    {
+      "id": "model-route-deep-diagnosis",
+      "response": "Choose a diagnostic/architecture role at Deep, gpt-6-astra/high, read-only access. Unknown root cause, conflicting logs, and cross-component evidence establish the Deep floor despite no production action. Inspect authoritative persistence contracts, current code, and bounded logs at named states; separate observations from hypotheses and use focused reproductions where authorized. Do not mutate data or implement an answer-only diagnosis. Return the evidence-backed cause or remaining uncertainty, narrow next experiment, and proposed ownership; a later bounded implementation selects its profile independently."
+    },
+    {
+      "id": "model-route-critical-review",
+      "response": "Choose reviewer with Critical, gpt-6-astra/xhigh, read-only access: authentication boundaries, destructive migration, and production data set the Critical floor regardless of diff size. Do not use the Astra/high compatibility reviewer as a downgrade or choose max automatically. Review exact commit, auth invariants, migration safety/recovery, compatibility, and available tests without touching production data. Return severity-ranked findings with locations, concrete failures, static/executed/unverified evidence, and smallest corrections. An unavailable Critical preset/model is a blocker, and migration execution remains separately human-gated."
+    },
+    {
+      "id": "model-route-escalation",
+      "response": "Stop repeating the same unexplained attempts. Return an escalation packet to the coordinator: current Balanced, requested Deep Astra/high, two focused failures, shared-contract evidence, and inadequate oracle. Preserve the current diff and attach exact states and failure outputs; propose bounded cross-component diagnosis and a reliable reproduction as the next action. Do not silently change model or broaden implementation. The coordinator decides relaunch. After uncertainty is resolved, reevaluate the next implementation floor independently; acceptance remains with a different agent."
+    },
+    {
+      "id": "brownfield-adoption-review",
+      "response": "Classify this as brownfield adoption, not template init. Use bootstrap first if no verified Mamkin source is discoverable, then mamkin-adopt. Inspect target Git state, existing AGENTS.md, deployment ownership, architecture, and safe command evidence without secrets. Use the verified source adoption script in review mode; return pinned source/target commits, clean states, plan digest, collisions, manual reconciliation, and missing decisions. Do not apply files before exact-plan approval. Preserve product code, history, remotes, and deployment config; adoption approval does not authorize product implementation."
+    },
+    {
+      "id": "brownfield-adoption-apply-gate",
+      "response": "Reuse approval for the exact pinned plan after rechecking source/target cleanliness, commits, and digest. Apply with those expected values; do not ask again when unchanged. Seed only collision-free paths and manually reconcile existing/mixed files within approved ownership; never automatically overwrite target files. Reconstruct project docs from current evidence, run safe existing baseline checks, complete adoption self-review, and return the adoption packet. Any changed pin or dirty boundary requires re-review. Finish with the explicit fresh-coordinator versus same-task transition decision; no default product work."
+    },
+    {
+      "id": "portable-mamkin-bootstrap",
+      "response": "Use the globally available mamkin-bootstrap from outside the target; verify Git root, status, HEAD, remotes, and absence of initialized metadata. Since no local source was named, obtain approval for network cloning before acquiring the official Mamkin repository into a dedicated temporary directory. Verify source clean HEAD equals origin/main, read acquired adoption guidance, and produce the pinned review plan. Apply only after exact-plan approval, never install a lone local skill or overwrite existing paths. Continue through reconciliation, validation, handoff, and explicit coordinator transition; clean only this run’s temporary checkout."
+    },
+    {
+      "id": "post-adoption-coordinator-start",
+      "response": "Preserve the latest human requirements in the concrete coordinator starter alongside the adoption handoff and current project sources. Recommend a fresh, non-forked coordinator task, but first ask the explicit fresh-task versus same-task-and-rename choice. Cite .agents/skills/mamkin-adopt/SKILL.md: Do not begin product work in the adoption task unless the human explicitly chooses same-task continuation. New requirements do not select a path. After approval, create in <target-project-id>, verify receipt once, record ID/title and stop adoption coordination; or re-ground, rename with approval, and invoke mamkin-coordinate here."
+    },
+    {
+      "id": "feature-git-delivery-gate",
+      "response": "Before F12 product writes, resolve the missing delivery choices with the coordinator: base, feature branch, worktree, integration path/method, remote target, local/external authority, cleanup, and owner. Use a codex/f12-<scope> feature branch by default; do not edit main to add the contract. With local branch authority, create/switch from the clean accepted baseline and record the contract as the first branch change. External authority can remain none while local work proceeds. Return concrete missing choices or implementation handoff; no direct-to-base exception is implied by a clean main."
+    },
+    {
+      "id": "authorized-git-closeout",
+      "response": "The coordinator reuses the exact approved full-closeout contract without another permission request. Verify accepted commit equals the clean feature tip, remote feature has no unaccepted commits, and origin/main, local path, and fast-forward method still match authority. Integrate locally by fast-forward, run required post-integration checks, and push the approved base. Verify remote integration; perform only contract-authorized cleanup after cleanliness and reachability checks. Compare remote feature tip immediately before any authorized deletion. Stop on drift or failures. Report Delivered only after required synchronization and cleanup, including retained state."
+    },
+    {
+      "id": "authorized-pr-closeout",
+      "response": "The coordinator verifies clean accepted tip, bounded diff, matching origin/main PR/squash authority, and no unaccepted remote commits. Push the feature, open/update its PR against the approved base, wait for required checks/reviews, and squash-merge; do not integrate locally first. Verify resulting remote base and recorded squash diff, running contract-required integrated checks. Immediately before approved remote branch deletion, fetch/compare tip and stop for any unaccepted/unintegrated commit. Remove only clean worktrees and verified-integrated local branches, synchronize base, and report Delivered with remaining retained state; changed scope or failed gates invalidate closeout authority."
+    },
+    {
+      "id": "authorization-reuse",
+      "response": "Continue the exact approved local change and focused checks without asking again. Verify current repository state, known branch/ownership, and unchanged conditions; preserve unrelated work. Complete the scoped edit and report actual validation outcomes. Escalate only if new evidence crosses the agreed scope, source authority, ownership, or external boundary. Return the implementation packet with changed files and exact state to the assigned parent/coordinator; existing authorization does not remove independent acceptance or authorize Git actions absent from the delivery contract."
+    },
+    {
+      "id": "skill-pause-source",
+      "response": "Finish the authorized local preparation and validation before presenting the remaining external gate. Read the supplied <skill-path>/SKILL.md and quote its exact external-write approval instruction; explain which concrete <external-action> and <target> it governs, distinguishing an explicit requirement from inferred caution. Recheck prior authorization before asking; here the external action remains unapproved. Return the reviewable diff, check results, evidence limits, and one precise coordinator-owned approval request. Do not pause local work merely because a later step needs permission."
+    },
+    {
+      "id": "mid-task-steering",
+      "response": "Treat the named correction as steering within existing authorization, preserving completed work and the original objective. Answer the status question briefly with actual progress, apply the corrected detail only within owned files, then finish the remaining scoped work. Run the required check and repeat affected checks only when the correction changes their evidence. Do not restart, create another lane, or ask for unchanged permission. Return final changed files, exact state, validation, and limitations in the implementation handoff for independent acceptance."
+    },
+    {
+      "id": "proportionate-verification",
+      "response": "Make the authorized documentation edit and run its named validation. Once that check passes with no subsequent edits, failures, or unresolved risks, stop broadening or repeating tests; do not add tests that merely mirror the edit. Record the exact diff/state and executed check outcome, then return the implementation handoff to the separately assigned acceptance owner. Do not self-accept or claim Delivered before the applicable delivery contract is complete. Mention any genuinely unrun required check; invent no project command."
+    }
+  ],
+  "execution": {
+    "changed_files": [
+      "/Users/bo/Codex/mamkin-builder/tmp/astra-eval-20260908/astra-medium/summary.py",
+      "/Users/bo/Codex/mamkin-builder/tmp/astra-eval-20260908/astra-medium/output.json"
+    ],
+    "commands_outcomes": [
+      {
+        "command": "pwd",
+        "outcome": "/Users/bo/Codex/mamkin-builder"
+      },
+      {
+        "command": "git status --short --branch",
+        "outcome": "codex/astra-migration; existing modification evals/mamkin-prompt-cases.json preserved"
+      },
+      {
+        "command": "git rev-parse HEAD",
+        "outcome": "4d5c3d9a518f86c03d3cb68a0280909fae96425b"
+      },
+      {
+        "command": "initial combined source read",
+        "outcome": "Output was truncated and nonexistent roles/worker.md returned exit 1; missing policy middle reread and implementation role/packet obtained from shared policy"
+      },
+      {
+        "command": "apply_patch summary.py",
+        "outcome": "Succeeded; strip and casefold, drop empty normalized names, count in insertion order without modifying input"
+      },
+      {
+        "command": "PYTHONDONTWRITEBYTECODE=1 python3 -m unittest test_summary",
+        "cwd": "/Users/bo/Codex/mamkin-builder/tmp/astra-eval-20260908/astra-medium",
+        "outcome": "Exit 0; 3 tests passed"
+      },
+      {
+        "command": "read-only user-note.txt byte equality and output scenario count/word-limit assertions",
+        "outcome": "Passed; note preserved exactly; 36 responses, each at most 110 words"
+      }
+    ],
+    "approval_requests_count": 0,
+    "start_utc": "2026-09-08T07:43:18Z",
+    "start_timestamp_boundary": "First clock observation after initial repo/source read; exact dispatch start unavailable",
+    "end_utc": "2026-09-08T07:47:08.538221+00:00",
+    "tool_call_count": 7,
+    "tool_call_count_definition": "Top-level functions.exec invocations including this final artifact write; 9 nested tools invoked",
+    "known_limits": [
+      "Working tree only; no Git mutations authorized or performed",
+      "Three supplied unit tests were run; independent acceptance belongs to parent",
+      "Scenario responses describe policy actions only; scenarios were not executed",
+      "Non-string input behavior was not specified or broadened"
+    ],
+    "handoff": {
+      "status": "Needs review",
+      "role": "implementation",
+      "execution_mode": "subagent",
+      "parent_lane_owner": "/root",
+      "return_path": "Parent lane return",
+      "parallel_track": "none",
+      "model_effort": "Assigned Astra/medium evaluation arm; effective runtime model not independently introspected",
+      "feature_slice": "Approved local summarize fixture fix",
+      "delivery_mode": "working tree only; evaluation explicitly prohibits Git mutations",
+      "worktree": "/Users/bo/Codex/mamkin-builder",
+      "branch": "codex/astra-migration",
+      "base_commit": "4d5c3d9a518f86c03d3cb68a0280909fae96425b",
+      "final_head": "4d5c3d9a518f86c03d3cb68a0280909fae96425b",
+      "external_git_actions": "none",
+      "generated_churn": "output.json requested evaluation artifact; bytecode disabled",
+      "migrations": "none",
+      "environment_variables": "No application variables; PYTHONDONTWRITEBYTECODE=1 for test invocation",
+      "manual_smoke": "none",
+      "checks_not_run": "Independent parent acceptance; no extra tests required",
+      "retest_focus": "Parent independently inspect normalization, casefold, counts, first-seen order, input and user-note preservation",
+      "integration_checks_required": "Parent independent acceptance; no merge readiness claimed",
+      "human_manual_steps": "none requested",
+      "git_closeout_remaining": "No Git actions assigned to this fixture task",
+      "secrets_or_live_systems_touched": false
+    }
+  }
+}

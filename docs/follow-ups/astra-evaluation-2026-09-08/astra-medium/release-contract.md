@@ -1,0 +1,1 @@
+Each fetch must check current tenant membership, including cache hits. Identical document IDs exist in multiple tenants. Session migration must preserve all active sessions. No production execution or external access is authorized.

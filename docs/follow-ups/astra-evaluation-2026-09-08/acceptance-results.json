@@ -1,0 +1,242 @@
+{
+  "implementation_checks": {
+    "sol-medium": [
+      {
+        "input": [],
+        "expected": {
+          "names": [],
+          "counts": {}
+        },
+        "actual": {
+          "names": [],
+          "counts": {}
+        },
+        "passed": true
+      },
+      {
+        "input": [
+          " B ",
+          "a",
+          "b"
+        ],
+        "expected": {
+          "names": [
+            "b",
+            "a"
+          ],
+          "counts": {
+            "b": 2,
+            "a": 1
+          }
+        },
+        "actual": {
+          "names": [
+            "b",
+            "a"
+          ],
+          "counts": {
+            "b": 2,
+            "a": 1
+          }
+        },
+        "passed": true
+      },
+      {
+        "input": [
+          " Stra\u00dfe ",
+          "STRASSE",
+          "stra\u00dfe"
+        ],
+        "expected": {
+          "names": [
+            "strasse"
+          ],
+          "counts": {
+            "strasse": 3
+          }
+        },
+        "actual": {
+          "names": [
+            "strasse"
+          ],
+          "counts": {
+            "strasse": 3
+          }
+        },
+        "passed": true
+      },
+      {
+        "input": [
+          "",
+          "  ",
+          "\t\n"
+        ],
+        "expected": {
+          "names": [],
+          "counts": {}
+        },
+        "actual": {
+          "names": [],
+          "counts": {}
+        },
+        "passed": true
+      },
+      {
+        "input": [
+          "z",
+          "Y",
+          "z",
+          "x",
+          "y"
+        ],
+        "expected": {
+          "names": [
+            "z",
+            "y",
+            "x"
+          ],
+          "counts": {
+            "z": 2,
+            "y": 2,
+            "x": 1
+          }
+        },
+        "actual": {
+          "names": [
+            "z",
+            "y",
+            "x"
+          ],
+          "counts": {
+            "z": 2,
+            "y": 2,
+            "x": 1
+          }
+        },
+        "passed": true
+      }
+    ],
+    "astra-medium": [
+      {
+        "input": [],
+        "expected": {
+          "names": [],
+          "counts": {}
+        },
+        "actual": {
+          "names": [],
+          "counts": {}
+        },
+        "passed": true
+      },
+      {
+        "input": [
+          " B ",
+          "a",
+          "b"
+        ],
+        "expected": {
+          "names": [
+            "b",
+            "a"
+          ],
+          "counts": {
+            "b": 2,
+            "a": 1
+          }
+        },
+        "actual": {
+          "names": [
+            "b",
+            "a"
+          ],
+          "counts": {
+            "b": 2,
+            "a": 1
+          }
+        },
+        "passed": true
+      },
+      {
+        "input": [
+          " Stra\u00dfe ",
+          "STRASSE",
+          "stra\u00dfe"
+        ],
+        "expected": {
+          "names": [
+            "strasse"
+          ],
+          "counts": {
+            "strasse": 3
+          }
+        },
+        "actual": {
+          "names": [
+            "strasse"
+          ],
+          "counts": {
+            "strasse": 3
+          }
+        },
+        "passed": true
+      },
+      {
+        "input": [
+          "",
+          "  ",
+          "\t\n"
+        ],
+        "expected": {
+          "names": [],
+          "counts": {}
+        },
+        "actual": {
+          "names": [],
+          "counts": {}
+        },
+        "passed": true
+      },
+      {
+        "input": [
+          "z",
+          "Y",
+          "z",
+          "x",
+          "y"
+        ],
+        "expected": {
+          "names": [
+            "z",
+            "y",
+            "x"
+          ],
+          "counts": {
+            "z": 2,
+            "y": 2,
+            "x": 1
+          }
+        },
+        "actual": {
+          "names": [
+            "z",
+            "y",
+            "x"
+          ],
+          "counts": {
+            "z": 2,
+            "y": 2,
+            "x": 1
+          }
+        },
+        "passed": true
+      }
+    ]
+  },
+  "changed_initial_files": [
+    "astra-medium/summary.py",
+    "sol-medium/summary.py"
+  ],
+  "unexpected_changes": [],
+  "all_passed": true
+}

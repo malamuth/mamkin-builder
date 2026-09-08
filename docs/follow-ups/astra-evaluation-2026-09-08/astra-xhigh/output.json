@@ -1,0 +1,410 @@
+{
+  "schema_version": 1,
+  "arm": "astra-xhigh",
+  "status": "Findings",
+  "role": "reviewer",
+  "execution_mode": "subagent",
+  "parent_lane_owner": "/root",
+  "scope": {
+    "workdir": "/Users/bo/Codex/mamkin-builder/tmp/astra-eval-20260908/astra-xhigh",
+    "reviewed_files": [
+      "../policy.md",
+      "service.py",
+      "release-contract.md"
+    ],
+    "branch": "codex/astra-migration",
+    "head": "4d5c3d9a518f86c03d3cb68a0280909fae96425b",
+    "diff_boundary": "Review of the supplied fixture at the recorded HEAD plus fixture SHA-256 values; no diff base was supplied.",
+    "preexisting_dirty_paths": [
+      "docs/follow-ups/astra-migration.md",
+      "evals/mamkin-prompt-cases.json"
+    ],
+    "dirty_state_explanation": "Preexisting parent work observed before review; not inspected or changed. Concurrent agents may change parent-owned files; fixture integrity is separately checked.",
+    "only_write_owned": "/Users/bo/Codex/mamkin-builder/tmp/astra-eval-20260908/astra-xhigh/output.json",
+    "source_files_edited": [],
+    "external_actions": [],
+    "git_mutations": []
+  },
+  "risk_floor": {
+    "profile": "critical",
+    "required_model": "gpt-6-astra",
+    "required_effort": "xhigh",
+    "assigned_arm_label": "astra-xhigh",
+    "effective_runtime_model_effort": "Unavailable from this agent's callable telemetry; the arm label is not independent runtime verification.",
+    "triggers": [
+      "Tenant authentication/authorization boundary and cross-tenant confidentiality",
+      "Session-preservation migration with destructive output"
+    ],
+    "basis": "../policy.md, SOURCE: docs/process/model-routing.md, Profiles and Deterministic Selection",
+    "access_posture": "Read-only review and synthetic execution; workspace write restricted to the evaluation artifact",
+    "downgrade": "No reduction below Critical; short fixture size does not lower the security/migration risk floor.",
+    "retained_human_gates": [
+      "No production execution, production data, secrets, or external access is authorized by release-contract.md.",
+      "External writes/resources, remotes/pushes, paid services, production actions, DNS/public posting, destructive migrations, provider/MCP setup, system/global tooling and local services require coordinator-routed human authorization.",
+      "Any migration applied to persistent/live session state requires approved scope and recoverability decisions before execution.",
+      "No source implementation or release acceptance is delegated to this review arm."
+    ]
+  },
+  "findings": [
+    {
+      "id": "F1",
+      "severity": "P1",
+      "severity_label": "High; release blocker",
+      "title": "Cache hits bypass current tenant membership",
+      "location": {
+        "file": "service.py",
+        "symbol": "Service.fetch",
+        "start_line": 6,
+        "end_line": 9,
+        "tightest_lines": [
+          6,
+          7
+        ]
+      },
+      "affected_inputs": "A requested document_id is already cached and the caller lacks current membership in the requested tenant, including membership revoked since a previous request.",
+      "failure_mode": "The early cache return runs before the membership check. Once an authorized red user warms document 42, an outsider or subsequently revoked red user obtains red-private.",
+      "evidence_type": "Executed and static inspection",
+      "evidence_cases": [
+        "warm unauthorized red request",
+        "warm red request after membership revocation",
+        "cold unauthorized red request"
+      ],
+      "independence": "Occurs for the same tenant and same document; does not depend on the cross-tenant key collision in F2.",
+      "smallest_safe_correction": "Perform the current tenant membership check at the start of every fetch, before all cache lookups and returns. Retain PermissionError for denied access.",
+      "meaningful_validation": [
+        "Cold and warm requests by a nonmember both raise PermissionError.",
+        "Warm a document, remove the user's membership, and assert the next request raises PermissionError.",
+        "Authorized same-tenant cold and warm fetches return the expected document.",
+        "Run these authorization cases with the tenant-scoped cache correction for F2."
+      ]
+    },
+    {
+      "id": "F2",
+      "severity": "P1",
+      "severity_label": "High; release blocker",
+      "title": "Document-only cache keys leak data across tenants",
+      "location": {
+        "file": "service.py",
+        "symbol": "Service.fetch",
+        "start_line": 6,
+        "end_line": 11,
+        "tightest_lines": [
+          6,
+          7,
+          11
+        ]
+      },
+      "affected_inputs": "Two tenants have the same document_id and share a Service instance. One tenant's document is cached before an authorized request for the other tenant's document.",
+      "failure_mode": "The document store is keyed by (tenant, document_id), while cache reads/writes use only document_id. Red then blue returns red-private to a blue-only member; reversing warm order returns blue-private to a red-only member.",
+      "evidence_type": "Executed and static inspection",
+      "evidence_cases": [
+        "same ID collision: red warmed then authorized blue",
+        "same ID collision: blue warmed then authorized red"
+      ],
+      "independence": "Both second callers satisfy membership for their requested tenant. Moving the authorization check alone cannot correct this cache collision.",
+      "smallest_safe_correction": "Use the same composite key (tenant, document_id) consistently for cache membership, cache reads, and cache writes, after the F1 authorization check.",
+      "meaningful_validation": [
+        "Alternate red and blue authorized fetches of document 42 through one Service and assert each always receives its own tenant's content.",
+        "Repeat with both warm orders.",
+        "Verify repeated requests hit the corresponding tenant entry without overwriting the other entry.",
+        "Retain F1 outsider and revocation tests; cache partitioning alone does not authorize hits."
+      ]
+    },
+    {
+      "id": "F3",
+      "severity": "P1",
+      "severity_label": "High; release blocker",
+      "title": "Migration output discards every active session",
+      "location": {
+        "file": "service.py",
+        "symbol": "migrate_sessions",
+        "start_line": 14,
+        "end_line": 15,
+        "tightest_lines": [
+          15
+        ]
+      },
+      "affected_inputs": "Any input containing at least one active session.",
+      "failure_mode": "migrate_sessions ignores its input and always returns an empty list. One-active, multiple-active, and mixed active/inactive inputs all lose every active session from the result, violating release-contract.md:1.",
+      "evidence_type": "Executed and static inspection",
+      "evidence_cases": [
+        "one active session",
+        "multiple active sessions",
+        "active session among inactive sessions",
+        "empty sessions control"
+      ],
+      "impact_boundary": "The synthetic input list itself stays unchanged. Persistent deletion or actual user logout was not executed or observed; replacing stored sessions with this result would remove the active sessions.",
+      "smallest_safe_correction": "Preserve incoming session records in the returned migration result. With no target schema transformation specified, a record-preserving no-op such as list(sessions) is the smallest list-output correction; implement explicit field mapping only if an approved migration contract requires it. Do not infer an inactive-session deletion policy.",
+      "meaningful_validation": [
+        "Empty input returns an empty result.",
+        "Single and multiple active records survive with their identifiers and all required session fields preserved.",
+        "Mixed active/inactive input retains all active records; inactive behavior follows an explicitly approved contract.",
+        "Verify preservation by active record identity and full field content, not merely a positive output count.",
+        "Before any separately authorized real migration, validate on synthetic schema-representative data and establish backup/rollback and reconciliation; this arm executes none of those live actions."
+      ]
+    }
+  ],
+  "recommended_fixes": {
+    "implementation_status": "Proposed only; no source changes or candidate fix execution",
+    "fetch_algorithm": [
+      "Reject missing current tenant membership before reading the cache.",
+      "Set key = (tenant, document_id).",
+      "Return cache[key] only when key exists.",
+      "Read documents[key], write cache[key], and return the result."
+    ],
+    "sessions_algorithm": "Preserve all active input sessions in the returned data; absent a transformation requirement, retain the existing records with a list copy.",
+    "next_action": "Parent routes a bounded correction through the authorized implementation owner, then independent review/verification of the corrected state. Keep release and destructive/external operations behind existing human gates."
+  },
+  "commands_results": [
+    {
+      "command": "pwd",
+      "exit_code": 0,
+      "result": "/Users/bo/Codex/mamkin-builder/tmp/astra-eval-20260908/astra-xhigh"
+    },
+    {
+      "command": "git status --short --branch",
+      "exit_code": 0,
+      "result": "## codex/astra-migration; modified docs/follow-ups/astra-migration.md and evals/mamkin-prompt-cases.json"
+    },
+    {
+      "command": "git rev-parse HEAD",
+      "exit_code": 0,
+      "result": "4d5c3d9a518f86c03d3cb68a0280909fae96425b"
+    },
+    {
+      "command": "cat ../policy.md service.py release-contract.md",
+      "exit_code": 0,
+      "result": "Read supplied sources; combined output truncated part of routing policy, so a focused second read recovered that section."
+    },
+    {
+      "command": "sed -n '/# SOURCE: docs\\/process\\/model-routing.md/,/# SOURCE: docs\\/process\\/git-delivery.md/p' ../policy.md\nnl -ba service.py\nnl -ba release-contract.md\nshasum -a 256 ../policy.md service.py release-contract.md",
+      "exit_code": 0,
+      "result": "Read previously truncated routing policy, captured exact fixture line numbers, and established source hashes."
+    },
+    {
+      "command": "python3 -B - <<'PY'\nimport copy\nimport datetime\nimport hashlib\nimport json\nimport pathlib\n\nstarted = datetime.datetime.now(datetime.timezone.utc)\nnamespace = {}\nsource = pathlib.Path(\"service.py\").read_text()\nexec(compile(source, \"service.py\", \"exec\"), namespace)\nService = namespace[\"Service\"]\nmigrate_sessions = namespace[\"migrate_sessions\"]\nresults = []\n\ndef observe(label, operation):\n    try:\n        return {\"label\": label, \"kind\": \"returned\", \"value\": operation()}\n    except Exception as error:\n        return {\"label\": label, \"kind\": \"raised\", \"type\": type(error).__name__, \"message\": str(error)}\n\noutsider = {\"id\": \"synthetic-outsider\", \"tenants\": []}\nred_user = {\"id\": \"synthetic-red\", \"tenants\": [\"red\"]}\nblue_user = {\"id\": \"synthetic-blue\", \"tenants\": [\"blue\"]}\n\ncold = Service()\nr = observe(\"cold unauthorized red request\", lambda: cold.fetch(outsider, \"red\", \"42\"))\nassert r[\"kind\"] == \"raised\" and r[\"type\"] == \"PermissionError\"\nr[\"contract_satisfied\"] = True\nresults.append(r)\n\nwarm = Service()\nassert warm.fetch(red_user, \"red\", \"42\") == \"red-private\"\nr = observe(\"warm unauthorized red request\", lambda: warm.fetch(outsider, \"red\", \"42\"))\nassert r[\"kind\"] == \"returned\" and r[\"value\"] == \"red-private\"\nr.update(contract_satisfied=False, expected=\"PermissionError\", finding=\"F1\")\nresults.append(r)\n\nrevoked_user = {\"id\": \"synthetic-revoked\", \"tenants\": [\"red\"]}\nrevoked = Service()\nassert revoked.fetch(revoked_user, \"red\", \"42\") == \"red-private\"\nrevoked_user[\"tenants\"].clear()\nr = observe(\"warm red request after membership revocation\", lambda: revoked.fetch(revoked_user, \"red\", \"42\"))\nassert r[\"kind\"] == \"returned\" and r[\"value\"] == \"red-private\"\nr.update(contract_satisfied=False, expected=\"PermissionError\", finding=\"F1\")\nresults.append(r)\n\nfor first_tenant, first_user, second_tenant, second_user in [\n    (\"red\", red_user, \"blue\", blue_user),\n    (\"blue\", blue_user, \"red\", red_user),\n]:\n    service = Service()\n    first = service.fetch(first_user, first_tenant, \"42\")\n    assert first == first_tenant + \"-private\"\n    r = observe(\n        f\"same ID collision: {first_tenant} warmed then authorized {second_tenant}\",\n        lambda: service.fetch(second_user, second_tenant, \"42\"),\n    )\n    assert r[\"kind\"] == \"returned\" and r[\"value\"] == first\n    assert r[\"value\"] != second_tenant + \"-private\"\n    r.update(contract_satisfied=False, expected=second_tenant + \"-private\", finding=\"F2\")\n    results.append(r)\n\nfor label, sessions in [\n    (\"empty sessions control\", []),\n    (\"one active session\", [{\"id\": \"synthetic-session-1\", \"user_id\": \"synthetic-red\", \"active\": True}]),\n    (\"multiple active sessions\", [\n        {\"id\": \"synthetic-session-1\", \"user_id\": \"synthetic-red\", \"active\": True},\n        {\"id\": \"synthetic-session-2\", \"user_id\": \"synthetic-blue\", \"active\": True},\n    ]),\n    (\"active session among inactive sessions\", [\n        {\"id\": \"synthetic-session-1\", \"user_id\": \"synthetic-red\", \"active\": True},\n        {\"id\": \"synthetic-session-old\", \"user_id\": \"synthetic-blue\", \"active\": False},\n    ]),\n]:\n    original = copy.deepcopy(sessions)\n    migrated = migrate_sessions(sessions)\n    assert migrated == []\n    assert sessions == original\n    required_ids = [session[\"id\"] for session in sessions if session[\"active\"]]\n    present_ids = [session[\"id\"] for session in migrated]\n    satisfied = all(session_id in present_ids for session_id in required_ids)\n    assert satisfied == (len(required_ids) == 0)\n    results.append({\n        \"label\": label,\n        \"input\": sessions,\n        \"returned\": migrated,\n        \"active_ids_required\": required_ids,\n        \"contract_satisfied\": satisfied,\n        \"finding\": None if satisfied else \"F3\",\n        \"input_unchanged\": True,\n    })\n\nhashes = {name: hashlib.sha256(pathlib.Path(name).read_bytes()).hexdigest()\n          for name in [\"../policy.md\", \"service.py\", \"release-contract.md\"]}\nended = datetime.datetime.now(datetime.timezone.utc)\nprint(json.dumps({\n    \"started_utc\": started.isoformat(),\n    \"ended_utc\": ended.isoformat(),\n    \"elapsed_seconds\": (ended-started).total_seconds(),\n    \"reproductions\": results,\n    \"checks_count\": len(results),\n    \"contract_violation_cases\": sum(not result[\"contract_satisfied\"] for result in results),\n    \"source_hashes_after_reproductions\": hashes,\n    \"source_writes\": 0,\n    \"network_actions\": 0,\n}, indent=2))\nPY",
+      "exit_code": 0,
+      "result": {
+        "started_utc": "2026-09-08T07:49:14.567488+00:00",
+        "ended_utc": "2026-09-08T07:49:14.569243+00:00",
+        "elapsed_seconds": 0.001755,
+        "reproductions": [
+          {
+            "label": "cold unauthorized red request",
+            "kind": "raised",
+            "type": "PermissionError",
+            "message": "denied",
+            "contract_satisfied": true
+          },
+          {
+            "label": "warm unauthorized red request",
+            "kind": "returned",
+            "value": "red-private",
+            "contract_satisfied": false,
+            "expected": "PermissionError",
+            "finding": "F1"
+          },
+          {
+            "label": "warm red request after membership revocation",
+            "kind": "returned",
+            "value": "red-private",
+            "contract_satisfied": false,
+            "expected": "PermissionError",
+            "finding": "F1"
+          },
+          {
+            "label": "same ID collision: red warmed then authorized blue",
+            "kind": "returned",
+            "value": "red-private",
+            "contract_satisfied": false,
+            "expected": "blue-private",
+            "finding": "F2"
+          },
+          {
+            "label": "same ID collision: blue warmed then authorized red",
+            "kind": "returned",
+            "value": "blue-private",
+            "contract_satisfied": false,
+            "expected": "red-private",
+            "finding": "F2"
+          },
+          {
+            "label": "empty sessions control",
+            "input": [],
+            "returned": [],
+            "active_ids_required": [],
+            "contract_satisfied": true,
+            "finding": null,
+            "input_unchanged": true
+          },
+          {
+            "label": "one active session",
+            "input": [
+              {
+                "id": "synthetic-session-1",
+                "user_id": "synthetic-red",
+                "active": true
+              }
+            ],
+            "returned": [],
+            "active_ids_required": [
+              "synthetic-session-1"
+            ],
+            "contract_satisfied": false,
+            "finding": "F3",
+            "input_unchanged": true
+          },
+          {
+            "label": "multiple active sessions",
+            "input": [
+              {
+                "id": "synthetic-session-1",
+                "user_id": "synthetic-red",
+                "active": true
+              },
+              {
+                "id": "synthetic-session-2",
+                "user_id": "synthetic-blue",
+                "active": true
+              }
+            ],
+            "returned": [],
+            "active_ids_required": [
+              "synthetic-session-1",
+              "synthetic-session-2"
+            ],
+            "contract_satisfied": false,
+            "finding": "F3",
+            "input_unchanged": true
+          },
+          {
+            "label": "active session among inactive sessions",
+            "input": [
+              {
+                "id": "synthetic-session-1",
+                "user_id": "synthetic-red",
+                "active": true
+              },
+              {
+                "id": "synthetic-session-old",
+                "user_id": "synthetic-blue",
+                "active": false
+              }
+            ],
+            "returned": [],
+            "active_ids_required": [
+              "synthetic-session-1"
+            ],
+            "contract_satisfied": false,
+            "finding": "F3",
+            "input_unchanged": true
+          }
+        ],
+        "checks_count": 9,
+        "contract_violation_cases": 7,
+        "source_hashes_after_reproductions": {
+          "../policy.md": "96edd7ec4620066ed4e0b327c334fc2e27627ca5071ac5b562adff3a83275e66",
+          "service.py": "4a9c223aa16a8ac1954e51d6bc76a5f38238998e316fa4a274fb6a898dfbeaef",
+          "release-contract.md": "33aa07a6aa0ded35b8e7ff3805758ff53a9d421ec4e660363613d6bbf774a80f"
+        },
+        "source_writes": 0,
+        "network_actions": 0
+      }
+    },
+    {
+      "operation": "Final python3 -B inline validator: parse output.json, check three findings and nine reproductions, compare all input SHA-256 hashes, update UTC telemetry, write and reparse output.json",
+      "result": "passed"
+    }
+  ],
+  "validation_summary": {
+    "reproductions_executed": 9,
+    "contract_violation_cases": 7,
+    "satisfied_controls": 2,
+    "assertion_meaning": "The harness exits 0 because each predicted defect and control was reproduced. This is evidence of broken release requirements, not a passing product test suite.",
+    "regression_tests_written": false,
+    "source_hashes_before": {
+      "../policy.md": "96edd7ec4620066ed4e0b327c334fc2e27627ca5071ac5b562adff3a83275e66",
+      "service.py": "4a9c223aa16a8ac1954e51d6bc76a5f38238998e316fa4a274fb6a898dfbeaef",
+      "release-contract.md": "33aa07a6aa0ded35b8e7ff3805758ff53a9d421ec4e660363613d6bbf774a80f"
+    },
+    "source_hashes_after_reproductions": {
+      "../policy.md": "96edd7ec4620066ed4e0b327c334fc2e27627ca5071ac5b562adff3a83275e66",
+      "service.py": "4a9c223aa16a8ac1954e51d6bc76a5f38238998e316fa4a274fb6a898dfbeaef",
+      "release-contract.md": "33aa07a6aa0ded35b8e7ff3805758ff53a9d421ec4e660363613d6bbf774a80f"
+    },
+    "byte_identical_by_sha256": true,
+    "project_commands": "TBD in supplied AGENTS policy; no configured project suite claimed or invented.",
+    "final_artifact_parse": "passed",
+    "final_source_hashes": {
+      "../policy.md": "96edd7ec4620066ed4e0b327c334fc2e27627ca5071ac5b562adff3a83275e66",
+      "service.py": "4a9c223aa16a8ac1954e51d6bc76a5f38238998e316fa4a274fb6a898dfbeaef",
+      "release-contract.md": "33aa07a6aa0ded35b8e7ff3805758ff53a9d421ec4e660363613d6bbf774a80f"
+    },
+    "final_fixture_integrity_check": "passed; all three input files byte-identical by SHA-256"
+  },
+  "evidence_limits": [
+    "Evidence covers only the supplied 15-line service fixture and one-line release contract under local Python synthetic execution.",
+    "User/tenant labels, private-document strings, and session records are synthetic. The active field is a synthetic test convention; no production session schema is provided.",
+    "No other arms, oracle/expected-result files, production systems, credentials, network targets, provider setup, or deployment state were inspected.",
+    "No persistence layer or migration caller is supplied; actual database deletion, deployed vulnerability, and real user impact are not established.",
+    "No concurrency/revocation race semantics beyond sequential current-membership checks are specified or tested.",
+    "No full application integration, corrected implementation, release acceptance, or merge readiness is asserted."
+  ],
+  "telemetry": {
+    "first_observed_utc": "2026-09-08T07:48:01Z",
+    "initial_clock_precision": "1 second; observation occurred after the first independent read batch started",
+    "reproduction_started_utc": "2026-09-08T07:49:14.567488+00:00",
+    "reproduction_ended_utc": "2026-09-08T07:49:14.569243+00:00",
+    "reproduction_elapsed_seconds": 0.001755,
+    "final_observed_utc": "2026-09-08T07:51:51.251795+00:00",
+    "observed_elapsed_seconds": 230.251795,
+    "tool_calls": {
+      "functions_exec_wrappers_through_planned_final_validation": 5,
+      "nested_tool_invocations_through_planned_final_validation": 9,
+      "nested_breakdown": {
+        "exec_command": 7,
+        "clock__curr_time": 1,
+        "apply_patch": 1
+      },
+      "total_wrapper_and_nested_invocations": 14,
+      "count_boundary": "Agent transcript from first tools call through this final artifact-validation command; wrappers and nested invocations counted separately, including the current call. Parent orchestration excluded."
+    },
+    "tokens": {
+      "status": "unavailable",
+      "reason": "No runtime input/output/reasoning token telemetry exposed."
+    },
+    "cost": {
+      "status": "unavailable",
+      "reason": "No measured usage or billing telemetry exposed."
+    },
+    "elapsed_boundary": "First observed UTC clock result to final artifact validator's UTC timestamp; excludes unobserved time before the first clock read and final message delivery."
+  },
+  "reviewer_handoff": {
+    "status": "Findings",
+    "role": "reviewer",
+    "reasoning_profile": "critical",
+    "model_effort": "Assigned arm astra-xhigh; independent runtime verification unavailable",
+    "execution_mode": "subagent",
+    "parent_lane_owner": "/root",
+    "return_path": "Parent lane return",
+    "feature_slice": "Authentication/cache boundary and proposed session migration",
+    "parallel_track": "none; bounded evaluation arm",
+    "reviewed_state": "HEAD 4d5c3d9a518f86c03d3cb68a0280909fae96425b plus fixture hashes recorded above",
+    "findings": [
+      "F1 P1 cache-hit authorization bypass",
+      "F2 P1 cross-tenant cache collision",
+      "F3 P1 active-session loss in migration output"
+    ],
+    "checks_executed": "Nine synthetic local cases, including two controls and seven contract violations; source hashes unchanged",
+    "checks_not_run": "Production, network, persistent/destructive migration, full app suite, candidate-fix validation",
+    "optional_improvements": [],
+    "residual_risks": "All three release-blocking fixture defects remain unfixed; actual deployed impact is unverified.",
+    "changed_files": [
+      "/Users/bo/Codex/mamkin-builder/tmp/astra-eval-20260908/astra-xhigh/output.json"
+    ],
+    "source_changes": [],
+    "recommended_next_action": "Parent inspects this single packet and routes corrections plus independent verification. Parent retains human decisions and all release/external/destructive gates.",
+    "release_acceptance": "Not performed or claimed",
+    "return_once_then_stop": true
+  }
+}
