@@ -19,6 +19,7 @@ Mixed files requiring or receiving reconciliation:
 Existing collisions protected:
 Project docs created or adapted:
 Project commands discovered:
+Environment-variable names and source locations (no values; unavailable if not evidenced):
 Git delivery defaults:
 Baseline checks run:
 Baseline failures or gaps:

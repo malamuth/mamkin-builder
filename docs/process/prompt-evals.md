@@ -108,6 +108,18 @@ Retain an explicit Sol/medium coordinator baseline while preparing a focused ret
 
 Raw evidence is retained in the template repository at `docs/follow-ups/astra-evaluation-2026-09-08/` (README, source snapshots, hashes, all arm outputs, and independent scores); it is project-owned evaluation history, not a process file to copy into downstream projects. Live user steering, actual delegation, UI work, production/external gates, repeated-run variance, and historical-prompt ablation remain untested. Two stale Sol names in active routing expectations were corrected before these trials; historical matrix evidence was preserved.
 
+### Focused Full-Packet Retest (2026-09-08)
+
+This supersedes the coordinator rollback above: resume the user-requested Astra/medium pilot after the known packet failures were repaired. Preserve the earlier failed experiment and raw scores; the new matrix entry has a narrower, explicit acceptance scope.
+
+With full relevant protocols supplied and no 110-word cap, Sol passed 4/7 packets; Astra passed 6/7 both before and after the initial wording edits. The four original omissions cleared even before those edits, so context/format contributed and no isolated wording benefit is established. The edits make formatter disposition, recommendation approval, variable-name inventory and complete worker assignments explicit at their owning surfaces.
+
+The remaining failure in both Astra runs was a fabricated `docs/process/roles/worker.md` source. Add pre-dispatch source resolution and the canonical `docs/process/roles/implementation.md` mapping. Two fresh Astra/medium runs each passed the worker assignment and stale-source control with the actual role card/preset inventory supplied. These changes jointly address the handoff defect; their separate effects were not isolated.
+
+The adoption oracle now separates seed-only authority from expressly approved manual adaptations. Neither permits modifying protected template-owned collisions. A new positive manual-adaptation control and a stale-role-source control bring the suite to 38 defined cases. Do not rescore historical outputs against the revised oracle.
+
+Independent scores and raw snapshots are retained in the template repository at `docs/follow-ups/astra-policy-retest-2026-09-08/`. Known failures clear across staged focused trials, not one fresh full-suite execution. Existing local implementation and specialist fixture evidence retains its original limits. Actual project coordination, live steering, external actions and Sambl execution remain untested; comparable resource telemetry is unavailable. Keep effort unchanged and verify the resumed pilot in a separate project migration review before broad adoption.
+
 | Date | Change | Structural result | Behavioral evidence | Reasoning decision |
 | --- | --- | --- | --- | --- |
 | 2026-07-15 | Centralized worker contract, slimmed always-loaded instructions, routed rare thread/reset paths, and removed workflow injection from `SubagentStart`. | `AGENTS.md` 548 words; coordinator default 5,746 words; orchestration 3,752 words; one active manual-relay invariant. | Not run before refactor; representative suite added for future fresh-task runs. | Keep root and role presets at `high` until same-case `high` versus `medium` evidence exists. |

@@ -1,0 +1,14 @@
+[
+  {
+    "id": "model-route-balanced-worker",
+    "request": "Implement the accepted one-file validation change and run its named unit test.",
+    "setup": "The contract, allowed file, expected behavior, rollback, and deterministic test are explicit; no shared contract or critical signal is present.",
+    "fixtureFacts": "Synthetic policy exercise. Project /fixture/project, source /fixture/template; source commit <SOURCE_COMMIT>, target commit <TARGET_COMMIT>, plan digest <PLAN_DIGEST> are supplied symbolic identifiers, not actual Git facts. Do not invent concrete hashes or claim execution. Parent lane owner /coordinator; one bounded subagent may edit docs/labels.md; all acceptance and architecture decisions settled. Named check: python3 scripts/check_labels.py. Feature branch codex/f12-labels and current project worktree; local branch+commit authority granted, no external Git authority. Parent assigns a distinct verifier. Sources are docs/project/active-decisions.md and features/12-labels.md, supplied as symbolic references. Do not execute the edit; produce the full assignment."
+  },
+  {
+    "id": "worker-role-source-resolution",
+    "request": "Prepare the bounded implementation assignment using the current role sources.",
+    "setup": "A stale handoff names docs/process/roles/worker.md. The verified current source inventory contains the implementation role card and the mamkin-worker preset, whose Read first names the canonical card. No source exists at the stale path. Implementation scope and acceptance are otherwise settled.",
+    "fixtureFacts": "Synthetic policy exercise. Project /fixture/project, source /fixture/template; source commit <SOURCE_COMMIT>, target commit <TARGET_COMMIT>, plan digest <PLAN_DIGEST> are supplied symbolic identifiers, not actual Git facts. Do not invent concrete hashes or claim execution. Parent lane owner /coordinator; one bounded subagent may edit docs/labels.md; all acceptance and architecture decisions settled. Named check: python3 scripts/check_labels.py. Feature branch codex/f12-labels and current project worktree; local branch+commit authority granted, no external Git authority. Parent assigns a distinct verifier. Sources are docs/project/active-decisions.md and features/12-labels.md, supplied as symbolic references. Do not execute the edit; produce the full assignment."
+  }
+]

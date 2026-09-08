@@ -331,6 +331,46 @@
       "resourceMetrics": "Comparable latency, tokens, tool counts and cost unavailable; observation boundaries differ.",
       "evidenceDate": "2026-09-08",
       "evidencePath": "mamkin-builder: docs/follow-ups/astra-evaluation-2026-09-08/"
+    },
+    {
+      "roleClass": "astra-coordinator-full-packet-retest",
+      "caseIds": [
+        "project-evolution-profit-gate",
+        "project-evolution-no-auto-apply",
+        "project-native-capability-ladder",
+        "model-route-balanced-worker",
+        "brownfield-adoption-review",
+        "brownfield-adoption-apply-gate",
+        "brownfield-adoption-approved-manual",
+        "worker-role-source-resolution"
+      ],
+      "baseline": {
+        "model": "gpt-5.6-sol",
+        "reasoningEffort": "medium",
+        "result": "Pre-edit full-context packets 4/7; raw scores retained. Source-resolution control subsequently passed 2/2 packets (12/12 rubric points)."
+      },
+      "candidate": {
+        "model": "gpt-6-astra",
+        "reasoningEffort": "medium",
+        "result": "Pre-edit and first-revision full-context packets each 6/7. The sole worker-source defect was repaired and both worker cases passed in two fresh runs (4/4 packets, 24/24 rubric points)."
+      },
+      "control": {
+        "model": "gpt-6-astra",
+        "reasoningEffort": "medium",
+        "policy": "pre-edit with full relevant protocols",
+        "result": "6/7: original omissions clear even without wording edits; nonexistent worker role source remains."
+      },
+      "status": "passed",
+      "decision": "adopt-candidate",
+      "evidenceDate": "2026-09-08",
+      "evidenceKind": "Focused policy-only gate: known failures cleared across staged source-aware retests; not one new full-suite run or executed coordinator acceptance. Resume existing user-directed pilot only.",
+      "resourceMetrics": "Comparable latency, tokens and cost unavailable.",
+      "evidencePath": "mamkin-builder: docs/follow-ups/astra-policy-retest-2026-09-08/",
+      "limitations": [
+        "Historical capped-response failures remain unchanged.",
+        "No isolated wording-only improvement established; supplied context and source inventory matter.",
+        "Earlier unaffected cases were not rerun; broader project execution remains pending."
+      ]
     }
   ]
 }

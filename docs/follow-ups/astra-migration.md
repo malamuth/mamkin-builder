@@ -39,3 +39,11 @@ This bounded evaluation does not exercise real external writes, interactive UI, 
 ## Evaluation Outcome
 
 The first matched evaluation is recorded in `astra-evaluation-2026-09-08/README.md`. Coordinator policy gate incomplete: restore explicit Sol/medium, despite Astra's higher strict score. Retain Astra/high and Astra/xhigh as specialist pilots with bounded fixture support, not a global quality claim. No effort reduction is justified. Sambl remains untouched; its separate migration should start with review, preserve high effort, and treat coordinator activation as pending a focused retest. Publishing or use of this local-only source still requires its own exact authorization.
+
+## Focused Policy Correction And Retest
+
+The human requested omission fixes and the next retest. Continue under the same Git contract from `cb9892e`. Make packet-level requirements explicit, reconcile the adoption oracle with separate seed/manual authority, and compare uncapped full packets with relevant protocols supplied. Hold model effort at medium. Compare Sol and Astra with unchanged pre-edit policy, then Astra with revised policy; preserve prior raw evidence. Independently score corrected cases and neighboring permission controls. Do not infer general execution or Sambl readiness from policy-only retests.
+
+## Focused Retest Outcome
+
+The original omissions clear with full relevant context. Both Astra policy versions scored 6/7; Sol scored 4/7. The newly observed worker-role path defect was fixed with current-file resolution and an explicit canonical mapping. Two fresh Astra runs passed both worker controls, supporting resumption of the requested Astra/medium coordinator pilot. Keep historical failed results and distinguish staged focused acceptance from an executed full-suite claim. See `astra-policy-retest-2026-09-08/README.md`. Sambl remains unchanged; proceed next with its separate read-only migration review and preserve high effort there.

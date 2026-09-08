@@ -1,0 +1,132 @@
+{
+  "cases": [
+    {
+      "id": "model-route-balanced-worker",
+      "packet": {
+        "Role": "implementation",
+        "Reasoning profile": "balanced",
+        "Profile trigger and risk floor": "Balanced is the risk floor because this is a reversible, well-specified, one-file implementation with explicit acceptance behavior and a deterministic local check. No shared-contract, cross-component, security, production, destructive, external-state, or other deep/critical signal is supplied. Escalate only if new evidence raises that floor.",
+        "Agent preset / model / effort": "mamkin-worker / gpt-5.6-terra / medium",
+        "Access posture": "workspace-write",
+        "Escalation conditions": "Stop and return to /coordinator if two focused attempts fail without explaining the cause; authoritative requirements or sources conflict; scope expands beyond docs/labels.md or crosses a component/shared contract; the named validation oracle becomes nondeterministic or insufficient; a security, production-data, destructive-migration, concurrency-correctness, or irreversible-external-state signal appears; a human decision, secret, external service, system/global tool, local service, destructive action, wrong worktree, wrong branch, or duplicate ownership is encountered. Report the current balanced profile, requested higher profile, trigger evidence, and next bounded action; do not silently change models or effort.",
+        "Goal": "Implement the accepted labels validation behavior described by features/12-labels.md as one bounded edit to docs/labels.md in the current /fixture/project worktree on branch codex/f12-labels, then run the named focused check and create a focused local commit if the declared branch/worktree and source preconditions are satisfied.",
+        "Success criteria": "Only docs/labels.md is intentionally changed; the result matches features/12-labels.md and docs/project/active-decisions.md; python3 scripts/check_labels.py passes; every changed file and any generated churn are reported; the work is committed locally and the worktree is clean when local commit preconditions remain satisfied; no external Git or other external action occurs; one complete implementation handoff is returned to /coordinator for inspection and independent verification.",
+        "Required evidence and source authority": "Current human decisions and current project sources are authoritative. Read docs/project/active-decisions.md and features/12-labels.md before editing and cite the exact acceptance behavior they establish in the return packet. Verify pwd, git status --short --branch, and git rev-parse HEAD before editing; confirm /fixture/project, branch codex/f12-labels, and the expected starting state. <SOURCE_COMMIT>, <TARGET_COMMIT>, and <PLAN_DIGEST> are supplied symbolic identifiers only: do not replace them with invented hashes, describe them as observed Git facts, or claim they were verified by this assignment exercise. Generated or test evidence proves only the named observed behavior and does not establish broader architecture, merge readiness, or delivery.",
+        "Scope and allowed files": "Project/worktree: /fixture/project, current worktree. Sole implementation file: docs/labels.md. Read-only sources: AGENTS.md, docs/process/roles/implementation.md, docs/process/execution-lane-routing.md, docs/process/handoff-packets/implementation.md, docs/project/active-decisions.md, features/12-labels.md, and the existing script needed to run python3 scripts/check_labels.py. Do not edit the feature spec, active decisions, test script, process sources, configuration, or any other file.",
+        "Human and permission boundaries": "Local branch creation/use and a focused local commit on codex/f12-labels are authorized, subject to the worker first confirming the declared branch/worktree and clean ownership boundary. External Git authority is none: do not fetch, pull, push, open or merge a PR, merge to a base branch, delete a branch, or remove a worktree. Do not access secrets, paid services, production data/systems, providers, DNS, public posting, external resources, destructive migrations, or system/global tooling. Route any required human decision through /coordinator.",
+        "Validation required": "Planned check: run python3 scripts/check_labels.py after the edit in /fixture/project. Also inspect the resulting diff/status to confirm docs/labels.md is the only intentional changed file, report generated churn separately, and confirm the final branch/HEAD and clean committed state when committing is possible. Independent acceptance is assigned by the parent to a distinct verifier; this implementation worker must not issue the final acceptance verdict.",
+        "Executed evidence at assignment time": "None. This is a synthetic assignment-only exercise: no repository preflight, edit, Git operation, or validation command has been executed, and no concrete commit hash, dirty-state result, test result, or acceptance result is claimed.",
+        "Output packet": "Return exactly one completed docs/process/handoff-packets/implementation.md packet to /coordinator. Include Status; Role; Reasoning profile used; Model and effort used; Profile trigger or escalation evidence; Execution mode; Parent lane owner; Return path; Feature/Slice; Parallel track; delivery/worktree/branch/base/final state; changed files and generated churn; checks run and not run; risks and retest focus; integration checks; human steps; Git closeout; and whether secrets/live systems were touched. Use Status: Ready for walkthrough only when the bounded implementation is committed cleanly and the named check passes; otherwise use Needs review or Blocked with the exact gap. Do not claim Merge-ready, Delivered, or final acceptance.",
+        "Stop and fallback rules": "Return once to /coordinator and stop. Before editing, return Blocked if any required source is unavailable, the actual project/worktree/branch does not match, the ownership boundary is dirty or overlaps another writer, the Git preconditions cannot be established, or the assignment conflicts with current authoritative sources. During work, stop on any escalation condition or human gate. If the edit succeeds but the test or commit cannot complete, preserve the bounded state, do not hide the gap, and return Needs review or Blocked with the exact failure, evidence obtained, and next safe bounded action.",
+        "Execution mode": "subagent",
+        "Assigned return destination": "/coordinator",
+        "Read first": [
+          "AGENTS.md",
+          "docs/process/roles/implementation.md",
+          "docs/process/execution-lane-routing.md",
+          "features/12-labels.md",
+          "docs/project/active-decisions.md",
+          "docs/process/handoff-packets/implementation.md"
+        ],
+        "Parent lane owner": "/coordinator",
+        "Subagents": "not allowed",
+        "Expected worktree": "/fixture/project current worktree",
+        "Files or surfaces owned": "docs/labels.md only",
+        "Changed-files report required": "yes",
+        "Allowed worktree sharing": "disjoint files only",
+        "Do not edit": "Every path except docs/labels.md, including AGENTS.md, docs/process/**, docs/project/active-decisions.md, features/12-labels.md, scripts/check_labels.py, project configuration, generated sources, lockfiles, and Git closeout metadata.",
+        "Parallel track": "not applicable; this is a single bounded subagent assignment",
+        "Git delivery context": {
+          "Base branch": "unknown; not supplied",
+          "Base/starting commit": "<TARGET_COMMIT> is a symbolic supplied identifier, not an observed Git fact; the worker must verify the actual starting HEAD and report any mismatch without inventing a hash",
+          "Feature branch": "codex/f12-labels",
+          "Worktree": "current /fixture/project worktree",
+          "Delivery mode": "feature branch",
+          "Direct-to-base rationale and approval": "N/A",
+          "Integration path": "unknown; coordinator-owned and no integration is authorized for this worker",
+          "Merge method": "unknown; coordinator-owned",
+          "Remote and base target": "unknown; no external Git authority",
+          "Local Git authority": "branch + commit",
+          "External Git authority": "none",
+          "Remote branch cleanup": "unknown; coordinator-owned and not authorized for this worker",
+          "Closeout owner": "/coordinator"
+        },
+        "Synthetic source metadata": {
+          "Project": "/fixture/project",
+          "Mamkin source": "/fixture/template",
+          "Source commit": "<SOURCE_COMMIT> (symbolic; unverified here)",
+          "Target commit": "<TARGET_COMMIT> (symbolic; unverified here)",
+          "Plan digest": "<PLAN_DIGEST> (symbolic; unverified here)"
+        }
+      }
+    },
+    {
+      "id": "worker-role-source-resolution",
+      "packet": {
+        "Role": "implementation",
+        "Reasoning profile": "balanced",
+        "Profile trigger and risk floor": "Balanced is the risk floor because, after resolving the stale role-card reference from the verified current source inventory, this remains a reversible, well-specified, one-file implementation with explicit acceptance behavior and a deterministic local check. The stale path is an obsolete handoff detail, not an unresolved architectural conflict. No deep or critical signal is supplied; escalate only on new evidence.",
+        "Agent preset / model / effort": "mamkin-worker / gpt-5.6-terra / medium",
+        "Access posture": "workspace-write",
+        "Escalation conditions": "Stop and return to /coordinator if two focused attempts fail without explaining the cause; current authoritative requirements or sources conflict after the stale path is discarded; scope expands beyond docs/labels.md or crosses a component/shared contract; the named validation oracle becomes nondeterministic or insufficient; a security, production-data, destructive-migration, concurrency-correctness, or irreversible-external-state signal appears; a human decision, secret, external service, system/global tool, local service, destructive action, wrong worktree, wrong branch, or duplicate ownership is encountered. Report the current balanced profile, requested higher profile, trigger evidence, and next bounded action; do not silently change models or effort.",
+        "Goal": "Using the current canonical implementation role source, implement the accepted labels validation behavior described by features/12-labels.md as one bounded edit to docs/labels.md in the current /fixture/project worktree on branch codex/f12-labels, then run the named focused check and create a focused local commit if the declared branch/worktree and source preconditions are satisfied.",
+        "Success criteria": "The obsolete docs/process/roles/worker.md reference is not used; only docs/labels.md is intentionally changed; the result matches features/12-labels.md and docs/project/active-decisions.md; python3 scripts/check_labels.py passes; every changed file and any generated churn are reported; the work is committed locally and the worktree is clean when local commit preconditions remain satisfied; no external Git or other external action occurs; one complete implementation handoff is returned to /coordinator for inspection and independent verification.",
+        "Required evidence and source authority": "The verified current source inventory establishes docs/process/roles/implementation.md as the canonical role card and .codex/agents/mamkin-worker.toml as the compatible workspace-write preset using gpt-5.6-terra at medium effort. docs/process/roles/worker.md does not exist in the supplied current inventory and must be treated as an obsolete stale-handoff reference, not guessed or recreated. Current human decisions and current project sources are authoritative. Read docs/project/active-decisions.md and features/12-labels.md before editing and cite the exact acceptance behavior they establish in the return packet. Verify pwd, git status --short --branch, and git rev-parse HEAD before editing; confirm /fixture/project, branch codex/f12-labels, and the expected starting state. <SOURCE_COMMIT>, <TARGET_COMMIT>, and <PLAN_DIGEST> are supplied symbolic identifiers only: do not replace them with invented hashes, describe them as observed Git facts, or claim they were verified by this assignment exercise. Generated or test evidence proves only the named observed behavior and does not establish broader architecture, merge readiness, or delivery.",
+        "Scope and allowed files": "Project/worktree: /fixture/project, current worktree. Sole implementation file: docs/labels.md. Read-only sources: AGENTS.md, docs/process/roles/implementation.md, docs/process/execution-lane-routing.md, docs/process/handoff-packets/implementation.md, docs/project/active-decisions.md, features/12-labels.md, and the existing script needed to run python3 scripts/check_labels.py. The stale docs/process/roles/worker.md path is unavailable and excluded. Do not edit the feature spec, active decisions, test script, process sources, configuration, or any other file.",
+        "Human and permission boundaries": "Local branch creation/use and a focused local commit on codex/f12-labels are authorized, subject to the worker first confirming the declared branch/worktree and clean ownership boundary. External Git authority is none: do not fetch, pull, push, open or merge a PR, merge to a base branch, delete a branch, or remove a worktree. Do not access secrets, paid services, production data/systems, providers, DNS, public posting, external resources, destructive migrations, or system/global tooling. Route any required human decision through /coordinator.",
+        "Validation required": "Planned check: run python3 scripts/check_labels.py after the edit in /fixture/project. Also inspect the resulting diff/status to confirm docs/labels.md is the only intentional changed file, report generated churn separately, and confirm the final branch/HEAD and clean committed state when committing is possible. Independent acceptance is assigned by the parent to a distinct verifier; this implementation worker must not issue the final acceptance verdict.",
+        "Executed evidence at assignment time": "The supplied current source inventory was read for this assignment and identifies the canonical implementation role card and mamkin-worker preset while stating that the stale worker.md source does not exist. No synthetic project repository preflight, edit, Git operation, or validation command has been executed, and no concrete commit hash, dirty-state result, test result, or acceptance result is claimed.",
+        "Output packet": "Return exactly one completed docs/process/handoff-packets/implementation.md packet to /coordinator. Include Status; Role; Reasoning profile used; Model and effort used; Profile trigger or escalation evidence; Execution mode; Parent lane owner; Return path; Feature/Slice; Parallel track; delivery/worktree/branch/base/final state; changed files and generated churn; checks run and not run; risks and retest focus; integration checks; human steps; Git closeout; and whether secrets/live systems were touched. Use Status: Ready for walkthrough only when the bounded implementation is committed cleanly and the named check passes; otherwise use Needs review or Blocked with the exact gap. Do not claim Merge-ready, Delivered, or final acceptance.",
+        "Stop and fallback rules": "Return once to /coordinator and stop. Do not stop merely because docs/process/roles/worker.md is absent: use the verified canonical docs/process/roles/implementation.md source. Before editing, return Blocked if the canonical role card or any other required source is unavailable, the actual project/worktree/branch does not match, the ownership boundary is dirty or overlaps another writer, the Git preconditions cannot be established, or current authoritative sources conflict. During work, stop on any escalation condition or human gate. If the edit succeeds but the test or commit cannot complete, preserve the bounded state, do not hide the gap, and return Needs review or Blocked with the exact failure, evidence obtained, and next safe bounded action.",
+        "Execution mode": "subagent",
+        "Assigned return destination": "/coordinator",
+        "Read first": [
+          "AGENTS.md",
+          "docs/process/roles/implementation.md",
+          "docs/process/execution-lane-routing.md",
+          "features/12-labels.md",
+          "docs/project/active-decisions.md",
+          "docs/process/handoff-packets/implementation.md"
+        ],
+        "Source-resolution note": "Replace the stale handoff reference docs/process/roles/worker.md with the verified canonical docs/process/roles/implementation.md. Do not create, infer, or read a worker.md role card. The mamkin-worker name identifies the preset in .codex/agents/mamkin-worker.toml; it is not a role-card filename.",
+        "Parent lane owner": "/coordinator",
+        "Subagents": "not allowed",
+        "Expected worktree": "/fixture/project current worktree",
+        "Files or surfaces owned": "docs/labels.md only",
+        "Changed-files report required": "yes",
+        "Allowed worktree sharing": "disjoint files only",
+        "Do not edit": "Every path except docs/labels.md, including AGENTS.md, docs/process/**, docs/project/active-decisions.md, features/12-labels.md, scripts/check_labels.py, project configuration, generated sources, lockfiles, and Git closeout metadata. In particular, do not create docs/process/roles/worker.md.",
+        "Parallel track": "not applicable; this is a single bounded subagent assignment",
+        "Git delivery context": {
+          "Base branch": "unknown; not supplied",
+          "Base/starting commit": "<TARGET_COMMIT> is a symbolic supplied identifier, not an observed Git fact; the worker must verify the actual starting HEAD and report any mismatch without inventing a hash",
+          "Feature branch": "codex/f12-labels",
+          "Worktree": "current /fixture/project worktree",
+          "Delivery mode": "feature branch",
+          "Direct-to-base rationale and approval": "N/A",
+          "Integration path": "unknown; coordinator-owned and no integration is authorized for this worker",
+          "Merge method": "unknown; coordinator-owned",
+          "Remote and base target": "unknown; no external Git authority",
+          "Local Git authority": "branch + commit",
+          "External Git authority": "none",
+          "Remote branch cleanup": "unknown; coordinator-owned and not authorized for this worker",
+          "Closeout owner": "/coordinator"
+        },
+        "Synthetic source metadata": {
+          "Project": "/fixture/project",
+          "Mamkin source": "/fixture/template",
+          "Source commit": "<SOURCE_COMMIT> (symbolic; unverified here)",
+          "Target commit": "<TARGET_COMMIT> (symbolic; unverified here)",
+          "Plan digest": "<PLAN_DIGEST> (symbolic; unverified here)"
+        }
+      }
+    }
+  ],
+  "limitations": [
+    "This output was produced only from policy.md and inputs.json in the assigned worker-sol directory; no other arm, oracle, live repository file, role file, feature file, project file, Git state, or scenario command was inspected.",
+    "The fixture paths and <SOURCE_COMMIT>, <TARGET_COMMIT>, and <PLAN_DIGEST> values are symbolic supplied references. Their existence, contents, branch relationship, and Git state were not executed or independently verified.",
+    "The current supplied inventory resolves docs/process/roles/implementation.md and the mamkin-worker preset and states that docs/process/roles/worker.md is absent; this source-resolution evidence is limited to the synthetic supplied inventory.",
+    "python3 scripts/check_labels.py is a planned worker check, not an executed result. No edit, test, commit, independent walkthrough, integration, external Git action, or delivery outcome is claimed.",
+    "Base branch, integration path, merge method, remote/base target, and remote cleanup policy were not supplied. They are marked unknown and remain coordinator-owned; this worker assignment grants no integration or external Git authority."
+  ]
+}

@@ -1,0 +1,44 @@
+[
+  {
+    "id": "project-evolution-profit-gate",
+    "request": "Audit a mature project after several Mamkin updates and suggest only worthwhile process improvements.",
+    "setup": "The project lacks several current mechanics, has repeated sync customization, has no deterministic formatter, and already has working secret and closeout hooks.",
+    "fixtureFacts": "Synthetic policy exercise. Project /fixture/project, source /fixture/template; source commit <SOURCE_COMMIT>, target commit <TARGET_COMMIT>, plan digest <PLAN_DIGEST> are supplied symbolic identifiers, not actual Git facts. Do not invent concrete hashes or claim execution. Supplied inventory evidence: three prior process syncs; repeated mixed-file manual reconciliation. No formatter command exists and no repeated formatting friction is recorded. Existing secret and closeout hooks work. Two accepted incident records describe a mechanically detectable naming violation; an existing project skill owns the naming workflow. Report a candidate validator only, no implementation approved. Inventory script path and packet format are in the supplied policy; do not claim to have run it."
+  },
+  {
+    "id": "project-evolution-no-auto-apply",
+    "request": "Find project-specific Mamkin process improvements and make the project current.",
+    "setup": "The request combines assessment language with an ambiguous apply phrase; the project has unrelated dirty work and mixed process files.",
+    "fixtureFacts": "Synthetic policy exercise. Project /fixture/project, source /fixture/template; source commit <SOURCE_COMMIT>, target commit <TARGET_COMMIT>, plan digest <PLAN_DIGEST> are supplied symbolic identifiers, not actual Git facts. Do not invent concrete hashes or claim execution. Supplied inventory evidence: three prior process syncs; repeated mixed-file manual reconciliation. No formatter command exists and no repeated formatting friction is recorded. Existing secret and closeout hooks work. Two accepted incident records describe a mechanically detectable naming violation; an existing project skill owns the naming workflow. Report a candidate validator only, no implementation approved. Inventory script path and packet format are in the supplied policy; do not claim to have run it."
+  },
+  {
+    "id": "project-native-capability-ladder",
+    "request": "Mine this mature project's decision and surprise logs for profitable process or skill improvements.",
+    "setup": "Several current entries describe mechanically detectable destructive mistakes. One large existing project skill already owns the workflow, and detailed domain rules must remain project-local.",
+    "fixtureFacts": "Synthetic policy exercise. Project /fixture/project, source /fixture/template; source commit <SOURCE_COMMIT>, target commit <TARGET_COMMIT>, plan digest <PLAN_DIGEST> are supplied symbolic identifiers, not actual Git facts. Do not invent concrete hashes or claim execution. Supplied inventory evidence: three prior process syncs; repeated mixed-file manual reconciliation. No formatter command exists and no repeated formatting friction is recorded. Existing secret and closeout hooks work. Two accepted incident records describe a mechanically detectable naming violation; an existing project skill owns the naming workflow. Report a candidate validator only, no implementation approved. Inventory script path and packet format are in the supplied policy; do not claim to have run it."
+  },
+  {
+    "id": "model-route-balanced-worker",
+    "request": "Implement the accepted one-file validation change and run its named unit test.",
+    "setup": "The contract, allowed file, expected behavior, rollback, and deterministic test are explicit; no shared contract or critical signal is present.",
+    "fixtureFacts": "Synthetic policy exercise. Project /fixture/project, source /fixture/template; source commit <SOURCE_COMMIT>, target commit <TARGET_COMMIT>, plan digest <PLAN_DIGEST> are supplied symbolic identifiers, not actual Git facts. Do not invent concrete hashes or claim execution. Parent lane owner /coordinator; one bounded subagent may edit docs/labels.md; all acceptance and architecture decisions settled. Named check: python3 scripts/check_labels.py. Feature branch codex/f12-labels and current project worktree; local branch+commit authority granted, no external Git authority. Parent assigns a distinct verifier. Sources are docs/project/active-decisions.md and features/12-labels.md, supplied as symbolic references. Do not execute the edit; produce the full assignment."
+  },
+  {
+    "id": "brownfield-adoption-review",
+    "request": "Add Mamkin to this established production repository.",
+    "setup": "The Git repository has product code, an existing AGENTS.md, deployment configuration, no valid .mamkin metadata, and a clean target commit.",
+    "fixtureFacts": "Synthetic policy exercise. Project /fixture/project, source /fixture/template; source commit <SOURCE_COMMIT>, target commit <TARGET_COMMIT>, plan digest <PLAN_DIGEST> are supplied symbolic identifiers, not actual Git facts. Do not invent concrete hashes or claim execution. Names-only configuration inventory supplied by config-reference.md: APP_MODE, ASSET_ROOT. No secret file needs reading. Existing AGENTS.md, README.md, and docs/process/roles/reviewer.md must be preserved according to the exact approval. Safe baseline command is python3 -m unittest discover -s tests; it has not run in this exercise."
+  },
+  {
+    "id": "brownfield-adoption-apply-gate",
+    "request": "Apply the adoption plan I just approved.",
+    "setup": "A clean source and target still match the reviewed commits and digest; some template-owned paths already exist in the target. Approval covers collision-free seeding only; no manual mixed-file or project-doc adaptation is approved.",
+    "fixtureFacts": "Synthetic policy exercise. Project /fixture/project, source /fixture/template; source commit <SOURCE_COMMIT>, target commit <TARGET_COMMIT>, plan digest <PLAN_DIGEST> are supplied symbolic identifiers, not actual Git facts. Do not invent concrete hashes or claim execution. Names-only configuration inventory supplied by config-reference.md: APP_MODE, ASSET_ROOT. No secret file needs reading. Existing AGENTS.md, README.md, and docs/process/roles/reviewer.md must be preserved according to the exact approval. Safe baseline command is python3 -m unittest discover -s tests; it has not run in this exercise."
+  },
+  {
+    "id": "brownfield-adoption-approved-manual",
+    "request": "Apply the approved seed plan and the named manual adaptations.",
+    "setup": "Clean source and target match reviewed commits and digest. The human explicitly approved manual additions to existing AGENTS.md and README.md preserving project rules. Existing docs/process/roles/reviewer.md is a protected template-owned collision. No other manual surface or external action is approved.",
+    "fixtureFacts": "Synthetic policy exercise. Project /fixture/project, source /fixture/template; source commit <SOURCE_COMMIT>, target commit <TARGET_COMMIT>, plan digest <PLAN_DIGEST> are supplied symbolic identifiers, not actual Git facts. Do not invent concrete hashes or claim execution. Names-only configuration inventory supplied by config-reference.md: APP_MODE, ASSET_ROOT. No secret file needs reading. Existing AGENTS.md, README.md, and docs/process/roles/reviewer.md must be preserved according to the exact approval. Safe baseline command is python3 -m unittest discover -s tests; it has not run in this exercise."
+  }
+]

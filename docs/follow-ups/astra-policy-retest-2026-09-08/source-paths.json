@@ -1,0 +1,14 @@
+[
+  "AGENTS.md",
+  "docs/process/agent-orchestration.md",
+  "docs/process/model-routing.md",
+  "docs/process/execution-lane-routing.md",
+  "docs/process/git-delivery.md",
+  "docs/process/project-evolution-audit.md",
+  "docs/process/handoff-packets/project-evolution-audit.md",
+  "docs/process/adopt-existing-project.md",
+  "docs/process/handoff-packets/adoption.md",
+  ".agents/skills/mamkin-project-evolution-audit/SKILL.md",
+  ".agents/skills/mamkin-adopt/SKILL.md",
+  "docs/process/handoff-packets/implementation.md"
+]

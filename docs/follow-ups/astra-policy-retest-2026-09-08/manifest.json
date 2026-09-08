@@ -1,0 +1,104 @@
+{
+  "baseCommit": "cb9892ed901a7f4c425e9cfe8145946bee25f069",
+  "sourcePaths": [
+    "AGENTS.md",
+    "docs/process/agent-orchestration.md",
+    "docs/process/model-routing.md",
+    "docs/process/execution-lane-routing.md",
+    "docs/process/git-delivery.md",
+    "docs/process/project-evolution-audit.md",
+    "docs/process/handoff-packets/project-evolution-audit.md",
+    "docs/process/adopt-existing-project.md",
+    "docs/process/handoff-packets/adoption.md",
+    ".agents/skills/mamkin-project-evolution-audit/SKILL.md",
+    ".agents/skills/mamkin-adopt/SKILL.md",
+    "docs/process/handoff-packets/implementation.md"
+  ],
+  "beforePolicySha256": "4cc905ee7ea3f5de93100d47fde15b799ec320b63bea36b89f9edaac4e5099f0",
+  "afterPolicySha256": "cdf0275664a98b7c79baae75d993e7111c96992486e7f9e95783e45157a34a85",
+  "inputSha256": "881f99e9da15633fab1a453ff8d2bf3ebc499903248a336ded0ee47aa4f3e86e",
+  "cases": 7,
+  "runs": [
+    {
+      "arm": "sol-before",
+      "model": "gpt-5.6-sol",
+      "effort": "medium",
+      "policy": "before"
+    },
+    {
+      "arm": "astra-before",
+      "model": "gpt-6-astra",
+      "effort": "medium",
+      "policy": "before"
+    },
+    {
+      "arm": "astra-after",
+      "model": "gpt-6-astra",
+      "effort": "medium",
+      "policy": "after"
+    }
+  ],
+  "replicates": 1,
+  "freshContext": "fork_turns=none per arm; seven scenarios share each arm context",
+  "blindedLabels": {
+    "A": "astra-before",
+    "B": "sol-before",
+    "C": "astra-after"
+  },
+  "decisionRule": "All seven candidate packets must pass every applicable rubric dimension; retain historical scores and permission controls. A focused pass may reopen the user-requested coordinator pilot, not establish full workflow/model readiness.",
+  "limitations": [
+    "Policy packets only, no execution/delegation/external action",
+    "Full relevant protocols and richer supplied facts replace the earlier short-answer harness, so historical score changes are not a pure prompt/model effect",
+    "Before-policy Sol vs before-policy Astra holds prompts and inputs fixed; before/after Astra holds model and inputs fixed",
+    "One sample per arm; no variance or reliable latency/token/cost comparison",
+    "Host instructions shared across arms; effective model introspection unavailable beyond accepted dispatch"
+  ],
+  "round1Outcome": {
+    "solBefore": "4/7",
+    "astraBefore": "6/7",
+    "astraAfter": "6/7",
+    "blockingAstraDetail": "Both Astra packets cite nonexistent roles/worker.md instead of existing roles/implementation.md",
+    "inference": "Four original omissions cleared with full context even before edits; no causal improvement attributed to wording alone."
+  },
+  "round2": {
+    "scope": "Worker assignment and stale-role-path control after explicit source resolution rule",
+    "sourceAdditions": [
+      "docs/process/roles/implementation.md",
+      ".codex/agents/mamkin-worker.toml"
+    ],
+    "runs": [
+      {
+        "arm": "worker-sol",
+        "model": "gpt-5.6-sol",
+        "effort": "medium"
+      },
+      {
+        "arm": "worker-astra-1",
+        "model": "gpt-6-astra",
+        "effort": "medium"
+      },
+      {
+        "arm": "worker-astra-2",
+        "model": "gpt-6-astra",
+        "effort": "medium"
+      }
+    ],
+    "replicates": {
+      "Sol": 1,
+      "Astra": 2
+    },
+    "caseIds": [
+      "model-route-balanced-worker",
+      "worker-role-source-resolution"
+    ],
+    "limitations": "Both explicit role mapping and source inventory changed; no claim isolating their individual effects.",
+    "blindedLabels": {
+      "D": "worker-sol",
+      "E": "worker-astra-1",
+      "F": "worker-astra-2"
+    },
+    "outcome": "Each label passes 2/2 packets and 12/12 rubric dimensions",
+    "policySha256": "64be8d6016dea549df6b6dcfbdb5069e3e2c29385530a8bbe1da7ccdf1932fad"
+  },
+  "decision": "Known focused policy blockers cleared across staged trials; resume user-directed coordinator Astra/medium pilot, no real-project acceptance claim."
+}

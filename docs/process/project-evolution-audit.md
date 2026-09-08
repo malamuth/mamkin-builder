@@ -80,6 +80,7 @@ Recommend at most five adopt-now items. Prefer one smaller mechanism with direct
 
 - **Hooks:** require a deterministic trigger, repeat-safe command, bounded timeout, visible failure, no secret output, and a project trust/reload note.
 - **Validation:** require a real project command or deterministic check; never invent one from the stack.
+- **Formatting:** explicitly reject formatter automation when no deterministic command or evidence-backed formatting need exists. Name the missing prerequisite and what new evidence would justify reconsideration.
 - **Project skills:** require repeated use, a stable trigger, named inputs and output, explicit stop conditions, measurable benefit, and no clean existing owner. Explain why a note, reference, existing-skill update, or validator is insufficient. After human approval, implement separately with `skill-creator`.
 - **Skill consolidation:** treat legacy/deprecated text or high word count as inspection signals only. Recommend consolidation or retirement only after current sources and actual usage confirm redundancy.
 - **Models/reasoning:** require same-case quality evals. Keep high-risk roles at their current setting without role-specific evidence.
@@ -102,4 +103,4 @@ Each adopt-now or experiment item must name:
 
 ## Output
 
-Use `docs/process/handoff-packets/project-evolution-audit.md`. Explicitly list useful mechanics that were considered and rejected so future audits do not rediscover them without new evidence.
+Use `docs/process/handoff-packets/project-evolution-audit.md`. Explicitly list useful mechanics that were considered and rejected so future audits do not rediscover them without new evidence. Close with the exact implementation approval boundary for recommendations; an audit result does not authorize a check, skill edit, or sync.

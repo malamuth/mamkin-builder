@@ -54,6 +54,6 @@ Upstream proposals (handoff only; no template mutation in this task):
     Success measure and validation:
     Separate Mamkin task required: yes | not applicable
 Audit limitations:
-Human decisions needed:
+Human decisions needed (implementation of recommendations requires separate scoped approval):
 Recommended next action:
 ```

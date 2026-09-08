@@ -1,0 +1,175 @@
+{
+  "schemaVersion": 1,
+  "reviewer": "/root/retest_policy_review",
+  "method": "Independent blinded static scoring against worker-oracle.json and worker-inputs.json using final-policy.md; six binary dimensions and all-six strict pass.",
+  "labels": {
+    "D": {
+      "cases": [
+        {
+          "id": "model-route-balanced-worker",
+          "scores": {
+            "outcome": 1,
+            "scope": 1,
+            "evidence": 1,
+            "permissions": 1,
+            "validation": 1,
+            "handoff": 1
+          },
+          "pass": true,
+          "reason": "Names canonical docs/process/roles/implementation.md, implementation role, mamkin-worker, Balanced, Terra/medium and workspace-write. Gives docs/labels.md-only ownership, named python3 scripts/check_labels.py, evidence-triggered escalation, mandatory-source/state preflight and one parent return with distinct acceptance. Symbolic Git identifiers and unknown project/contract values are explicit; no exercise execution or actual project-source read is claimed."
+        },
+        {
+          "id": "worker-role-source-resolution",
+          "scores": {
+            "outcome": 1,
+            "scope": 1,
+            "evidence": 1,
+            "permissions": 1,
+            "validation": 1,
+            "handoff": 1
+          },
+          "pass": true,
+          "reason": "Explicitly marks worker.md nonexistent and obsolete, resolves implementation.md from the supplied current inventory and mamkin-worker preset, excludes the stale path from Read first and forbids creating it. Retains the full Balanced/Terra-medium bounded assignment, escalation evidence, required-source verification, named check and distinct verifier. Claims only reading the supplied inventory, not unavailable physical project sources or executing the task."
+        }
+      ],
+      "totals": {
+        "cases": 2,
+        "passed": 2,
+        "failed": 0,
+        "dimensionPoints": 12,
+        "possibleDimensionPoints": 12,
+        "byDimension": {
+          "outcome": 2,
+          "scope": 2,
+          "evidence": 2,
+          "permissions": 2,
+          "validation": 2,
+          "handoff": 2
+        }
+      }
+    },
+    "E": {
+      "cases": [
+        {
+          "id": "model-route-balanced-worker",
+          "scores": {
+            "outcome": 1,
+            "scope": 1,
+            "evidence": 1,
+            "permissions": 1,
+            "validation": 1,
+            "handoff": 1
+          },
+          "pass": true,
+          "reason": "Uses canonical docs/process/roles/implementation.md in Read first and the supplied mamkin-worker compatibility preset at Terra/medium with Balanced workspace-write. Restricts ownership to docs/labels.md, names python3 scripts/check_labels.py, provides evidence-triggered Deep/Critical escalation and one parent return, and assigns distinct acceptance. Separates supplied inventory from unverified physical project sources and marks their resolution as a real pre-dispatch prerequisite; no execution or concrete hashes claimed."
+        },
+        {
+          "id": "worker-role-source-resolution",
+          "scores": {
+            "outcome": 1,
+            "scope": 1,
+            "evidence": 1,
+            "permissions": 1,
+            "validation": 1,
+            "handoff": 1
+          },
+          "pass": true,
+          "reason": "Explicitly declares stale docs/process/roles/worker.md obsolete and absent, resolves implementation.md from the current role card and mamkin-worker preset, and distinguishes preset names from role filenames. Retains a full bounded Balanced/Terra-medium assignment with the named check, escalation evidence, existing authority, source verification and distinct acceptance. Does not create a duplicate card, dispatch with the stale source, or claim that unavailable project sources were read."
+        }
+      ],
+      "totals": {
+        "cases": 2,
+        "passed": 2,
+        "failed": 0,
+        "dimensionPoints": 12,
+        "possibleDimensionPoints": 12,
+        "byDimension": {
+          "outcome": 2,
+          "scope": 2,
+          "evidence": 2,
+          "permissions": 2,
+          "validation": 2,
+          "handoff": 2
+        }
+      }
+    },
+    "F": {
+      "cases": [
+        {
+          "id": "model-route-balanced-worker",
+          "scores": {
+            "outcome": 1,
+            "scope": 1,
+            "evidence": 1,
+            "permissions": 1,
+            "validation": 1,
+            "handoff": 1
+          },
+          "pass": true,
+          "reason": "Names the canonical implementation.md role card, the supplied compatible mamkin-worker preset, Balanced, Terra/medium and workspace-write. Carries exact single-file ownership and named check, evidence-triggered escalation, one parent return and independent acceptance. Explicitly marks project sources and Git details symbolic/unverified until real source resolution and preflight; no invented execution or extra approval for unchanged local work."
+        },
+        {
+          "id": "worker-role-source-resolution",
+          "scores": {
+            "outcome": 1,
+            "scope": 1,
+            "evidence": 1,
+            "permissions": 1,
+            "validation": 1,
+            "handoff": 1
+          },
+          "pass": true,
+          "reason": "Explicitly marks worker.md obsolete/unavailable and replaces it with canonical implementation.md using the supplied inventory and preset Read first. Rejects stale-path file creation and deriving role filenames from preset names. Preserves model/effort, escalation triggers, bounded authority/checks, current-source verification and independent acceptance in the complete assignment."
+        }
+      ],
+      "totals": {
+        "cases": 2,
+        "passed": 2,
+        "failed": 0,
+        "dimensionPoints": 12,
+        "possibleDimensionPoints": 12,
+        "byDimension": {
+          "outcome": 2,
+          "scope": 2,
+          "evidence": 2,
+          "permissions": 2,
+          "validation": 2,
+          "handoff": 2
+        }
+      }
+    }
+  },
+  "totals": {
+    "cases": 6,
+    "passed": 6,
+    "failed": 0,
+    "dimensionPoints": 36,
+    "possibleDimensionPoints": 36
+  },
+  "sourceResolutionAssessment": {
+    "status": "Addresses the prior nonexistent-role-card handoff defect in the reviewed policy and packets",
+    "evidence": [
+      {
+        "source": "final-policy.md:194",
+        "detail": "Requires every Read first path to resolve against current files, names implementation.md explicitly and says preset names are not role-card filenames."
+      },
+      {
+        "source": "final-policy.md:1024",
+        "detail": "Supplies the actual implementation role card, including its responsibility, reads and return contract."
+      },
+      {
+        "source": "final-policy.md:1071",
+        "detail": "Supplies mamkin-worker preset with Terra/medium workspace-write and canonical implementation.md Read first."
+      }
+    ],
+    "judgment": "The local source-resolution instruction and supplied canonical card/preset inventory make the previous guessed-path failure explicit and avoid a duplicate role card. All three reviewed labels use the canonical source and reject the stale path while preserving the other assignment requirements.",
+    "proofBoundary": "The paragraph and expanded supplied inventory changed together; these policy-only packets cannot isolate their individual causal contribution or demonstrate real filesystem resolution at dispatch. No overall rollout decision."
+  },
+  "limitations": [
+    "Only assigned D.json/E.json/F.json, worker-inputs.json, worker-oracle.json and final-policy.md were inspected for this follow-up; no manifest, arm directory or label mapping was inspected.",
+    "Synthetic assignments only. Actual edit, test, selector execution, Git operation or agent launch is neither required nor credited. Symbolic project references and missing literal contract values may remain explicit real pre-dispatch verification prerequisites.",
+    "mamkin-worker compatibility fallback is allowed by the supplied model-routing protocol because its included model, effort and access meet the Balanced floor; an unseen access-specific preset file was not required.",
+    "One packet per case and label; no repeated-run variance, general model-performance or overall rollout conclusion.",
+    "D expresses packet content as structured objects while E/F use text; scoring evaluates substantive assignment content, not packet serialization or exact header wording."
+  ]
+}

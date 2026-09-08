@@ -23,7 +23,7 @@ Each arm directory contains original sources, its unmodified raw `output.json`, 
 
 ## Reproduce The Deterministic Acceptance
 
-Run from any directory:
+Run from the repository root:
 
 ```bash
 python3 -B docs/follow-ups/astra-evaluation-2026-09-08/acceptance.py

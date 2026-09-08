@@ -71,6 +71,8 @@ def main():
     if len(ids) != len(set(ids)):
         fail(errors, "prompt eval case ids must be unique")
     required_ids = {
+        "worker-role-source-resolution",
+        "brownfield-adoption-approved-manual",
         "authorization-reuse",
         "skill-pause-source",
         "mid-task-steering",
@@ -473,10 +475,10 @@ def main():
             fail(errors, f"{preset.relative_to(ROOT)} exceeds 120-word wrapper budget ({count})")
 
     config_text = config.read_text(encoding="utf-8")
-    if 'model = "gpt-5.6-sol"' not in config_text:
-        fail(errors, "coordinator model must retain the Sol baseline until the Astra policy gate passes")
+    if 'model = "gpt-6-astra"' not in config_text:
+        fail(errors, "coordinator model must match the resumed Astra pilot after focused packet retests")
     if 'model_reasoning_effort = "medium"' not in config_text:
-        fail(errors, "coordinator baseline must preserve medium effort")
+        fail(errors, "coordinator pilot must preserve medium effort")
     for preset_name in ["mamkin-worker.toml", "mamkin-deployment.toml"]:
         preset_text = (ROOT / f".codex/agents/{preset_name}").read_text(encoding="utf-8")
         if 'model = "gpt-5.6-terra"' not in preset_text or 'model_reasoning_effort = "medium"' not in preset_text:

@@ -132,6 +132,10 @@ Read first:
 
 Add only applicable extensions.
 
+Before dispatch, fill every core field, including the exact preset/model/effort and evidence-triggered escalation conditions. Concise summaries do not replace a complete worker assignment.
+
+Resolve every repository path in `Read first` against current files before dispatch; report unavailable sources instead of guessing. The implementation role card is `docs/process/roles/implementation.md`. Preset names such as `mamkin-worker` are not role-card filenames.
+
 ### Separate-Task Extension
 
 ```text

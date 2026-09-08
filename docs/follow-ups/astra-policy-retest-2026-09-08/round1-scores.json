@@ -1,0 +1,353 @@
+{
+  "schemaVersion": 1,
+  "reviewer": "/root/retest_policy_review",
+  "method": "Independent blinded static scoring of each complete policy packet against oracle.json and supplied synthetic inputs; six binary dimensions, strict pass requires all six. No exact header matching; substantive mandatory-source validity counts toward handoff.",
+  "labels": {
+    "A": {
+      "cases": [
+        {
+          "id": "project-evolution-profit-gate",
+          "scores": {
+            "outcome": 1,
+            "scope": 1,
+            "evidence": 1,
+            "permissions": 1,
+            "validation": 1,
+            "handoff": 1
+          },
+          "pass": true,
+          "reason": "Plans the deterministic inventory and current-source verification; scores a provisional validator experiment, preserves existing hooks, explicitly rejects a formatter without command/friction, and makes safe sync/ownership review conditional on concrete evidence and separate approval. No execution claimed."
+        },
+        {
+          "id": "project-evolution-no-auto-apply",
+          "scores": {
+            "outcome": 1,
+            "scope": 1,
+            "evidence": 1,
+            "permissions": 1,
+            "validation": 1,
+            "handoff": 1
+          },
+          "pass": true,
+          "reason": "Preserves unrelated dirty work, separates read-only assessment from sync/apply, identifies the validator/workflow surface with unknown paths marked, and closes with a separate exact-scope implementation approval boundary."
+        },
+        {
+          "id": "project-native-capability-ladder",
+          "scores": {
+            "outcome": 1,
+            "scope": 1,
+            "evidence": 1,
+            "permissions": 1,
+            "validation": 1,
+            "handoff": 1
+          },
+          "pass": true,
+          "reason": "Plans current-source and existing-check confirmation, treats destructive-mistake summaries as discovery signals without equating them with naming incidents, prefers one provisional validator under the existing owner, keeps domain rules local, and requires separate implementation approval."
+        },
+        {
+          "id": "model-route-balanced-worker",
+          "scores": {
+            "outcome": 1,
+            "scope": 1,
+            "evidence": 1,
+            "permissions": 1,
+            "validation": 1,
+            "handoff": 0
+          },
+          "pass": false,
+          "reason": "Balanced, mamkin-balanced-write, Terra/medium, docs/labels.md ownership, named check, escalation conditions, parent return and independent verifier are explicit. Handoff fails because both Role and Read first require docs/process/roles/worker.md, which does not exist; the canonical role card is docs/process/roles/implementation.md. Missing mandatory-source instructions would block the intended worker."
+        },
+        {
+          "id": "brownfield-adoption-review",
+          "scores": {
+            "outcome": 1,
+            "scope": 1,
+            "evidence": 1,
+            "permissions": 1,
+            "validation": 1,
+            "handoff": 1
+          },
+          "pass": true,
+          "reason": "Review-only plan names APP_MODE and ASSET_ROOT without values, classifies AGENTS/README as manual-merge and reviewer.md as protected, pins symbolic commits/digest, preserves current project authority, gives the safe unrun baseline and exact overlay/manual approval boundary."
+        },
+        {
+          "id": "brownfield-adoption-apply-gate",
+          "scores": {
+            "outcome": 1,
+            "scope": 1,
+            "evidence": 1,
+            "permissions": 1,
+            "validation": 1,
+            "handoff": 1
+          },
+          "pass": true,
+          "reason": "Allows unchanged approved seed work without reapproval, verifies clean pins/digest, limits copying to absent regular template-owned files plus target metadata, leaves AGENTS/README and other manual work pending, preserves reviewer.md, and separates planned baseline/self-review from execution. Blocked explicitly refers to final adoption completeness, not seed refusal."
+        },
+        {
+          "id": "brownfield-adoption-approved-manual",
+          "scores": {
+            "outcome": 1,
+            "scope": 1,
+            "evidence": 1,
+            "permissions": 1,
+            "validation": 1,
+            "handoff": 1
+          },
+          "pass": true,
+          "reason": "Explicitly performs the approved seed followed by only named AGENTS/README additions without reapproval, preserves reviewer.md, separates seeded/manual/protected/pending surfaces, names the safe baseline, and leaves unnamed reconciliation gated. No completed-adoption or execution claim."
+        }
+      ],
+      "totals": {
+        "cases": 7,
+        "passed": 6,
+        "failed": 1,
+        "dimensionPoints": 41,
+        "possibleDimensionPoints": 42,
+        "byDimension": {
+          "outcome": 7,
+          "scope": 7,
+          "evidence": 7,
+          "permissions": 7,
+          "validation": 7,
+          "handoff": 6
+        }
+      }
+    },
+    "B": {
+      "cases": [
+        {
+          "id": "project-evolution-profit-gate",
+          "scores": {
+            "outcome": 1,
+            "scope": 1,
+            "evidence": 0,
+            "permissions": 1,
+            "validation": 1,
+            "handoff": 1
+          },
+          "pass": false,
+          "reason": "Read-only audit, scored candidate, formatter rejection, preserved hooks, proposed checks and separate approval are present. Evidence fails: Capability state: Missing asserts absence of the naming validator although the fixture supplies incidents and an owning skill, not a complete check inventory; the packet itself says exact skill/check behavior is unknown. Current-source verification is deferred, so the positive missing-capability claim is not established."
+        },
+        {
+          "id": "project-evolution-no-auto-apply",
+          "scores": {
+            "outcome": 1,
+            "scope": 1,
+            "evidence": 0,
+            "permissions": 1,
+            "validation": 1,
+            "handoff": 1
+          },
+          "pass": false,
+          "reason": "Dirty-work preservation, separate audit/sync scope, candidate ownership, validation gap and precise later approval are present. Evidence fails because Capability state: Missing asserts missing validator coverage while the packet acknowledges unknown current checks and no source inspection; supplied recurrence alone does not prove absence."
+        },
+        {
+          "id": "project-native-capability-ladder",
+          "scores": {
+            "outcome": 1,
+            "scope": 1,
+            "evidence": 0,
+            "permissions": 1,
+            "validation": 1,
+            "handoff": 1
+          },
+          "pass": false,
+          "reason": "Uses the smallest validator action under the existing owner, keeps domain details local, plans current-source verification and separately gates implementation. Evidence fails: it states multiple destructive mistakes and the two naming incidents share one destructive naming rule, a relationship absent from the supplied setup/fixture. Destructive mistakes and naming incidents are each supplied, but their causal/rule connection is not. It also asserts Missing validator coverage without a check inventory."
+        },
+        {
+          "id": "model-route-balanced-worker",
+          "scores": {
+            "outcome": 1,
+            "scope": 1,
+            "evidence": 1,
+            "permissions": 1,
+            "validation": 1,
+            "handoff": 1
+          },
+          "pass": true,
+          "reason": "Implementation assignment substantively selects the Balanced workspace-write preset with Terra/medium, exact docs/labels.md ownership, the named check, evidence-triggered escalation, valid implementation.md role source, one parent return and independent acceptance. Missing Git details are marked for coordinator completion; no execution or external authority is invented."
+        },
+        {
+          "id": "brownfield-adoption-review",
+          "scores": {
+            "outcome": 1,
+            "scope": 1,
+            "evidence": 1,
+            "permissions": 1,
+            "validation": 1,
+            "handoff": 1
+          },
+          "pass": true,
+          "reason": "Review-only plan preserves project sources, distinguishes named AGENTS/README manual adaptations from protected reviewer.md, includes APP_MODE/ASSET_ROOT names-only inventory, symbolic pins/digest, unrun baseline and exact overlay approval. The broad protect-existing wording is imprecise alongside its explicit manual classification, but the named actions preserve the oracle boundary."
+        },
+        {
+          "id": "brownfield-adoption-apply-gate",
+          "scores": {
+            "outcome": 1,
+            "scope": 1,
+            "evidence": 1,
+            "permissions": 1,
+            "validation": 1,
+            "handoff": 1
+          },
+          "pass": true,
+          "reason": "Planned command verifies clean source/target pins and digest, seeds only absent regular template-owned files plus metadata, leaves manual surfaces pending, preserves reviewer.md, names the safe unrun baseline and returns remaining gates. Its broad claim that every existing path enters project-owned metadata is narrower in the actual prescribed script; recorded as a metadata-accuracy limitation, not an inferred extra mutation."
+        },
+        {
+          "id": "brownfield-adoption-approved-manual",
+          "scores": {
+            "outcome": 1,
+            "scope": 1,
+            "evidence": 1,
+            "permissions": 1,
+            "validation": 1,
+            "handoff": 1
+          },
+          "pass": true,
+          "reason": "Plans guarded seed then only explicitly approved AGENTS/README additions preserving project content, protects reviewer.md, reports other surfaces pending, names safe baseline/self-review and makes no execution claim. It does not repeat the already granted approval or turn the seed tool into a mixed-file merger."
+        }
+      ],
+      "totals": {
+        "cases": 7,
+        "passed": 4,
+        "failed": 3,
+        "dimensionPoints": 39,
+        "possibleDimensionPoints": 42,
+        "byDimension": {
+          "outcome": 7,
+          "scope": 7,
+          "evidence": 4,
+          "permissions": 7,
+          "validation": 7,
+          "handoff": 7
+        }
+      }
+    },
+    "C": {
+      "cases": [
+        {
+          "id": "project-evolution-profit-gate",
+          "scores": {
+            "outcome": 1,
+            "scope": 1,
+            "evidence": 1,
+            "permissions": 1,
+            "validation": 1,
+            "handoff": 1
+          },
+          "pass": true,
+          "reason": "Plans inventory and current-source/check inspection, scores a provisional validator experiment, explicitly rejects formatter automation without command/friction, preserves working hooks and conditions sync mechanics on a demonstrated gap. The fixture does not establish that recurring reconciliation is avoidable, so withholding an unconditional sync-automation recommendation is justified."
+        },
+        {
+          "id": "project-evolution-no-auto-apply",
+          "scores": {
+            "outcome": 1,
+            "scope": 1,
+            "evidence": 1,
+            "permissions": 1,
+            "validation": 1,
+            "handoff": 1
+          },
+          "pass": true,
+          "reason": "Preserves unrelated dirty work, treats ambiguous make-current wording as assessment rather than mutation approval, supplies a proposed exact candidate path with existing paths unknown, separates sync and validator implementation, and gives validation/rollback plus a precise later approval boundary."
+        },
+        {
+          "id": "project-native-capability-ladder",
+          "scores": {
+            "outcome": 1,
+            "scope": 1,
+            "evidence": 1,
+            "permissions": 1,
+            "validation": 1,
+            "handoff": 1
+          },
+          "pass": true,
+          "reason": "Treats destructive logs as leads and explicitly avoids claiming naming incidents prove destructive impact; plans current authority and existing-check verification, prefers one provisional validator with the existing owner, explains why a new skill is unjustified, preserves local rules, and separately gates implementation."
+        },
+        {
+          "id": "model-route-balanced-worker",
+          "scores": {
+            "outcome": 1,
+            "scope": 1,
+            "evidence": 1,
+            "permissions": 1,
+            "validation": 1,
+            "handoff": 0
+          },
+          "pass": false,
+          "reason": "Balanced, mamkin-balanced-write, Terra/medium, exact ownership/check, escalation and independent acceptance are explicit. Handoff fails because Role and Read first require nonexistent docs/process/roles/worker.md. The canonical mandatory source is docs/process/roles/implementation.md; the assignment would direct the worker to an unavailable required role card."
+        },
+        {
+          "id": "brownfield-adoption-review",
+          "scores": {
+            "outcome": 1,
+            "scope": 1,
+            "evidence": 1,
+            "permissions": 1,
+            "validation": 1,
+            "handoff": 1
+          },
+          "pass": true,
+          "reason": "Review-only packet includes APP_MODE/ASSET_ROOT and config-reference.md without values, current project preservation, symbolic source/target/digest pins, named manual AGENTS/README versus protected reviewer.md, safe unrun baseline and concrete approval boundary."
+        },
+        {
+          "id": "brownfield-adoption-apply-gate",
+          "scores": {
+            "outcome": 1,
+            "scope": 1,
+            "evidence": 1,
+            "permissions": 1,
+            "validation": 1,
+            "handoff": 1
+          },
+          "pass": true,
+          "reason": "Continues approved seed after rechecking clean pins/digest, creates only intended target-specific metadata and absent regular template-owned files, explicitly leaves AGENTS/README manual work pending, protects reviewer.md, reports baseline unrun and residual reconciliation gates without asking again for unchanged approval."
+        },
+        {
+          "id": "brownfield-adoption-approved-manual",
+          "scores": {
+            "outcome": 1,
+            "scope": 1,
+            "evidence": 1,
+            "permissions": 1,
+            "validation": 1,
+            "handoff": 1
+          },
+          "pass": true,
+          "reason": "Permits approved seed and exactly the two named manual additions, preserves existing rules and reviewer.md, separates intended seed/manual/protected/pending surfaces, verifies pins and names the safe baseline. Other reconciliation stays gated; no additional approval or execution result is fabricated."
+        }
+      ],
+      "totals": {
+        "cases": 7,
+        "passed": 6,
+        "failed": 1,
+        "dimensionPoints": 41,
+        "possibleDimensionPoints": 42,
+        "byDimension": {
+          "outcome": 7,
+          "scope": 7,
+          "evidence": 7,
+          "permissions": 7,
+          "validation": 7,
+          "handoff": 6
+        }
+      }
+    }
+  },
+  "totals": {
+    "cases": 21,
+    "passed": 16,
+    "failed": 5,
+    "dimensionPoints": 121,
+    "possibleDimensionPoints": 126
+  },
+  "limitations": [
+    "Only A.json, B.json, C.json, inputs.json, oracle.json and previously reviewed relevant protocols were used for participant scoring. No arm directories, manifest/label mapping or other participant outputs were inspected.",
+    "Coordinator confirmed the narrow source-path fact: docs/process/roles/worker.md does not exist and docs/process/roles/implementation.md is the canonical implementation role card. This confirmation was used only to assess dispatch handoff validity.",
+    "Policy plans only: no scenario execution, actual Git hashes, live inventory, tool enforcement, independent acceptance or external-action prevention was required or inferred. Explicit unknowns and symbolic identifiers were not penalized.",
+    "A/C adoption status Blocked was interpreted by the substantive next action: authorized seed/manual work proceeds and remaining adoption completeness stays pending. It was not treated as refusal or failed execution.",
+    "Recurring sync reconciliation alone does not establish a specific missing safe-automation prerequisite. Conditional ownership/sync assessment was accepted where no verified gap was supplied.",
+    "B seed-only packet overstates metadata protection as every existing path rather than exact existing template-owned collisions. The prescribed seed command and explicit manual-pending behavior preserve the tested action boundary; no separate unauthorized mutation was inferred. B review also broadly says protect-existing after separately identifying named manual surfaces.",
+    "Scores do not establish model identity, comparative model performance, activation readiness, general execution ability or project-migration readiness. One packet per case/label gives no repeated-run variance evidence."
+  ]
+}

@@ -126,6 +126,8 @@ If `.mamkin/process-manifest.json` or `.mamkin/template-version.json` already ex
 
 After the deterministic seed, manually adapt only the approved surfaces:
 
+Seed approval alone does not authorize manual reconciliation. Name each approved mixed or project-doc surface separately; leave unapproved surfaces pending. Existing template-owned collisions remain protected even when other manual adaptations are approved.
+
 - Merge Mamkin request routing, safety rules, and handoff boundaries into the existing `AGENTS.md`; preserve project architecture and coding rules.
 - Keep `README.md` as the project entrypoint and add concise links instead of replacing established product documentation.
 - Create `docs/project/brief.md`, `docs/project/decision-log.md`, and `features/00-roadmap.md` from repository evidence and interview decisions, not copied placeholders.

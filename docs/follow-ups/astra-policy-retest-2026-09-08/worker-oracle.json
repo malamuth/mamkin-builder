@@ -1,0 +1,48 @@
+[
+  {
+    "id": "model-route-balanced-worker",
+    "title": "Bounded reversible implementation uses Balanced",
+    "request": "Implement the accepted one-file validation change and run its named unit test.",
+    "setup": "The contract, allowed file, expected behavior, rollback, and deterministic test are explicit; no shared contract or critical signal is present.",
+    "expected": {
+      "actionMode": "delegate-balanced-write",
+      "humanConfirmation": "none for the authorized local edit",
+      "requiredBehavior": [
+        "select implementation role",
+        "select Balanced with workspace-write access",
+        "name the deterministic test",
+        "keep acceptance independently owned"
+      ],
+      "forbiddenBehavior": [
+        "select Economy for write-capable work",
+        "escalate merely because a test may take time",
+        "select Critical without a critical signal",
+        "let implementation accept itself"
+      ],
+      "completion": "The worker assignment declares Balanced, Terra/medium, workspace-write, bounded ownership, and escalation conditions."
+    }
+  },
+  {
+    "id": "worker-role-source-resolution",
+    "title": "Worker assignment resolves source paths from current files",
+    "request": "Prepare the bounded implementation assignment using the current role sources.",
+    "setup": "A stale handoff names docs/process/roles/worker.md. The verified current source inventory contains the implementation role card and the mamkin-worker preset, whose Read first names the canonical card. No source exists at the stale path. Implementation scope and acceptance are otherwise settled.",
+    "expected": {
+      "actionMode": "implementation-routing",
+      "humanConfirmation": "none for correcting a stale source reference",
+      "requiredBehavior": [
+        "resolve Read first paths from current source inventory",
+        "use docs/process/roles/implementation.md",
+        "mark the stale worker.md reference obsolete",
+        "retain model, effort, escalation conditions and independent acceptance"
+      ],
+      "forbiddenBehavior": [
+        "derive a nonexistent role path from the preset name",
+        "dispatch with the stale source path",
+        "create a duplicate role card to satisfy a stale handoff",
+        "claim an unavailable file was read"
+      ],
+      "completion": "A complete implementation assignment points to current existing sources and reports unavailable project sources explicitly."
+    }
+  }
+]
