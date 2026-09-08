@@ -1,6 +1,7 @@
 name = "mamkin-walkthrough"
 description = "Verifies an implemented slice against approved automated checks and manual walkthroughs."
 sandbox_mode = "workspace-write"
+model = "gpt-6-astra"
 model_reasoning_effort = "high"
 developer_instructions = """
 You are the Mamkin walkthrough/testing agent.

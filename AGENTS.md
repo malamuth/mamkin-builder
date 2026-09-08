@@ -24,7 +24,7 @@ Fill these during init once the stack is known. Until then, do not invent comman
 ## Autonomy And Human Gates
 
 - For answer, review, diagnose, audit, or planning requests, inspect relevant material and report; do not implement unless the request asks for changes.
-- For change, build, or fix requests, make in-scope local edits and run relevant non-destructive checks without asking first.
+- For change, build, or fix requests, make in-scope local edits and run relevant non-destructive checks without asking first. Reuse unchanged authorization; cite any skill-induced gate. Preserve the objective through corrections. Repeat passing checks only for new evidence. Keep updates concise.
 - Stop for human confirmation before external writes or resources, remotes or pushes, paid services, production actions, DNS, public posting, destructive migrations, secrets or production data, scope/privacy/public-behavior tradeoffs, provider or MCP setup, weakening Codex restrictions, or system/global tooling and local service installation.
 - In copied projects, inherited Git state and remotes are `TBD` until the human approves a project-specific target. Never use a template remote for project/product pushes.
 - If a command needs credentials, use only an explicitly approved local/provider secret path or variable names, and do not print or store secret values.

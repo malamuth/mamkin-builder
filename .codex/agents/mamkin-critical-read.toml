@@ -1,7 +1,7 @@
 name = "mamkin-critical-read"
 description = "Runs quality-first high-risk read-only work with the Critical profile."
 sandbox_mode = "read-only"
-model = "gpt-5.6-sol"
+model = "gpt-6-astra"
 model_reasoning_effort = "xhigh"
 developer_instructions = """
 You are a Mamkin worker using the Critical reasoning profile.

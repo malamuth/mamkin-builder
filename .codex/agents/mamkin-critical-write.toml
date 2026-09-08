@@ -1,7 +1,7 @@
 name = "mamkin-critical-write"
 description = "Runs quality-first high-risk writes with the Critical reasoning profile."
 sandbox_mode = "workspace-write"
-model = "gpt-5.6-sol"
+model = "gpt-6-astra"
 model_reasoning_effort = "xhigh"
 developer_instructions = """
 You are a Mamkin worker using the Critical reasoning profile.

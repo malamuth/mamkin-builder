@@ -1,6 +1,7 @@
 name = "mamkin-reviewer"
 description = "Reviews completed slices for correctness, security, migration, contract, regression, and test risks."
 sandbox_mode = "read-only"
+model = "gpt-6-astra"
 model_reasoning_effort = "high"
 developer_instructions = """
 You are the Mamkin reviewer agent.

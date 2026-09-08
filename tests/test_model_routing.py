@@ -31,6 +31,7 @@ class ModelRoutingTests(unittest.TestCase):
     def test_deep_signal_establishes_floor(self):
         result = select_profile(self.config, "read-only", ["unknown-root-cause"])
         self.assertEqual(result["riskFloor"], "deep")
+        self.assertEqual(result["model"], "gpt-6-astra")
         self.assertEqual(result["reasoningEffort"], "high")
 
     def test_critical_signal_outranks_deep_signal(self):
@@ -40,6 +41,8 @@ class ModelRoutingTests(unittest.TestCase):
             ["cross-component", "destructive-migration"],
         )
         self.assertEqual(result["riskFloor"], "critical")
+        self.assertEqual(result["model"], "gpt-6-astra")
+        self.assertEqual(result["reasoningEffort"], "xhigh")
         self.assertEqual(result["agentPreset"], "mamkin-critical-write")
 
     def test_requested_profile_may_raise_floor(self):

@@ -44,6 +44,7 @@ The pre-refactor behavioral cases were not run before this suite existed. Treat 
 - The coordinator completes an unchanged, pre-authorized Git closeout after acceptance and reserves `Delivered` for verified integration and cleanup.
 - Model routing selects economy only for bounded deterministic read-only work, balanced for ordinary reversible work, deep for ambiguity or shared-contract risk, and critical for named high-risk boundaries.
 - A worker escalates on newly discovered evidence and never silently downgrades or changes its own profile.
+- Unchanged authorization is reused, a skill-induced pause identifies its source, mid-task steering preserves the goal, and verification stops after sufficient required checks.
 
 ## Run Order
 
@@ -85,6 +86,14 @@ Record the accepted reasoning matrix and evidence below before changing defaults
 Economy is restricted to bounded, mechanical, deterministic read-only work. Balanced is the ordinary reversible-work default. Deep is the floor for ambiguity, architecture, shared contracts, difficult diagnosis, or material judgment. Critical is the floor for the named security, production, financial, destructive, irreversible, or concurrency signals. Model availability is runtime-specific; an unavailable candidate is `not-run`, not a failed quality result, and never authorizes a silent downgrade.
 
 ## Decision History
+
+### Astra Pilot (2026-09-08)
+
+The human requested activation after a migration review: coordinator Astra/medium, Deep Astra/high, Critical Astra/xhigh, and explicit Astra/high compatibility roles. Economy and Balanced remain Terra/medium. This is a user-directed pilot ahead of comparative execution evidence, not an accepted quality or cost improvement. Historical experiments below remain unchanged; pending Astra matrix entries retain `keep-baseline` as the evaluation recommendation until scored. The active pilot is recorded separately from those experiment decisions.
+
+Follow [OpenAI's Astra migration guidance](https://developers.openai.com/api/docs/guides/latest-model): keep effective reasoning effort for the first comparison and audit instruction ambiguity, authorization pauses, delegation, verbosity, and excessive verification. API-only features do not require new Codex configuration fields.
+
+Run the same baseline and candidate cases on the same source state, permissions, and tool surface in fresh tasks. First compare models with identical prompts, then compare the focused prompt changes separately. Include executed bounded implementation, diagnosis, and independent acceptance fixtures alongside policy-response cases. Record missing telemetry as unavailable. Passing structural checks or policy-response trials alone does not validate executed specialist quality. Do not lower effort, replace Terra, or claim pilot success until the six-dimension quality gate passes. If a comparison fails, retain the evidence and restore the affected pre-pilot model setting rather than relaxing a risk floor.
 
 | Date | Change | Structural result | Behavioral evidence | Reasoning decision |
 | --- | --- | --- | --- | --- |

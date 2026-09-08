@@ -71,6 +71,10 @@ def main():
     if len(ids) != len(set(ids)):
         fail(errors, "prompt eval case ids must be unique")
     required_ids = {
+        "authorization-reuse",
+        "skill-pause-source",
+        "mid-task-steering",
+        "proportionate-verification",
         "subagent-preferred",
         "separate-task-trigger",
         "two-track-admission",
@@ -130,12 +134,12 @@ def main():
             {"read-only": "mamkin-balanced-read", "workspace-write": "mamkin-balanced-write"},
         ),
         "deep": (
-            "gpt-5.6-sol",
+            "gpt-6-astra",
             "high",
             {"read-only": "mamkin-deep-read", "workspace-write": "mamkin-deep-write"},
         ),
         "critical": (
-            "gpt-5.6-sol",
+            "gpt-6-astra",
             "xhigh",
             {"read-only": "mamkin-critical-read", "workspace-write": "mamkin-critical-write"},
         ),
@@ -469,8 +473,10 @@ def main():
             fail(errors, f"{preset.relative_to(ROOT)} exceeds 120-word wrapper budget ({count})")
 
     config_text = config.read_text(encoding="utf-8")
+    if 'model = "gpt-6-astra"' not in config_text:
+        fail(errors, "coordinator model must match the user-directed Astra pilot")
     if 'model_reasoning_effort = "medium"' not in config_text:
-        fail(errors, "coordinator reasoning default must match the accepted medium experiment")
+        fail(errors, "coordinator pilot must preserve medium effort")
     for preset_name in ["mamkin-worker.toml", "mamkin-deployment.toml"]:
         preset_text = (ROOT / f".codex/agents/{preset_name}").read_text(encoding="utf-8")
         if 'model = "gpt-5.6-terra"' not in preset_text or 'model_reasoning_effort = "medium"' not in preset_text:
@@ -484,6 +490,8 @@ def main():
         "mamkin-ux.toml",
     ]:
         preset_text = (ROOT / f".codex/agents/{preset_name}").read_text(encoding="utf-8")
+        if 'model = "gpt-6-astra"' not in preset_text:
+            fail(errors, f"{preset_name} must explicitly select Astra for the pilot")
         if 'model_reasoning_effort = "high"' not in preset_text:
             fail(errors, f"{preset_name} must remain high until role-specific execution evals pass")
 

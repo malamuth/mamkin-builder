@@ -1,7 +1,7 @@
 name = "mamkin-deep-write"
 description = "Runs ambiguous or judgment-heavy writes with the Deep reasoning profile."
 sandbox_mode = "workspace-write"
-model = "gpt-5.6-sol"
+model = "gpt-6-astra"
 model_reasoning_effort = "high"
 developer_instructions = """
 You are a Mamkin worker using the Deep reasoning profile.

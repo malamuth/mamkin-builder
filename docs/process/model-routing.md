@@ -8,8 +8,12 @@ Use this protocol before launching delegated work. Choose role, reasoning profil
 | --- | --- | --- |
 | Economy | `gpt-5.6-terra` / `medium` | Bounded read-only inventory, extraction, classification, or mechanical verification with a deterministic oracle. Luna/low remains an experiment candidate after failing the current same-case quality gate. |
 | Balanced | `gpt-5.6-terra` / `medium` | Reversible, well-specified implementation, deployment, testing, and ordinary analysis. |
-| Deep | `gpt-5.6-sol` / `high` | Conflicting sources, architecture tradeoffs, shared contracts, cross-component work, unknown root cause, nondeterministic validation, or material product judgment. |
-| Critical | `gpt-5.6-sol` / `xhigh` | Security/auth boundaries, payments, production data or incidents, destructive migrations, irreversible external state, or concurrency correctness. |
+| Deep | `gpt-6-astra` / `high` | Conflicting sources, architecture tradeoffs, shared contracts, cross-component work, unknown root cause, nondeterministic validation, or material product judgment. |
+| Critical | `gpt-6-astra` / `xhigh` | Security/auth boundaries, payments, production data or incidents, destructive migrations, irreversible external state, or concurrency correctness. |
+
+The coordinator uses `gpt-6-astra` / `medium`. Analysis, architecture, review, walkthrough, design, and UX compatibility presets explicitly use Astra/high; they cannot substitute for Critical/xhigh. Worker and deployment compatibility presets remain Terra/medium. Select by risk floor, not by role name.
+
+These Astra defaults are a user-directed pilot dated 2026-09-08, with comparative execution evidence pending in `prompt-evals.md`. Preserve effort during the model comparison; evaluate any effort reduction separately. Existing tasks and already-loaded presets may retain earlier settings: verify the effective model and effort at launch, preferably in a fresh task. Do not change user-level configuration or silently substitute a model when Astra is unavailable.
 
 Never select `max` automatically. It requires a human choice or accepted same-case evidence that `xhigh` is insufficient. The selector does not emit a `max` preset; an approved exceptional launch is runtime-specific and must be recorded in the assignment and experiment log.
 

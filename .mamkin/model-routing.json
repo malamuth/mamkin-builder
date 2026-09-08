@@ -23,7 +23,7 @@
       }
     },
     "deep": {
-      "model": "gpt-5.6-sol",
+      "model": "gpt-6-astra",
       "reasoningEffort": "high",
       "presets": {
         "read-only": "mamkin-deep-read",
@@ -31,7 +31,7 @@
       }
     },
     "critical": {
-      "model": "gpt-5.6-sol",
+      "model": "gpt-6-astra",
       "reasoningEffort": "xhigh",
       "presets": {
         "read-only": "mamkin-critical-read",

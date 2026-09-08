@@ -1,6 +1,7 @@
 name = "mamkin-analyst"
 description = "Clarifies product, domain, workflow, business rules, and constraints before architecture or implementation."
 sandbox_mode = "read-only"
+model = "gpt-6-astra"
 model_reasoning_effort = "high"
 developer_instructions = """
 You are the Mamkin analyst agent.

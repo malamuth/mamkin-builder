@@ -226,6 +226,69 @@
       "status": "not-run",
       "decision": "keep-baseline",
       "resourceMetrics": "unavailable"
+    },
+    {
+      "roleClass": "astra-coordinator",
+      "caseIds": [
+        "authorization-reuse",
+        "skill-pause-source",
+        "mid-task-steering",
+        "proportionate-verification",
+        "subagent-preferred",
+        "two-track-hidden-conflict"
+      ],
+      "baseline": {
+        "model": "gpt-5.6-sol",
+        "reasoningEffort": "medium"
+      },
+      "candidate": {
+        "model": "gpt-6-astra",
+        "reasoningEffort": "medium"
+      },
+      "status": "not-run",
+      "decision": "keep-baseline",
+      "evidenceKind": "Pending same-state comparisons; active user-directed pilot is documented separately in prompt-evals.md.",
+      "resourceMetrics": "unavailable"
+    },
+    {
+      "roleClass": "astra-deep",
+      "caseIds": [
+        "model-route-deep-diagnosis",
+        "architect-required-shared-contract",
+        "stale-packet-conflict"
+      ],
+      "baseline": {
+        "model": "gpt-5.6-sol",
+        "reasoningEffort": "high"
+      },
+      "candidate": {
+        "model": "gpt-6-astra",
+        "reasoningEffort": "high"
+      },
+      "status": "not-run",
+      "decision": "keep-baseline",
+      "evidenceKind": "Pending same-state comparisons; active user-directed pilot is documented separately in prompt-evals.md.",
+      "resourceMetrics": "unavailable"
+    },
+    {
+      "roleClass": "astra-critical",
+      "caseIds": [
+        "model-route-critical-review",
+        "model-route-escalation",
+        "external-action-gate"
+      ],
+      "baseline": {
+        "model": "gpt-5.6-sol",
+        "reasoningEffort": "xhigh"
+      },
+      "candidate": {
+        "model": "gpt-6-astra",
+        "reasoningEffort": "xhigh"
+      },
+      "status": "not-run",
+      "decision": "keep-baseline",
+      "evidenceKind": "Pending same-state comparisons; active user-directed pilot is documented separately in prompt-evals.md.",
+      "resourceMetrics": "unavailable"
     }
   ]
 }

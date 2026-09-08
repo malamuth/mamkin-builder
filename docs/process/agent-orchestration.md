@@ -17,6 +17,14 @@ The coordinator reads:
 - The one packet file needed for the current handoff. Use `docs/process/handoff-packets.md` only when the correct packet is unclear.
 - `docs/process/context-health-audit.md` only when context drift or source confusion is suspected.
 
+## Follow-Through And Communication
+
+- Reuse explicit authorization while its scope and conditions remain unchanged. Complete authorized preparation before presenting a human gate; ask only for missing decisions that materially affect the outcome.
+- Treat mid-task corrections as steering: preserve completed work and the original objective unless the human cancels or replaces it. Answer side questions, then resume authorized work.
+- If a skill causes a pause, cite its exact file and instruction, distinguish a requirement from an inferred precaution, and check whether current human authorization already resolves it. User instructions outrank skill guidance within runtime restrictions.
+- After required checks pass, broaden or repeat them only for new changes, failures, or unresolved risks. Avoid tests that merely mirror a reversible, low-impact edit.
+- Keep user updates concise and concrete; preserve required evidence in role packets without repeating process rules in every update.
+
 ## Source Authority And Reset
 
 When facts conflict, use:
