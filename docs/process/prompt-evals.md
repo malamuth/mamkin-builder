@@ -4,7 +4,7 @@ Use this protocol for changes to `AGENTS.md`, coordinator or role instructions, 
 
 ## Current Decision (2026-09-10)
 
-The human suspended the Astra coordinator pilot and restored Sol/medium, preserving effort. Retain Astra/high for Deep work, including implementation-approach research, and Astra/xhigh for Critical work; Terra routing is unchanged. This supersedes the coordinator resumption recorded below. Historical scores remain unchanged.
+The human suspended the Astra coordinator pilot and restored Sol, then explicitly selected high effort for coordination. Retain Astra/high for Deep work, including implementation-approach research, and Astra/xhigh for Critical work; Terra routing is unchanged. This supersedes the coordinator resumption recorded below. Historical scores remain unchanged.
 
 The human explicitly deferred fresh behavioral comparisons for this change. Deterministic checks cover configuration, routing and structure only; the requirement-grounded checks, compact evidence and approval reconciliation rules have no new behavioral acceptance claim. Resume same-case evaluations only when requested. Project observations and human preference motivate this decision, not proof of Sol superiority or a measured token reduction.
 
