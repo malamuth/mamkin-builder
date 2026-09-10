@@ -8,7 +8,7 @@ Use this protocol before launching delegated work. Choose role, reasoning profil
 | --- | --- | --- |
 | Economy | `gpt-5.6-terra` / `medium` | Bounded read-only inventory, extraction, classification, or mechanical verification with a deterministic oracle. Luna/low remains an experiment candidate after failing the current same-case quality gate. |
 | Balanced | `gpt-5.6-terra` / `medium` | Reversible, well-specified implementation, deployment, testing, and ordinary analysis. |
-| Deep | `gpt-6-astra` / `high` | Conflicting sources, architecture tradeoffs, shared contracts, cross-component work, unknown root cause, nondeterministic validation, or material product judgment. |
+| Deep | `gpt-6-astra` / `high` | Implementation-approach research, conflicting sources, architecture tradeoffs, shared contracts, cross-component work, unknown root cause, nondeterministic validation, or material product judgment. |
 | Critical | `gpt-6-astra` / `xhigh` | Security/auth boundaries, payments, production data or incidents, destructive migrations, irreversible external state, or concurrency correctness. |
 
 The coordinator uses `gpt-5.6-sol` / `medium`. The human suspended the Astra coordinator pilot on 2026-09-10 based on project experience; comparative behavioral evaluations are deferred. This is a user-directed default, not a new quality score. Analysis, architecture, review, walkthrough, design, and UX compatibility presets retain Astra/high; they cannot substitute for Critical/xhigh. Worker and deployment compatibility presets remain Terra/medium.
