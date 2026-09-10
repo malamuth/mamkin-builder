@@ -64,6 +64,17 @@ class ModelRoutingTests(unittest.TestCase):
                 "balanced",
             )
 
+    def test_approach_research_overrides_mechanical_signals_but_not_critical(self):
+        signals = ["implementation-approach-research", "bounded", "mechanical", "deterministic-validation"]
+        result = select_profile(self.config, "read-only", signals)
+        self.assertEqual(result["agentPreset"], "mamkin-deep-read")
+        self.assertEqual(result["model"], "gpt-6-astra")
+        self.assertEqual(result["reasoningEffort"], "high")
+        with self.assertRaisesRegex(ValueError, "below risk floor deep"):
+            select_profile(self.config, "read-only", signals, "balanced")
+        result = select_profile(self.config, "read-only", signals + ["security-boundary"])
+        self.assertEqual(result["agentPreset"], "mamkin-critical-read")
+
     def test_unknown_signal_is_blocked(self):
         with self.assertRaisesRegex(ValueError, "unknown signals"):
             select_profile(self.config, "read-only", ["looks-hard"])

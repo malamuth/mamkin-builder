@@ -372,5 +372,21 @@
         "Earlier unaffected cases were not rerun; broader project execution remains pending."
       ]
     }
-  ]
+  ],
+  "currentPolicy": {
+    "decisionDate": "2026-09-10",
+    "coordinator": {
+      "model": "gpt-5.6-sol",
+      "reasoningEffort": "medium"
+    },
+    "research": {
+      "signal": "implementation-approach-research",
+      "profile": "deep",
+      "model": "gpt-6-astra",
+      "reasoningEffort": "high"
+    },
+    "decision": "user-directed; Astra coordinator pilot suspended; specialist and Terra profiles retained",
+    "behavioralEvaluation": "deferred by human; historical experiments below are not current acceptance",
+    "evidencePath": "mamkin-builder: docs/follow-ups/sol-coordinator-astra-research.md"
+  }
 }

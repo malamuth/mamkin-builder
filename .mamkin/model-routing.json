@@ -53,6 +53,7 @@
     "architecture-tradeoff",
     "conflicting-sources",
     "cross-component",
+    "implementation-approach-research",
     "material-product-judgment",
     "nondeterministic-validation",
     "shared-contract",

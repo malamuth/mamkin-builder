@@ -475,10 +475,10 @@ def main():
             fail(errors, f"{preset.relative_to(ROOT)} exceeds 120-word wrapper budget ({count})")
 
     config_text = config.read_text(encoding="utf-8")
-    if 'model = "gpt-6-astra"' not in config_text:
-        fail(errors, "coordinator model must match the resumed Astra pilot after focused packet retests")
+    if 'model = "gpt-5.6-sol"' not in config_text:
+        fail(errors, "coordinator model must match the user-directed Sol default")
     if 'model_reasoning_effort = "medium"' not in config_text:
-        fail(errors, "coordinator pilot must preserve medium effort")
+        fail(errors, "coordinator default must preserve medium effort")
     for preset_name in ["mamkin-worker.toml", "mamkin-deployment.toml"]:
         preset_text = (ROOT / f".codex/agents/{preset_name}").read_text(encoding="utf-8")
         if 'model = "gpt-5.6-terra"' not in preset_text or 'model_reasoning_effort = "medium"' not in preset_text:
