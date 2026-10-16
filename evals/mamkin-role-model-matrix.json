@@ -390,16 +390,25 @@
       ],
       "baseline": {
         "model": "gpt-5.6-sol",
-        "reasoningEffort": "high"
+        "reasoningEffort": "high",
+        "result": "2/12 cases; 61/72 rubric points"
       },
       "candidate": {
         "model": "gpt-6.1-sol",
-        "reasoningEffort": "high"
+        "reasoningEffort": "high",
+        "result": "9/12 cases; 69/72 rubric points"
       },
-      "status": "not-run",
+      "status": "failed",
       "decision": "keep-baseline",
-      "evidenceKind": "Planned same-prompt, same-repository, same-permission comparison. Run model comparison before any prompt ablation or effort reduction.",
-      "resourceMetrics": "unavailable"
+      "evidenceDate": "2026-10-16",
+      "evidenceKind": "One fresh read-only subagent per model on the same commit, identical prompt, twelve batched policy simulations, and independent blinded Astra/high scoring. Candidate won the comparison but missed the all-cases quality gate.",
+      "evidencePath": "mamkin-builder: docs/follow-ups/sol-6-1-evaluation-2026-10-16/",
+      "resourceMetrics": "Tokens, cost, tool-call totals, and per-arm latency unavailable; arms ran concurrently.",
+      "limitations": [
+        "One run per model; repeated-run variance is unknown.",
+        "Policy simulations only; executed implementation and external-tool quality were not tested.",
+        "Both arms missed unchanged-status reporting, material approval consequences, and a committed reset baseline."
+      ]
     }
   ],
   "currentPolicy": {
@@ -420,7 +429,7 @@
     "migrationCandidate": {
       "model": "gpt-6.1-sol",
       "reasoningEffort": "high",
-      "status": "not-run",
+      "status": "failed-quality-gate",
       "activationRule": "Adopt only after the sol-6-1-coordinator-migration quality gate passes; test medium separately afterward."
     }
   }
