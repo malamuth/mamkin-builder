@@ -409,6 +409,45 @@
         "Policy simulations only; executed implementation and external-tool quality were not tested.",
         "Both arms missed unchanged-status reporting, material approval consequences, and a committed reset baseline."
       ]
+    },
+    {
+      "roleClass": "sol-6-1-coordinator-common-evidence-retest",
+      "caseIds": [
+        "read-only-audit",
+        "bounded-local-change",
+        "dirty-worktree",
+        "external-action-gate",
+        "pull-based-handoff",
+        "active-lane-inventory",
+        "cross-repo-compatibility-preflight",
+        "micro-slice-proportionate-delivery",
+        "micro-slice-external-acceptance",
+        "post-reset-rollover",
+        "model-route-deep-diagnosis",
+        "feature-git-delivery-gate"
+      ],
+      "baseline": {
+        "model": "gpt-5.6-sol",
+        "reasoningEffort": "high",
+        "result": "9/12 cases; 69/72 rubric points"
+      },
+      "candidate": {
+        "model": "gpt-6.1-sol",
+        "reasoningEffort": "high",
+        "result": "12/12 cases; 72/72 rubric points"
+      },
+      "status": "passed",
+      "decision": "keep-baseline",
+      "evidenceDate": "2026-10-16",
+      "sourceCommit": "fbe34980168fa67a130734647d02e89bc05318d9",
+      "evidenceKind": "Twelve policy simulations after the three common evidence instructions were clarified; identical arm prompts, fresh same-model high-effort arms, unchanged expected objects, and a fresh blinded Astra/high scorer. Policy gate only; no runtime activation assigned.",
+      "evidencePath": "mamkin-builder: docs/follow-ups/sol-6-1-retest-2026-10-16/",
+      "resourceMetrics": "Tokens, cost, tool-call totals, and comparable per-arm latency unavailable.",
+      "limitations": [
+        "One sample per model and judge; gains are not an isolated causal estimate of the instruction repair.",
+        "Judge interpretation differs between rounds on compatibility-correction detail and external-change receipt; original scores remain unchanged.",
+        "Executed coordination, repeated-run reliability, and lower effort remain untested."
+      ]
     }
   ],
   "currentPolicy": {
@@ -424,13 +463,15 @@
       "reasoningEffort": "high"
     },
     "decision": "user-directed; Astra coordinator pilot suspended; specialist and Terra profiles retained",
-    "behavioralEvaluation": "deferred by human; historical experiments below are not current acceptance",
+    "behavioralEvaluation": "matched high-effort policy retest complete; representative executed coordinator evidence remains pending; active defaults unchanged",
+    "latestEvaluationEvidencePath": "mamkin-builder: docs/follow-ups/sol-6-1-retest-2026-10-16/",
     "evidencePath": "mamkin-builder: docs/follow-ups/sol-coordinator-astra-research.md",
     "migrationCandidate": {
       "model": "gpt-6.1-sol",
       "reasoningEffort": "high",
-      "status": "failed-quality-gate",
-      "activationRule": "Adopt only after the sol-6-1-coordinator-migration quality gate passes; test medium separately afterward."
+      "status": "policy-gate-passed",
+      "latestExperiment": "sol-6-1-coordinator-common-evidence-retest",
+      "activationRule": "The retest passes the twelve-case policy gate. Active defaults remain unchanged by this repair-and-retest; establish representative executed coordinator evidence before broad adoption and test medium separately."
     }
   }
 }
