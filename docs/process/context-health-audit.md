@@ -50,6 +50,7 @@ Read only what is needed:
 - `docs/project/decision-log.md`
 - Relevant feature specs, roadmap entries, follow-ups, and walkthroughs.
 - Current `git status --short --branch` and `git rev-parse HEAD`.
+- The current active-lane inventory, including owner, task, worktree, branch/commit, status, current packet, and recovery owner for active, blocked, parked, superseded, and complete lanes.
 - Recent coordinator messages or returned packets when thread tooling is available and the human asked to inspect them.
 
 Do not treat old handoff packets, old summaries, generated reports, or screenshots as authoritative unless current docs confirm them.
@@ -72,6 +73,10 @@ Prefer `rollover recommended` when:
 - Old packets or summaries override current files or human decisions.
 - The coordinator starts implementation, live validation, or worker routing after a stop/reset instruction.
 - The thread is so long or polluted that further inline repair would likely add more confusion.
+- A completed source-grounded reset did not hold: the coordinator again needs old conversation reconstruction to identify current authority, lane ownership, or the next safe action.
+- The coordinator cannot produce one valid active-lane inventory and one authoritative status without reconciling contradictory task history.
+
+Lane count alone does not require rollover. More than two unresolved independent lanes blocks new admission; recommend reset or rollover only when the coordinator cannot reconcile which two remain authoritative.
 
 ## Output Packet
 

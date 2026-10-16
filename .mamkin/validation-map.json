@@ -38,6 +38,14 @@
         "scripts/validate_prompt_contracts.py"
       ]
     },
+    "coordination_contract_tests": {
+      "command": [
+        "python3",
+        "-m",
+        "unittest",
+        "tests.test_validate_coordination_contracts"
+      ]
+    },
     "validation_planner_tests": {
       "command": [
         "python3",
@@ -68,6 +76,18 @@
     }
   },
   "rules": [
+    {
+      "patterns": [
+        "docs/templates/active-lanes.json",
+        "docs/templates/cross-repo-contract.json",
+        "scripts/validate_coordination_contracts.py",
+        "tests/test_validate_coordination_contracts.py"
+      ],
+      "checks": [
+        "coordination_contract_tests",
+        "prompt_contracts"
+      ]
+    },
     {
       "patterns": [
         ".agents/skills/mamkin-adopt/**",
@@ -159,12 +179,14 @@
     "scripts/audit_mamkin_evolution.py",
     "scripts/sync_mamkin_process.py",
     "scripts/validate_prompt_contracts.py",
+    "scripts/validate_coordination_contracts.py",
     "tests/__init__.py",
     "tests/test_adopt_mamkin_process.py",
     "tests/test_audit_mamkin_evolution.py",
     "tests/test_plan_validation.py",
     "tests/test_model_routing.py",
     "tests/test_sync_mamkin_process.py",
+    "tests/test_validate_coordination_contracts.py",
     "README.md",
     "AGENTS.md"
   ],

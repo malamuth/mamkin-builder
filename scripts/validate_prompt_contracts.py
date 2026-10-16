@@ -22,6 +22,8 @@ def main():
     orchestration = ROOT / "docs/process/agent-orchestration.md"
     lane_routing = ROOT / "docs/process/execution-lane-routing.md"
     git_delivery = ROOT / "docs/process/git-delivery.md"
+    thread_operations = ROOT / "docs/process/thread-operations.md"
+    context_audit = ROOT / "docs/process/context-health-audit.md"
     handoffs = ROOT / "docs/process/handoff-packets.md"
     config = ROOT / ".codex/config.toml"
     cases_path = ROOT / "evals/mamkin-prompt-cases.json"
@@ -42,6 +44,8 @@ def main():
     adoption_packet = ROOT / "docs/process/handoff-packets/adoption.md"
     bootstrap_skill = ROOT / ".agents/skills/mamkin-bootstrap/SKILL.md"
     bootstrap_skill_ui = bootstrap_skill.parent / "agents/openai.yaml"
+    coordination_validator = ROOT / "scripts/validate_coordination_contracts.py"
+    coordination_tests = ROOT / "tests/test_validate_coordination_contracts.py"
 
     cases = json.loads(cases_path.read_text(encoding="utf-8"))
     if cases.get("schemaVersion") != 1:
@@ -82,6 +86,12 @@ def main():
         "two-track-admission",
         "two-track-hidden-conflict",
         "two-track-cap",
+        "active-lane-inventory",
+        "cross-repo-compatibility-preflight",
+        "micro-slice-proportionate-delivery",
+        "micro-slice-external-acceptance",
+        "post-reset-rollover",
+        "pull-based-handoff",
         "architect-required-shared-contract",
         "architect-skip-bounded-slice",
         "project-evolution-profit-gate",
@@ -126,6 +136,19 @@ def main():
         experiment_case_ids = experiment.get("caseIds")
         if not experiment_case_ids or not set(experiment_case_ids).issubset(set(ids)):
             fail(errors, f"model experiment {experiment.get('roleClass')} needs known case ids")
+    sol_migration = next(
+        (item for item in experiments if item.get("roleClass") == "sol-6-1-coordinator-migration"),
+        None,
+    )
+    if not sol_migration:
+        fail(errors, "role model matrix missing Sol 6.1 coordinator migration experiment")
+    elif (
+        sol_migration.get("baseline", {}).get("model"),
+        sol_migration.get("baseline", {}).get("reasoningEffort"),
+        sol_migration.get("candidate", {}).get("model"),
+        sol_migration.get("candidate", {}).get("reasoningEffort"),
+    ) != ("gpt-5.6-sol", "high", "gpt-6.1-sol", "high"):
+        fail(errors, "Sol 6.1 migration must preserve high effort for the first comparison")
 
     model_routing = json.loads(model_routing_path.read_text(encoding="utf-8"))
     expected_profiles = {
@@ -274,6 +297,9 @@ def main():
         "Use A Separate Task When Any Trigger Applies",
         "limited to tracks `A` and `B`",
         "Implementation and acceptance use different agents",
+        "docs/templates/active-lanes.json",
+        "Cross-Repository Preflight",
+        "validate_coordination_contracts.py cross-repo",
     ]:
         if phrase not in lane_text:
             fail(errors, f"execution lane routing missing invariant: {phrase}")
@@ -286,6 +312,17 @@ def main():
             fail(errors, f"routing still relies on vague threshold: {vague_phrase}")
     if words(lane_routing) > 1200:
         fail(errors, f"execution lane routing exceeds 1,200-word conditional budget ({words(lane_routing)})")
+
+    thread_text = thread_operations.read_text(encoding="utf-8")
+    for phrase in [
+        "Packet delivery is pull-based.",
+        "only when the human explicitly authorized that send",
+    ]:
+        if phrase not in thread_text:
+            fail(errors, f"thread operations missing pull-based handoff invariant: {phrase}")
+    context_text = context_audit.read_text(encoding="utf-8")
+    if "A completed source-grounded reset did not hold" not in context_text:
+        fail(errors, "context audit missing repeated-reset rollover trigger")
 
     git_delivery_text = git_delivery.read_text(encoding="utf-8")
     for phrase in [
@@ -300,6 +337,9 @@ def main():
         "the result cannot be `Merge-ready` until an exact committed state exists",
         "After acceptance, the coordinator owns closeout",
         "Do not call a feature `Delivered` merely because implementation or walkthrough finished",
+        "## Micro-Slice Contract",
+        "Product code still uses a feature branch.",
+        "External artifacts, public behavior, manual/nondeterministic judgment, and defect/retest cycles keep independent acceptance.",
     ]:
         if phrase not in git_delivery_text:
             fail(errors, f"Git delivery protocol missing invariant: {phrase}")
@@ -602,6 +642,7 @@ def main():
         "validation_planner_tests",
         "template_sync_tests",
         "evolution_audit_tests",
+        "coordination_contract_tests",
         "project_check",
     ]:
         if required_check not in checks:
@@ -643,11 +684,13 @@ def main():
         "scripts/plan_validation.py",
         "scripts/select_model_profile.py",
         "scripts/sync_mamkin_process.py",
+        "scripts/validate_coordination_contracts.py",
         "tests/test_audit_mamkin_evolution.py",
         "tests/test_adopt_mamkin_process.py",
         "tests/test_plan_validation.py",
         "tests/test_model_routing.py",
         "tests/test_sync_mamkin_process.py",
+        "tests/test_validate_coordination_contracts.py",
     ]:
         if path not in process_manifest.get("templateOwned", []):
             fail(errors, f"process manifest does not own {path}")
@@ -702,6 +745,8 @@ def main():
         evolution_packet,
         evolution_catalog_path,
         ROOT / "scripts/audit_mamkin_evolution.py",
+        coordination_validator,
+        coordination_tests,
         ROOT / "README.md",
     ]:
         if "sambl" in path.read_text(encoding="utf-8").lower():

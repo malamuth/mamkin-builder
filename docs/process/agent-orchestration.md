@@ -27,6 +27,7 @@ The coordinator reads:
 - Ground each blocking check in an approved requirement or relevant preservation obligation. Treat unsupported expectations as questions, not defects; do not expand acceptance to every technically possible customization.
 - Keep raw diagnostic dumps temporary by default. Retain concise results, changed fields, reproduction details and acceptance-critical evidence; persist full captures only when needed to reproduce a failure or transfer verification. A no-op inspection needs a compact result, not duplicate before/after trees.
 - Keep one authoritative current status per work item. On approval, reconcile that status and complete already-authorized markers and bookkeeping before advancing. Supersede stale queue/approval statements; preserve history as history. Approval does not imply publishing or resolving unrelated defects.
+- Before admitting an independent lane, reconcile the active-lane inventory required by `execution-lane-routing.md`. Block a third unresolved lane instead of relying on remembered task state.
 
 ## Source Authority And Reset
 
@@ -73,7 +74,7 @@ Designer, UX, reviewer, walkthrough, and deployment roles are conditional:
 - Designer: approved design artifacts or visual-system work.
 - UX: user flow, hierarchy, states, accessibility, or responsive fit.
 - Reviewer: correctness, security, migration, API-contract, regression, or test risk merits a second engineering read.
-- Walkthrough: acceptance verification after implementation; always a different agent from implementation.
+- Walkthrough: independent acceptance after implementation when behavior, external artifacts, manual judgment, nondeterminism, or a defect/retest cycle requires it. A micro-slice may use parent-run focused verification under `git-delivery.md`.
 - Deployment: environment, provider, release, secrets path, or production readiness.
 
 Built-in role cards live under `docs/process/roles/`. Choose the role first, then select a reasoning profile from observable risk signals in `model-routing.md` and use its access-specific launch preset. Existing role presets remain compatibility fallbacks; use one only when it meets or exceeds the selected risk floor. Never silently downgrade because a model or preset is unavailable.
@@ -81,13 +82,13 @@ Built-in role cards live under `docs/process/roles/`. Choose the role first, the
 ## Feature Cycle
 
 1. **Orient:** verify repo state; read current project sources; triage unresolved follow-ups.
-2. **Specify:** use analyst or architect only under the triggers above. Produce an accepted feature spec or equivalent brief plus walkthrough coverage.
+2. **Specify:** use analyst or architect only under the triggers above. Produce an accepted feature spec or equivalent brief plus the proportionate verification target. A micro-slice may keep this scope inline in current status.
 3. **Baseline:** prefer a clean commit containing accepted planning state. Otherwise record the exact branch, commit, and dirty-state boundary.
-4. **Delivery:** declare the Git delivery contract. Use a named feature branch by default; obtain any external closeout authority for that exact branch separately.
-5. **Route:** choose subagent or separate task with `execution-lane-routing.md`; admit at most tracks `A` and `B`.
+4. **Delivery:** declare the Git delivery contract, or the micro-slice contract when every criterion passes. Obtain external authority separately.
+5. **Route:** choose coordinator micro-slice, subagent, or separate task with `execution-lane-routing.md`; validate active-lane state before admitting tracks `A` or `B`, and run cross-repository preflight before a consumer lane.
 6. **Implement:** one owner per slice; preserve feature-spec stability unless editing it is assigned.
 7. **Review:** add only when the risk triggers above apply.
-8. **Verify:** a different agent runs approved checks and applicable walkthrough scenarios against the exact committed state.
+8. **Verify:** use independent acceptance where required; otherwise the micro-slice parent runs its focused deterministic check and records the result.
 9. **Integrate:** the coordinator follows `git-delivery.md`; for two tracks, integrate in order and run combined checks before `Integration-verified`.
 10. **Close:** finish authorized Git closeout, reconcile roadmap/decisions/follow-ups, report validation and retained state, and name the next action.
 
@@ -95,7 +96,7 @@ Update roadmap state at cycle transitions rather than repeating live state in pr
 
 ## Lane And Decision Routing
 
-Separate-task workers return one packet to the coordinator. Subagents return once to their named parent, which inspects the result and owns any coordinator handoff. Workers do not hand work directly to peers or start follow-up lanes unless explicitly delegated.
+Separate-task workers return one final packet in their own task; the coordinator collects it with wait/read tools. Cross-task sending is optional and requires direct human authorization. Subagents return once to their named parent, which inspects the result and owns any coordinator handoff. Workers do not hand work directly to peers or start follow-up lanes unless explicitly delegated.
 
 Human decisions remain coordinator-owned unless a worker prompt delegates one exact question. On a human gate, the worker returns a blocker; the coordinator presents options, obtains the decision, records it when durable, and resumes the same role when practical. Never delegate collection of secret values.
 
@@ -144,11 +145,11 @@ Resolve every repository path in `Read first` against current files before dispa
 ```text
 Agent preset:
 Thread name:
-Coordinator thread id:
+Coordinator identity:
 Worker thread id, if known:
 Expected worktree:
 Expected branch or commit:
-Handoff return path:
+Final packet:
 ```
 
 Read `docs/process/thread-operations.md` and `docs/process/naming-conventions.md` before filling this extension.
@@ -190,7 +191,7 @@ Do not include parallel fields for a single-track assignment. `execution-lane-ro
 
 Keep `Read first` to `AGENTS.md`, one role card, one feature spec or walkthrough, one packet, and only necessary project sources. Add lane routing only when delegation or parallelism requires it.
 
-Lead with the observable result. `Stop and fallback rules` requires one return to the assigned destination and a blocker when sources are unavailable, a human gate is reached, or success criteria cannot be met.
+Lead with the observable result. `Stop and fallback rules` requires one final return in the assigned task or to the parent lane, plus a blocker when sources are unavailable, a human gate is reached, or success criteria cannot be met.
 
 ## Follow-Up Triage
 
@@ -210,7 +211,7 @@ The coordinator verifies:
 - Current sources and returned evidence agree.
 - Expected ownership and changed files match.
 - Required checks ran, or the gap and next best check are explicit.
-- Implementation and final acceptance were performed by different agents.
+- Implementation and final acceptance were performed by different agents where independent acceptance is required; micro-slice verification meets its focused-check contract.
 - Parallel tracks are reported separately from integrated-state verification.
 - Roadmap, decisions, walkthrough results, and follow-ups are reconciled.
 - The Git delivery contract was followed; `Merge-ready` is not reported as `Delivered` before integration and required cleanup.

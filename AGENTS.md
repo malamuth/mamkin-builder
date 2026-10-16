@@ -47,7 +47,7 @@ Fill these during init once the stack is known. Until then, do not invent comman
 ## Worker Handoff Contract
 
 - The coordinator owns human decisions unless the worker prompt delegates one exact question.
-- Every separate-task worker prompt must provide the coordinator thread id and exact handoff path. Use direct thread send when available; otherwise return one final packet beginning `Coordinator handoff - manual relay required for coordinator thread <id>`.
+- Every separate-task worker prompt names the coordinator and output packet. The worker returns one final packet in its own task; the coordinator collects it with thread wait/read tools. Direct cross-task messaging is optional and requires explicit human authorization for that send.
 - A subagent prompt must name its parent lane owner. The subagent returns one result or role packet to that parent; the parent owns any coordinator handoff.
-- Never send a packet to the worker's own thread, forward the coordinator prompt, or create a duplicate handoff task. Return once, then stop.
+- Never forward the coordinator prompt or create a duplicate handoff task. Return once, then stop.
 - Independent work tracks use separate Codex tasks. Bounded delegation may use subagents only under `docs/process/execution-lane-routing.md`; implementation and acceptance must never be performed by the same subagent.

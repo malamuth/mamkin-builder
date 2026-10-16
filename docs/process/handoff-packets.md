@@ -8,7 +8,7 @@ Handoff packets are evidence, not permanent authority. If an older packet confli
 
 When a packet makes architecture, source-ownership, generated-artifact, deployment, data, or integration claims, it should name the files, docs, reports, branch/commit, environment, or external proof it relied on. External proof should be described narrowly: what it observed, where, and what it does not prove.
 
-Workers follow the Worker Handoff Contract in `AGENTS.md` and the exact path in their task prompt. Every separate-task packet fills `Coordinator thread id` and `Return path used`. A subagent fills `Parent lane owner`, returns once to that parent, and does not perform a separate coordinator delivery. Coordinator-side delivery and recovery mechanics live in `docs/process/thread-operations.md`.
+Workers follow the Worker Handoff Contract in `AGENTS.md`. Every separate-task packet names the coordinator and returns once in the worker task for coordinator collection. A subagent fills `Parent lane owner`, returns once to that parent, and does not perform a separate coordinator delivery. Coordinator-side collection and recovery mechanics live in `docs/process/thread-operations.md`.
 
 Implementation and walkthrough packets report Git evidence but never silently own integration. The coordinator follows `docs/process/git-delivery.md`, and the final packet distinguishes `Merge-ready`, `Ready for Git closeout`, and `Delivered`.
 

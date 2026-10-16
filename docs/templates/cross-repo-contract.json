@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "contractKind": "cross-repo-compatibility",
+  "producer": {
+    "repository": "TBD",
+    "commit": "TBD",
+    "sourceClosure": [
+      "TBD"
+    ]
+  },
+  "envelope": {
+    "type": "TBD",
+    "version": "TBD",
+    "artifact": "TBD",
+    "sha256": "TBD"
+  },
+  "consumer": {
+    "repository": "TBD",
+    "acceptedTypes": [
+      "TBD"
+    ],
+    "acceptedVersions": [
+      "TBD"
+    ],
+    "validatorCommand": [
+      "TBD"
+    ]
+  },
+  "preflight": {
+    "status": "blocked",
+    "checkedAt": "TBD",
+    "evidence": "TBD"
+  }
+}

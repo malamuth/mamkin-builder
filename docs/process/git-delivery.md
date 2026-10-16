@@ -2,6 +2,18 @@
 
 Use this protocol for every write-capable feature or substantive slice. It owns the path from accepted planning baseline to clean integrated repository state. Project commands and external-action gates still come from `AGENTS.md`.
 
+## Micro-Slice Contract
+
+Avoid a feature spec, durable task, dedicated branch, or walkthrough lane when every condition is true:
+
+- one reversible surface and one owner;
+- no cross-component behavior, shared contract/schema/migration, dependency, generated source, security/data/deployment boundary, or product-code change;
+- no concurrent writer or cross-repository consumption;
+- one focused deterministic check or bounded external-artifact inspection decides success;
+- rollback is explicit, external mutation separately authorized, and current status records scope, state, owner, check, evidence, and stop boundary.
+
+Product code still uses a feature branch. Process/admin-only edits may use an approved direct-to-base exception; external-artifact-only work may use its approved project branch. External artifacts, public behavior, manual/nondeterministic judgment, and defect/retest cycles keep independent acceptance. Otherwise the parent may run the focused check and retain one receipt. Promote to the normal contract before further writes if any criterion fails.
+
 ## Delivery Contract
 
 Before product implementation, the coordinator declares this contract. When an accepted spec lacks it, resolve missing choices, create/switch to the named branch from the clean base, and record the contract as the first branch change before product code. Do not edit the base merely to add the contract.
@@ -21,7 +33,7 @@ Remote branch cleanup: retain | delete after verified integration
 Closeout owner: coordinator
 ```
 
-Use `feature branch` by default, named `codex/fNN-short-scope`. Create it from a clean accepted planning baseline before product writes. A separate write-capable task normally owns a separate worktree on that branch; a single same-task lane may use the current worktree when no other writer overlaps.
+Use `feature branch` by default, named `codex/fNN-short-scope`, from a clean accepted baseline. A separate writer normally owns a worktree; one same-task lane may use the current worktree without overlap.
 
 `direct-to-base exception` is allowed only when all are true:
 
@@ -30,19 +42,19 @@ Use `feature branch` by default, named `codex/fNN-short-scope`. Create it from a
 - no other writer is active and the base is clean;
 - the human explicitly approves the exception.
 
-An urgent feature or hotfix still uses a branch unless the human approves a named exception after seeing the risk.
+Urgent work still uses a branch unless the human approves a named exception.
 
 ## Existing Dirty-Base Recovery
 
-If feature writes already exist on the base before a contract is declared, stop new writes and inventory the exact dirty state. Do not stash, reset, discard, or silently move a mixed worktree.
+If feature writes predate the contract, stop and inventory the dirty state. Do not stash, reset, discard, or silently move a mixed worktree.
 
-- When every dirty path belongs to one feature and the human confirms that boundary, create the named feature branch from the current base while preserving the worktree, then commit and validate there.
-- When adoption/process work, unrelated user edits, or multiple features are mixed, present a path-level ownership and recovery plan first. Separate commits or worktrees only when provenance is clear; otherwise keep the state untouched and ask for the smallest ownership decision.
-- Record the original base commit and dirty boundary. Recovery does not retroactively authorize external Git actions or make existing changes accepted.
+- If every dirty path belongs to one human-confirmed feature, create its branch while preserving the worktree, then commit and validate there.
+- If unrelated work or features are mixed, present path ownership and recovery first. Separate only with clear provenance; otherwise ask for the smallest decision.
+- Record the original base and dirty boundary. Recovery grants no external authority or acceptance.
 
 ## Authority
 
-Local branching and commits may proceed when the delivery contract grants `branch + commit`; runtime approval may still be required for `.git` writes. Workers never infer authority to push, create a PR, merge externally, or delete a remote branch.
+Local branching and commits may proceed under `branch + commit`; runtime approval may still be required. Workers never infer push, PR, merge, or remote-delete authority.
 
 At kickoff, the coordinator may ask once for exact external authority covering the named feature branch, remote/base target, integration path, merge method, and conditional cleanup. `full closeout` authorizes only that lifecycle after required review, walkthrough, and checks pass. A changed branch, remote/base, path, method, failed gate, conflict, or expanded scope invalidates that authorization and returns to the human.
 

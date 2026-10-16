@@ -1,6 +1,6 @@
 # Execution Lane Routing
 
-Use this file to choose between a same-task subagent and a separate Codex task, and to admit at most two independent work tracks. A Codex task and thread are the same durable, user-visible lane in this process.
+Use this file to choose between a same-task subagent and a separate Codex task, and to admit at most two unresolved independent work tracks. A Codex task and thread are the same durable, user-visible lane in this process.
 
 ## Core Boundary
 
@@ -26,19 +26,16 @@ Good subagent work includes repository exploration, focused research, diff revie
 
 ## Use A Separate Task When Any Trigger Applies
 
-- The assignment owns an independent acceptance outcome that can pause, resume, or be prioritized separately.
-- It may need direct human clarification, approval, or follow-up after the parent moves on.
+- The assignment owns an independently resumable acceptance outcome or may need later human follow-up.
 - It owns a branch, worktree, external target, or durable specialist responsibility.
 - It would write to a different Git repository, including an upstream template or reusable-tool repository.
 - Write ownership spans multiple components or affects a shared API, schema, migration, auth/security boundary, lockfile, generated source, global configuration, or external integration.
 - The work cannot be bounded to one prompt with explicit allowed files, observable success criteria, and a known validation path.
 - Verification needs manual judgment, interactive UI, accounts, secrets, external systems, environment setup, or a defect/retest cycle.
-- The result needs a durable handoff packet, user-visible progress, or clean context isolated from the coordinator.
+- The result needs durable user-visible history or clean context isolated from the coordinator.
 - Source ownership overlaps another active writer or cannot be proved disjoint.
 
-Architecture, implementation, walkthrough, deployment, or specialist work uses a separate task only when one of these triggers applies. A bounded pass in any role may be a subagent when every subagent condition passes and acceptance remains independently owned.
-
-A feature branch does not by itself require a separate task. One write-capable lane may use the current worktree on the declared branch; concurrent or independently recoverable writers use separate worktrees. Direct-to-base feature work is not a routing shortcut.
+Any role uses a separate task only when a trigger applies. A feature branch alone is not a trigger: one lane may use the current worktree; concurrent or independently recoverable writers use separate worktrees.
 
 ## Prompt Declaration
 
@@ -49,7 +46,7 @@ Execution mode: separate task | subagent
 Assigned return destination:
 ```
 
-For a subagent, add `Parent lane owner` and `Subagents: not allowed`; nested subagents are not part of this model. For a separate task, add the coordinator id, durable return path, worktree, and branch/commit boundary. Add `Subagents: allowed` only when the separate-task owner may create bounded helpers under this policy; it never authorizes another independent workstream or delegated human decisions.
+For a subagent, add `Parent lane owner` and `Subagents: not allowed`. For a separate task, add coordinator identity, final packet, worktree, and branch/commit; the coordinator collects the result. `Subagents: allowed` permits only bounded helpers, never another workstream or delegated human decisions.
 
 Add `Parallel track: A | B` and the full parallel extension only for admitted two-track work. Do not add parallel fields to a single-track prompt.
 
@@ -57,7 +54,7 @@ A separate-task worker returns its role packet to the project coordinator. A sub
 
 ## Two-Track Admission
 
-Parallel mode is optional and limited to tracks `A` and `B`. A third independent track waits until one active track reaches a terminal state. Both tracks remain under one project coordinator. The cap applies to independent workstreams; bounded subagents remain internal to their parent track and do not become additional tracks.
+Parallel mode is optional and limited to tracks `A` and `B`. Before creating a lane, initialize or reconcile project-owned `docs/project/active-lanes.json` from `docs/templates/active-lanes.json`, then run `python3 scripts/validate_coordination_contracts.py lanes docs/project/active-lanes.json`. Active, blocked, and parked lanes occupy a slot; superseded and complete entries remain history. A third unresolved track waits. Bounded subagents remain internal to one coordinator and parent track.
 
 Before launch, the coordinator records these facts in the two worker prompts:
 
@@ -84,6 +81,10 @@ Admit both tracks only when all are true:
 
 If any condition fails or cannot be proved, serialize the tracks or route the boundary question to the architect. A blocked track does not block the other unless a shared assumption changes.
 
+## Cross-Repository Preflight
+
+Before consuming another repository's artifact, copy `docs/templates/cross-repo-contract.json` to project-owned `docs/project/cross-repo-contracts/<id>.json`; resolve producer commit/source closure, envelope type/version/SHA-256, consumer acceptance, and argv validator. Run the consumer validator on that artifact, record evidence and `passed`, then run `python3 scripts/validate_coordination_contracts.py cross-repo <path>`. Failure blocks dispatch and never expands cross-repository write authority.
+
 ## Track Completion And Integration
 
 - Packets may return in either order; tag every packet with its track.
@@ -95,10 +96,10 @@ If any condition fails or cannot be proved, serialize the tracks or route the bo
 
 ## Acceptance Separation
 
-Implementation and acceptance use different agents. Either of these shapes is valid:
+Implementation and acceptance use different agents for feature behavior, shared contracts, external artifacts, manual or nondeterministic verification, and any work needing a defect/retest cycle. Either of these shapes is valid:
 
 - Separate implementation task -> separate walkthrough task.
 - Separate implementation task -> bounded walkthrough subagent, only when verification is deterministic, local, non-interactive, uses a named commit, and needs no retest cycle.
 - Coordinator-owned bounded edit meeting every subagent condition -> implementation subagent -> different bounded verification subagent.
 
-Use a separate walkthrough task whenever any separate-task trigger applies. The implementation agent, including any implementation subagent, never issues the final acceptance verdict for its own changes.
+For a micro-slice meeting every criterion in `docs/process/git-delivery.md`, the parent or coordinator may run the focused deterministic check; do not create a walkthrough lane solely to restate that check. Use a separate walkthrough task whenever any separate-task trigger applies. An implementation agent never issues the final acceptance verdict where independent acceptance is required.

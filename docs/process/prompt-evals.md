@@ -2,11 +2,13 @@
 
 Use this protocol for changes to `AGENTS.md`, coordinator or role instructions, skills, custom-agent presets, handoff rules, hooks that inject context, or default reasoning effort.
 
-## Current Decision (2026-09-10)
+## Current Decision (2026-10-16)
 
-The human suspended the Astra coordinator pilot and restored Sol, then explicitly selected high effort for coordination. Retain Astra/high for Deep work, including implementation-approach research, and Astra/xhigh for Critical work; Terra routing is unchanged. This supersedes the coordinator resumption recorded below. Historical scores remain unchanged.
+Keep `gpt-5.6-sol` / `high` active while evaluating `gpt-6.1-sol` / `high` as the coordinator candidate. Retain Astra/high for Deep work, including implementation-approach research, Astra/xhigh for Critical work, and existing Terra routing. Historical scores remain unchanged.
 
-The human explicitly deferred fresh behavioral comparisons for this change. Deterministic checks cover configuration, routing and structure only; the requirement-grounded checks, compact evidence and approval reconciliation rules have no new behavioral acceptance claim. Resume same-case evaluations only when requested. Project observations and human preference motivate this decision, not proof of Sol superiority or a measured token reduction.
+The migration experiment is `sol-6-1-coordinator-migration` in `evals/mamkin-role-model-matrix.json`. First replay the same prompts, repository state, permissions, and checks on 5.6 Sol/high and 6.1 Sol/high. Only after the model comparison passes may one instruction group be removed or rewritten at a time; only after that may medium effort be tested separately. Deterministic checks cover configuration and structure but do not activate the candidate or prove behavioral quality.
+
+This follows OpenAI's [GPT-6.1 Sol migration guidance](https://developers.openai.com/api/docs/guides/latest-model?model=gpt-6.1-sol) to preserve effective reasoning effort during a model migration, run representative evals before changing prompts or capabilities, and compare quality, latency, tokens, tool calls, and cost. The [software-maintenance guidance](https://developers.openai.com/blog/maintaining-software-with-the-gpt-6-family) also recommends an unchanged-versus-removed instruction comparison on the same repository before deleting legacy guidance. API-only request fields are not assumed to be available through Codex project configuration.
 
 ## Baseline
 
@@ -31,13 +33,17 @@ The pre-refactor behavioral cases were not run before this suite existed. Treat 
 - In-scope local changes proceed without unnecessary approval.
 - Dirty worktrees and user edits are preserved.
 - External or destructive actions stop for the human.
-- Workers return exactly once to the destination assigned by their execution mode.
+- Workers return exactly once in their assigned task or to their parent; coordinators collect separate-task packets with wait/read tools.
 - Current sources outrank stale packets and memory.
 - Implementation and acceptance walkthrough ownership stay separate.
 - Bounded delegation prefers subagents and returns to the parent lane.
 - Independent, long-lived, human-facing, or separately isolated work uses a separate task.
 - Parallel work admits no more than two independent tracks and requires an integrated-state check.
+- Active, blocked, and parked independent lanes occupy the two-lane cap; superseded and complete lanes remain visible history.
+- Cross-repository consumer work starts only after a machine-readable compatibility packet and exact consumer validator pass.
+- Reversible micro-slices avoid feature-spec, durable-task, branch, and walkthrough ceremony only when the narrow contract passes; external writes and judgment still keep their gates.
 - Context drift routes to audit/reset/rollover rather than continued guessing.
+- Repeated authority or lane reconstruction after a completed reset recommends rollover.
 - Optional post-edit automation remains inert until explicitly enabled and never hides a failed formatter.
 - Mature-project evolution audits recommend only evidence-backed net value and never apply findings or sync files.
 - Project-native learning routes to one smallest durable action, never auto-creates skills, and never leaks project domain details into Mamkin.
@@ -128,6 +134,7 @@ Independent scores and raw snapshots are retained in the template repository at 
 
 | Date | Change | Structural result | Behavioral evidence | Reasoning decision |
 | --- | --- | --- | --- | --- |
+| 2026-10-16 | Replaced push-style worker handoff with coordinator collection, added cross-repository preflight and active-lane contracts, introduced micro-slice delivery, and strengthened post-reset rollover. | Prompt budgets pass; the suite has 43 cases; coordination-contract unit tests validate compatibility and lane caps. | Not run. Current project evidence motivated the change, but no Sol 6.1 behavioral claim exists yet. | Keep 5.6 Sol/high active. Compare 6.1 Sol/high on unchanged prompts first; test prompt ablation and medium effort separately. |
 | 2026-07-15 | Centralized worker contract, slimmed always-loaded instructions, routed rare thread/reset paths, and removed workflow injection from `SubagentStart`. | `AGENTS.md` 548 words; coordinator default 5,746 words; orchestration 3,752 words; one active manual-relay invariant. | Not run before refactor; representative suite added for future fresh-task runs. | Keep root and role presets at `high` until same-case `high` versus `medium` evidence exists. |
 | 2026-07-28 | Added choice-first init rounds, evidence-shaped review and walkthrough packets, optional disabled post-edit formatting, change-aware validation, guarded process sync, and an experiments-only role matrix. | Deterministic contracts and tool unit tests pass; active prompt budgets remain enforced. | Fresh behavioral task cases not yet run; no comparative quality claim. | Active defaults remain `high`; run the recorded role experiments before changing a preset. |
 | 2026-07-28 | Consolidated coordinator policy, made delegation references conditional, split prompt extensions, and replaced vague routing thresholds with observable triggers. | Coordinator default 2,641 words; delegation path 4,826 words; orchestration manual 1,357 words; one active manual-relay invariant. | Fresh policy-response trials: coordinator high and medium each 5/5; role baseline and Terra medium each 6/6; architect/subagent follow-up each 3/3. Token/latency telemetry unavailable. | Adopt coordinator medium and Terra/medium for bounded implementation, deployment, and read-only subagents. Keep analysis, architecture, review, walkthrough, design, and UX high pending role-specific execution fixtures. |

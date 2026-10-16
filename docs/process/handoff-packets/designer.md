@@ -8,8 +8,8 @@ Model and effort used:
 Profile trigger or escalation evidence:
 Execution mode: separate task | subagent
 Parent lane owner:
-Coordinator thread id:
-Return path used: Parent lane return | Direct thread send | Manual relay required
+Coordinator identity:
+Return mode: Parent lane | Worker task final for coordinator collection
 Feature/Slice:
 Parallel track: none | A | B
 Worktree:

@@ -234,7 +234,7 @@
         "bounded-local-change",
         "dirty-worktree",
         "external-action-gate",
-        "manual-relay-handoff",
+        "pull-based-handoff",
         "stale-packet-conflict",
         "lane-separation",
         "subagent-preferred",
@@ -371,6 +371,35 @@
         "No isolated wording-only improvement established; supplied context and source inventory matter.",
         "Earlier unaffected cases were not rerun; broader project execution remains pending."
       ]
+    },
+    {
+      "roleClass": "sol-6-1-coordinator-migration",
+      "caseIds": [
+        "read-only-audit",
+        "bounded-local-change",
+        "dirty-worktree",
+        "external-action-gate",
+        "pull-based-handoff",
+        "active-lane-inventory",
+        "cross-repo-compatibility-preflight",
+        "micro-slice-proportionate-delivery",
+        "micro-slice-external-acceptance",
+        "post-reset-rollover",
+        "model-route-deep-diagnosis",
+        "feature-git-delivery-gate"
+      ],
+      "baseline": {
+        "model": "gpt-5.6-sol",
+        "reasoningEffort": "high"
+      },
+      "candidate": {
+        "model": "gpt-6.1-sol",
+        "reasoningEffort": "high"
+      },
+      "status": "not-run",
+      "decision": "keep-baseline",
+      "evidenceKind": "Planned same-prompt, same-repository, same-permission comparison. Run model comparison before any prompt ablation or effort reduction.",
+      "resourceMetrics": "unavailable"
     }
   ],
   "currentPolicy": {
@@ -387,6 +416,12 @@
     },
     "decision": "user-directed; Astra coordinator pilot suspended; specialist and Terra profiles retained",
     "behavioralEvaluation": "deferred by human; historical experiments below are not current acceptance",
-    "evidencePath": "mamkin-builder: docs/follow-ups/sol-coordinator-astra-research.md"
+    "evidencePath": "mamkin-builder: docs/follow-ups/sol-coordinator-astra-research.md",
+    "migrationCandidate": {
+      "model": "gpt-6.1-sol",
+      "reasoningEffort": "high",
+      "status": "not-run",
+      "activationRule": "Adopt only after the sol-6-1-coordinator-migration quality gate passes; test medium separately afterward."
+    }
   }
 }

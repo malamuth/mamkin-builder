@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "contractKind": "active-lanes",
+  "updatedAt": "TBD",
+  "lanes": [
+    {
+      "id": "TBD",
+      "owner": "TBD",
+      "task": "TBD",
+      "status": "active",
+      "worktree": "TBD",
+      "branchOrCommit": "TBD",
+      "currentPacket": "TBD",
+      "recoveryOwner": "TBD"
+    }
+  ]
+}

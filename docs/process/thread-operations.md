@@ -6,24 +6,24 @@ Read this when starting, receiving from, or recovering a separate worker task, o
 
 - Create a clean thread with a standalone role prompt. Do not fork the coordinator for implementation, walkthrough, review, deployment, or specialist work unless the human explicitly wants inherited coordinator history.
 - Use the matching `.codex/agents/mamkin-*.toml` preset when supported.
-- Include the exact thread name, coordinator thread id, worktree, branch or commit, allowed files, goal, success criteria, validation, output packet, and stop rule.
+- Include the exact thread name, coordinator identity, worktree, branch or commit, allowed files, goal, success criteria, validation, output packet, and stop rule.
 - Confirm that a separate-task trigger from `docs/process/execution-lane-routing.md` applies and declare the prompt's execution mode. Do not create a durable task for work that passed every subagent condition unless persistence or user visibility is the reason.
 
 After creation, perform one bounded start-health check. Treat the lane as failed to start when it has no visible turn content, contains inherited coordinator/reset history instead of the standalone role prompt, or cannot be resolved consistently by available thread tools. Mark the id superseded, try at most one replacement when useful, then use a manual starter prompt. Re-evaluate execution mode before any fallback; task-creation failure does not make independent or long-lived work suitable for a subagent.
 
 ## Receive A Packet
 
-The dynamic worker prompt owns the exact return path. Direct thread send is preferred when the coordinator id and tool are available. Manual relay is an expected fallback, not a failed worker outcome.
+Packet delivery is pull-based. The worker returns one final packet in its own task; the coordinator waits on the task and reads the completed result. Do not require a worker to message another task. A direct cross-task send is optional only when the human explicitly authorized that send.
 
-Do not poll or summarize an active worker lane. With two tracks, packets may return in either order and one blocker does not stop the other unless a shared assumption changes. Continue after a returned packet or blocker, a human inspection request, or an explicit timeout/recovery step. If the worker has finished but direct delivery did not arrive, perform one collection read and relay the fallback packet.
+Do not poll or summarize an active worker lane. With two tracks, packets may return in either order and one blocker does not stop the other unless a shared assumption changes. Continue after a returned packet or blocker, a human inspection request, or an explicit timeout/recovery step. If task waiting is unavailable, perform one bounded collection read or ask the human to relay the final packet; do not create a duplicate delivery task.
 
 Confirm receipt before routing follow-up work. Old packets are evidence only and never override current human decisions or current sources.
 
 ## Recovery Cases
 
-- If a worker sends to itself, recover the packet once, restate the exact coordinator target, and do not duplicate the lane.
+- If a worker attempts an unauthorized or self-directed cross-task send, keep its final packet as the result and do not duplicate the lane.
 - If a worker or walkthrough inherits coordinator/reset context, supersede it and create a clean standalone lane.
-- If thread tools cannot create or deliver reliably, return the exact standalone starter prompt for human paste and report the limitation.
+- If thread tools cannot create or read reliably, return the exact standalone starter prompt for human paste and report the limitation.
 - If the coordinator begins monitoring or implementing inside an active lane, stop and return to the coordinator/worker ownership boundary.
 
 ## Coordinator Rollover
