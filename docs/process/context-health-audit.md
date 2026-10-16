@@ -38,7 +38,7 @@ Trigger: If the coordinator repeats stale source ownership or recommends impleme
 
 Use context reset when the same coordinator thread is still usable. The coordinator pauses work, reads authoritative files, and returns a source-grounded restatement before routing or implementing anything else.
 
-Use rollover when the current coordinator has become structurally unreliable. Rollover promotes a fresh coordinator thread from a committed reset baseline and archives or renames the outgoing coordinator.
+Use rollover when the current coordinator has become structurally unreliable. The recommendation names the failed-reset evidence and requires preparing and committing a source-grounded reset baseline before starting the fresh coordinator. The read-only audit recommends that preparation; it does not write or commit the baseline itself. Report missing local commit authority as a blocker. Approved rollover then promotes the fresh coordinator and archives or renames the outgoing coordinator.
 
 ## Evidence To Inspect
 

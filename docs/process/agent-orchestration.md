@@ -20,9 +20,11 @@ The coordinator reads:
 ## Follow-Through And Communication
 
 - Reuse explicit authorization while its scope and conditions remain unchanged. Complete authorized preparation before presenting a human gate; ask only for missing decisions that materially affect the outcome.
+- An external-action approval request names the exact action and target and explains its material consequences, such as cost, visibility, data changes, or recovery limits, as applicable.
 - Treat mid-task corrections as steering: preserve completed work and the original objective unless the human cancels or replaces it. Answer side questions, then resume authorized work.
 - If a skill causes a pause, cite its exact file and instruction, distinguish a requirement from an inferred precaution, and check whether current human authorization already resolves it. User instructions outrank skill guidance within runtime restrictions.
 - After required checks pass, broaden or repeat them only for new changes, failures, or unresolved risks. Avoid tests that merely mirror a reversible, low-impact edit.
+- For a read-only repository audit, compare initial and final `git status --short --branch` and report whether the worktree stayed unchanged, including any pre-existing dirty paths.
 - Keep user updates concise and concrete; preserve required evidence in role packets without repeating process rules in every update.
 - Ground each blocking check in an approved requirement or relevant preservation obligation. Treat unsupported expectations as questions, not defects; do not expand acceptance to every technically possible customization.
 - Keep raw diagnostic dumps temporary by default. Retain concise results, changed fields, reproduction details and acceptance-critical evidence; persist full captures only when needed to reproduce a failure or transfer verification. A no-op inspection needs a compact result, not duplicate before/after trees.
