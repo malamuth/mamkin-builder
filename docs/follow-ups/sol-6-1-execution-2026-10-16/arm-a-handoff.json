@@ -1,0 +1,27 @@
+{
+  "status": "ready_for_parent_review",
+  "parentLaneOwner": "/root",
+  "executionMode": "subagent",
+  "snapshotRoot": "/Users/bo/Codex/mamkin-builder/tmp/sol-ab-F1Mk33wp/a",
+  "sourceCommit": "bb590c770e6ecedc74dca3d4faa0c7267b231495",
+  "parentHeadObserved": "9a1802b7e6c598a7087a1d2962171012461088a1",
+  "changedFiles": ["scripts/validate_coordination_contracts.py", "tests/test_validate_coordination_contracts.py"],
+  "implementationSummary": [
+    "Require schemaVersion to have exact int type and value 1 for both contract kinds, rejecting booleans, floats, strings, null, missing values, and other versions.",
+    "Require lane status to be a string before allowed-set membership, preventing unhashable arrays or objects from raising TypeError.",
+    "Added regression coverage for function and CLI behavior, existing input errors, input preservation, unresolved-lane behavior, and validatorCommand non-execution."
+  ],
+  "checks": [
+    {"command": "python3 -B -m unittest tests.test_validate_coordination_contracts", "result": "10 tests passed", "exitCode": 0},
+    {"command": "git diff --check", "result": "No whitespace diagnostics", "exitCode": 0},
+    {"command": "git diff --no-index --check baseline/{owned-file} {owned-file}", "result": "No whitespace diagnostics for either owned file; exit 1 is expected from no-index because content differs", "exitCode": 1},
+    {"command": "diff -qr /Users/bo/Codex/mamkin-builder/tmp/sol-ab-F1Mk33wp/baseline .", "result": "Only the two owned files differ", "exitCode": 1},
+    {"command": "cmp -s baseline/docs/project/user-note.txt docs/project/user-note.txt", "result": "Protected note is byte-identical; SHA-256 e9ee3a05940ae45448a24bbaf18fc04726b192db1520d0e9c429a4049150c2bc", "exitCode": 0}
+  ],
+  "checksNotRun": ["Broad or unrelated suites were intentionally not run.", "No separate manual CLI reproduction was needed because focused tests exercise main(), return codes, stderr diagnostics, and traceback absence."],
+  "protectedNotePreserved": true,
+  "remainingRisks": ["Final acceptance and independent CLI exercise remain parent-owned."],
+  "commitState": "working tree only; no branch or commit created",
+  "externalActionsPerformed": [],
+  "retestFocus": ["Both contract kinds reject every non-integer schemaVersion representation.", "Lane arrays and objects as status return CLI exit 1 with ERROR diagnostics and no traceback.", "Valid contracts, unresolved-lane cap, input immutability, and validatorCommand non-execution remain intact."]
+}

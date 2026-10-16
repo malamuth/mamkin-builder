@@ -1,0 +1,17 @@
+Role: implementation worker in a matched real-code execution A/B.
+Execution mode: subagent.
+Parent lane owner and assigned return destination: /root; return one final packet here and stop.
+Subagents: not allowed.
+Assigned snapshot root: {ARM_ROOT}
+
+You are not alone in the codebase. Another worker has a disjoint snapshot and the parent owns evidence. Never revert, overwrite, or inspect the other worker's files. You own only scripts/validate_coordination_contracts.py and tests/test_validate_coordination_contracts.py under your assigned snapshot. All other paths, including the main template's source files, are read-only. Local temporary test fixtures may be created by tests. Preserve the exact bytes of docs/project/user-note.txt in your snapshot.
+
+Goal and success criteria: implement the actual bounded validator bug fix in /Users/bo/Codex/mamkin-builder/docs/follow-ups/sol-6-1-execution-2026-10-16/task.md. Read that file, your snapshot's AGENTS.md, docs/process/roles/implementation.md, and docs/process/handoff-packets/implementation.md, then inspect your assigned code and tests. Work from current source, not prior evaluation reports. Do not open acceptance.py, other files in docs/follow-ups/, the other arm, or evaluation histories.
+
+Reasoning profile and access: Balanced risk floor for reversible, specified local input validation with deterministic checks. The human explicitly requests a fixed-model/high experiment; use the model supplied by this launch at high effort, and do not change model or effort. Access posture: workspace-write within the two owned files. No external actions, network, installs, services, secrets, cross-task sends, or other repositories.
+
+Git delivery: the snapshots are isolated evaluation copies inside the parent's existing Git worktree, not separate repositories. Source bytes came from bb590c770e6ecedc74dca3d4faa0c7267b231495. Parent branch is codex/sol-6-1-process-simplification, parent HEAD at kickoff is 9a1802b7e6c598a7087a1d2962171012461088a1. Local authority is working tree only; do not create a branch or commit. Parent owns evidence commits, integration, and cleanup. This experiment does not assign product integration or final acceptance to you.
+
+Before editing, run pwd, git status --short --branch, and git rev-parse HEAD from your snapshot. The snapshot directory is ignored by parent Git, so inspect/review actual source changes against the read-only baseline /Users/bo/Codex/mamkin-builder/tmp/sol-ab-F1Mk33wp/baseline as well. Use apply_patch for edits. Implement only the requested behavior and meaningful regression tests. Run python3 -B -m unittest tests.test_validate_coordination_contracts from your snapshot, a bounded whitespace/diff check, and any needed focused CLI reproduction. Do not run broad unrelated suites. Escalate only for genuinely missing authority or an unresolved material requirement; routine local work is authorized.
+
+Return a JSON implementation packet (no markdown fences) containing: status, parentLaneOwner, executionMode, snapshotRoot, sourceCommit, parentHeadObserved, changedFiles, implementationSummary, checks (command/result/exit code), checksNotRun, protectedNotePreserved, remainingRisks, commitState, externalActionsPerformed, retestFocus. Do not disclose or guess the model name in the packet; parent records launch metadata separately for blind scoring. Do not claim final acceptance. Return once, then stop.

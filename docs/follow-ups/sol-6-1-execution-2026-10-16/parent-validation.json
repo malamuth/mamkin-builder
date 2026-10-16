@@ -1,0 +1,30 @@
+{
+  "sourceCommit": "bb590c770e6ecedc74dca3d4faa0c7267b231495",
+  "criteriaCommit": "9a1802b7e6c598a7087a1d2962171012461088a1",
+  "taskSha256": "90aed240f944155138d896b7826a9bb257f3496c4f129460e81074e59bcd7171",
+  "acceptanceSha256": "a2b0cd0d2c3405a62ba19005e82b84643b35d2f3946f682bdf25845d6c1ed392",
+  "preImplementation": {
+    "existingFocusedSuite": {"tests": 5, "passed": 5, "exitCode": 0},
+    "independentAcceptance": {"testMethods": 18, "subtestFailures": 8, "subtestErrors": 2, "passed": false},
+    "utf8Control": "Already returned ERROR and exit 1; not an original defect."
+  },
+  "arms": {
+    "a": {
+      "independentAcceptance": {"command": "python3 -B acceptance.py --root <snapshot-a>", "tests": 18, "passed": 18, "exitCode": 0},
+      "workerFocusedSuiteReexecutedByParent": {"tests": 10, "passed": 10, "exitCode": 0},
+      "changedFiles": ["scripts/validate_coordination_contracts.py", "tests/test_validate_coordination_contracts.py"],
+      "sourceSha256": "67fc3a6e58f4766e000797e181e5eda5b79a71aa1a2d92eabf3e0e3e3cef35b8",
+      "protectedNoteSha256": "e9ee3a05940ae45448a24bbaf18fc04726b192db1520d0e9c429a4049150c2bc",
+      "allOtherSnapshotFilesPreserved": true
+    },
+    "b": {
+      "independentAcceptance": {"command": "python3 -B acceptance.py --root <snapshot-b>", "tests": 18, "passed": 18, "exitCode": 0},
+      "workerFocusedSuiteReexecutedByParent": {"tests": 9, "passed": 9, "exitCode": 0},
+      "changedFiles": ["scripts/validate_coordination_contracts.py", "tests/test_validate_coordination_contracts.py"],
+      "sourceSha256": "31bed6521b7e883ec6eb25cae2fa9d5369b4e201acc77abb7f84d00568df29e8",
+      "protectedNoteSha256": "e9ee3a05940ae45448a24bbaf18fc04726b192db1520d0e9c429a4049150c2bc",
+      "allOtherSnapshotFilesPreserved": true
+    }
+  },
+  "resourceMetrics": {"tokens": "unavailable", "cost": "unavailable", "toolCalls": "unavailable", "comparableModelLatency": "unavailable; parent receipt order and test runtime are not model latency"}
+}

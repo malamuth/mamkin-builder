@@ -1,0 +1,28 @@
+{
+  "status": "Needs review",
+  "parentLaneOwner": "/root",
+  "executionMode": "subagent",
+  "snapshotRoot": "/Users/bo/Codex/mamkin-builder/tmp/sol-ab-F1Mk33wp/b",
+  "sourceCommit": "bb590c770e6ecedc74dca3d4faa0c7267b231495",
+  "parentHeadObserved": "9a1802b7e6c598a7087a1d2962171012461088a1",
+  "changedFiles": ["scripts/validate_coordination_contracts.py", "tests/test_validate_coordination_contracts.py"],
+  "implementationSummary": [
+    "Both validators require schemaVersion to have exact Python int type and value 1, rejecting JSON booleans and floats with a field-specific ValueError.",
+    "Lane status checks string type before set membership, preventing TypeError for arrays and objects.",
+    "Added regression coverage for invalid values, CLI diagnostics, valid statuses, input preservation, existing file/JSON errors, and non-execution of consumer.validatorCommand."
+  ],
+  "checks": [
+    {"command": "python3 -B -m unittest tests.test_validate_coordination_contracts", "result": "Passed all 9 tests, including subprocess CLI cases.", "exitCode": 0},
+    {"command": "git diff --check -- scripts/validate_coordination_contracts.py tests/test_validate_coordination_contracts.py", "result": "Passed; snapshot is ignored by parent Git, so baseline comparisons were also performed.", "exitCode": 0},
+    {"command": "git diff --no-index --check /Users/bo/Codex/mamkin-builder/tmp/sol-ab-F1Mk33wp/baseline/scripts/validate_coordination_contracts.py scripts/validate_coordination_contracts.py", "result": "No whitespace diagnostics; exit 1 indicates source differences.", "exitCode": 1},
+    {"command": "git diff --no-index --check /Users/bo/Codex/mamkin-builder/tmp/sol-ab-F1Mk33wp/baseline/tests/test_validate_coordination_contracts.py tests/test_validate_coordination_contracts.py", "result": "No whitespace diagnostics; exit 1 indicates source differences.", "exitCode": 1},
+    {"command": "diff -u baseline files against both owned snapshot files", "result": "Reviewed bounded validator changes and regression tests.", "exitCode": 1},
+    {"command": "shasum -a 256 docs/project/user-note.txt", "result": "Before and after SHA-256 matched: e9ee3a05940ae45448a24bbaf18fc04726b192db1520d0e9c429a4049150c2bc.", "exitCode": 0}
+  ],
+  "checksNotRun": ["Broad unrelated suites, as instructed.", "Independent acceptance; reserved for parent."],
+  "protectedNotePreserved": true,
+  "remainingRisks": ["Independent parent evaluation remains pending."],
+  "commitState": "working tree only; no branches or commits created",
+  "externalActionsPerformed": [],
+  "retestFocus": ["Strict schemaVersion typing for both contract kinds.", "Non-string lane statuses producing actionable errors without traceback.", "Valid contracts, unresolved-lane cap, input preservation, and consumer command non-execution."]
+}

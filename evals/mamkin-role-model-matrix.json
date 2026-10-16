@@ -448,6 +448,34 @@
         "Judge interpretation differs between rounds on compatibility-correction detail and external-change receipt; original scores remain unchanged.",
         "Executed coordination, repeated-run reliability, and lower effort remain untested."
       ]
+    },
+    {
+      "roleClass": "sol-6-1-bounded-validator-execution",
+      "caseIds": ["executed-validator-input-boundary"],
+      "baseline": {
+        "model": "gpt-5.6-sol",
+        "reasoningEffort": "high",
+        "result": "18/18 independent acceptance methods; 6/6 quality dimensions; no blocking review findings"
+      },
+      "candidate": {
+        "model": "gpt-6.1-sol",
+        "reasoningEffort": "high",
+        "result": "18/18 independent acceptance methods; 6/6 quality dimensions; no blocking review findings; modest blind-review preference for retained regression coverage"
+      },
+      "status": "passed",
+      "decision": "keep-baseline",
+      "evidenceDate": "2026-10-16",
+      "sourceCommit": "bb590c770e6ecedc74dca3d4faa0c7267b231495",
+      "criteriaCommit": "9a1802b7e6c598a7087a1d2962171012461088a1",
+      "evidenceKind": "Actual existing validator defects fixed by fresh same-prompt high-effort workers in disjoint copies; independent acceptance locked before execution, parent verification, and blinded Astra/high code and handoff review. No runtime activation or source integration assigned.",
+      "evidencePath": "mamkin-builder: docs/follow-ups/sol-6-1-execution-2026-10-16/",
+      "resourceMetrics": "Tokens, cost, total tool calls and comparable model latency unavailable; test runtime and receipt order are not model efficiency.",
+      "limitations": [
+        "One bounded implementation task and one sample per model; not a live coordinator steering, delegation or retest-cycle evaluation.",
+        "Reviewer used parent-executed acceptance and preservation evidence plus static inspection; complete agent execution logs unavailable.",
+        "Both satisfy the hard gate; the review preference for candidate test coverage is task-specific.",
+        "No effort reduction, Terra/Astra replacement, default activation or main-source integration follows automatically."
+      ]
     }
   ],
   "currentPolicy": {
@@ -463,15 +491,15 @@
       "reasoningEffort": "high"
     },
     "decision": "user-directed; Astra coordinator pilot suspended; specialist and Terra profiles retained",
-    "behavioralEvaluation": "matched high-effort policy retest complete; representative executed coordinator evidence remains pending; active defaults unchanged",
-    "latestEvaluationEvidencePath": "mamkin-builder: docs/follow-ups/sol-6-1-retest-2026-10-16/",
+    "behavioralEvaluation": "matched high-effort policy and actual bounded implementation evaluations complete; both models pass bounded execution; live coordinator workflows remain outside the tested scope; active defaults unchanged",
+    "latestEvaluationEvidencePath": "mamkin-builder: docs/follow-ups/sol-6-1-execution-2026-10-16/",
     "evidencePath": "mamkin-builder: docs/follow-ups/sol-coordinator-astra-research.md",
     "migrationCandidate": {
       "model": "gpt-6.1-sol",
       "reasoningEffort": "high",
-      "status": "policy-gate-passed",
-      "latestExperiment": "sol-6-1-coordinator-common-evidence-retest",
-      "activationRule": "The retest passes the twelve-case policy gate. Active defaults remain unchanged by this repair-and-retest; establish representative executed coordinator evidence before broad adoption and test medium separately."
+      "status": "policy-and-bounded-execution-gates-passed",
+      "latestExperiment": "sol-6-1-bounded-validator-execution",
+      "activationRule": "The policy retest and one actual bounded implementation pass. Default activation remains a separate decision; preserve high effort, specialist routing and the stated evidence limits."
     }
   }
 }

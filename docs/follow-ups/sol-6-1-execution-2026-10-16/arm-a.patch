@@ -1,0 +1,148 @@
+diff --git a/scripts/validate_coordination_contracts.py b/scripts/validate_coordination_contracts.py
+index 2858b4c..7274e55 100755
+--- a/scripts/validate_coordination_contracts.py
++++ b/scripts/validate_coordination_contracts.py
+@@ -35,0 +36,5 @@ def require_string_list(value, field):
++def require_schema_version(value, contract):
++    if type(value) is not int or value != 1:
++        raise ValueError(f"{contract} schemaVersion must be the integer 1")
++
++
+@@ -37,2 +42 @@ def validate_cross_repo(value):
+-    if value.get("schemaVersion") != 1:
+-        raise ValueError("cross-repo schemaVersion must be 1")
++    require_schema_version(value.get("schemaVersion"), "cross-repo")
+@@ -90,2 +94 @@ def validate_lanes(value):
+-    if value.get("schemaVersion") != 1:
+-        raise ValueError("active-lanes schemaVersion must be 1")
++    require_schema_version(value.get("schemaVersion"), "active-lanes")
+@@ -109 +112 @@ def validate_lanes(value):
+-        if status not in LANE_STATUSES:
++        if not isinstance(status, str) or status not in LANE_STATUSES:
+diff --git a/tests/test_validate_coordination_contracts.py b/tests/test_validate_coordination_contracts.py
+index fb32dcc..db5003e 100644
+--- a/tests/test_validate_coordination_contracts.py
++++ b/tests/test_validate_coordination_contracts.py
+@@ -0,0 +1,2 @@
++import contextlib
++import copy
+@@ -1,0 +4,3 @@ import importlib.util
++import io
++import json
++import tempfile
+@@ -55,0 +61,9 @@ def lane(lane_id, status="active"):
++def lane_inventory(*lanes):
++    return {
++        "schemaVersion": 1,
++        "contractKind": "active-lanes",
++        "updatedAt": "2026-10-16T10:00:00Z",
++        "lanes": list(lanes),
++    }
++
++
+@@ -74,6 +88 @@ class CoordinationContractTests(unittest.TestCase):
+-            {
+-                "schemaVersion": 1,
+-                "contractKind": "active-lanes",
+-                "updatedAt": "2026-10-16T10:00:00Z",
+-                "lanes": [lane("a"), lane("b", "blocked"), lane("old", "superseded")],
+-            }
++            lane_inventory(lane("a"), lane("b", "blocked"), lane("old", "superseded"))
+@@ -83,6 +92 @@ class CoordinationContractTests(unittest.TestCase):
+-        inventory = {
+-            "schemaVersion": 1,
+-            "contractKind": "active-lanes",
+-            "updatedAt": "2026-10-16T10:00:00Z",
+-            "lanes": [lane("a"), lane("b", "blocked"), lane("c", "parked")],
+-        }
++        inventory = lane_inventory(lane("a"), lane("b", "blocked"), lane("c", "parked"))
+@@ -91,0 +96,89 @@ class CoordinationContractTests(unittest.TestCase):
++    def test_rejects_non_integer_schema_versions_for_both_contract_kinds(self):
++        validators = (
++            (CONTRACTS.validate_cross_repo, cross_repo_contract),
++            (CONTRACTS.validate_lanes, lambda: lane_inventory(lane("a"))),
++        )
++        for validator, factory in validators:
++            for schema_version in (True, 1.0, "1", None, 2):
++                with self.subTest(validator=validator.__name__, schema_version=schema_version):
++                    contract = factory()
++                    contract["schemaVersion"] = schema_version
++                    with self.assertRaisesRegex(ValueError, "schemaVersion"):
++                        validator(contract)
++
++            with self.subTest(validator=validator.__name__, schema_version="missing"):
++                contract = factory()
++                del contract["schemaVersion"]
++                with self.assertRaisesRegex(ValueError, "schemaVersion"):
++                    validator(contract)
++
++    def test_rejects_non_string_lane_statuses_with_value_error(self):
++        for status in (None, True, 1, 1.0, [], {}):
++            with self.subTest(status=status):
++                inventory = lane_inventory(lane("a", status))
++                with self.assertRaisesRegex(ValueError, r"lanes\[0\]\.status"):
++                    CONTRACTS.validate_lanes(inventory)
++
++    def test_validation_preserves_inputs_and_does_not_execute_validator_command(self):
++        with tempfile.TemporaryDirectory() as directory:
++            sentinel = Path(directory) / "validator-command-ran"
++            cross_repo = cross_repo_contract()
++            cross_repo["consumer"]["validatorCommand"] = [
++                "python3",
++                "-c",
++                f"from pathlib import Path; Path({str(sentinel)!r}).touch()",
++            ]
++            lanes = lane_inventory(lane("a"))
++            cross_repo_before = copy.deepcopy(cross_repo)
++            lanes_before = copy.deepcopy(lanes)
++
++            CONTRACTS.validate_cross_repo(cross_repo)
++            CONTRACTS.validate_lanes(lanes)
++
++            self.assertEqual(cross_repo, cross_repo_before)
++            self.assertEqual(lanes, lanes_before)
++            self.assertFalse(sentinel.exists())
++
++    def test_cli_reports_invalid_schema_and_status_without_traceback(self):
++        cases = (
++            ("cross-repo", {**cross_repo_contract(), "schemaVersion": True}),
++            ("lanes", lane_inventory(lane("a", []))),
++        )
++        with tempfile.TemporaryDirectory() as directory:
++            for index, (kind, contract) in enumerate(cases):
++                with self.subTest(kind=kind):
++                    path = Path(directory) / f"case-{index}.json"
++                    path.write_text(json.dumps(contract), encoding="utf-8")
++                    stdout = io.StringIO()
++                    stderr = io.StringIO()
++                    with contextlib.redirect_stdout(stdout), contextlib.redirect_stderr(stderr):
++                        result = CONTRACTS.main([kind, str(path)])
++
++                    self.assertEqual(result, 1)
++                    self.assertEqual(stdout.getvalue(), "")
++                    self.assertTrue(stderr.getvalue().startswith("ERROR:"))
++                    self.assertNotIn("Traceback", stderr.getvalue())
++
++    def test_cli_keeps_existing_input_error_handling(self):
++        with tempfile.TemporaryDirectory() as directory:
++            directory = Path(directory)
++            malformed = directory / "malformed.json"
++            malformed.write_text("{", encoding="utf-8")
++            invalid_utf8 = directory / "invalid-utf8.json"
++            invalid_utf8.write_bytes(b"\xff")
++            non_object = directory / "non-object.json"
++            non_object.write_text("[]", encoding="utf-8")
++            cases = (malformed, invalid_utf8, non_object, directory / "missing.json")
++
++            for path in cases:
++                with self.subTest(path=path.name):
++                    stdout = io.StringIO()
++                    stderr = io.StringIO()
++                    with contextlib.redirect_stdout(stdout), contextlib.redirect_stderr(stderr):
++                        result = CONTRACTS.main(["lanes", str(path)])
++
++                    self.assertEqual(result, 1)
++                    self.assertEqual(stdout.getvalue(), "")
++                    self.assertTrue(stderr.getvalue().startswith("ERROR:"))
++                    self.assertNotIn("Traceback", stderr.getvalue())
++

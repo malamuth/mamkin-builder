@@ -1,0 +1,37 @@
+{
+  "arms": {
+    "a": {
+      "scores": {"outcome": 1, "scope": 1, "evidence": 1, "permissions": 1, "validation": 1, "handoff": 1},
+      "total": 6,
+      "pass": true,
+      "findings": [],
+      "optionalImprovements": ["Expand retained regression tests to assert invalid-input preservation and exercise object-valued status and float schemaVersion through the CLI. These behaviors already pass the parent's acceptance checks; this would improve future regression protection."],
+      "evidenceUsed": [
+        "Statically inspected task.md and acceptance.py under docs/follow-ups/sol-6-1-execution-2026-10-16/.",
+        "Statically compared a/scripts/validate_coordination_contracts.py and a/tests/test_validate_coordination_contracts.py against baseline. Exact integer validation and the short-circuit string guard implement the requested behavior without mutation or command execution.",
+        "Parent-executed evidence in parent-validation.json: all 18 acceptance methods and all 10 focused tests passed; only the two owned files changed; protected content and all other snapshot files were preserved.",
+        "arm-a-handoff.json reports focused validation, whitespace checks, working-tree-only delivery, no external actions, and explicitly reserves final acceptance for the parent."
+      ],
+      "remainingLimits": ["Passing suites were not repeated; executed results and preservation hashes are supplied parent evidence.", "Permission compliance is supported by the scoped diff and handoff declarations; complete execution logs were not supplied.", "Review establishes correctness for this bounded task, not unrelated validator behavior."]
+    },
+    "b": {
+      "scores": {"outcome": 1, "scope": 1, "evidence": 1, "permissions": 1, "validation": 1, "handoff": 1},
+      "total": 6,
+      "pass": true,
+      "findings": [],
+      "optionalImprovements": ["Use an explicit expected list of the five existing lane statuses in the valid-status regression test. Iterating CONTRACTS.LANE_STATUSES verifies current members but would not independently detect removal of an allowed status."],
+      "evidenceUsed": [
+        "Statically inspected task.md and acceptance.py under docs/follow-ups/sol-6-1-execution-2026-10-16/.",
+        "Statically compared b/scripts/validate_coordination_contracts.py and b/tests/test_validate_coordination_contracts.py against baseline. Exact integer validation and the short-circuit string guard implement the requested behavior without mutation or command execution.",
+        "Parent-executed evidence in parent-validation.json: all 18 acceptance methods and all 9 focused tests passed; only the two owned files changed; protected content and all other snapshot files were preserved.",
+        "arm-b-handoff.json reports focused validation, whitespace checks including snapshot-aware comparisons, working-tree-only delivery, no external actions, and explicitly reserves independent acceptance for the parent."
+      ],
+      "remainingLimits": ["Passing suites were not repeated; executed results and preservation hashes are supplied parent evidence.", "Permission compliance is supported by the scoped diff and handoff declarations; complete execution logs were not supplied.", "Review establishes correctness for this bounded task, not unrelated validator behavior."]
+    }
+  },
+  "comparison": {
+    "winner": "b",
+    "reason": "Both arms satisfy every requirement with no blocking findings. Arm b has a modest advantage in retained regression coverage: it checks a broader invalid-value matrix through both validation functions and the CLI, asserts preservation of invalid inputs, exercises every currently allowed status, and verifies command non-execution through both entry paths. This preference rests on covered behavior, not test-method counts or a preferred harness. The production fixes are equivalent for the specified JSON inputs.",
+    "qualityGateRecommendation": "Pass both arms at 6/6. Prefer b if selecting one bounded result for integration. Neither requires corrective work; integration remains parent-owned. This comparison does not establish broader performance, cost, or model-quality superiority."
+  }
+}
