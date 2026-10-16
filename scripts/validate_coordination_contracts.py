@@ -34,8 +34,8 @@ def require_string_list(value, field):
 
 
 def validate_cross_repo(value):
-    if value.get("schemaVersion") != 1:
-        raise ValueError("cross-repo schemaVersion must be 1")
+    if type(value.get("schemaVersion")) is not int or value.get("schemaVersion") != 1:
+        raise ValueError("cross-repo schemaVersion must be the JSON integer 1")
     if value.get("contractKind") != "cross-repo-compatibility":
         raise ValueError("contractKind must be cross-repo-compatibility")
 
@@ -87,8 +87,8 @@ def validate_cross_repo(value):
 
 
 def validate_lanes(value):
-    if value.get("schemaVersion") != 1:
-        raise ValueError("active-lanes schemaVersion must be 1")
+    if type(value.get("schemaVersion")) is not int or value.get("schemaVersion") != 1:
+        raise ValueError("active-lanes schemaVersion must be the JSON integer 1")
     if value.get("contractKind") != "active-lanes":
         raise ValueError("contractKind must be active-lanes")
     require_text(value.get("updatedAt"), "updatedAt")
@@ -106,7 +106,7 @@ def validate_lanes(value):
         require_text(lane.get("owner"), f"lanes[{index}].owner")
         require_text(lane.get("task"), f"lanes[{index}].task")
         status = lane.get("status")
-        if status not in LANE_STATUSES:
+        if not isinstance(status, str) or status not in LANE_STATUSES:
             raise ValueError(f"lanes[{index}].status must be one of {sorted(LANE_STATUSES)}")
         require_text(lane.get("worktree"), f"lanes[{index}].worktree")
         require_text(lane.get("branchOrCommit"), f"lanes[{index}].branchOrCommit")

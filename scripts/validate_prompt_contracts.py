@@ -515,10 +515,15 @@ def main():
             fail(errors, f"{preset.relative_to(ROOT)} exceeds 120-word wrapper budget ({count})")
 
     config_text = config.read_text(encoding="utf-8")
-    if 'model = "gpt-5.6-sol"' not in config_text:
-        fail(errors, "coordinator model must match the user-directed Sol default")
+    if 'model = "gpt-6.1-sol"' not in config_text:
+        fail(errors, "coordinator model must match the user-approved Sol 6.1 default")
     if 'model_reasoning_effort = "high"' not in config_text:
         fail(errors, "coordinator default must match the user-directed high effort")
+    coordinator_policy = matrix.get("currentPolicy", {}).get("coordinator", {})
+    if (coordinator_policy.get("model"), coordinator_policy.get("reasoningEffort")) != (
+        "gpt-6.1-sol", "high"
+    ):
+        fail(errors, "model matrix currentPolicy must match the active Sol 6.1/high coordinator")
     for preset_name in ["mamkin-worker.toml", "mamkin-deployment.toml"]:
         preset_text = (ROOT / f".codex/agents/{preset_name}").read_text(encoding="utf-8")
         if 'model = "gpt-5.6-terra"' not in preset_text or 'model_reasoning_effort = "medium"' not in preset_text:

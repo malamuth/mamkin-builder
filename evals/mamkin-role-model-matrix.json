@@ -479,9 +479,9 @@
     }
   ],
   "currentPolicy": {
-    "decisionDate": "2026-09-10",
+    "decisionDate": "2026-10-16",
     "coordinator": {
-      "model": "gpt-5.6-sol",
+      "model": "gpt-6.1-sol",
       "reasoningEffort": "high"
     },
     "research": {
@@ -490,16 +490,22 @@
       "model": "gpt-6-astra",
       "reasoningEffort": "high"
     },
-    "decision": "user-directed; Astra coordinator pilot suspended; specialist and Terra profiles retained",
-    "behavioralEvaluation": "matched high-effort policy and actual bounded implementation evaluations complete; both models pass bounded execution; live coordinator workflows remain outside the tested scope; active defaults unchanged",
+    "decision": "human-approved Sol 6.1/high coordinator activation and integration of the accepted Sol 6.1 validator variant; specialist and Terra profiles retained",
+    "behavioralEvaluation": "Sol 6.1/high policy retest 12/12; actual bounded implementation 18/18 independent checks and 6/6 quality dimensions; live coordinator workflows and efficiency remain outside the tested scope",
     "latestEvaluationEvidencePath": "mamkin-builder: docs/follow-ups/sol-6-1-execution-2026-10-16/",
-    "evidencePath": "mamkin-builder: docs/follow-ups/sol-coordinator-astra-research.md",
+    "evidencePath": "mamkin-builder: docs/follow-ups/sol-6-1-activation-2026-10-16.md",
+    "previousCoordinator": {
+      "model": "gpt-5.6-sol",
+      "reasoningEffort": "high",
+      "evidencePath": "mamkin-builder: docs/follow-ups/sol-coordinator-astra-research.md"
+    },
     "migrationCandidate": {
       "model": "gpt-6.1-sol",
       "reasoningEffort": "high",
-      "status": "policy-and-bounded-execution-gates-passed",
+      "status": "active-human-approved",
+      "activationDate": "2026-10-16",
       "latestExperiment": "sol-6-1-bounded-validator-execution",
-      "activationRule": "The policy retest and one actual bounded implementation pass. Default activation remains a separate decision; preserve high effort, specialist routing and the stated evidence limits."
+      "activationRule": "Explicit human activation followed the policy retest and bounded execution pass. Preserve high effort, specialist routing and the stated evidence limits."
     }
   }
 }
