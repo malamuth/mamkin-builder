@@ -15,6 +15,7 @@ Implementation and walkthrough packets report Git evidence but never silently ow
 - Coordinator kickoff: `docs/process/handoff-packets/coordinator-kickoff.md`
 - Coordinator reset/rollover: `docs/process/handoff-packets/coordinator-reset.md`
 - Coordinator final report: `docs/process/handoff-packets/coordinator-final.md`
+- Managed project registry, transfer receipt and closeout: `docs/process/managed-projects.md` and the three corresponding JSON templates under `docs/templates/`.
 - Brownfield adoption: `docs/process/handoff-packets/adoption.md`
 - Analysis: `docs/process/handoff-packets/analysis.md`
 - Architecture: `docs/process/handoff-packets/architecture.md`

@@ -148,6 +148,19 @@
         "scripts/audit_mamkin_evolution.py"
       ],
       "benefitHypothesis": "Turn repeated project lessons into the smallest profitable source, check, skill, consolidation, or upstream candidate without leaking domain details."
+    },
+    {
+      "id": "managed-project-lifecycle",
+      "title": "Parent-led child coordination and verified lifecycle",
+      "category": "orchestration",
+      "paths": [
+        "docs/process/managed-projects.md",
+        "docs/templates/project-coordinators.json",
+        "docs/templates/coordinator-transfer.json",
+        "docs/templates/lane-closeout.json",
+        "scripts/validate_coordination_contracts.py"
+      ],
+      "benefitHypothesis": "Recover child coordination from durable source state and retire chats without losing active work or needed worktrees."
     }
   ]
 }

@@ -16,6 +16,7 @@ The coordinator reads:
 - `docs/process/naming-conventions.md` only when naming or renaming a durable task or follow-up document.
 - The one packet file needed for the current handoff. Use `docs/process/handoff-packets.md` only when the correct packet is unclear.
 - `docs/process/context-health-audit.md` only when context drift or source confusion is suspected.
+- `docs/process/managed-projects.md` only when coordinating child projects, transferring their coordinators, or closing managed chats/worktrees. Reconcile the parent registry and child task ledgers before dispatch; child ownership stays local.
 
 ## Follow-Through And Communication
 

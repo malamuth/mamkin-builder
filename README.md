@@ -95,6 +95,8 @@ Do not reset or roll over merely because a sync occurred. A minor update usually
 
 ## Included Files
 
+For a portfolio with child repositories, use `docs/process/managed-projects.md`. It adds an optional parent coordinator registry, child task ledgers, parent-led rollover with verified receipt, and separate chat/worktree closeout. Start through `$mamkin-coordinate`; single-project workflows need no portfolio registry. Templates and the read-only coordination validator check declared records without contacting chats or mutating repositories.
+
 - `AGENTS.md`: short always-on agent entrypoint.
 - `.agents/skills/mamkin-bootstrap/`: portable global entrypoint that can be installed from GitHub before a target has Mamkin.
 - `.agents/skills/`: repo-scoped Codex workflow entrypoints installed together during init or adoption.

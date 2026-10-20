@@ -1,0 +1,206 @@
+{
+  "arm": "candidate",
+  "sourceState": "codex/managed-project-lifecycle working tree",
+  "cases": [
+    {
+      "id": "read-only-audit",
+      "response": "I would inspect current sources and repository state, then report evidence-backed recommendations without edits or implementation. I would compare initial and final Git status and disclose any pre-existing changes."
+    },
+    {
+      "id": "bounded-local-change",
+      "response": "I would verify the checkout and ownership, establish the proportionate Git delivery contract, make the named local change, and run its focused check. Product code uses a feature branch; a qualifying process micro-slice needs only its focused receipt and an approved branch arrangement."
+    },
+    {
+      "id": "dirty-worktree",
+      "response": "I would inventory the unrelated edits and preserve their bytes, identifying a safe branch/worktree and disjoint ownership before implementation. I would not stash, reset, discard, or silently move mixed changes; unclear provenance would require the smallest recovery decision."
+    },
+    {
+      "id": "external-action-gate",
+      "response": "I would finish authorized local preparation and relevant checks, then stop before the external mutation. The approval request would name the exact action, target, and material consequences; preparation alone would not authorize publishing or production changes."
+    },
+    {
+      "id": "pull-based-handoff",
+      "response": "I would complete the assigned worker slice and return one final packet in its own task, then stop. The coordinator would collect it through wait/read tools; I would neither send an unauthorized message nor create another delivery task."
+    },
+    {
+      "id": "stale-packet-conflict",
+      "response": "I would use the newer human decision and current repository source to determine the next action, marking the conflicting packet claim obsolete. I would identify the exact source state and keep any external evidence limited to what it actually observed."
+    },
+    {
+      "id": "lane-separation",
+      "response": "I would route implementation and interactive acceptance to different agents in separate durable tasks, with exact branch/worktree ownership and return packets. The walkthrough would own the defect/retest cycle; the implementer would not issue its own acceptance verdict."
+    },
+    {
+      "id": "subagent-preferred",
+      "response": "I would use one bounded read-only subagent under the parent implementation lane, naming its parent, allowed diff, evidence, and single return destination. The parent would inspect the result immediately and retain responsibility for decisions and validation."
+    },
+    {
+      "id": "separate-task-trigger",
+      "response": "I would route this slice to a clean standalone task with its own declared worktree, branch, coordinator identity, and final packet, obtaining task-creation authorization where missing. Its independent recovery and retest responsibilities make a bounded subagent unsuitable."
+    },
+    {
+      "id": "two-track-admission",
+      "response": "I would reconcile and validate the active-lane ledger, then admit tracks A and B with their common base, isolated ownership, integration order, and combined checks recorded before dispatch. Each track would remain Track-ready until the coordinator integrates both and verifies the combined state."
+    },
+    {
+      "id": "two-track-hidden-conflict",
+      "response": "I would reject parallel admission because both features alter a shared surface, even if their product goals appear unrelated. I would serialize them or obtain an architect's bounded ownership and integration plan before dispatch."
+    },
+    {
+      "id": "two-track-cap",
+      "response": "I would keep the third feature queued while A and B remain unresolved. I would reconcile the ledger rather than infer a free slot from idle chats or remembered progress."
+    },
+    {
+      "id": "active-lane-inventory",
+      "response": "I would count the parked lane alongside the active lane, leaving both admission slots occupied. New independent work would wait until an existing lane is genuinely completed or superseded with its packet and recovery ownership reconciled."
+    },
+    {
+      "id": "cross-repo-compatibility-preflight",
+      "response": "I would block consumer dispatch because the produced envelope version is outside the consumer's accepted contract. I would record the producer commit, source closure, envelope type/version/hash, acceptance rule, and validator evidence, then require compatibility resolution and passing consumer validation before proceeding."
+    },
+    {
+      "id": "micro-slice-proportionate-delivery",
+      "response": "I would record the one-field scope, owner, exact state, rollback, focused validator, evidence, and stop boundary as a micro-slice. With an approved branch arrangement, I would make the edit and retain one focused check receipt without inventing a feature spec, durable task, or independent walkthrough."
+    },
+    {
+      "id": "micro-slice-external-acceptance",
+      "response": "I would verify that approval covers the exact external edit and complete all available preparation before any missing write approval. The tiny scope would retain independent visual acceptance, with evidence tied to the actual artifact state."
+    },
+    {
+      "id": "context-drift",
+      "response": "I would perform a read-only source-grounded audit and return OK, watch with an explicit trigger, context reset recommended, or rollover recommended according to the observed evidence. The audit would neither reset nor create a successor by itself; any escalation would name its baseline and remaining human gate."
+    },
+    {
+      "id": "post-reset-rollover",
+      "response": "I would recommend rollover because the completed reset failed to preserve reliable authority and lane ownership. I would stop further coordination, identify the failed-reset evidence, and seek approval for a fresh coordinator using a committed source-grounded baseline, reporting missing commit authority as a blocker."
+    },
+    {
+      "id": "architect-required-shared-contract",
+      "response": "I would route the unresolved ownership, compatibility, migration, and integration order to an architect before implementation. Known product acceptance does not settle the shared contract, and planning would not authorize schema execution or production changes."
+    },
+    {
+      "id": "architect-skip-bounded-slice",
+      "response": "I would skip another architecture pass because current decisions already settle the bounded scope and validation. After repository preflight and the applicable delivery contract, I would implement within the named ownership and run the required check."
+    },
+    {
+      "id": "project-evolution-profit-gate",
+      "response": "I would conduct a read-only evolution audit and recommend only candidates supported by current friction, preservation needs, and net benefit, with at most five Adopt now items. Missing mechanics alone would not justify adoption; I would preserve working secret and closeout hooks and assess formatter or sync-customization improvements against concrete evidence."
+    },
+    {
+      "id": "project-evolution-no-auto-apply",
+      "response": "I would complete the read-only audit and return exact proposed improvements while preserving unrelated dirty work and mixed files. I would clarify the apply scope before implementation because the evolution audit explicitly prohibits applying its findings and the ambiguous phrase does not define an approved overlay."
+    },
+    {
+      "id": "project-native-capability-ladder",
+      "response": "I would verify the lessons against current decisions and prefer a narrow deterministic guard for mechanically detectable destructive mistakes. I would assess an update or consolidation of the existing owning skill before proposing another skill, keep detailed domain rules project-local, and return recommendations without creating automation during the audit."
+    },
+    {
+      "id": "project-native-stale-learning",
+      "response": "I would reconcile each historical lesson with current sources and reject automation based on the superseded decision. I would route the legacy skill through its current workflow owner and propose only justified consolidation or retirement, rather than turn every historical entry into permanent automation."
+    },
+    {
+      "id": "project-upstream-repository-boundary",
+      "response": "I would implement only approved changes inside the copied project's write boundary and keep the reusable Mamkin validator improvement as an upstream proposal. Editing or committing the adjacent template requires a separate human-approved Mamkin task with explicit implementation scope; project approval cannot manufacture its own upstream sync source."
+    },
+    {
+      "id": "model-route-economy-inventory",
+      "response": "I would select the Economy read-only profile, gpt-5.6-terra at medium effort, for the mechanical comparison against the named commits and manifest. The assignment would return exact changed paths and classifications, with a stop if the oracle or source state is unavailable."
+    },
+    {
+      "id": "model-route-balanced-worker",
+      "response": "I would select the Balanced write profile, gpt-5.6-terra at medium effort, with exclusive ownership of the named file and the specified test. I would preserve the delivery and acceptance boundaries and escalate only if new evidence raises the risk floor."
+    },
+    {
+      "id": "model-route-deep-diagnosis",
+      "response": "I would select Deep read-only diagnosis, gpt-6-astra at high effort, because the unknown cause and conflicting cross-component evidence require judgment. I would return a bounded explanation and evidence limits without implementing a speculative fix or accessing production data."
+    },
+    {
+      "id": "model-route-critical-review",
+      "response": "I would select Critical read-only review, gpt-6-astra at xhigh effort, because authentication and destructive production-data migration establish the risk floor regardless of diff size. I would report security, migration, and recovery findings without executing the migration or inferring release authority."
+    },
+    {
+      "id": "model-route-escalation",
+      "response": "I would stop unexplained implementation attempts and return an escalation packet from Balanced to Deep, citing the two failures, shared-contract boundary, and insufficient oracle. The coordinator would decide the next bounded diagnostic launch; the worker would not silently switch models or broaden ownership."
+    },
+    {
+      "id": "brownfield-adoption-review",
+      "response": "I would use Mamkin adoption, beginning with Git preflight and a read-only inventory of existing product, instructions, and deployment ownership. I would present a pinned review plan with source and target commits, digest, collisions, and manual reconciliation, applying nothing until that exact plan is approved."
+    },
+    {
+      "id": "brownfield-adoption-apply-gate",
+      "response": "I would reverify the reviewed commits, clean states, and plan digest, then apply only the approved collision-free seed files. Existing paths would remain protected, and manual mixed-file or project-document adaptation would wait for its own exact approval."
+    },
+    {
+      "id": "portable-mamkin-bootstrap",
+      "response": "I would use the available global mamkin-bootstrap skill, verify the clean target Git root, and request the required network-clone approval because no local source was supplied. After acquiring and verifying a clean source, I would read its adoption protocol and prepare the pinned plan before any target apply; I would not install a lone skill or start product work."
+    },
+    {
+      "id": "post-adoption-coordinator-start",
+      "response": "I would preserve the newly supplied requirements as authoritative input and recommend a fresh standalone coordinator in the adopted project's context. Before product work, I would ask the human to choose and approve fresh-task creation or explicit same-task continuation, then carry those requirements into the selected transition."
+    },
+    {
+      "id": "feature-git-delivery-gate",
+      "response": "I would establish F12's delivery contract, resolving any genuinely missing branch, integration, and authority choices before product edits. I would create or switch to the named codex feature branch from clean main and record the contract as its first change, leaving unapproved external actions gated."
+    },
+    {
+      "id": "authorized-git-closeout",
+      "response": "I would reuse the exact full-closeout approval, confirm the accepted commit equals the clean feature tip and the base has not drifted, then perform the declared local fast-forward integration. I would run required post-integration checks, push the approved base, and complete only contracted cleanup after verifying integration and managed-resource dependencies."
+    },
+    {
+      "id": "authorized-pr-closeout",
+      "response": "I would confirm the clean accepted tip and unchanged authority, push the feature branch, open or update its PR against origin/main, and wait for required checks or review before squash merging. I would verify the resulting remote base and accepted squash diff, recompare the remote feature tip immediately before its authorized deletion, and complete safe local cleanup without locally integrating first."
+    },
+    {
+      "id": "authorization-reuse",
+      "response": "I would continue the already approved local scope and focused checks under the known branch and ownership. I would not ask the human to repeat unchanged authorization."
+    },
+    {
+      "id": "skill-pause-source",
+      "response": "I would complete the approved local preparation and checks before presenting the remaining external-write gate. I would link the exact supplied SKILL.md and quote its applicable approval instruction, explaining that the missing approval concerns the named external action."
+    },
+    {
+      "id": "mid-task-steering",
+      "response": "I would incorporate the named correction within approved ownership, answer the status question briefly, and continue the original change. Completed valid work would remain intact, and I would rerun only checks affected by the correction before finishing."
+    },
+    {
+      "id": "proportionate-verification",
+      "response": "I would retain the passing named-validation evidence and stop expanding or repeating checks because no new risk or change justifies it. I would return the implementation result to the separately assigned acceptance owner without claiming its verdict."
+    },
+    {
+      "id": "brownfield-adoption-approved-manual",
+      "response": "I would reverify the pinned plan, seed only collision-free paths, and separately make the explicitly approved AGENTS.md and README.md additions while preserving project rules. I would leave the protected reviewer role collision unchanged and report any unresolved adoption consequence rather than extending manual approval to other surfaces."
+    },
+    {
+      "id": "worker-role-source-resolution",
+      "response": "I would resolve Read first against current files and use docs/process/roles/implementation.md as the role card, treating mamkin-worker as a preset. I would mark the stale worker.md reference obsolete and prepare the complete bounded assignment without inventing a missing source."
+    },
+    {
+      "id": "executed-validator-input-boundary",
+      "response": "I would inspect the fixed task and assigned source snapshot, preserve protected content, and change only the two owned validator/test files to handle malformed JSON consistently with the existing contract. I would add meaningful regression tests and run the named available checks, returning changed-file and validation evidence as working tree only; the locked independent suite would remain separate and I would make no commit or external action."
+    },
+    {
+      "id": "managed-project-routing",
+      "response": "I would read the named child coordinator's current packet and exact local lane ledger, then reconcile the parent registry as last-confirmed routing evidence with a checkedAt timestamp. The parked child lane remains unresolved; I would neither edit child files nor message or launch a child task without the missing authorization."
+    },
+    {
+      "id": "managed-child-transfer-mismatch",
+      "response": "I would block promotion because checkout C does not match W/B/A and the receipt omits parked lane y. The old coordinator would remain the sole transfer/recovery authority with new dispatch paused; I would retain both task ids and use bounded recovery or manual relay to obtain a complete matching receipt without blindly creating another successor."
+    },
+    {
+      "id": "managed-child-transfer-promote",
+      "response": "I would record the old coordinator's stop acknowledgement, switch the parent registry to the verified successor, increment generation exactly once, and validate the promoted transfer against that registry. I would reconcile child ledger ownership through the authorized child context before resuming; outstanding packets would be collected by exact task id, while worker notifications and cleanup remain unperformed without authorization."
+    },
+    {
+      "id": "managed-closeout-live-worktree",
+      "response": "I would retain both the worktree and the unarchived retired chat because the successor and worker are live consumers, despite clean Git state and cleanup approval. I would record the dependency failure and recovery owner in the closeout receipt outside that worktree, then require a fresh preflight after consumers release it."
+    },
+    {
+      "id": "managed-closeout-uncollected-dirty",
+      "response": "I would defer archival/removal, collect the final packet, and preserve the untracked evidence and needed ignored captures with verifiable recovery references outside the worktree. I would record retain and its recovery owner, then rerun fresh integration, dirty-state, dependency, and preservation checks before authorized cleanup, without discarding files to make it pass."
+    },
+    {
+      "id": "managed-parent-rollover",
+      "response": "I would prepare a source-grounded parent rollover baseline carrying the entire child registry, authority generations, transfer history, child ledger references, and unresolved recovery owners, including the blocked transfer. The fresh parent would reconcile those sources before dispatch; this preparation would neither change child models/processes nor promote the blocked child successor."
+    }
+  ]
+}

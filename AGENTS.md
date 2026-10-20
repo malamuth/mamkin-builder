@@ -7,6 +7,7 @@
 - Bootstrap Mamkin on a machine or repository where Mamkin is not discoverable with `.agents/skills/mamkin-bootstrap/SKILL.md`.
 - Adopt Mamkin into an existing non-Mamkin repository with `.agents/skills/mamkin-adopt/SKILL.md` and `docs/process/adopt-existing-project.md`.
 - Coordinate feature or multi-agent work with `.agents/skills/mamkin-coordinate/SKILL.md` and `docs/process/agent-orchestration.md`.
+- Manage child projects through `docs/process/managed-projects.md`.
 - Audit coordinator drift with `.agents/skills/mamkin-context-audit/SKILL.md`; run an approved same-thread reset or rollover with the matching Mamkin skill.
 - Update a copied project's process layer with `.agents/skills/mamkin-template-sync/SKILL.md`.
 - Audit a mature copied project's net-positive process evolution with `.agents/skills/mamkin-project-evolution-audit/SKILL.md` after major syncs or recurring coordination friction.

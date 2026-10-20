@@ -25,6 +25,7 @@ These files are reusable workflow surface. They may usually be updated from the 
 - `docs/process/execution-lane-routing.md`
 - `docs/process/model-routing.md`
 - `docs/process/thread-operations.md`
+- `docs/process/managed-projects.md`
 - `docs/process/prompt-evals.md`
 - `docs/process/project-evolution-audit.md`
 - `docs/process/template-sync.md`

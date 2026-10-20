@@ -17,6 +17,7 @@
     "docs/process/git-delivery.md",
     "docs/process/model-routing.md",
     "docs/process/thread-operations.md",
+    "docs/process/managed-projects.md",
     "docs/process/prompt-evals.md",
     "docs/process/project-evolution-audit.md",
     "docs/process/template-sync.md",

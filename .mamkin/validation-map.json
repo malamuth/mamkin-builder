@@ -81,7 +81,11 @@
         "docs/templates/active-lanes.json",
         "docs/templates/cross-repo-contract.json",
         "scripts/validate_coordination_contracts.py",
-        "tests/test_validate_coordination_contracts.py"
+        "tests/test_validate_coordination_contracts.py",
+        "docs/templates/project-coordinators.json",
+        "docs/templates/coordinator-transfer.json",
+        "docs/templates/lane-closeout.json",
+        "docs/process/managed-projects.md"
       ],
       "checks": [
         "coordination_contract_tests",

@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "contractKind": "lane-closeout",
+  "task": "TBD",
+  "coordinatorTask": "TBD",
+  "worktree": "TBD",
+  "branchOrCommit": "TBD",
+  "action": "retain",
+  "reason": "TBD",
+  "authorization": null,
+  "dirtyPaths": [],
+  "liveDependents": [],
+  "pendingPackets": [],
+  "integration": {"status": "pending", "evidence": "TBD"},
+  "preservation": {"status": "pending", "evidence": "TBD", "ignoredFiles": "TBD"},
+  "checkedAt": "TBD",
+  "evidence": "TBD"
+}

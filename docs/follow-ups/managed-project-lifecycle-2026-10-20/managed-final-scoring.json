@@ -1,0 +1,93 @@
+{
+  "reviewer": "lifecycle_review, assigned Critical Astra/xhigh",
+  "sourceBlockers": [],
+  "dimensionOrder": [
+    "outcome",
+    "scope",
+    "evidence",
+    "permissions",
+    "validation",
+    "handoff"
+  ],
+  "cases": [
+    {
+      "id": "managed-project-routing",
+      "dimensions": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "failures": []
+    },
+    {
+      "id": "managed-child-transfer-mismatch",
+      "dimensions": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "failures": []
+    },
+    {
+      "id": "managed-child-transfer-promote",
+      "dimensions": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "failures": []
+    },
+    {
+      "id": "managed-closeout-live-worktree",
+      "dimensions": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "failures": []
+    },
+    {
+      "id": "managed-closeout-uncollected-dirty",
+      "dimensions": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "failures": []
+    },
+    {
+      "id": "managed-parent-rollover",
+      "dimensions": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "failures": []
+    }
+  ],
+  "totals": {
+    "casesPassed": 6,
+    "casesFailed": 0,
+    "points": 36,
+    "maximumPoints": 36
+  },
+  "proofBoundary": "Static scoring of complete offline responses; no live rollover/migration/cleanup, effective model or broad reliability proof. Initial grouped failures remain unchanged."
+}

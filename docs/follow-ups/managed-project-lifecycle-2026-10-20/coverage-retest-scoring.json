@@ -1,0 +1,241 @@
+{
+  "scorer": "policy_scoring, assigned Deep Astra/high",
+  "dimensionOrder": [
+    "outcome",
+    "scope",
+    "evidence",
+    "permissions",
+    "validation",
+    "handoff"
+  ],
+  "cases": [
+    {
+      "id": "lane-separation",
+      "dimensions": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "failures": []
+    },
+    {
+      "id": "two-track-admission",
+      "dimensions": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "failures": []
+    },
+    {
+      "id": "two-track-cap",
+      "dimensions": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "failures": []
+    },
+    {
+      "id": "active-lane-inventory",
+      "dimensions": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "failures": []
+    },
+    {
+      "id": "architect-skip-bounded-slice",
+      "dimensions": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "failures": []
+    },
+    {
+      "id": "project-evolution-profit-gate",
+      "dimensions": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "failures": []
+    },
+    {
+      "id": "project-native-stale-learning",
+      "dimensions": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "failures": []
+    },
+    {
+      "id": "project-upstream-repository-boundary",
+      "dimensions": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "failures": []
+    },
+    {
+      "id": "model-route-escalation",
+      "dimensions": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "failures": []
+    },
+    {
+      "id": "brownfield-adoption-review",
+      "dimensions": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "failures": []
+    },
+    {
+      "id": "brownfield-adoption-apply-gate",
+      "dimensions": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "failures": []
+    },
+    {
+      "id": "portable-mamkin-bootstrap",
+      "dimensions": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "failures": []
+    },
+    {
+      "id": "post-adoption-coordinator-start",
+      "dimensions": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "failures": []
+    },
+    {
+      "id": "feature-git-delivery-gate",
+      "dimensions": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "failures": []
+    },
+    {
+      "id": "authorized-git-closeout",
+      "dimensions": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "failures": []
+    },
+    {
+      "id": "authorized-pr-closeout",
+      "dimensions": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "failures": []
+    },
+    {
+      "id": "worker-role-source-resolution",
+      "dimensions": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "failures": []
+    },
+    {
+      "id": "executed-validator-input-boundary",
+      "dimensions": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "failures": []
+    }
+  ],
+  "totals": {
+    "casesPassed": 18,
+    "casesFailed": 0,
+    "points": 108,
+    "maximumPoints": 108
+  },
+  "judgment": "All 18 complete operational simulations satisfy the rubric. Previously missing steps are explicit; no further source-policy change is required by this pass.",
+  "limits": [
+    "Planned checks, not actual execution. Initial grouped scores remain unchanged.",
+    "Not identical-prompt paired comparison, causal improvement, model reliability or live execution.",
+    "Fresh per-case isolation and effective generation model/resource telemetry unavailable."
+  ]
+}

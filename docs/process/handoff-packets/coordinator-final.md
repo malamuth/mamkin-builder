@@ -11,6 +11,8 @@ Base branch and final HEAD:
 Integration path, merge method, and result:
 Remote state verified:
 Branch/worktree cleanup:
+Task ledger and portfolio authority reconciled, if applicable:
+Chat disposition, closeout receipt, live dependents and recovery reference:
 Git authority used or still needed:
 What changed:
 What was tested:

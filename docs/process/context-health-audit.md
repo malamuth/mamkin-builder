@@ -51,6 +51,7 @@ Read only what is needed:
 - Relevant feature specs, roadmap entries, follow-ups, and walkthroughs.
 - Current `git status --short --branch` and `git rev-parse HEAD`.
 - The current active-lane inventory, including owner, task, worktree, branch/commit, status, current packet, and recovery owner for active, blocked, parked, superseded, and complete lanes.
+- For a managed portfolio, the project-coordinator registry, authority generations, outstanding transfer receipts and child ledger references from `docs/process/managed-projects.md`. Audit these without steering the children or switching authority.
 - Recent coordinator messages or returned packets when thread tooling is available and the human asked to inspect them.
 
 Do not treat old handoff packets, old summaries, generated reports, or screenshots as authoritative unless current docs confirm them.

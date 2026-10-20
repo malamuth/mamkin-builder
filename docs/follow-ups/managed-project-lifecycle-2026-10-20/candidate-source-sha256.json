@@ -1,0 +1,16 @@
+{
+  "AGENTS.md": "08daeefa16047a5e595f6312cc5cc4bec1f5bb9640f1a6686a680b9ceb33a50b",
+  ".agents/skills/mamkin-coordinate/SKILL.md": "dd4d3c9363e90d4a2ace19a071d204c865bae89754e24c4d65a36dc768732b6c",
+  ".agents/skills/mamkin-coordinator-rollover/SKILL.md": "31733429b63d996372ff2f1ae33e5319bc7f4222da286891417506aa4e601c37",
+  "docs/process/agent-orchestration.md": "541f3ea8d4b29f657c3cd8c8cf6550f36575f1aa563a4b4940a7871b3c5dde84",
+  "docs/process/execution-lane-routing.md": "f699a681cf2f5c258a6551aee06821b0fea29455dfbda620d623366853acf90f",
+  "docs/process/git-delivery.md": "0845f384851ac1e69750c4e42b6bbaacbcfe1675856df1289e1b148325b1cc7c",
+  "docs/process/thread-operations.md": "08030e9c7a15dfb2cfe05a7e2c5409b887a1d25e16df717044a6555252e43351",
+  "docs/process/context-health-audit.md": "e7999262e144af48e643ddbc720cc0c48577bbf366cd21c3d46620c436a30550",
+  "docs/process/managed-projects.md": "cc25a5d33adc56bf377fca9d96774bcadd26658f5bc6f6a60f4378d5658e7dec",
+  "docs/process/handoff-packets/coordinator-reset.md": "cdbb4f3757dbcb910676bd50fee2fdeeaa55d82e1b05cd3b612ba64e7ff65d3d",
+  "evals/mamkin-prompt-cases.json": "08dd940f12a63c2f4d2762fb9795a34d39ac5271fbaddf6947a98c09b93f4226",
+  "scripts/validate_coordination_contracts.py": "6c33c62dc8d0e9e3df5b4f52508464c92d47d5b6152689f4ea427b19e1319b0e",
+  "tests/test_validate_coordination_contracts.py": "96ad5b8ac39f34923ef4cbf552c567953093016a5bd4db638d7a6f86fed23432",
+  "docs/process/prompt-evals.md": "2e8979e9632db1e330d71c7ed5645a8e41cdce00440ed1a2fe3893580c8519e7"
+}

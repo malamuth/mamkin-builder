@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "contractKind": "coordinator-transfer",
+  "projectId": "TBD",
+  "fromGeneration": 1,
+  "oldCoordinatorTask": "TBD",
+  "newCoordinatorTask": null,
+  "status": "prepared",
+  "authorization": "TBD",
+  "baseline": {"worktree": "TBD", "branch": "TBD", "commit": "TBD", "dirtyPaths": [], "packet": "TBD", "packetSha256": "TBD"},
+  "lanes": {"schemaVersion": 1, "contractKind": "active-lanes", "updatedAt": "TBD", "lanes": []},
+  "receipt": null,
+  "retirement": null
+}

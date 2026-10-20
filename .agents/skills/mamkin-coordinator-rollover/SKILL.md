@@ -10,6 +10,7 @@ Use this skill when the human approves coordinator rollover, or when `mamkin-con
 ## Workflow
 
 1. Read `AGENTS.md`.
+   For parent-led child rollover, follow `docs/process/managed-projects.md` instead of self-promotion. Managed parent rollover also requires its mandatory receipt and registry/route reconciliation checkpoint before promotion; optional receipt language below does not apply.
 2. Read the coordinator rollover section in `docs/process/agent-orchestration.md`.
 3. Read `docs/process/handoff-packets/coordinator-reset.md`.
 4. Read `docs/process/naming-conventions.md`.
@@ -26,6 +27,7 @@ Use this skill when the human approves coordinator rollover, or when `mamkin-con
 - The outgoing coordinator transfers authority and then stops coordinating future work.
 - Do not implement, merge, deploy, run live validation, or start write-capable workers during rollover.
 - Do not leave two active-looking coordinator threads when title/archive tools are available.
+- Prefer renaming/stopping the outgoing task until cleanup is verified. Never archive a chat whose managed worktree is still needed by the successor or another live task; use the closeout preflight in `docs/process/managed-projects.md` before archival.
 - If create/send works but rename/archive is unavailable, mark old-thread cleanup as manual and stop using the outgoing thread for coordination.
 
 ## Output Shape

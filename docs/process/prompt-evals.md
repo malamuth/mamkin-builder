@@ -8,6 +8,12 @@ The human explicitly approved `gpt-6.1-sol` / `high` as the coordinator default 
 
 The accepted code and tests match arm b from the bounded execution comparison. Its independent review found no blockers; all 18 unchanged acceptance checks passed again against the integrated source. The supporting policy retest passed 12/12 cases, and bounded execution passed 18/18 checks and 6/6 quality dimensions. One task and one sample per model do not establish broad coordinator reliability, efficiency, or lower-effort suitability. Activation provenance is recorded in `docs/follow-ups/sol-6-1-activation-2026-10-16.md`. Existing tasks may retain earlier model settings; verify the effective model and effort on fresh launches.
 
+## Managed Lifecycle Evidence (2026-10-20)
+
+The optional managed-project process adds six cases and read-only portfolio/transfer/closeout validation. Local verification passed 70 tests and independent Critical review after two authority-contract corrections. Complete offline responses to the six added cases passed 6/6 cases and 36/36 rubric points. This feature changes no model defaults.
+
+The initial grouped 50-case response experiment did not pass the full gate (26/50 baseline, 30/50 candidate with an initial targeted retest); it imposed a short-response constraint and exposed operational omissions. Its scores are retained, not replaced by later coverage. An uncapped 18-case corrective retest passed 18/18 and 108/108 points; together with 26 earlier passing non-managed cases and the six complete managed responses this covers all 50 cases offline, not in one paired run. Full responses and separate scores are in `docs/follow-ups/managed-project-lifecycle-2026-10-20/`. These grouped hypothetical responses do not establish fresh per-case execution, live coordinator reliability, efficiency or causal A/B improvement.
+
 ## Migration Evidence (2026-10-16)
 
 The first `sol-6-1-coordinator-migration` run scored 6.1 Sol/high at 9/12 cases and 69/72 rubric points, and 5.6 Sol/high at 2/12 and 61/72. The candidate won comparatively but failed the all-cases gate. Both arms missed unchanged-status reporting, material external-action consequences, and a committed reset baseline; those misses motivated the three-instruction repair.
@@ -52,6 +58,7 @@ The pre-refactor behavioral cases were not run before this suite existed. Treat 
 - Reversible micro-slices avoid feature-spec, durable-task, branch, and walkthrough ceremony only when the narrow contract passes; external writes and judgment still keep their gates.
 - Context drift routes to audit/reset/rollover rather than continued guessing.
 - Repeated authority or lane reconstruction after a completed reset recommends rollover.
+- Managed-project routing preserves child repository authority and the per-project lane cap. Parent-led transfer requires an exact successor receipt, all unresolved lanes, a single generation switch and old-task retirement. Chat/worktree cleanup rejects live dependents, dirty state and uncollected evidence; parent rollover preserves the child recovery map.
 - Optional post-edit automation remains inert until explicitly enabled and never hides a failed formatter.
 - Mature-project evolution audits recommend only evidence-backed net value and never apply findings or sync files.
 - Project-native learning routes to one smallest durable action, never auto-creates skills, and never leaks project domain details into Mamkin.

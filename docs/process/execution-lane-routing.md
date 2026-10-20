@@ -54,6 +54,8 @@ A separate-task worker returns its role packet to the project coordinator. A sub
 
 ## Two-Track Admission
 
+Managed projects also keep a single-lane ledger; portfolio routing and per-project caps follow `docs/process/managed-projects.md`.
+
 Parallel mode is optional and limited to tracks `A` and `B`. Before creating a lane, initialize or reconcile project-owned `docs/project/active-lanes.json` from `docs/templates/active-lanes.json`, then run `python3 scripts/validate_coordination_contracts.py lanes docs/project/active-lanes.json`. Active, blocked, and parked lanes occupy a slot; superseded and complete entries remain history. A third unresolved track waits. Bounded subagents remain internal to one coordinator and parent track.
 
 Before launch, the coordinator records these facts in the two worker prompts:

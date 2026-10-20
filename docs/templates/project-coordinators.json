@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "contractKind": "project-coordinators",
+  "updatedAt": "TBD",
+  "parent": {"id": "TBD", "repository": "TBD", "coordinatorTask": "TBD", "generation": 1},
+  "projects": [
+    {
+      "id": "TBD",
+      "projectContext": "TBD",
+      "repository": "TBD",
+      "coordinatorTask": "TBD",
+      "generation": 1,
+      "status": "active",
+      "state": {"worktree": "TBD", "branch": "TBD", "commit": "TBD", "dirtyPaths": [], "sourcePacket": "TBD"},
+      "activeLanes": {"path": "docs/project/active-lanes.json", "checkedAt": "TBD", "evidence": "TBD"},
+      "recoveryOwner": "TBD"
+    }
+  ]
+}

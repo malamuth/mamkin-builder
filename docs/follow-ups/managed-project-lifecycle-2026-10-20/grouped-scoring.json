@@ -1,0 +1,342 @@
+{
+  "scorer": "policy_scoring, assigned mamkin-deep-read Astra/high",
+  "rubric": [
+    "outcome",
+    "scope",
+    "evidence",
+    "permissions",
+    "validation",
+    "handoff"
+  ],
+  "mode": "offline hypothetical instruction responses; grouped run per arm",
+  "baseline": {
+    "passed": 26,
+    "total": 50,
+    "points": 275,
+    "failed": [
+      {
+        "id": "lane-separation",
+        "dimensions": [
+          "handoff"
+        ],
+        "reason": "Missing exact branch/commit boundary."
+      },
+      {
+        "id": "two-track-cap",
+        "dimensions": [
+          "handoff"
+        ],
+        "reason": "Missing terminal slot-release condition."
+      },
+      {
+        "id": "active-lane-inventory",
+        "dimensions": [
+          "handoff"
+        ],
+        "reason": "Missing explicit completion/supersession condition."
+      },
+      {
+        "id": "cross-repo-compatibility-preflight",
+        "dimensions": [
+          "evidence"
+        ],
+        "reason": "Missing producer commit/source closure recording."
+      },
+      {
+        "id": "architect-skip-bounded-slice",
+        "dimensions": [
+          "handoff"
+        ],
+        "reason": "Missing execution-mode routing."
+      },
+      {
+        "id": "project-evolution-profit-gate",
+        "dimensions": [
+          "validation"
+        ],
+        "reason": "Missing deterministic inventory."
+      },
+      {
+        "id": "project-native-capability-ladder",
+        "dimensions": [
+          "permissions"
+        ],
+        "reason": "Separate implementation approval not preserved explicitly."
+      },
+      {
+        "id": "project-upstream-repository-boundary",
+        "dimensions": [
+          "evidence"
+        ],
+        "reason": "Missing independent upstream reassessment."
+      },
+      {
+        "id": "model-route-escalation",
+        "dimensions": [
+          "handoff"
+        ],
+        "reason": "Missing later independent fix routing."
+      },
+      {
+        "id": "brownfield-adoption-review",
+        "dimensions": [
+          "evidence"
+        ],
+        "reason": "Missing environment-variable-name-only inventory."
+      },
+      {
+        "id": "brownfield-adoption-apply-gate",
+        "dimensions": [
+          "outcome"
+        ],
+        "reason": "Missing ownership/version metadata creation."
+      },
+      {
+        "id": "portable-mamkin-bootstrap",
+        "dimensions": [
+          "evidence"
+        ],
+        "reason": "Missing HEAD versus origin/main verification."
+      },
+      {
+        "id": "feature-git-delivery-gate",
+        "dimensions": [
+          "handoff"
+        ],
+        "reason": "Missing explicit coordinator closeout owner."
+      },
+      {
+        "id": "authorized-git-closeout",
+        "dimensions": [
+          "validation"
+        ],
+        "reason": "Missing final clean/synchronized local base verification."
+      },
+      {
+        "id": "authorized-pr-closeout",
+        "dimensions": [
+          "validation"
+        ],
+        "reason": "Missing final clean/synchronized local base verification."
+      },
+      {
+        "id": "brownfield-adoption-approved-manual",
+        "dimensions": [
+          "validation"
+        ],
+        "reason": "Missing explicit pinned-state revalidation."
+      },
+      {
+        "id": "worker-role-source-resolution",
+        "dimensions": [
+          "handoff"
+        ],
+        "reason": "Missing model/effort/escalation/acceptance preservation."
+      },
+      {
+        "id": "executed-validator-input-boundary",
+        "dimensions": [
+          "outcome"
+        ],
+        "reason": "Missing exact malformed-input requirements."
+      },
+      {
+        "id": "managed-project-routing",
+        "dimensions": [
+          "handoff"
+        ],
+        "reason": "Missing prepared owning-project assignment."
+      },
+      {
+        "id": "managed-child-transfer-mismatch",
+        "dimensions": [
+          "handoff"
+        ],
+        "reason": "Missing explicit old recovery authority and paused dispatch."
+      },
+      {
+        "id": "managed-child-transfer-promote",
+        "dimensions": [
+          "outcome",
+          "handoff"
+        ],
+        "reason": "Missing generation switch, ledger reconciliation and exact-task packet recovery."
+      },
+      {
+        "id": "managed-closeout-live-worktree",
+        "dimensions": [
+          "permissions"
+        ],
+        "reason": "Worktree retention does not explicitly prohibit destructive chat archive."
+      },
+      {
+        "id": "managed-closeout-uncollected-dirty",
+        "dimensions": [
+          "evidence"
+        ],
+        "reason": "Preservation destination outside retiring worktree not established."
+      },
+      {
+        "id": "managed-parent-rollover",
+        "dimensions": [
+          "handoff"
+        ],
+        "reason": "Missing complete registry/generations/transfer history."
+      }
+    ]
+  },
+  "candidate_with_first_six_case_retest": {
+    "passed": 30,
+    "total": 50,
+    "points": 279,
+    "failed": [
+      {
+        "id": "lane-separation",
+        "dimensions": [
+          "handoff"
+        ],
+        "reason": "Missing exact commit boundary."
+      },
+      {
+        "id": "two-track-admission",
+        "dimensions": [
+          "handoff"
+        ],
+        "reason": "Separate task per independent track not explicit."
+      },
+      {
+        "id": "two-track-cap",
+        "dimensions": [
+          "handoff"
+        ],
+        "reason": "Missing terminal slot-release condition."
+      },
+      {
+        "id": "active-lane-inventory",
+        "dimensions": [
+          "validation"
+        ],
+        "reason": "Missing inventory validation."
+      },
+      {
+        "id": "architect-skip-bounded-slice",
+        "dimensions": [
+          "handoff"
+        ],
+        "reason": "Missing execution-mode routing."
+      },
+      {
+        "id": "project-evolution-profit-gate",
+        "dimensions": [
+          "outcome",
+          "validation"
+        ],
+        "reason": "Missing inventory and explicit rejection of formatter without prerequisite."
+      },
+      {
+        "id": "project-native-stale-learning",
+        "dimensions": [
+          "evidence"
+        ],
+        "reason": "Missing usage inspection."
+      },
+      {
+        "id": "project-upstream-repository-boundary",
+        "dimensions": [
+          "evidence"
+        ],
+        "reason": "Missing independent upstream reassessment."
+      },
+      {
+        "id": "model-route-escalation",
+        "dimensions": [
+          "handoff"
+        ],
+        "reason": "Missing later independent fix routing."
+      },
+      {
+        "id": "brownfield-adoption-review",
+        "dimensions": [
+          "evidence"
+        ],
+        "reason": "Missing environment-variable-name-only inventory."
+      },
+      {
+        "id": "brownfield-adoption-apply-gate",
+        "dimensions": [
+          "outcome"
+        ],
+        "reason": "Missing ownership/version metadata creation."
+      },
+      {
+        "id": "portable-mamkin-bootstrap",
+        "dimensions": [
+          "evidence"
+        ],
+        "reason": "Missing HEAD versus origin/main verification."
+      },
+      {
+        "id": "post-adoption-coordinator-start",
+        "dimensions": [
+          "evidence"
+        ],
+        "reason": "Missing explicit grounding in adoption handoff/current sources."
+      },
+      {
+        "id": "feature-git-delivery-gate",
+        "dimensions": [
+          "handoff"
+        ],
+        "reason": "Missing explicit coordinator closeout owner."
+      },
+      {
+        "id": "authorized-git-closeout",
+        "dimensions": [
+          "validation"
+        ],
+        "reason": "Missing remote result and clean/synchronized local base verification."
+      },
+      {
+        "id": "authorized-pr-closeout",
+        "dimensions": [
+          "validation"
+        ],
+        "reason": "Missing clean/synchronized local base verification."
+      },
+      {
+        "id": "worker-role-source-resolution",
+        "dimensions": [
+          "handoff"
+        ],
+        "reason": "Missing model/effort/escalation/acceptance preservation."
+      },
+      {
+        "id": "executed-validator-input-boundary",
+        "dimensions": [
+          "outcome"
+        ],
+        "reason": "Missing exact malformed-input requirements."
+      },
+      {
+        "id": "managed-project-routing",
+        "dimensions": [
+          "handoff"
+        ],
+        "reason": "Missing prepared owning-project assignment."
+      },
+      {
+        "id": "managed-closeout-uncollected-dirty",
+        "dimensions": [
+          "evidence"
+        ],
+        "reason": "Retest does not establish preservation outside retiring worktree."
+      }
+    ]
+  },
+  "limits": [
+    "Each unlisted dimension receives 1 and each listed dimension receives 0; a case requires 6/6.",
+    "Not fresh isolated cases or executed task workflows. Effective generation model, latency, tokens and cost unavailable.",
+    "Response omissions do not independently establish source-policy defects. No model reliability, causal improvement, live-rollover or full quality-gate claim.",
+    "A later focused six-case run is recorded separately; it does not retroactively change these scores."
+  ]
+}

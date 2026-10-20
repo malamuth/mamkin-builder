@@ -17,6 +17,7 @@ Use this skill when the project has already been initialized and the user wants 
 6. Before delegation or two-track work, read `docs/process/execution-lane-routing.md`.
 7. Wait for returned packets, blockers, human requests, or explicit recovery; do not poll active tasks.
 8. Use the focused context audit, reset, or rollover skill when its trigger fires.
+9. For managed child projects, follow `docs/process/managed-projects.md`: reconcile the portfolio registry and child ledgers before dispatch, transfer, or cleanup. Parent coordination never expands repository write authority.
 
 ## Boundaries
 

@@ -110,6 +110,12 @@ def main():
         "model-route-deep-diagnosis",
         "model-route-critical-review",
         "model-route-escalation",
+        "managed-project-routing",
+        "managed-child-transfer-mismatch",
+        "managed-child-transfer-promote",
+        "managed-closeout-live-worktree",
+        "managed-closeout-uncollected-dirty",
+        "managed-parent-rollover",
     }
     missing_ids = required_ids - set(ids)
     if missing_ids:
@@ -323,6 +329,30 @@ def main():
     context_text = context_audit.read_text(encoding="utf-8")
     if "A completed source-grounded reset did not hold" not in context_text:
         fail(errors, "context audit missing repeated-reset rollover trigger")
+
+    managed_protocol = ROOT / "docs/process/managed-projects.md"
+    managed_text = managed_protocol.read_text(encoding="utf-8")
+    for phrase in [
+        "Single-project work needs no portfolio registry.",
+        "Parent instructions never extend write authority across repositories.",
+        "all unresolved tasks",
+        "The two-unresolved-track cap applies separately",
+        "The new coordinator collects outstanding worker packets by exact task id",
+        "never archive the old chat while that copy is used by the successor",
+        "Validator success is not fresh filesystem or integration proof.",
+    ]:
+        if phrase not in managed_text:
+            fail(errors, f"managed projects missing invariant: {phrase}")
+    for path in [agents, orchestration, thread_operations, ROOT / ".agents/skills/mamkin-coordinate/SKILL.md", ROOT / ".agents/skills/mamkin-coordinator-rollover/SKILL.md"]:
+        if "docs/process/managed-projects.md" not in path.read_text(encoding="utf-8"):
+            fail(errors, f"{path.relative_to(ROOT)} missing managed-project lifecycle route")
+    for filename, kind in [("project-coordinators.json", "project-coordinators"), ("coordinator-transfer.json", "coordinator-transfer"), ("lane-closeout.json", "lane-closeout")]:
+        template = json.loads((ROOT / "docs/templates" / filename).read_text(encoding="utf-8"))
+        if type(template.get("schemaVersion")) is not int or template["schemaVersion"] != 1 or template.get("contractKind") != kind:
+            fail(errors, f"managed-project template {filename} has an invalid header")
+    manifest = json.loads(process_manifest_path.read_text(encoding="utf-8"))
+    if "docs/process/managed-projects.md" not in manifest.get("templateOwned", []):
+        fail(errors, "managed projects protocol missing template sync ownership")
 
     git_delivery_text = git_delivery.read_text(encoding="utf-8")
     for phrase in [
@@ -752,6 +782,10 @@ def main():
         ROOT / "scripts/audit_mamkin_evolution.py",
         coordination_validator,
         coordination_tests,
+        managed_protocol,
+        ROOT / "docs/templates/project-coordinators.json",
+        ROOT / "docs/templates/coordinator-transfer.json",
+        ROOT / "docs/templates/lane-closeout.json",
         ROOT / "README.md",
     ]:
         if "sambl" in path.read_text(encoding="utf-8").lower():

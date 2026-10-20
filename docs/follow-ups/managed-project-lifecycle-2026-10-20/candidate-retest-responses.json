@@ -1,0 +1,29 @@
+{
+  "arm": "candidate-retest",
+  "cases": [
+    {
+      "id": "managed-project-routing",
+      "response": "I would read the exact child ledger and current owning packet, retain the parked lane and recovery owner, and reconcile only the parent's last-confirmed routing record against that evidence. The named child coordinator retains implementation and acceptance authority; registry state alone does not prove live checkout state or completion. With no authorized child task or cross-task send, I would stop before dispatch, messaging or child-file changes and identify the owning-context authorization needed to proceed."
+    },
+    {
+      "id": "managed-child-transfer-mismatch",
+      "response": "I would mark the transfer blocked and keep new child dispatch paused, with the old coordinator still authoritative for transfer recovery. The receipt disagrees with worktree W, branch B and commit A, and omits parked lane y, so it cannot establish acceptance of the baseline, packet hash H and every unresolved lane. I would retain both task ids and pursue bounded source reconciliation or manual relay within existing authorization, without promoting, retiring the old coordinator or creating another successor blindly."
+    },
+    {
+      "id": "managed-child-transfer-promote",
+      "response": "I would record the verified source-grounded receipt and old coordinator's explicit stop acknowledgement, then switch the child registry to the successor and increment its generation exactly once. I would validate the promoted transfer against that registry and reconcile child ledger owner and recovery routes through an authorized task in the child's owning context, resuming only when the receipt, registry and ledger agree. The successor would collect outstanding packets by exact task id; late packets would remain recoverable evidence without restoring old authority. I would retain the old task renamed/stopped and perform neither worker notifications nor archival, worktree removal or other cleanup without their separate authorization and preflight."
+    },
+    {
+      "id": "managed-closeout-live-worktree",
+      "response": "I would record a retain disposition with the successor and worker as live dependents and name the recovery owner. Explicit cleanup approval, clean Git status and accepted integration do not satisfy the closeout gate while those tasks still use the managed worktree, and archiving its associated chat can remove that checkout. I would preserve the chat/worktree resources and stop archival and removal until a fresh preflight, saved outside the removal target, proves all live dependencies have ended and the remaining preservation conditions hold."
+    },
+    {
+      "id": "managed-closeout-uncollected-dirty",
+      "response": "I would collect the final packet, inspect current Git and integration evidence, and preserve the untracked evidence and needed ignored captures with verifiable recovery references under the owning task's authority. I would record retain with the dirty paths, pending packet and preservation work as blockers; acceptance alone does not prove Git delivery or cleanup readiness. I would not stash, reset, discard or rely on an automatic snapshot to cover ignored files, and would stop before archive/removal until a fresh closeout preflight establishes all required conditions."
+    },
+    {
+      "id": "managed-parent-rollover",
+      "response": "I would prepare a source-grounded parent reset packet carrying the complete registry, authority generations, transfer history, both children's unresolved lanes, the blocked transfer and all recovery owners, with exact Git state and dirty-preservation evidence where needed. Parent dispatch would remain paused until the fresh parent's mandatory receipt reconciles every child identity, ledger and outstanding transfer against current sources; a missing or mismatched receipt would leave the old parent authoritative for recovery. Only after that verified receipt and the old parent's stop acknowledgement would I switch parent.coordinatorTask, increment parent.generation once and reconcile current recovery routes through authorized owning tasks before resuming. I would preserve child coordinator ids, generations and model/process baselines, and retain the outgoing parent until separate cleanup conditions are satisfied."
+    }
+  ]
+}

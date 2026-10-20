@@ -30,6 +30,8 @@ Confirm receipt before routing follow-up work. Old packets are evidence only and
 
 Coordinator rollover is not an ordinary worker-thread recovery path. Use `.agents/skills/mamkin-coordinator-rollover/SKILL.md` and `docs/process/handoff-packets/coordinator-reset.md` after human approval.
 
+For parent-led child transfers, use `docs/process/managed-projects.md` and its registry/receipt checks. Retire dispatch authority separately from chat archival. Before archiving a completed or superseded task, run that protocol's closeout preflight: an associated worktree may still serve the successor or another live lane. Record retained resources and actual cleanup outcome.
+
 ## Post-Adoption Coordinator Start
 
 After adoption completes, recommend a fresh coordinator task and ask for explicit human approval to create it. Do not fork the adoption history. Use the adopted repository as project context and the main coordinator title from `docs/process/naming-conventions.md`.

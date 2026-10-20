@@ -83,6 +83,8 @@ If external authority is missing, stop once the feature is `Ready for Git closeo
 
 ## Completion States
 
+Managed chat/worktree cleanup also requires the dependency and preservation preflight in `docs/process/managed-projects.md`.
+
 - `Ready for walkthrough`: committed implementation awaits independent acceptance.
 - `Merge-ready`: accepted commit is ready to integrate; Git closeout is incomplete.
 - `Ready for Git closeout`: acceptance passed but required integration authority is missing.
