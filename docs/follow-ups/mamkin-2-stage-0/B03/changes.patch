@@ -1,0 +1,27 @@
+--- a/cart.py
++++ b/cart.py
+@@ -12 +12 @@
+-    return f'Customer: {name}'
++    return f'Customer: {clean_name(name)}'
+--- a/tests/test_cart.py
++++ b/tests/test_cart.py
+@@ -9,0 +10,13 @@
++
++    def test_label_normalizes_whitespace_and_preserves_case(self):
++        cases = [
++            ('  Ada  ', 'Customer: Ada'),
++            ('Ada   Lovelace', 'Customer: Ada Lovelace'),
++            ('\tAda\t \nLovelace\r\n', 'Customer: Ada Lovelace'),
++            ('  aDa   LoVeLaCe  ', 'Customer: aDa LoVeLaCe'),
++            ('', 'Customer: '),
++            (' \t\n\r ', 'Customer: '),
++        ]
++        for name, expected in cases:
++            with self.subTest(name=name):
++                self.assertEqual(customer_label(name), expected)
+--- a/work.md
++++ b/work.md
+@@ -4 +4,2 @@
+-Progress: clean_name is implemented and checked. Remaining: wire it into customer_label and verify labels.
++Progress: complete. customer_label now uses clean_name, collapsing repeated whitespace and trimming outer whitespace while preserving case. Empty and whitespace-only names produce `Customer: `.
++Verification: `python3 -B -m unittest discover -s tests` passed (3 tests). Label checks cover outer and repeated spaces, tabs and line breaks, mixed case, empty names, and whitespace-only names.

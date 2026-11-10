@@ -1,0 +1,27 @@
+--- a/cart.py
++++ b/cart.py
+@@ -3 +3 @@
+-        return None
++        return 0
+--- a/tests/test_cart.py
++++ b/tests/test_cart.py
+@@ -4,0 +5,5 @@
++    def test_empty(self):
++        total = total_cents([])
++        self.assertEqual(total, 0)
++        self.assertIs(type(total), int)
++
+--- a/work.md
++++ b/work.md
+@@ -6 +6 @@
+-T3: fix total_cents([]) to return integer 0; preserve nonempty cart behavior. No dependencies.
++T3: DONE — fix total_cents([]) to return integer 0; preserve nonempty cart behavior. No dependencies.
+@@ -7,0 +8,8 @@
++
++## Result — 2026-11-10
++
++Completed T3, the highest-priority available task: T1 is blocked by the owner's
++decision, and T2 depends on T1. Empty carts now return integer 0. Added a
++regression test for the value and exact type; the existing nonempty-cart test
++still passes. Check: `python3 -B -m unittest discover -s tests` — 3 tests passed.
++Stopped after this task; T4 remains pending.

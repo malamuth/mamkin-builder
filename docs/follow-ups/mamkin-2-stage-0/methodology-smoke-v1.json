@@ -1,0 +1,63 @@
+{
+  "criteriaCommit": "7f5005e",
+  "suiteVersion": 1,
+  "case": "B01",
+  "classification": "methodology smoke; excluded from v2 baseline; not rescored",
+  "observedResult": "Code oracle passed; user edits preserved; 3 tests passed. Version 1 incorrectly rejected the added regression test as an unexpected file change.",
+  "originalDeterministicVerdict": {
+    "pass": false,
+    "unexpectedChanges": [
+      "tests/test_cart.py"
+    ]
+  },
+  "launch": {
+    "exitCode": 0,
+    "timedOut": false,
+    "elapsedSeconds": 23.655,
+    "argv": [
+      "codex",
+      "--no-daemon",
+      "-a",
+      "on-request",
+      "exec",
+      "--ephemeral",
+      "--json",
+      "--model",
+      "gpt-6.1-sol",
+      "-c",
+      "model_reasoning_effort=\"high\"",
+      "--sandbox",
+      "workspace-write",
+      "--skip-git-repo-check",
+      "--cd",
+      "/private/tmp/mamkin-2-stage-0-20261110-baseline/B01",
+      "--output-last-message",
+      "/private/tmp/mamkin-2-stage-0-20261110-baseline/B01-final.txt",
+      "-"
+    ],
+    "criteriaCommit": "7f5005e",
+    "runType": "baseline",
+    "case": "B01"
+  },
+  "input": {
+    "case": "B01",
+    "files": {
+      "AGENTS.md": "2e55962f71ab6c8666d5cbe448fa9b81b7fbe23420038c9fffb24cde79ee912a",
+      "README.md": "5b6cfa7f8cd4f6b2d7ff8373c48ca2e80b11ea8bb19bebe4c437dc3df575f02b",
+      "cart.py": "d73d0de626ea110a4b2ded4074526edd2d06a07decf5b13819b3029edab6c97b",
+      "owner-notes.md": "b8900d5bd79bcc6cb860228499c574e525770a825c9f4a00d4353e15218fb979",
+      "tests/test_cart.py": "a1cffb910c39675f6cd12454366eded65cb9f1ec95d4b8b520ed05de4d085403"
+    },
+    "gitStatus": " M cart.py\n?? owner-notes.md\n",
+    "gitCommit": "adf182fb93998b06c48141a5146636de2789475e",
+    "promptSha256": "192fa3756e57a988bcd69d8c8cfdc64e634a3d06a39f158a7f12c64b5eb64867",
+    "suiteSha256": "7ec08e9ff44e5417497ad1a2b5597273e68b77e855f56b9d1d2b1b0685ebf3fe",
+    "casesSha256": "7696af347d762ba01c1a2a0077ff07ab0f0100b2185395fb1871a4109a78ee8f"
+  },
+  "finalResponse": "Исправлено: `total_cents([])` возвращает целое число `0`. Поведение непустой корзины и пользовательские изменения сохранены.\n\nДобавлен тест на значение и тип результата. Проверка `python3 -B -m unittest discover -s tests` прошла: все 3 теста успешны.",
+  "startupFailure": {
+    "exitCode": 1,
+    "cause": "In-process app-server initialization denied by outer sandbox before model work",
+    "countedAsModelCase": false
+  }
+}

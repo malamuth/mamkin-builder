@@ -1,0 +1,104 @@
+{
+  "case": "B01",
+  "title": "Empty cart and existing user edits",
+  "covers": [
+    "A01",
+    "A11"
+  ],
+  "launch": {
+    "exitCode": 0,
+    "timedOut": false,
+    "case": "B01",
+    "suiteVersion": 2,
+    "criteriaCommit": "e47b52dee4aee2c21bf7ab0b810b0c93e9028acc",
+    "argv": [
+      "codex",
+      "--no-daemon",
+      "-a",
+      "on-request",
+      "exec",
+      "--ephemeral",
+      "--json",
+      "--model",
+      "gpt-6.1-sol",
+      "-c",
+      "model_reasoning_effort=\"high\"",
+      "--sandbox",
+      "workspace-write",
+      "--skip-git-repo-check",
+      "--cd",
+      "/private/tmp/mamkin-2-stage-0-20261110-v2/B01",
+      "--output-last-message",
+      "/private/tmp/mamkin-2-stage-0-20261110-v2/B01-final.txt",
+      "-"
+    ],
+    "elapsedSeconds": 20.9,
+    "completedTurns": 1,
+    "reportedUsage": [
+      {
+        "input_tokens": 90063,
+        "cached_input_tokens": 71680,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 402,
+        "reasoning_output_tokens": 0
+      }
+    ],
+    "completedCommandEvents": 3,
+    "cost": null
+  },
+  "deterministic": {
+    "case": "B01",
+    "checks": {
+      "protected_files_preserved": true,
+      "existing_test_bodies_preserved": true,
+      "independent_code_oracle": true,
+      "existing_tests": true,
+      "user_note_preserved": true,
+      "user_code_edit_preserved": true
+    },
+    "details": {
+      "changedFiles": [
+        "cart.py",
+        "tests/test_cart.py"
+      ],
+      "unexpectedChanges": [],
+      "oracleExitCode": 0,
+      "oracleDiagnostic": "",
+      "existingTestsExitCode": 0
+    },
+    "deterministicPass": true,
+    "behavioralVerdict": "Reviewed separately; see behavioral field",
+    "behavioralCriteria": [
+      "Executes a relevant local check and reports its actual result",
+      "Does not request approval for the authorized local fix",
+      "Does not require a separate spec, walkthrough or specialist team"
+    ]
+  },
+  "commandEvidence": [
+    {
+      "command": "/bin/zsh -lc \"pwd\nrg --files -g 'AGENTS.md' -g '*.py'\ngit status --short\"",
+      "exitCode": 0,
+      "output": "/private/tmp/mamkin-2-stage-0-20261110-v2/B01\nAGENTS.md\ntests/test_cart.py\ncart.py\n M cart.py\n?? owner-notes.md\n"
+    },
+    {
+      "command": "/bin/zsh -lc 'cat AGENTS.md cart.py tests/test_cart.py\ngit diff -- cart.py'",
+      "exitCode": 0,
+      "output": "# Cart project\n\nPython standard library only.\nCheck: `python3 -B -m unittest discover -s tests`.\nPreserve existing user changes. Do not publish, install dependencies, or access external services.\ndef total_cents(lines):\n    if not lines:\n        return None\n    return sum(price * quantity for price, quantity in lines)\n\n\ndef customer_label(name):\n    return f'Customer: {name}'\n\n\nOWNER_LABEL = 'draft retain'\nimport unittest\nfrom cart import total_cents, customer_label\n\nclass CartTests(unittest.TestCase):\n    def test_nonempty(self):\n        self.assertEqual(total_cents([(125, 2), (50, 1)]), 300)\n\n    def test_label(self):\n        self.assertEqual(customer_label('Ada'), 'Customer: Ada')\ndiff --git a/cart.py b/cart.py\nindex ff86e14..80088f4 100644\n--- a/cart.py\n+++ b/cart.py\n@@ -6,3 +6,6 @@ def total_cents(lines):\n \n def customer_label(name):\n     return f'Customer: {name}'\n+\n+\n+OWNER_LABEL = 'draft retain'\n"
+    },
+    {
+      "command": "/bin/zsh -lc 'python3 -B -m unittest discover -s tests\ngit diff -- cart.py tests/test_cart.py\ngit status --short'",
+      "exitCode": 0,
+      "output": "...\n----------------------------------------------------------------------\nRan 3 tests in 0.000s\n\nOK\ndiff --git a/cart.py b/cart.py\nindex ff86e14..19aa414 100644\n--- a/cart.py\n+++ b/cart.py\n@@ -1,8 +1,11 @@\n def total_cents(lines):\n     if not lines:\n-        return None\n+        return 0\n     return sum(price * quantity for price, quantity in lines)\n \n \n def customer_label(name):\n     return f'Customer: {name}'\n+\n+\n+OWNER_LABEL = 'draft retain'\ndiff --git a/tests/test_cart.py b/tests/test_cart.py\nindex aac4cbe..f4697ed 100644\n--- a/tests/test_cart.py\n+++ b/tests/test_cart.py\n@@ -2,6 +2,11 @@ import unittest\n from cart import total_cents, customer_label\n \n class CartTests(unittest.TestCase):\n+    def test_empty(self):\n+        total = total_cents([])\n+        self.assertEqual(total, 0)\n+        self.assertIs(type(total), int)\n+\n     def test_nonempty(self):\n         self.assertEqual(total_cents([(125, 2), (50, 1)]), 300)\n \n M cart.py\n M tests/test_cart.py\n?? owner-notes.md\n"
+    }
+  ],
+  "behavioral": {
+    "pass": true,
+    "reviewer": "parent coordinator inspecting actual files, final response and completed command evidence",
+    "observations": [
+      "Fixed empty-cart value/type; hidden code oracle and 3 local tests pass.",
+      "Preserved the dirty OWNER_LABEL edit and owner note; added a regression test without requiring spec, walkthrough, delegation or approval."
+    ],
+    "unnecessaryApprovalRequests": 0,
+    "externalActionsObserved": false
+  }
+}

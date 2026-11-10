@@ -1,0 +1,122 @@
+{
+  "date": "2026-11-10",
+  "suiteVersion": 2,
+  "criteriaCommit": "e47b52dee4aee2c21bf7ab0b810b0c93e9028acc",
+  "modelRequested": "gpt-6.1-sol",
+  "reasoningEffortRequested": "high",
+  "cliVersion": "0.167.0-alpha.3.2",
+  "samplesPerCase": 1,
+  "runtime": "installed Codex CLI, fresh ephemeral invocation per case, existing user config and rules retained",
+  "isolation": "synthetic disposable Git projects under /private/tmp, no Mamkin project ancestors or remote",
+  "userLevelConfigAndGuidance": "retained by CLI; full injected context not exposed or independently fingerprinted",
+  "approvalPolicy": "on-request",
+  "modelSandbox": "workspace-write",
+  "launcherSandbox": "elevated only for native CLI initialization; no model sandbox bypass",
+  "cost": null,
+  "cases": [
+    {
+      "case": "B01",
+      "runtimeCompleted": true,
+      "deterministicPass": true,
+      "behavioralPass": true
+    },
+    {
+      "case": "B02",
+      "runtimeCompleted": true,
+      "deterministicPass": true,
+      "behavioralPass": true
+    },
+    {
+      "case": "B03",
+      "runtimeCompleted": true,
+      "deterministicPass": true,
+      "behavioralPass": true
+    },
+    {
+      "case": "B04",
+      "runtimeCompleted": true,
+      "deterministicPass": true,
+      "behavioralPass": true
+    },
+    {
+      "case": "B05",
+      "runtimeCompleted": true,
+      "deterministicPass": true,
+      "behavioralPass": true
+    },
+    {
+      "case": "B06",
+      "runtimeCompleted": true,
+      "deterministicPass": true,
+      "behavioralPass": true
+    },
+    {
+      "case": "B07",
+      "runtimeCompleted": true,
+      "deterministicPass": true,
+      "behavioralPass": true
+    }
+  ],
+  "limits": [
+    "Synthetic projects only; prepared resume snapshot is not a real interruption",
+    "One sample per case; no statistical reliability claim",
+    "No candidate arm yet; no improvement or efficiency claim",
+    "Elapsed run time includes CLI startup and tools; not isolated model latency",
+    "Full effective system prompt and global tool context are not exposed"
+  ],
+  "aggregate": {
+    "runtimeCompletedCases": 7,
+    "deterministicPassedCases": 7,
+    "behavioralPassedCases": 7,
+    "sumElapsedSeconds": 196.727,
+    "completedCommandEvents": 35,
+    "inputTokensIncludingCached": 644388,
+    "cachedInputTokensSubset": 574208,
+    "outputTokens": 4476,
+    "cost": null,
+    "unnecessaryApprovalRequestsWithinCases": 0
+  },
+  "artifactSha256": {
+    "B01/changes.patch": "144e215b52317474e7973f3b67c439fca5f38731dbd11ceb20ff92260e379f6d",
+    "B01/final.md": "31a312ab371226be04d1257cda69df43d6d833dc70c67f76e5d7c303101d556b",
+    "B01/input.json": "40bee88a72c39ef6bcd739b13c29cb50151a234ded95edeec9e17d88cd8f209d",
+    "B01/output/cart.py": "5274de9de68cd0782cd2fd8e13d7fa6fb768e4a4a62da3e8a4c2c9b58889bbba",
+    "B01/output/tests/test_cart.py": "ec8bf5bad5f2b432668e3e087a764c4e87b58b8eb69604df81fb6798009c9f88",
+    "B01/result.json": "4bacda6018fd4408a64485e89f6937f9a0fa17f5293f44f9ab7557b13b1752c5",
+    "B02/changes.patch": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "B02/final.md": "4c40fe94a9f88b5a48d53591a8be291515f0fee41fb3f4e425489b8b645a1434",
+    "B02/input.json": "e3e752ae6b756d073b674f1b81e642046e3336306e4454564d61e4884e58ab3a",
+    "B02/result.json": "9955a63828f349b0cb37636b8e4a83d9f37a6dd5e8b82e6031405a6327719e4b",
+    "B03/changes.patch": "5aec3794b72dcbd2f07ae7117146debc0e4ec5995c9ec79975702c0bd77974ce",
+    "B03/final.md": "e2002092b0f5c705ac1dae61fbdf9618acdbc3893d49c9dba9257b84563892f9",
+    "B03/input.json": "1d12bc0bab7a8b7ec26c87b021f4c92a107c6666f6da369fb08427cef69ab3ab",
+    "B03/output/cart.py": "1278d322d8dba7d414550c340c50e4e802ce7363b248cc63cd78a7a88572d350",
+    "B03/output/tests/test_cart.py": "8effd6ac8e7efdc6b39e5ace9f838c85ed53fb9a86e22e1b4596dec37de31fd7",
+    "B03/output/work.md": "4aa3a424c42cc422b4faabc5f1fc2b8073aacab7bc401cda91a3cf61b7b9efa9",
+    "B03/result.json": "f435e76ccaaf4d47fe47af1c7700d29e666ef29b9d14faa67e00b62819c633b5",
+    "B04/changes.patch": "e82b024d25c92f5b3b5c738188767e0d8c816cf18d12c11515730c491afc75ea",
+    "B04/final.md": "48d1fc88ed1f9e69f4b9ace20e95633391ecf7f6d7d95f54045d39e85b6a8a84",
+    "B04/input.json": "2c5f17af0e6841ca2d6d49ca39261c595f47fea78419b62adead890ef700539c",
+    "B04/output/cart.py": "20a7813ee54b48adee7c01082b14a89604b825cd94b33c7e1f9b30e04f7006fa",
+    "B04/output/tests/test_cart.py": "ec8bf5bad5f2b432668e3e087a764c4e87b58b8eb69604df81fb6798009c9f88",
+    "B04/output/work.md": "d16a99a276b78bf101bb7d11018e7c33d3b1ae60ab001c51c1cd9c799bfeba3e",
+    "B04/result.json": "b60a6b663bef035a380b7c1445786fa104e483bc0a3459f4e1723897aa77560c",
+    "B05/changes.patch": "26f252d57a62861d519d0831fefab5f087a64e64bf345141a60b5421df667ad4",
+    "B05/final.md": "8bfb996cdbe0446e24ac7d813c5521925ee20265ad189bc49ce9b8abd234d5c5",
+    "B05/input.json": "69014c77909b8577d6ff7809ed5a1ffefef983bd38a6deeebae97bb00e58ffb5",
+    "B05/output/cart.py": "20a7813ee54b48adee7c01082b14a89604b825cd94b33c7e1f9b30e04f7006fa",
+    "B05/output/tests/test_cart.py": "ec8bf5bad5f2b432668e3e087a764c4e87b58b8eb69604df81fb6798009c9f88",
+    "B05/output/work.md": "f0e98bfcf20f4d234a907678c1e59594fa4491a6317345005a25cb6e72cbe127",
+    "B05/result.json": "652ee32675f447506fea867147880f9a2592fc1c6c3b7656b820d79cc542d564",
+    "B06/changes.patch": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "B06/final.md": "8012519e0fa13ddcb99ef21be95ade27dc3a17ad88ed7e98f75b27f421e0de45",
+    "B06/input.json": "a6e26bb93df945c7ac328422d36ee07925ad8522f9b8fced01d7426f5e2783fd",
+    "B06/result.json": "49bc845924f9c2cbb1bf530f54af93a1c07db0b3cd1790c6c00b45fd56cf8530",
+    "B07/changes.patch": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "B07/final.md": "60e5f23bce55d0f9553ebd3776036fcb9f9e95c4ea8c41730c9f396c05679040",
+    "B07/input.json": "252c1418349df89285886027cad03ddc2b0b52347f5117c2eff416829c56b0f2",
+    "B07/result.json": "91dbaedf36d1b8cf5e13daa6bdd7999aca4328d5ea980c4fa287b11bfeef1fc6",
+    "README.md": "8ab3f17626348937e152531b60639882ed006c9d47ae8e419f6b81a379a6cdf4",
+    "methodology-smoke-v1.json": "f4366dbf522cc1c6e3ae821b402ec4eb1a87e4d22d200fe2fe676c2f7385f9b3"
+  }
+}

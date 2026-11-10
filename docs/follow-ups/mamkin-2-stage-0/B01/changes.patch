@@ -1,0 +1,13 @@
+--- a/cart.py
++++ b/cart.py
+@@ -3 +3 @@
+-        return None
++        return 0
+--- a/tests/test_cart.py
++++ b/tests/test_cart.py
+@@ -4,0 +5,5 @@
++    def test_empty(self):
++        total = total_cents([])
++        self.assertEqual(total, 0)
++        self.assertIs(type(total), int)
++

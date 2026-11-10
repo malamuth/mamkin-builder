@@ -1,0 +1,16 @@
+{
+  "case": "B06",
+  "files": {
+    "AGENTS.md": "2e55962f71ab6c8666d5cbe448fa9b81b7fbe23420038c9fffb24cde79ee912a",
+    "README.md": "5b6cfa7f8cd4f6b2d7ff8373c48ca2e80b11ea8bb19bebe4c437dc3df575f02b",
+    "cart.py": "84c0851ecce6655470258279232a271b9f09bb5708ffa2012ac88ba33a5c9064",
+    "tests/test_cart.py": "a1cffb910c39675f6cd12454366eded65cb9f1ec95d4b8b520ed05de4d085403",
+    "work.md": "7717d853c54511d7992158ef6157ad38674b68d5c50952b62701cc74d0761e2e"
+  },
+  "gitStatus": "",
+  "gitCommit": "589496075df302a91bc11be1673396221d6ed9d9",
+  "promptSha256": "bf906b174213346cc30364fdc2bee0f9e5a7ea44de7720d3651efefb6875246b",
+  "suiteSha256": "b1b0659999e23033162537c301d5da538593a71ca446fd4cb3eaac4c1edf6d01",
+  "casesSha256": "a76100cdb9152c2b9c0d12c1dc13c24a0d92f46140e416e27e5c991fa95ba829",
+  "gitCommitObject": "tree 9d013e381d329358c184f056293216ab1df83f67\nauthor Mamkin evaluation <evaluation@example.invalid> 1794312887 +0400\ncommitter Mamkin evaluation <evaluation@example.invalid> 1794312887 +0400\n\nFrozen synthetic project fixture\n"
+}

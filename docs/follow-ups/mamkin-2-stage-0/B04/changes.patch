@@ -1,0 +1,19 @@
+--- a/cart.py
++++ b/cart.py
+@@ -3 +3 @@
+-        return None
++        return 0
+--- a/tests/test_cart.py
++++ b/tests/test_cart.py
+@@ -4,0 +5,5 @@
++    def test_empty(self):
++        total = total_cents([])
++        self.assertEqual(total, 0)
++        self.assertIs(type(total), int)
++
+--- a/work.md
++++ b/work.md
+@@ -5 +5,2 @@
+-Prior report: empty-cart check passed before later source edits.
++Verified: total_cents([]) returns 0 with type int; regression test added.
++Check: `python3 -B -m unittest discover -s tests` passed (3 tests).
