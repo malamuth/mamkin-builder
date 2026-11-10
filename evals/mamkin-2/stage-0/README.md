@@ -2,6 +2,8 @@
 
 This directory freezes seven executable synthetic-project cases before any baseline model run. It is evaluation material, not a product CLI or a Mamkin 2.0 implementation.
 
+Suite version 2 corrects an over-restrictive version 1 preservation rule: authorized code fixes may add regression tests while preserving the original test bodies. One B01 smoke run against version 1 exposed the mistake; it is retained as a methodology check and is not rescored or counted in the version 2 baseline. All version 2 cases start from fresh inputs after the corrected suite commit.
+
 The requirements and project status live in [the MVP plan](../../../docs/project/mamkin-2-mvp-plan.md). The baseline uses ordinary Codex with the same project inputs intended for the later candidate comparison. No Mamkin 1.x/2.0 project instructions, skill, role card, handoff template or evaluation oracle is copied into the model's working directory.
 
 ## Frozen inputs
