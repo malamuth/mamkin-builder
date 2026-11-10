@@ -1,0 +1,21 @@
+{
+  "promptSha256": "182fee0c608298453e40489c7892f4c3fb633abb0d7b2e4044a202ff9afb6e71",
+  "filesSha256": {
+    ".agents/skills/mamkin-setup/SKILL.md": "9f496d56ecbd6f8aa5a6fdc44dd943e24c7788eeffc799c041bfc025dee71959",
+    ".agents/skills/mamkin-work/SKILL.md": "816f12f0f9d9f7833327cae9434cfb4f81dcb6223f978daf75deb22690d15582",
+    "AGENTS.md": "db4722f629313616354b0c02663619d72951f3cdc5e2f44cbfda6ed8c1ebd7ca",
+    "README.md": "5b6cfa7f8cd4f6b2d7ff8373c48ca2e80b11ea8bb19bebe4c437dc3df575f02b",
+    "cart.py": "d73d0de626ea110a4b2ded4074526edd2d06a07decf5b13819b3029edab6c97b",
+    "docs/mamkin/project.md": "acf6af18163ef6547df01c1ccd858ef62df7d82ab76c67f2dcd9b306fcf6aa2d",
+    "docs/mamkin/work.md": "3ca91c1a48f5ba075d2189ef0468ea0d89f371e0f3dcc867c2f65a485e2eecc1",
+    "owner-notes.md": "b8900d5bd79bcc6cb860228499c574e525770a825c9f4a00d4353e15218fb979",
+    "tests/test_cart.py": "a1cffb910c39675f6cd12454366eded65cb9f1ec95d4b8b520ed05de4d085403"
+  },
+  "sourceHashes": {
+    "evals/mamkin-2/stage-1/cases.json": "6e521170c19203092f3c1d4445370387e43e8a78a34ad3f27cc51188ad08ed31",
+    "evals/mamkin-2/stage-1/checks.py": "e996ee2b930111f151c60a16bae8bd8967c825434dac2da355252b64a1b425c5",
+    "evals/mamkin-2/stage-1/run.py": "9439f6deeb60f444ec91676eaf29894d2773e7629cc5512f7248ea8b46350ab7",
+    ".agents/skills/mamkin-setup/SKILL.md": "9f496d56ecbd6f8aa5a6fdc44dd943e24c7788eeffc799c041bfc025dee71959",
+    ".agents/skills/mamkin-work/SKILL.md": "816f12f0f9d9f7833327cae9434cfb4f81dcb6223f978daf75deb22690d15582"
+  }
+}

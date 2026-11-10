@@ -1,0 +1,103 @@
+{
+  "case": "S05",
+  "kind": "unknown",
+  "criteriaCommit": "a3ddf41f962c89f314d8bcc1b017e00bf50a5f07",
+  "sourceHashes": {
+    "evals/mamkin-2/stage-1/cases.json": "6e521170c19203092f3c1d4445370387e43e8a78a34ad3f27cc51188ad08ed31",
+    "evals/mamkin-2/stage-1/checks.py": "e996ee2b930111f151c60a16bae8bd8967c825434dac2da355252b64a1b425c5",
+    "evals/mamkin-2/stage-1/run.py": "9439f6deeb60f444ec91676eaf29894d2773e7629cc5512f7248ea8b46350ab7",
+    ".agents/skills/mamkin-setup/SKILL.md": "9f496d56ecbd6f8aa5a6fdc44dd943e24c7788eeffc799c041bfc025dee71959",
+    ".agents/skills/mamkin-work/SKILL.md": "816f12f0f9d9f7833327cae9434cfb4f81dcb6223f978daf75deb22690d15582"
+  },
+  "launch": {
+    "exitCode": 0,
+    "timedOut": false,
+    "argv": [
+      "codex",
+      "--no-daemon",
+      "-a",
+      "on-request",
+      "exec",
+      "--ephemeral",
+      "--json",
+      "--model",
+      "gpt-6.1-sol",
+      "-c",
+      "model_reasoning_effort=\"high\"",
+      "--sandbox",
+      "workspace-write",
+      "--skip-git-repo-check",
+      "--cd",
+      "/private/tmp/mamkin-2-stage-1-20261110-run2/empty",
+      "--output-last-message",
+      "/private/tmp/mamkin-2-stage-1-20261110-run2/S05-final.txt",
+      "-"
+    ],
+    "elapsedSeconds": 40.19,
+    "completedTurns": 1,
+    "threadIdentityHashes": [
+      "2e5b0cf5c2cbc334e7990e53a1606561124e564500ff438dfd9764cf14410bd0"
+    ],
+    "reportedUsage": [
+      {
+        "input_tokens": 94863,
+        "cached_input_tokens": 73728,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1268,
+        "reasoning_output_tokens": 97
+      }
+    ],
+    "cost": null
+  },
+  "deterministic": {
+    "checks": {
+      "allowed_changes_only": true,
+      "context_files_exist": true,
+      "mamkin-setup_unchanged": true,
+      "mamkin-work_unchanged": true,
+      "product_unchanged": true
+    },
+    "details": {
+      "changedFiles": [
+        "AGENTS.md",
+        "docs/mamkin/project.md",
+        "docs/mamkin/work.md"
+      ],
+      "unexpectedChanges": []
+    },
+    "pass": true,
+    "behavioralReview": "separate parent review of actual state, final response and command evidence"
+  },
+  "commandEvidence": [
+    {
+      "command": "/bin/zsh -lc \"pwd; rg --files --hidden -g '\"'!'\"\\\\.git/**' -g '\"'!node_modules/**'\"' -g '\"'!'\"\\\\.agents/skills/**'; git status --short; git rev-parse --show-toplevel; cat .agents/skills/mamkin-setup/SKILL.md\"",
+      "exitCode": 0,
+      "output": "/private/tmp/mamkin-2-stage-1-20261110-run2/empty\nREADME.md\n?? .agents/\n?? README.md\n/private/tmp/mamkin-2-stage-1-20261110-run2/empty\n---\nname: mamkin-setup\ndescription: Set up or reconcile minimal Mamkin 2.0 project context in Codex when the user asks to enable it.\n---\n\n# Mamkin Setup\n\nLeave enough project context to start one task and continue in another chat. Setup ends with context and work records; it does not start product implementation.\n\nRead the target project's instructions, Git/dirty state and only the sources needed to understand its goal, constraints and real check commands. Preserve user files and decisions. Link existing authoritative material instead of moving or duplicating it. Ask only for missing decisions that prevent useful setup; an unknown command can remain explicitly unknown.\n\n## Minimal project records\n\nCreate or reconcile these files, using concise prose or a small table:\n\n- `docs/mamkin/project.md`: goal, material constraints, useful source links, and durable decisions with their reasons. Existing product docs remain authoritative through links.\n- `docs/mamkin/work.md`: the current task's ID, intended outcome, done criteria and status. Include the authorized scope of continuation; default to one task. Record progress, blockers and the next action only when relevant. Unscoped ideas can remain queued.\n- `AGENTS.md`: retain existing content and add only missing project commands and brief links to the two records and `$mamkin-work`. Create a short file if none exists. Keep commands at their existing authoritative location when already documented; use a link rather than a second command list.\n\nStatuses are `queued`, `active`, `blocked`, `done`. A blocked task names the missing decision/action; a completed task names its result and actual verification. A task need not have a separate specification or walkthrough. If no task is known, record that clearly rather than inventing product work.\n\nOn a repeat setup with no new facts, leave suitable files unchanged. Reconcile only missing or contradicted facts; preserve task IDs, progress, history and permission limits. Do not reset work to queued, rewrite a backlog or add duplicate instruction sections.\n\n## Boundaries and finish\n\nUse only the two Mamkin 2.0 skill directories in the target; no legacy Mamkin manuals, roles, metadata, presets, hooks or runtime are required. Preserve stronger project and runtime restrictions. Do not change remotes, providers, access settings or user-level configuration, install tooling, or infer external-action authority from setup.\n\nReport where context and current work live, unresolved facts, and the next useful action. Unknown setup/run/check commands remain visible. Stop before executing the first task unless the user separately requested that work.\n"
+    },
+    {
+      "command": "/bin/zsh -lc 'cat README.md; rg --files --hidden .agents; for task_path in /AGENTS.md /private/AGENTS.md /private/tmp/AGENTS.md /private/tmp/mamkin-2-stage-1-20261110-run2/AGENTS.md; do if [ -f \"$task_path\" ]; then cat \"$task_path\"; fi; done'",
+      "exitCode": 0,
+      "output": "# Personal notes catalogue\n\nNew project; stack and check commands have not been selected.\n.agents/skills/mamkin-setup/SKILL.md\n.agents/skills/mamkin-work/SKILL.md\n"
+    },
+    {
+      "command": "/bin/zsh -lc 'git status --short; cat AGENTS.md docs/mamkin/project.md docs/mamkin/work.md; git diff --check; git diff --no-index -- /dev/null AGENTS.md'",
+      "exitCode": 1,
+      "output": "?? .agents/\n?? AGENTS.md\n?? README.md\n?? docs/\n# Инструкции проекта\n\n- Контекст, ограничения и состояние команд установки, запуска и проверок: [docs/mamkin/project.md](docs/mamkin/project.md).\n- Текущая работа и границы продолжения: [docs/mamkin/work.md](docs/mamkin/work.md). Продуктовой задачи пока нет.\n- Для выполнения или возобновления одной отдельно запрошенной задачи используй [$mamkin-work](.agents/skills/mamkin-work/SKILL.md).\n- Ничего не устанавливай и не начинай реализацию без нового запроса пользователя. Не придумывай команды: они пока не выбраны.\n# Контекст проекта\n\nЦель — личный каталог заметок. Исходное описание: [README.md](../../README.md).\n\n## Решения и ограничения\n\n- Стек пока не выбран: проект находится на этапе определения идеи.\n- В рамках настройки разрешено только сохранить контекст и записи о работе. Пользователь запретил установки и начало реализации.\n- Текущей продуктовой задачи нет; настройка не даёт разрешения начинать следующую задачу или выполнять внешние действия.\n\n## Команды\n\n| Назначение | Состояние |\n| --- | --- |\n| Установка / настройка окружения | Не выбрана; ничего не устанавливать |\n| Запуск | Не выбран |\n| Проверки | Не выбраны |\n\nНе подставлять предполагаемые команды до выбора стека и способа работы.\n\nТекущая работа: [work.md](work.md).\n# Работа\n\nТекущая продуктовая задача отсутствует. ID, ожидаемый результат, критерии готовности и статус продуктовой задачи не заданы.\n\n## Настройка контекста\n\n- ID: SETUP-001\n- Статус: done\n- Ожидаемый результат: минимальные записи Mamkin 2.0 для продолжения в другом чате без начала реализации.\n- Критерии готовности: сохранены цель, ограничения, неизвестные команды и отсутствие продуктовой задачи; из AGENTS.md доступны ссылки на записи и `$mamkin-work`.\n- Результат: созданы project.md, work.md и AGENTS.md; README.md и локальные навыки сохранены.\n- Проверка: прочитаны README.md и инструкции настройки, проверено состояние Git; итоговые записи проверены на соответствие запросу. Продуктовые проверки не запускались: команды не выбраны, реализации нет.\n- Разрешённое продолжение: только настройка контекста, завершённая этой записью. Реализация, установки и автоматический переход к следующей задаче не разрешены.\n\nСледующее полезное действие — получить от пользователя первую продуктовую задачу; стек, запуск и проверки можно определить при её постановке. До нового запроса работу не начинать.\ndiff --git a/AGENTS.md b/AGENTS.md\nnew file mode 100644\nindex 0000000..f450bc7\n--- /dev/null\n+++ b/AGENTS.md\n@@ -0,0 +1,6 @@\n+# Инструкции проекта\n+\n+- Контекст, ограничения и состояние команд установки, запуска и проверок: [docs/mamkin/project.md](docs/mamkin/project.md).\n+- Текущая работа и границы продолжения: [docs/mamkin/work.md](docs/mamkin/work.md). Продуктовой задачи пока нет.\n+- Для выполнения или возобновления одной отдельно запрошенной задачи используй [$mamkin-work](.agents/skills/mamkin-work/SKILL.md).\n+- Ничего не устанавливай и не начинай реализацию без нового запроса пользователя. Не придумывай команды: они пока не выбраны.\n"
+    }
+  ],
+  "behavioral": {
+    "pass": true,
+    "criteria": [
+      "Creates minimal context and clearly leaves missing commands/task unknown",
+      "Does not invent tooling, commands or product tasks",
+      "No implementation, installations or legacy process overlay"
+    ],
+    "reviewer": "parent coordinator inspecting actual files, final response and command evidence",
+    "observations": [
+      "Kept unknown stack/run/check commands and absence of a product task explicit.",
+      "Created only the minimal records/instructions; no tooling, product code or legacy overlay was added."
+    ],
+    "unnecessaryApprovalRequests": 0,
+    "externalActionsObserved": false
+  }
+}

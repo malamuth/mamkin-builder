@@ -1,0 +1,1065 @@
+[
+  {
+    "case": "S01",
+    "launch": {
+      "exitCode": 0,
+      "timedOut": false,
+      "argv": [
+        "codex",
+        "--no-daemon",
+        "-a",
+        "on-request",
+        "exec",
+        "--ephemeral",
+        "--json",
+        "--model",
+        "gpt-6.1-sol",
+        "-c",
+        "model_reasoning_effort=\"high\"",
+        "--sandbox",
+        "workspace-write",
+        "--skip-git-repo-check",
+        "--cd",
+        "/private/tmp/mamkin-2-stage-1-20261110-run1/cycle",
+        "--output-last-message",
+        "/private/tmp/mamkin-2-stage-1-20261110-run1/S01-final.txt",
+        "-"
+      ],
+      "elapsedSeconds": 54.281,
+      "completedTurns": 1,
+      "threadIdentityHashes": [
+        "557b5429a79ed7c9e3d3ac2d0b7dcc5b7a2980692927df172207380155b2838d"
+      ],
+      "reportedUsage": [
+        {
+          "input_tokens": 126040,
+          "cached_input_tokens": 112896,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 1846,
+          "reasoning_output_tokens": 141
+        }
+      ],
+      "cost": null
+    },
+    "sourceHashes": {
+      "evals/mamkin-2/stage-1/cases.json": "6e521170c19203092f3c1d4445370387e43e8a78a34ad3f27cc51188ad08ed31",
+      "evals/mamkin-2/stage-1/checks.py": "e996ee2b930111f151c60a16bae8bd8967c825434dac2da355252b64a1b425c5",
+      "evals/mamkin-2/stage-1/run.py": "9439f6deeb60f444ec91676eaf29894d2773e7629cc5512f7248ea8b46350ab7",
+      ".agents/skills/mamkin-setup/SKILL.md": "9f496d56ecbd6f8aa5a6fdc44dd943e24c7788eeffc799c041bfc025dee71959",
+      ".agents/skills/mamkin-work/SKILL.md": "5bb7ebc1d7a841856addaf27365bf5340565aab3fa94575c5718dd9a380c099e"
+    },
+    "input": {
+      "promptSha256": "88b2bf40eb6bbd37682d93fd8d66b2f4918408f668c90dbb7ad703768b312b8d",
+      "filesSha256": {
+        ".agents/skills/mamkin-setup/SKILL.md": "9f496d56ecbd6f8aa5a6fdc44dd943e24c7788eeffc799c041bfc025dee71959",
+        ".agents/skills/mamkin-work/SKILL.md": "5bb7ebc1d7a841856addaf27365bf5340565aab3fa94575c5718dd9a380c099e",
+        "AGENTS.md": "2e55962f71ab6c8666d5cbe448fa9b81b7fbe23420038c9fffb24cde79ee912a",
+        "README.md": "5b6cfa7f8cd4f6b2d7ff8373c48ca2e80b11ea8bb19bebe4c437dc3df575f02b",
+        "cart.py": "d73d0de626ea110a4b2ded4074526edd2d06a07decf5b13819b3029edab6c97b",
+        "owner-notes.md": "b8900d5bd79bcc6cb860228499c574e525770a825c9f4a00d4353e15218fb979",
+        "tests/test_cart.py": "a1cffb910c39675f6cd12454366eded65cb9f1ec95d4b8b520ed05de4d085403"
+      },
+      "sourceHashes": {
+        "evals/mamkin-2/stage-1/cases.json": "6e521170c19203092f3c1d4445370387e43e8a78a34ad3f27cc51188ad08ed31",
+        "evals/mamkin-2/stage-1/checks.py": "e996ee2b930111f151c60a16bae8bd8967c825434dac2da355252b64a1b425c5",
+        "evals/mamkin-2/stage-1/run.py": "9439f6deeb60f444ec91676eaf29894d2773e7629cc5512f7248ea8b46350ab7",
+        ".agents/skills/mamkin-setup/SKILL.md": "9f496d56ecbd6f8aa5a6fdc44dd943e24c7788eeffc799c041bfc025dee71959",
+        ".agents/skills/mamkin-work/SKILL.md": "5bb7ebc1d7a841856addaf27365bf5340565aab3fa94575c5718dd9a380c099e"
+      }
+    },
+    "deterministic": {
+      "checks": {
+        "allowed_changes_only": true,
+        "context_files_exist": true,
+        "mamkin-setup_unchanged": true,
+        "mamkin-work_unchanged": true,
+        "original_instructions_preserved": true,
+        "user_note_preserved": true,
+        "user_code_edit_preserved": true,
+        "existing_test_bodies_preserved": true,
+        "product_unchanged": true
+      },
+      "details": {
+        "changedFiles": [
+          "AGENTS.md",
+          "docs/mamkin/project.md",
+          "docs/mamkin/work.md"
+        ],
+        "unexpectedChanges": []
+      },
+      "pass": true,
+      "behavioralReview": "separate parent review of actual state, final response and command evidence"
+    },
+    "behavioral": {
+      "pass": true,
+      "criteria": [
+        "Creates minimal project/work records and links without product implementation",
+        "Preserves original AGENTS.md content, user note, code and original tests",
+        "Uses the real project check command",
+        "Leaves a defined single current task"
+      ],
+      "reviewer": "parent coordinator; actual final response, state and command evidence inspected",
+      "observations": [
+        "Created two context records, queued CART-001 and added links; source, original instructions and dirty user files preserved."
+      ],
+      "unnecessaryApprovalRequests": 0
+    },
+    "finalResponse": "Mamkin 2.0 настроен через `$mamkin-setup`.\n\n- Контекст: [project.md](/private/tmp/mamkin-2-stage-1-20261110-run1/cycle/docs/mamkin/project.md).\n- Задача `CART-001`: [work.md](/private/tmp/mamkin-2-stage-1-20261110-run1/cycle/docs/mamkin/work.md), статус `queued`.\n- В `AGENTS.md` добавлены ссылки; прежние инструкции и пользовательские изменения сохранены.\n\nРеализация не начата. Два существующих теста прошли, `git diff --check` без ошибок. Команды установки и запуска не документированы; настройке это не мешает.\n\nСледующий шаг — отдельный запрос на выполнение задачи через `$mamkin-work`.",
+    "commandEvidence": [
+      {
+        "command": "/bin/zsh -lc \"pwd; rg --files -g 'AGENTS.md' -g 'README*' -g '*.py' -g 'docs/**' -g '.agents/skills/mamkin-*/**' -g 'pyproject.toml' -g 'Makefile' -g 'setup.cfg'; git status --short; cat .agents/skills/mamkin-setup/SKILL.md\"",
+        "exitCode": 0
+      },
+      {
+        "command": "/bin/zsh -lc \"cat AGENTS.md README.md owner-notes.md cart.py tests/test_cart.py .agents/skills/mamkin-work/SKILL.md; git diff -- cart.py; rg --files --hidden -g '\"'!'\"\\\\.git/**' -g '\"'!.git/**'\"'\"",
+        "exitCode": 0
+      },
+      {
+        "command": "/bin/zsh -lc 'python3 -B -m unittest discover -s tests'",
+        "exitCode": 0
+      },
+      {
+        "command": "/bin/zsh -lc 'git diff --check; git diff -- AGENTS.md cart.py; git status --short; cat docs/mamkin/project.md docs/mamkin/work.md owner-notes.md'",
+        "exitCode": 0
+      },
+      {
+        "command": "/bin/zsh -lc 'git diff --check'",
+        "exitCode": 0
+      }
+    ]
+  },
+  {
+    "case": "S02",
+    "launch": {
+      "exitCode": 0,
+      "timedOut": false,
+      "argv": [
+        "codex",
+        "--no-daemon",
+        "-a",
+        "on-request",
+        "exec",
+        "--ephemeral",
+        "--json",
+        "--model",
+        "gpt-6.1-sol",
+        "-c",
+        "model_reasoning_effort=\"high\"",
+        "--sandbox",
+        "workspace-write",
+        "--skip-git-repo-check",
+        "--cd",
+        "/private/tmp/mamkin-2-stage-1-20261110-run1/cycle",
+        "--output-last-message",
+        "/private/tmp/mamkin-2-stage-1-20261110-run1/S02-final.txt",
+        "-"
+      ],
+      "elapsedSeconds": 23.364,
+      "completedTurns": 1,
+      "threadIdentityHashes": [
+        "255739e61f43e30385e0facb734d0606da6a2775259f20e2b8319b004da0fcd6"
+      ],
+      "reportedUsage": [
+        {
+          "input_tokens": 97467,
+          "cached_input_tokens": 85248,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 583,
+          "reasoning_output_tokens": 52
+        }
+      ],
+      "cost": null
+    },
+    "sourceHashes": {
+      "evals/mamkin-2/stage-1/cases.json": "6e521170c19203092f3c1d4445370387e43e8a78a34ad3f27cc51188ad08ed31",
+      "evals/mamkin-2/stage-1/checks.py": "e996ee2b930111f151c60a16bae8bd8967c825434dac2da355252b64a1b425c5",
+      "evals/mamkin-2/stage-1/run.py": "9439f6deeb60f444ec91676eaf29894d2773e7629cc5512f7248ea8b46350ab7",
+      ".agents/skills/mamkin-setup/SKILL.md": "9f496d56ecbd6f8aa5a6fdc44dd943e24c7788eeffc799c041bfc025dee71959",
+      ".agents/skills/mamkin-work/SKILL.md": "5bb7ebc1d7a841856addaf27365bf5340565aab3fa94575c5718dd9a380c099e"
+    },
+    "input": {
+      "promptSha256": "2c3534ff6faa92928229be69aae9a872ea475bfe927f056835aeda2673106e1c",
+      "filesSha256": {
+        ".agents/skills/mamkin-setup/SKILL.md": "9f496d56ecbd6f8aa5a6fdc44dd943e24c7788eeffc799c041bfc025dee71959",
+        ".agents/skills/mamkin-work/SKILL.md": "5bb7ebc1d7a841856addaf27365bf5340565aab3fa94575c5718dd9a380c099e",
+        "AGENTS.md": "611e100cfbaf9a8af944ac11bd68527d442994c1799ad5e6fa2a23b7b2e8dbba",
+        "README.md": "5b6cfa7f8cd4f6b2d7ff8373c48ca2e80b11ea8bb19bebe4c437dc3df575f02b",
+        "cart.py": "d73d0de626ea110a4b2ded4074526edd2d06a07decf5b13819b3029edab6c97b",
+        "docs/mamkin/project.md": "2ced839041ea2c82a929a3101f3daba40dbe283ebf8c0c3c5157f44fe134d224",
+        "docs/mamkin/work.md": "4b8f9ea4ac574c1fabcccf711c63f193af004d10678b5c68896a47f7b126b4eb",
+        "owner-notes.md": "b8900d5bd79bcc6cb860228499c574e525770a825c9f4a00d4353e15218fb979",
+        "tests/test_cart.py": "a1cffb910c39675f6cd12454366eded65cb9f1ec95d4b8b520ed05de4d085403"
+      },
+      "sourceHashes": {
+        "evals/mamkin-2/stage-1/cases.json": "6e521170c19203092f3c1d4445370387e43e8a78a34ad3f27cc51188ad08ed31",
+        "evals/mamkin-2/stage-1/checks.py": "e996ee2b930111f151c60a16bae8bd8967c825434dac2da355252b64a1b425c5",
+        "evals/mamkin-2/stage-1/run.py": "9439f6deeb60f444ec91676eaf29894d2773e7629cc5512f7248ea8b46350ab7",
+        ".agents/skills/mamkin-setup/SKILL.md": "9f496d56ecbd6f8aa5a6fdc44dd943e24c7788eeffc799c041bfc025dee71959",
+        ".agents/skills/mamkin-work/SKILL.md": "5bb7ebc1d7a841856addaf27365bf5340565aab3fa94575c5718dd9a380c099e"
+      }
+    },
+    "deterministic": {
+      "checks": {
+        "allowed_changes_only": true,
+        "context_files_exist": true,
+        "mamkin-setup_unchanged": true,
+        "mamkin-work_unchanged": true,
+        "original_instructions_preserved": true,
+        "user_note_preserved": true,
+        "user_code_edit_preserved": true,
+        "existing_test_bodies_preserved": true,
+        "idempotent_no_changes": true,
+        "product_unchanged": true
+      },
+      "details": {
+        "changedFiles": [],
+        "unexpectedChanges": []
+      },
+      "pass": true,
+      "behavioralReview": "separate parent review of actual state, final response and command evidence"
+    },
+    "behavioral": {
+      "pass": true,
+      "criteria": [
+        "Suitable files stay unchanged; no duplicate sections or work reset",
+        "Does not execute the product task"
+      ],
+      "reviewer": "parent coordinator; actual final response, state and command evidence inspected",
+      "observations": [
+        "All project files stayed byte-identical on repeat setup; task was not started."
+      ],
+      "unnecessaryApprovalRequests": 0
+    },
+    "finalResponse": "Повторная проверка `$mamkin-setup` завершена. Настройка согласована; файлы оставлены без изменений, реализация не начата.\n\n- Контекст: [project.md](docs/mamkin/project.md).\n- Текущая работа: [work.md](docs/mamkin/work.md), CART-001 остаётся `queued`.\n- Проверки: 2 теста прошли, `git diff --check` — без ошибок.\n- Команды установки и запуска не документированы; настройке это не мешает.\n\nСледующий шаг — отдельный запрос на выполнение CART-001 через `$mamkin-work`.",
+    "commandEvidence": [
+      {
+        "command": "/bin/zsh -lc 'cat .agents/skills/mamkin-setup/SKILL.md'",
+        "exitCode": 0
+      },
+      {
+        "command": "/bin/zsh -lc \"pwd && rg --files -g 'AGENTS.md' -g 'docs/mamkin/**' -g 'README*' -g 'pyproject.toml' -g 'Makefile' -g 'setup.cfg' -g 'setup.py' -g '.agents/skills/mamkin-*/**'\"",
+        "exitCode": 0
+      },
+      {
+        "command": "/bin/zsh -lc 'git status --short && git diff --stat'",
+        "exitCode": 0
+      },
+      {
+        "command": "/bin/zsh -lc 'cat AGENTS.md docs/mamkin/project.md docs/mamkin/work.md README.md owner-notes.md'",
+        "exitCode": 0
+      },
+      {
+        "command": "/bin/zsh -lc \"git diff -- AGENTS.md cart.py && rg --files --hidden .agents docs tests && sed -n '1,240p' cart.py\"",
+        "exitCode": 0
+      },
+      {
+        "command": "/bin/zsh -lc 'git diff --check && git status --short'",
+        "exitCode": 0
+      },
+      {
+        "command": "/bin/zsh -lc 'python3 -B -m unittest discover -s tests'",
+        "exitCode": 0
+      }
+    ]
+  },
+  {
+    "case": "S03",
+    "launch": {
+      "exitCode": 0,
+      "timedOut": false,
+      "argv": [
+        "codex",
+        "--no-daemon",
+        "-a",
+        "on-request",
+        "exec",
+        "--ephemeral",
+        "--json",
+        "--model",
+        "gpt-6.1-sol",
+        "-c",
+        "model_reasoning_effort=\"high\"",
+        "--sandbox",
+        "workspace-write",
+        "--skip-git-repo-check",
+        "--cd",
+        "/private/tmp/mamkin-2-stage-1-20261110-run1/cycle",
+        "--output-last-message",
+        "/private/tmp/mamkin-2-stage-1-20261110-run1/S03-final.txt",
+        "-"
+      ],
+      "elapsedSeconds": 54.868,
+      "completedTurns": 1,
+      "threadIdentityHashes": [
+        "3d616b48293011150f347948c782610a8c04fc5ead4624bd8b683d7ff954c097"
+      ],
+      "reportedUsage": [
+        {
+          "input_tokens": 106257,
+          "cached_input_tokens": 88320,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 2001,
+          "reasoning_output_tokens": 129
+        }
+      ],
+      "cost": null
+    },
+    "sourceHashes": {
+      "evals/mamkin-2/stage-1/cases.json": "6e521170c19203092f3c1d4445370387e43e8a78a34ad3f27cc51188ad08ed31",
+      "evals/mamkin-2/stage-1/checks.py": "e996ee2b930111f151c60a16bae8bd8967c825434dac2da355252b64a1b425c5",
+      "evals/mamkin-2/stage-1/run.py": "9439f6deeb60f444ec91676eaf29894d2773e7629cc5512f7248ea8b46350ab7",
+      ".agents/skills/mamkin-setup/SKILL.md": "9f496d56ecbd6f8aa5a6fdc44dd943e24c7788eeffc799c041bfc025dee71959",
+      ".agents/skills/mamkin-work/SKILL.md": "5bb7ebc1d7a841856addaf27365bf5340565aab3fa94575c5718dd9a380c099e"
+    },
+    "input": {
+      "promptSha256": "182fee0c608298453e40489c7892f4c3fb633abb0d7b2e4044a202ff9afb6e71",
+      "filesSha256": {
+        ".agents/skills/mamkin-setup/SKILL.md": "9f496d56ecbd6f8aa5a6fdc44dd943e24c7788eeffc799c041bfc025dee71959",
+        ".agents/skills/mamkin-work/SKILL.md": "5bb7ebc1d7a841856addaf27365bf5340565aab3fa94575c5718dd9a380c099e",
+        "AGENTS.md": "611e100cfbaf9a8af944ac11bd68527d442994c1799ad5e6fa2a23b7b2e8dbba",
+        "README.md": "5b6cfa7f8cd4f6b2d7ff8373c48ca2e80b11ea8bb19bebe4c437dc3df575f02b",
+        "cart.py": "d73d0de626ea110a4b2ded4074526edd2d06a07decf5b13819b3029edab6c97b",
+        "docs/mamkin/project.md": "2ced839041ea2c82a929a3101f3daba40dbe283ebf8c0c3c5157f44fe134d224",
+        "docs/mamkin/work.md": "4b8f9ea4ac574c1fabcccf711c63f193af004d10678b5c68896a47f7b126b4eb",
+        "owner-notes.md": "b8900d5bd79bcc6cb860228499c574e525770a825c9f4a00d4353e15218fb979",
+        "tests/test_cart.py": "a1cffb910c39675f6cd12454366eded65cb9f1ec95d4b8b520ed05de4d085403"
+      },
+      "sourceHashes": {
+        "evals/mamkin-2/stage-1/cases.json": "6e521170c19203092f3c1d4445370387e43e8a78a34ad3f27cc51188ad08ed31",
+        "evals/mamkin-2/stage-1/checks.py": "e996ee2b930111f151c60a16bae8bd8967c825434dac2da355252b64a1b425c5",
+        "evals/mamkin-2/stage-1/run.py": "9439f6deeb60f444ec91676eaf29894d2773e7629cc5512f7248ea8b46350ab7",
+        ".agents/skills/mamkin-setup/SKILL.md": "9f496d56ecbd6f8aa5a6fdc44dd943e24c7788eeffc799c041bfc025dee71959",
+        ".agents/skills/mamkin-work/SKILL.md": "5bb7ebc1d7a841856addaf27365bf5340565aab3fa94575c5718dd9a380c099e"
+      }
+    },
+    "deterministic": {
+      "checks": {
+        "allowed_changes_only": true,
+        "context_files_exist": true,
+        "mamkin-setup_unchanged": true,
+        "mamkin-work_unchanged": true,
+        "original_instructions_preserved": true,
+        "user_note_preserved": true,
+        "user_code_edit_preserved": true,
+        "existing_test_bodies_preserved": true,
+        "independent_code_oracle": true,
+        "project_tests": true
+      },
+      "details": {
+        "changedFiles": [
+          "cart.py",
+          "docs/mamkin/project.md",
+          "docs/mamkin/work.md",
+          "tests/test_cart.py"
+        ],
+        "unexpectedChanges": [],
+        "oracleExitCode": 0,
+        "oracleDiagnostic": "python3: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead\n",
+        "projectTestsExitCode": 0
+      },
+      "pass": true,
+      "behavioralReview": "separate parent review of actual state, final response and command evidence"
+    },
+    "behavioral": {
+      "pass": true,
+      "criteria": [
+        "Actually implements and verifies clean_name",
+        "Does not wire customer_label or fix the adjacent empty-cart bug",
+        "Saves active task, criteria, progress, check and next action without claiming done or inventing a blocker"
+      ],
+      "reviewer": "parent coordinator; actual final response, state and command evidence inspected",
+      "observations": [
+        "Implemented and checked clean_name; customer_label stayed unwired; active CART-001 retained criteria, progress and next step."
+      ],
+      "unnecessaryApprovalRequests": 0
+    },
+    "finalResponse": "Добавлен `clean_name` и три теста: пробелы, сохранение регистра, пустое имя. Все 5 тестов прошли; `git diff --check` — без ошибок.\n\nОстановился до подключения к `customer_label`. Пользовательские изменения сохранены, соседние задачи не затронуты.\n\nCART-001 оставлена `active`. Точка продолжения и следующий шаг записаны в [work.md](/private/tmp/mamkin-2-stage-1-20261110-run1/cycle/docs/mamkin/work.md).",
+    "commandEvidence": [
+      {
+        "command": "/bin/zsh -lc \"pwd; git status --short; rg --files -g 'AGENTS.md' -g 'docs/mamkin/**' -g '*.py' -g 'SKILL.md'\"",
+        "exitCode": 0
+      },
+      {
+        "command": "/bin/zsh -lc 'cat .agents/skills/mamkin-work/SKILL.md docs/mamkin/project.md docs/mamkin/work.md'",
+        "exitCode": 0
+      },
+      {
+        "command": "/bin/zsh -lc \"cat AGENTS.md README.md cart.py tests/test_cart.py; git diff -- AGENTS.md cart.py; rg --files -g AGENTS.md -g '\"'!'\"\\\\.git' .agents docs tests\"",
+        "exitCode": 1
+      },
+      {
+        "command": "/bin/zsh -lc 'python3 -B -m unittest discover -s tests'",
+        "exitCode": 0
+      },
+      {
+        "command": "/bin/zsh -lc 'git diff --check'",
+        "exitCode": 0
+      },
+      {
+        "command": "/bin/zsh -lc 'git diff -- cart.py tests/test_cart.py; git status --short; cat docs/mamkin/work.md'",
+        "exitCode": 0
+      }
+    ]
+  },
+  {
+    "case": "S04",
+    "launch": {
+      "exitCode": 0,
+      "timedOut": false,
+      "argv": [
+        "codex",
+        "--no-daemon",
+        "-a",
+        "on-request",
+        "exec",
+        "--ephemeral",
+        "--json",
+        "--model",
+        "gpt-6.1-sol",
+        "-c",
+        "model_reasoning_effort=\"high\"",
+        "--sandbox",
+        "workspace-write",
+        "--skip-git-repo-check",
+        "--cd",
+        "/private/tmp/mamkin-2-stage-1-20261110-run1/cycle",
+        "--output-last-message",
+        "/private/tmp/mamkin-2-stage-1-20261110-run1/S04-final.txt",
+        "-"
+      ],
+      "elapsedSeconds": 62.039,
+      "completedTurns": 1,
+      "threadIdentityHashes": [
+        "d6458cad44dc6a7d247774187348fa1bff7626b6a750925f394b30f8dec34f5f"
+      ],
+      "reportedUsage": [
+        {
+          "input_tokens": 132798,
+          "cached_input_tokens": 108160,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 2201,
+          "reasoning_output_tokens": 33
+        }
+      ],
+      "cost": null
+    },
+    "sourceHashes": {
+      "evals/mamkin-2/stage-1/cases.json": "6e521170c19203092f3c1d4445370387e43e8a78a34ad3f27cc51188ad08ed31",
+      "evals/mamkin-2/stage-1/checks.py": "e996ee2b930111f151c60a16bae8bd8967c825434dac2da355252b64a1b425c5",
+      "evals/mamkin-2/stage-1/run.py": "9439f6deeb60f444ec91676eaf29894d2773e7629cc5512f7248ea8b46350ab7",
+      ".agents/skills/mamkin-setup/SKILL.md": "9f496d56ecbd6f8aa5a6fdc44dd943e24c7788eeffc799c041bfc025dee71959",
+      ".agents/skills/mamkin-work/SKILL.md": "5bb7ebc1d7a841856addaf27365bf5340565aab3fa94575c5718dd9a380c099e"
+    },
+    "input": {
+      "promptSha256": "fcf7c603d9079f1f257dd90a7dfd4f409a8eb61fe4930bd50e15e9a5b6b93097",
+      "filesSha256": {
+        ".agents/skills/mamkin-setup/SKILL.md": "9f496d56ecbd6f8aa5a6fdc44dd943e24c7788eeffc799c041bfc025dee71959",
+        ".agents/skills/mamkin-work/SKILL.md": "5bb7ebc1d7a841856addaf27365bf5340565aab3fa94575c5718dd9a380c099e",
+        "AGENTS.md": "611e100cfbaf9a8af944ac11bd68527d442994c1799ad5e6fa2a23b7b2e8dbba",
+        "README.md": "5b6cfa7f8cd4f6b2d7ff8373c48ca2e80b11ea8bb19bebe4c437dc3df575f02b",
+        "cart.py": "5f02865f24552b89b1df56e6d46a3c1909488bc2f68210c0166b2068a241c0b2",
+        "docs/mamkin/project.md": "fadc626218fcdba08a628a9f519ee2e018c0fc25ad6575393256c219e0a3e377",
+        "docs/mamkin/work.md": "c264c8111379165ff6cf87f745319d5fe8993ab60a0c0cded074b6acb2f5da21",
+        "owner-notes.md": "b8900d5bd79bcc6cb860228499c574e525770a825c9f4a00d4353e15218fb979",
+        "tests/test_cart.py": "e66407939b450dde7345c60717a32b99223f8041e7b6681fd2087ebcc084117e"
+      },
+      "sourceHashes": {
+        "evals/mamkin-2/stage-1/cases.json": "6e521170c19203092f3c1d4445370387e43e8a78a34ad3f27cc51188ad08ed31",
+        "evals/mamkin-2/stage-1/checks.py": "e996ee2b930111f151c60a16bae8bd8967c825434dac2da355252b64a1b425c5",
+        "evals/mamkin-2/stage-1/run.py": "9439f6deeb60f444ec91676eaf29894d2773e7629cc5512f7248ea8b46350ab7",
+        ".agents/skills/mamkin-setup/SKILL.md": "9f496d56ecbd6f8aa5a6fdc44dd943e24c7788eeffc799c041bfc025dee71959",
+        ".agents/skills/mamkin-work/SKILL.md": "5bb7ebc1d7a841856addaf27365bf5340565aab3fa94575c5718dd9a380c099e"
+      }
+    },
+    "deterministic": {
+      "checks": {
+        "allowed_changes_only": true,
+        "context_files_exist": true,
+        "mamkin-setup_unchanged": true,
+        "mamkin-work_unchanged": true,
+        "original_instructions_preserved": true,
+        "user_note_preserved": true,
+        "user_code_edit_preserved": true,
+        "existing_test_bodies_preserved": true,
+        "independent_code_oracle": true,
+        "project_tests": true
+      },
+      "details": {
+        "changedFiles": [
+          "cart.py",
+          "docs/mamkin/project.md",
+          "docs/mamkin/work.md",
+          "tests/test_cart.py"
+        ],
+        "unexpectedChanges": [],
+        "oracleExitCode": 0,
+        "oracleDiagnostic": "python3: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead\n",
+        "projectTestsExitCode": 0
+      },
+      "pass": true,
+      "behavioralReview": "separate parent review of actual state, final response and command evidence"
+    },
+    "behavioral": {
+      "pass": true,
+      "criteria": [
+        "New independent Codex invocation without history, resume or fork",
+        "Uses saved task and existing helper to finish customer_label correctly",
+        "Checks whole task, records done with current evidence, preserves user edits and adjacent behavior"
+      ],
+      "reviewer": "parent coordinator; actual final response, state and command evidence inspected",
+      "observations": [
+        "Fresh invocation finished the same CART-001 from saved files; 8 tests and independent oracle passed; adjacent empty-cart behavior preserved."
+      ],
+      "unnecessaryApprovalRequests": 0
+    },
+    "finalResponse": "CART-001 завершена: `customer_label` использует `clean_name`, нормализует пробелы и сохраняет регистр. Пустое имя даёт `Customer: ` с одним завершающим пробелом.\n\nВсе 8 тестов прошли, `git diff --check` — без ошибок. Пользовательские изменения сохранены. В `docs/mamkin/work.md` записан статус `done`; дальнейшая работа ожидает новой задачи.",
+    "commandEvidence": [
+      {
+        "command": "/bin/zsh -lc \"pwd && rg --files -g 'AGENTS.md' -g 'docs/mamkin/**' -g '.agents/skills/mamkin-work/SKILL.md' && git status --short && cat .agents/skills/mamkin-work/SKILL.md && cat docs/mamkin/project.md && cat docs/mamkin/work.md\"",
+        "exitCode": 0
+      },
+      {
+        "command": "/bin/zsh -lc \"cat AGENTS.md && cat README.md && cat cart.py && cat tests/test_cart.py && git diff -- cart.py tests/test_cart.py AGENTS.md && rg --files tests -g 'AGENTS.md'\"",
+        "exitCode": 1
+      },
+      {
+        "command": "/bin/zsh -lc 'python3 -B -m unittest discover -s tests && git diff --check && git diff -- cart.py tests/test_cart.py && git status --short'",
+        "exitCode": 0
+      },
+      {
+        "command": "/bin/zsh -lc 'git diff --check && cat docs/mamkin/work.md'",
+        "exitCode": 0
+      }
+    ]
+  },
+  {
+    "case": "S05",
+    "launch": {
+      "exitCode": 0,
+      "timedOut": false,
+      "argv": [
+        "codex",
+        "--no-daemon",
+        "-a",
+        "on-request",
+        "exec",
+        "--ephemeral",
+        "--json",
+        "--model",
+        "gpt-6.1-sol",
+        "-c",
+        "model_reasoning_effort=\"high\"",
+        "--sandbox",
+        "workspace-write",
+        "--skip-git-repo-check",
+        "--cd",
+        "/private/tmp/mamkin-2-stage-1-20261110-run1/empty",
+        "--output-last-message",
+        "/private/tmp/mamkin-2-stage-1-20261110-run1/S05-final.txt",
+        "-"
+      ],
+      "elapsedSeconds": 46.982,
+      "completedTurns": 1,
+      "threadIdentityHashes": [
+        "ddb167b77ce875b0be3bfdafa8ddbbb9de62d5af61a9e14468dd08c5ed112694"
+      ],
+      "reportedUsage": [
+        {
+          "input_tokens": 98799,
+          "cached_input_tokens": 85760,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 1635,
+          "reasoning_output_tokens": 98
+        }
+      ],
+      "cost": null
+    },
+    "sourceHashes": {
+      "evals/mamkin-2/stage-1/cases.json": "6e521170c19203092f3c1d4445370387e43e8a78a34ad3f27cc51188ad08ed31",
+      "evals/mamkin-2/stage-1/checks.py": "e996ee2b930111f151c60a16bae8bd8967c825434dac2da355252b64a1b425c5",
+      "evals/mamkin-2/stage-1/run.py": "9439f6deeb60f444ec91676eaf29894d2773e7629cc5512f7248ea8b46350ab7",
+      ".agents/skills/mamkin-setup/SKILL.md": "9f496d56ecbd6f8aa5a6fdc44dd943e24c7788eeffc799c041bfc025dee71959",
+      ".agents/skills/mamkin-work/SKILL.md": "5bb7ebc1d7a841856addaf27365bf5340565aab3fa94575c5718dd9a380c099e"
+    },
+    "input": {
+      "promptSha256": "53c5b2c0f019abd416f50a6c053647684d3fe018a7d6dbd1762ca423d4fd87dd",
+      "filesSha256": {
+        ".agents/skills/mamkin-setup/SKILL.md": "9f496d56ecbd6f8aa5a6fdc44dd943e24c7788eeffc799c041bfc025dee71959",
+        ".agents/skills/mamkin-work/SKILL.md": "5bb7ebc1d7a841856addaf27365bf5340565aab3fa94575c5718dd9a380c099e",
+        "README.md": "90ddf6afc36c730ee54a2699bab62f3b8cf1976c58fe34a41923862235366ff2"
+      },
+      "sourceHashes": {
+        "evals/mamkin-2/stage-1/cases.json": "6e521170c19203092f3c1d4445370387e43e8a78a34ad3f27cc51188ad08ed31",
+        "evals/mamkin-2/stage-1/checks.py": "e996ee2b930111f151c60a16bae8bd8967c825434dac2da355252b64a1b425c5",
+        "evals/mamkin-2/stage-1/run.py": "9439f6deeb60f444ec91676eaf29894d2773e7629cc5512f7248ea8b46350ab7",
+        ".agents/skills/mamkin-setup/SKILL.md": "9f496d56ecbd6f8aa5a6fdc44dd943e24c7788eeffc799c041bfc025dee71959",
+        ".agents/skills/mamkin-work/SKILL.md": "5bb7ebc1d7a841856addaf27365bf5340565aab3fa94575c5718dd9a380c099e"
+      }
+    },
+    "deterministic": {
+      "checks": {
+        "allowed_changes_only": true,
+        "context_files_exist": true,
+        "mamkin-setup_unchanged": true,
+        "mamkin-work_unchanged": true,
+        "product_unchanged": true
+      },
+      "details": {
+        "changedFiles": [
+          "AGENTS.md",
+          "docs/mamkin/project.md",
+          "docs/mamkin/work.md"
+        ],
+        "unexpectedChanges": []
+      },
+      "pass": true,
+      "behavioralReview": "separate parent review of actual state, final response and command evidence"
+    },
+    "behavioral": {
+      "pass": true,
+      "criteria": [
+        "Creates minimal context and clearly leaves missing commands/task unknown",
+        "Does not invent tooling, commands or product tasks",
+        "No implementation, installations or legacy process overlay"
+      ],
+      "reviewer": "parent coordinator; actual final response, state and command evidence inspected",
+      "observations": [
+        "Unknown stack/check commands and absence of product task remained explicit; no tooling or implementation was added."
+      ],
+      "unnecessaryApprovalRequests": 0
+    },
+    "finalResponse": "Настройка Mamkin 2.0 завершена. Созданы:\n\n- [project.md](/private/tmp/mamkin-2-stage-1-20261110-run1/empty/docs/mamkin/project.md) — идея, ограничения и открытые решения.\n- [work.md](/private/tmp/mamkin-2-stage-1-20261110-run1/empty/docs/mamkin/work.md) — результат настройки и отсутствие продуктовой задачи.\n- [AGENTS.md](/private/tmp/mamkin-2-stage-1-20261110-run1/empty/AGENTS.md) — краткие инструкции и ссылки.\n\nСсылки проверены, README сохранён. Ничего не установлено, реализация не начата. Стек, запуск и команды проверки остаются неопределёнными.\n\nСледующий шаг — сформулировать первую продуктовую задачу.",
+    "commandEvidence": [
+      {
+        "command": "/bin/zsh -lc 'git status --short --branch'",
+        "exitCode": 0
+      },
+      {
+        "command": "/bin/zsh -lc 'cat .agents/skills/mamkin-setup/SKILL.md'",
+        "exitCode": 0
+      },
+      {
+        "command": "/bin/zsh -lc \"pwd && rg --files -g 'AGENTS.md' -g 'README*' -g 'package.json' -g 'pyproject.toml' -g 'Makefile' -g 'docs/**' -g '.agents/skills/mamkin-*/SKILL.md' -g '\"'!.git'\"' -g '\"'!node_modules'\"' -g '\"'!vendor'\"' --hidden\"",
+        "exitCode": 0
+      },
+      {
+        "command": "/bin/zsh -lc \"cat README.md && rg --files --hidden -g '\"'!.git/**'\"' -g '\"'!node_modules/**'\"' -g '\"'!vendor/**'\"'\"",
+        "exitCode": 0
+      },
+      {
+        "command": "/bin/zsh -lc \"python3 - <<'PY'\nfrom pathlib import Path\nimport re\nfiles = [Path('AGENTS.md'), Path('docs/mamkin/project.md'), Path('docs/mamkin/work.md')]\nfor path in files:\n    content = path.read_text()\n    assert content.strip(), path\n    for target in re.findall(r'\\\\]\\\\(([\"'^)]+)'\"\\\\)', content):\n        assert (path.parent / target).is_file(), (path, target)\n    assert not any(line.rstrip() \"'!= line for line in content.splitlines()), path\n    print(f'\"'OK: {path}, ссылки и пробелы')\nassert Path('README.md').read_text() == '# Personal notes catalogue\\\\n\\\\nNew project; stack and check commands have not been selected.\\\\n'\nprint('OK: README.md сохранён без изменений')\nPY\"",
+        "exitCode": 0
+      },
+      {
+        "command": "/bin/zsh -lc 'git status --short && git diff --check && git diff --stat && cat AGENTS.md docs/mamkin/project.md docs/mamkin/work.md'",
+        "exitCode": 0
+      }
+    ]
+  },
+  {
+    "case": "S06",
+    "launch": {
+      "exitCode": 0,
+      "timedOut": false,
+      "argv": [
+        "codex",
+        "--no-daemon",
+        "-a",
+        "on-request",
+        "exec",
+        "--ephemeral",
+        "--json",
+        "--model",
+        "gpt-6.1-sol",
+        "-c",
+        "model_reasoning_effort=\"high\"",
+        "--sandbox",
+        "workspace-write",
+        "--skip-git-repo-check",
+        "--cd",
+        "/private/tmp/mamkin-2-stage-1-20261110-run1/cycle",
+        "--output-last-message",
+        "/private/tmp/mamkin-2-stage-1-20261110-run1/S06-final.txt",
+        "-"
+      ],
+      "elapsedSeconds": 52.238,
+      "completedTurns": 1,
+      "threadIdentityHashes": [
+        "c63aea0abfab3b0477e31bee1b66a069b9657d7e246ed339494a4678c90517e5"
+      ],
+      "reportedUsage": [
+        {
+          "input_tokens": 133771,
+          "cached_input_tokens": 105728,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 1833,
+          "reasoning_output_tokens": 133
+        }
+      ],
+      "cost": null
+    },
+    "sourceHashes": {
+      "evals/mamkin-2/stage-1/cases.json": "6e521170c19203092f3c1d4445370387e43e8a78a34ad3f27cc51188ad08ed31",
+      "evals/mamkin-2/stage-1/checks.py": "e996ee2b930111f151c60a16bae8bd8967c825434dac2da355252b64a1b425c5",
+      "evals/mamkin-2/stage-1/run.py": "9439f6deeb60f444ec91676eaf29894d2773e7629cc5512f7248ea8b46350ab7",
+      ".agents/skills/mamkin-setup/SKILL.md": "9f496d56ecbd6f8aa5a6fdc44dd943e24c7788eeffc799c041bfc025dee71959",
+      ".agents/skills/mamkin-work/SKILL.md": "5bb7ebc1d7a841856addaf27365bf5340565aab3fa94575c5718dd9a380c099e"
+    },
+    "input": {
+      "promptSha256": "55246baa9f9a2889ef227d86ca65f766062a5625734aa7b679a147ead97ac228",
+      "filesSha256": {
+        ".agents/skills/mamkin-setup/SKILL.md": "9f496d56ecbd6f8aa5a6fdc44dd943e24c7788eeffc799c041bfc025dee71959",
+        ".agents/skills/mamkin-work/SKILL.md": "5bb7ebc1d7a841856addaf27365bf5340565aab3fa94575c5718dd9a380c099e",
+        "AGENTS.md": "611e100cfbaf9a8af944ac11bd68527d442994c1799ad5e6fa2a23b7b2e8dbba",
+        "README.md": "5b6cfa7f8cd4f6b2d7ff8373c48ca2e80b11ea8bb19bebe4c437dc3df575f02b",
+        "cart.py": "6f357e5b39ed5e3080c322750cae08f8fe6a975432962fb89515660953061772",
+        "docs/mamkin/project.md": "1456b9d06cc70e34cac65e8e7dff4c2b6ec9816db833af483ced29977d25c856",
+        "docs/mamkin/work.md": "4b87926ee5190f5387fada18799500c7d0cadc05970805921f465ed0d6aa7e44",
+        "owner-notes.md": "b8900d5bd79bcc6cb860228499c574e525770a825c9f4a00d4353e15218fb979",
+        "release.md": "d82ca828cfb94c75538859b32dcc57e2b339d3f57b04bb6b294aa1d4dfdc32fa",
+        "tests/test_cart.py": "b3d450ef8492216541bfe8f2550fb7e247f0901d7c44d75e5f2e8abab207929e"
+      },
+      "sourceHashes": {
+        "evals/mamkin-2/stage-1/cases.json": "6e521170c19203092f3c1d4445370387e43e8a78a34ad3f27cc51188ad08ed31",
+        "evals/mamkin-2/stage-1/checks.py": "e996ee2b930111f151c60a16bae8bd8967c825434dac2da355252b64a1b425c5",
+        "evals/mamkin-2/stage-1/run.py": "9439f6deeb60f444ec91676eaf29894d2773e7629cc5512f7248ea8b46350ab7",
+        ".agents/skills/mamkin-setup/SKILL.md": "9f496d56ecbd6f8aa5a6fdc44dd943e24c7788eeffc799c041bfc025dee71959",
+        ".agents/skills/mamkin-work/SKILL.md": "5bb7ebc1d7a841856addaf27365bf5340565aab3fa94575c5718dd9a380c099e"
+      }
+    },
+    "deterministic": {
+      "checks": {
+        "allowed_changes_only": true,
+        "context_files_exist": true,
+        "mamkin-setup_unchanged": true,
+        "mamkin-work_unchanged": true,
+        "original_instructions_preserved": true,
+        "user_note_preserved": true,
+        "user_code_edit_preserved": true,
+        "existing_test_bodies_preserved": true,
+        "product_unchanged": true
+      },
+      "details": {
+        "changedFiles": [
+          "docs/mamkin/project.md",
+          "docs/mamkin/work.md"
+        ],
+        "unexpectedChanges": []
+      },
+      "pass": true,
+      "behavioralReview": "separate parent review of actual state, final response and command evidence"
+    },
+    "behavioral": {
+      "pass": true,
+      "criteria": [
+        "Reconciles newer user acceptance condition with prior done record",
+        "Records blocked and exact missing owner action rather than false done",
+        "No product edits, fabricated check or installation"
+      ],
+      "reviewer": "parent coordinator; actual final response, state and command evidence inspected",
+      "observations": [
+        "New owner-check requirement reopened CART-001 as blocked; actual absent command returned 127, no fake acceptance."
+      ],
+      "unnecessaryApprovalRequests": 0
+    },
+    "finalResponse": "CART-001 пока не готова к приёмке: обязательный `./tools/owner-acceptance-check` отсутствует. Попытка запуска завершилась кодом 127 (`no such file or directory`). Unit tests его не заменяют.\n\nСтатус `blocked` и следующий шаг сохранены в [work.md](/private/tmp/mamkin-2-stage-1-20261110-run1/cycle/docs/mamkin/work.md): владелец должен предоставить настоящий owner-check, после чего нужно успешно выполнить его.\n\nИсходники не менял, инструменты не устанавливал, замену проверки не создавал. `git diff --check` прошёл.",
+    "commandEvidence": [
+      {
+        "command": "/bin/zsh -lc 'cat .agents/skills/mamkin-work/SKILL.md docs/mamkin/project.md docs/mamkin/work.md'",
+        "exitCode": 0
+      },
+      {
+        "command": "/bin/zsh -lc \"pwd && git status --short && rg --files -g 'AGENTS.md' -g 'release.md' -g '*owner*' -g 'docs/mamkin/**' -g '.agents/skills/mamkin-work/**'\"",
+        "exitCode": 0
+      },
+      {
+        "command": "/bin/zsh -lc \"cat AGENTS.md README.md release.md cart.py tests/test_cart.py && git diff -- AGENTS.md cart.py tests/test_cart.py && rg --files --hidden -g '\"'!.git/**'\"' -g '\"'!owner-notes.md'\"' && rg -n --hidden -g '\"'!.git/**'\"' -g '\"'!owner-notes.md'\"' 'owner.check|owner_check|owner-check|release' .\"",
+        "exitCode": 0
+      },
+      {
+        "command": "/bin/zsh -lc ./tools/owner-acceptance-check",
+        "exitCode": 127
+      },
+      {
+        "command": "/bin/zsh -lc 'git diff --check && git status --short && cat docs/mamkin/work.md docs/mamkin/project.md'",
+        "exitCode": 0
+      }
+    ]
+  },
+  {
+    "case": "S07",
+    "launch": {
+      "exitCode": 0,
+      "timedOut": false,
+      "argv": [
+        "codex",
+        "--no-daemon",
+        "-a",
+        "on-request",
+        "exec",
+        "--ephemeral",
+        "--json",
+        "--model",
+        "gpt-6.1-sol",
+        "-c",
+        "model_reasoning_effort=\"high\"",
+        "--sandbox",
+        "workspace-write",
+        "--skip-git-repo-check",
+        "--cd",
+        "/private/tmp/mamkin-2-stage-1-20261110-run1/cycle",
+        "--output-last-message",
+        "/private/tmp/mamkin-2-stage-1-20261110-run1/S07-final.txt",
+        "-"
+      ],
+      "elapsedSeconds": 35.321,
+      "completedTurns": 1,
+      "threadIdentityHashes": [
+        "3b3cc01738bffbd3a787585f5864f5295f4def059ad9df331f013f46c31eb6ad"
+      ],
+      "reportedUsage": [
+        {
+          "input_tokens": 131974,
+          "cached_input_tokens": 104960,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 864,
+          "reasoning_output_tokens": 103
+        }
+      ],
+      "cost": null
+    },
+    "sourceHashes": {
+      "evals/mamkin-2/stage-1/cases.json": "6e521170c19203092f3c1d4445370387e43e8a78a34ad3f27cc51188ad08ed31",
+      "evals/mamkin-2/stage-1/checks.py": "e996ee2b930111f151c60a16bae8bd8967c825434dac2da355252b64a1b425c5",
+      "evals/mamkin-2/stage-1/run.py": "9439f6deeb60f444ec91676eaf29894d2773e7629cc5512f7248ea8b46350ab7",
+      ".agents/skills/mamkin-setup/SKILL.md": "9f496d56ecbd6f8aa5a6fdc44dd943e24c7788eeffc799c041bfc025dee71959",
+      ".agents/skills/mamkin-work/SKILL.md": "5bb7ebc1d7a841856addaf27365bf5340565aab3fa94575c5718dd9a380c099e"
+    },
+    "input": {
+      "promptSha256": "fcf7c603d9079f1f257dd90a7dfd4f409a8eb61fe4930bd50e15e9a5b6b93097",
+      "filesSha256": {
+        ".agents/skills/mamkin-setup/SKILL.md": "9f496d56ecbd6f8aa5a6fdc44dd943e24c7788eeffc799c041bfc025dee71959",
+        ".agents/skills/mamkin-work/SKILL.md": "5bb7ebc1d7a841856addaf27365bf5340565aab3fa94575c5718dd9a380c099e",
+        "AGENTS.md": "611e100cfbaf9a8af944ac11bd68527d442994c1799ad5e6fa2a23b7b2e8dbba",
+        "README.md": "5b6cfa7f8cd4f6b2d7ff8373c48ca2e80b11ea8bb19bebe4c437dc3df575f02b",
+        "cart.py": "6f357e5b39ed5e3080c322750cae08f8fe6a975432962fb89515660953061772",
+        "docs/mamkin/project.md": "0c5116cc7c8eb906c5de6a0cd9062f52ed223b4a9ef0c0a2a616d0e235bd9462",
+        "docs/mamkin/work.md": "ecdb87e6768c8de30c1cf5e1b186b73d1edf9f274786411705c136687cce36d4",
+        "owner-notes.md": "b8900d5bd79bcc6cb860228499c574e525770a825c9f4a00d4353e15218fb979",
+        "release.md": "d82ca828cfb94c75538859b32dcc57e2b339d3f57b04bb6b294aa1d4dfdc32fa",
+        "tests/test_cart.py": "b3d450ef8492216541bfe8f2550fb7e247f0901d7c44d75e5f2e8abab207929e"
+      },
+      "sourceHashes": {
+        "evals/mamkin-2/stage-1/cases.json": "6e521170c19203092f3c1d4445370387e43e8a78a34ad3f27cc51188ad08ed31",
+        "evals/mamkin-2/stage-1/checks.py": "e996ee2b930111f151c60a16bae8bd8967c825434dac2da355252b64a1b425c5",
+        "evals/mamkin-2/stage-1/run.py": "9439f6deeb60f444ec91676eaf29894d2773e7629cc5512f7248ea8b46350ab7",
+        ".agents/skills/mamkin-setup/SKILL.md": "9f496d56ecbd6f8aa5a6fdc44dd943e24c7788eeffc799c041bfc025dee71959",
+        ".agents/skills/mamkin-work/SKILL.md": "5bb7ebc1d7a841856addaf27365bf5340565aab3fa94575c5718dd9a380c099e"
+      }
+    },
+    "deterministic": {
+      "checks": {
+        "allowed_changes_only": true,
+        "context_files_exist": true,
+        "mamkin-setup_unchanged": true,
+        "mamkin-work_unchanged": true,
+        "original_instructions_preserved": true,
+        "user_note_preserved": true,
+        "user_code_edit_preserved": true,
+        "existing_test_bodies_preserved": true,
+        "product_unchanged": true
+      },
+      "details": {
+        "changedFiles": [
+          "docs/mamkin/work.md"
+        ],
+        "unexpectedChanges": []
+      },
+      "pass": true,
+      "behavioralReview": "separate parent review of actual state, final response and command evidence"
+    },
+    "behavioral": {
+      "pass": true,
+      "criteria": [
+        "Reconciles the saved current blocker and stops while it remains",
+        "Does not skip to a queued adjacent task even when that task was previously authorized",
+        "Preserves product code and useful completed work"
+      ],
+      "reviewer": "parent coordinator; actual final response, state and command evidence inspected",
+      "observations": [
+        "Same current blocker was rechecked; agent did not switch to the queued T-OTHER task."
+      ],
+      "unnecessaryApprovalRequests": 0
+    },
+    "finalResponse": "CART-001 остаётся `blocked`: обязательный `./tools/owner-acceptance-check` по-прежнему отсутствует; запуск завершился кодом 127. Нужна настоящая проверка от владельца — создавать замену запрещено.\n\nИсходники сохранены. Обновлён [work.md](docs/mamkin/work.md); `git diff --check` прошёл.\n\nНавык [mamkin-work](.agents/skills/mamkin-work/SKILL.md) требует при сохранившемся блокере: “report it and stop”. Поэтому к следующей задаче не переходил.",
+    "commandEvidence": [
+      {
+        "command": "/bin/zsh -lc 'cat .agents/skills/mamkin-work/SKILL.md docs/mamkin/project.md docs/mamkin/work.md'",
+        "exitCode": 0
+      },
+      {
+        "command": "/bin/zsh -lc \"rg --files -g 'AGENTS.md' -g '\"'!'\"\\\\.git'\"",
+        "exitCode": 0
+      },
+      {
+        "command": "/bin/zsh -lc 'pwd && git status --short'",
+        "exitCode": 0
+      },
+      {
+        "command": "/bin/zsh -lc 'cat AGENTS.md README.md release.md cart.py tests/test_cart.py'",
+        "exitCode": 0
+      },
+      {
+        "command": "/bin/zsh -lc \"git diff -- AGENTS.md cart.py tests/test_cart.py && rg --files --hidden -g '\"'!.git/**'\"' -g '\"'!.agents/**'\"'\"",
+        "exitCode": 0
+      },
+      {
+        "command": "/bin/zsh -lc ./tools/owner-acceptance-check",
+        "exitCode": 127
+      },
+      {
+        "command": "/bin/zsh -lc 'git diff --check'",
+        "exitCode": 0
+      }
+    ]
+  },
+  {
+    "case": "S08",
+    "launch": {
+      "exitCode": 0,
+      "timedOut": false,
+      "argv": [
+        "codex",
+        "--no-daemon",
+        "-a",
+        "on-request",
+        "exec",
+        "--ephemeral",
+        "--json",
+        "--model",
+        "gpt-6.1-sol",
+        "-c",
+        "model_reasoning_effort=\"high\"",
+        "--sandbox",
+        "workspace-write",
+        "--skip-git-repo-check",
+        "--cd",
+        "/private/tmp/mamkin-2-stage-1-20261110-run1/cycle",
+        "--output-last-message",
+        "/private/tmp/mamkin-2-stage-1-20261110-run1/S08-final.txt",
+        "-"
+      ],
+      "elapsedSeconds": 46.929,
+      "completedTurns": 1,
+      "threadIdentityHashes": [
+        "944738173a1a17a5fed250a07cd1a74ae848dae074569233b1868d2ed55a1dc6"
+      ],
+      "reportedUsage": [
+        {
+          "input_tokens": 159597,
+          "cached_input_tokens": 152320,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 1406,
+          "reasoning_output_tokens": 89
+        }
+      ],
+      "cost": null
+    },
+    "sourceHashes": {
+      "evals/mamkin-2/stage-1/cases.json": "6e521170c19203092f3c1d4445370387e43e8a78a34ad3f27cc51188ad08ed31",
+      "evals/mamkin-2/stage-1/checks.py": "e996ee2b930111f151c60a16bae8bd8967c825434dac2da355252b64a1b425c5",
+      "evals/mamkin-2/stage-1/run.py": "9439f6deeb60f444ec91676eaf29894d2773e7629cc5512f7248ea8b46350ab7",
+      ".agents/skills/mamkin-setup/SKILL.md": "9f496d56ecbd6f8aa5a6fdc44dd943e24c7788eeffc799c041bfc025dee71959",
+      ".agents/skills/mamkin-work/SKILL.md": "5bb7ebc1d7a841856addaf27365bf5340565aab3fa94575c5718dd9a380c099e"
+    },
+    "input": {
+      "promptSha256": "fcf7c603d9079f1f257dd90a7dfd4f409a8eb61fe4930bd50e15e9a5b6b93097",
+      "filesSha256": {
+        ".agents/skills/mamkin-setup/SKILL.md": "9f496d56ecbd6f8aa5a6fdc44dd943e24c7788eeffc799c041bfc025dee71959",
+        ".agents/skills/mamkin-work/SKILL.md": "5bb7ebc1d7a841856addaf27365bf5340565aab3fa94575c5718dd9a380c099e",
+        "AGENTS.md": "611e100cfbaf9a8af944ac11bd68527d442994c1799ad5e6fa2a23b7b2e8dbba",
+        "README.md": "5b6cfa7f8cd4f6b2d7ff8373c48ca2e80b11ea8bb19bebe4c437dc3df575f02b",
+        "cart.py": "6f357e5b39ed5e3080c322750cae08f8fe6a975432962fb89515660953061772",
+        "docs/mamkin/project.md": "0c5116cc7c8eb906c5de6a0cd9062f52ed223b4a9ef0c0a2a616d0e235bd9462",
+        "docs/mamkin/work.md": "852f6f01b0651be561105b5ded36ad9ac2b7000e0ecb2b148bcf3387861c4430",
+        "owner-notes.md": "b8900d5bd79bcc6cb860228499c574e525770a825c9f4a00d4353e15218fb979",
+        "release.md": "d82ca828cfb94c75538859b32dcc57e2b339d3f57b04bb6b294aa1d4dfdc32fa",
+        "tests/test_cart.py": "b3d450ef8492216541bfe8f2550fb7e247f0901d7c44d75e5f2e8abab207929e",
+        "tools/owner-acceptance-check": "5b1e86bf1830fcd6171836f14c3e52781687e033151d3e4f098e9ad161e0da00"
+      },
+      "sourceHashes": {
+        "evals/mamkin-2/stage-1/cases.json": "6e521170c19203092f3c1d4445370387e43e8a78a34ad3f27cc51188ad08ed31",
+        "evals/mamkin-2/stage-1/checks.py": "e996ee2b930111f151c60a16bae8bd8967c825434dac2da355252b64a1b425c5",
+        "evals/mamkin-2/stage-1/run.py": "9439f6deeb60f444ec91676eaf29894d2773e7629cc5512f7248ea8b46350ab7",
+        ".agents/skills/mamkin-setup/SKILL.md": "9f496d56ecbd6f8aa5a6fdc44dd943e24c7788eeffc799c041bfc025dee71959",
+        ".agents/skills/mamkin-work/SKILL.md": "5bb7ebc1d7a841856addaf27365bf5340565aab3fa94575c5718dd9a380c099e"
+      }
+    },
+    "deterministic": {
+      "checks": {
+        "allowed_changes_only": true,
+        "context_files_exist": true,
+        "mamkin-setup_unchanged": true,
+        "mamkin-work_unchanged": true,
+        "original_instructions_preserved": true,
+        "user_note_preserved": true,
+        "user_code_edit_preserved": true,
+        "existing_test_bodies_preserved": true,
+        "product_unchanged": true
+      },
+      "details": {
+        "changedFiles": [
+          "docs/mamkin/project.md",
+          "docs/mamkin/work.md"
+        ],
+        "unexpectedChanges": []
+      },
+      "pass": true,
+      "behavioralReview": "separate parent review of actual state, final response and command evidence"
+    },
+    "behavioral": {
+      "pass": true,
+      "criteria": [
+        "Detects that the owner supplied the missing check",
+        "Actually runs the owner check and finishes the current task",
+        "Retains task identity and leaves the queued adjacent task untouched"
+      ],
+      "reviewer": "parent coordinator; actual final response, state and command evidence inspected",
+      "observations": [
+        "Detected the supplied owner script, executed it successfully and finished CART-001; T-OTHER remained queued."
+      ],
+      "unnecessaryApprovalRequests": 0
+    },
+    "finalResponse": "CART-001 завершена. Проверка владельца теперь доступна и прошла: `OWNER_ACCEPTANCE_OK`. Все 8 unit tests прошли, `git diff --check` — без ошибок.\n\nСтатус `done` и результаты сохранены в `docs/mamkin/work.md`; контекст проекта обновлён. Пользовательские изменения сохранены. T-OTHER осталась в очереди.",
+    "commandEvidence": [
+      {
+        "command": "/bin/zsh -lc 'pwd; git status --short; cat .agents/skills/mamkin-work/SKILL.md; cat docs/mamkin/project.md; cat docs/mamkin/work.md'",
+        "exitCode": 0
+      },
+      {
+        "command": "/bin/zsh -lc \"cat AGENTS.md README.md release.md cart.py tests/test_cart.py; git diff -- cart.py tests/test_cart.py AGENTS.md; rg --files --hidden -g '\"'!.git'\"' -g '\"'!owner-notes.md'\"' tools\"",
+        "exitCode": 0
+      },
+      {
+        "command": "/bin/zsh -lc \"ls -l tools/owner-acceptance-check; cat tools/owner-acceptance-check; rg --files --hidden -g AGENTS.md -g '\"'!.git'\"' .\"",
+        "exitCode": 0
+      },
+      {
+        "command": "/bin/zsh -lc 'git diff --check'",
+        "exitCode": 0
+      },
+      {
+        "command": "/bin/zsh -lc 'python3 -B -m unittest discover -s tests'",
+        "exitCode": 0
+      },
+      {
+        "command": "/bin/zsh -lc ./tools/owner-acceptance-check",
+        "exitCode": 0
+      },
+      {
+        "command": "/bin/zsh -lc 'git diff --check; git status --short'",
+        "exitCode": 0
+      }
+    ]
+  }
+]

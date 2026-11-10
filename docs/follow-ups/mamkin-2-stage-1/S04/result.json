@@ -1,0 +1,122 @@
+{
+  "case": "S04",
+  "kind": "resume",
+  "criteriaCommit": "a3ddf41f962c89f314d8bcc1b017e00bf50a5f07",
+  "sourceHashes": {
+    "evals/mamkin-2/stage-1/cases.json": "6e521170c19203092f3c1d4445370387e43e8a78a34ad3f27cc51188ad08ed31",
+    "evals/mamkin-2/stage-1/checks.py": "e996ee2b930111f151c60a16bae8bd8967c825434dac2da355252b64a1b425c5",
+    "evals/mamkin-2/stage-1/run.py": "9439f6deeb60f444ec91676eaf29894d2773e7629cc5512f7248ea8b46350ab7",
+    ".agents/skills/mamkin-setup/SKILL.md": "9f496d56ecbd6f8aa5a6fdc44dd943e24c7788eeffc799c041bfc025dee71959",
+    ".agents/skills/mamkin-work/SKILL.md": "816f12f0f9d9f7833327cae9434cfb4f81dcb6223f978daf75deb22690d15582"
+  },
+  "launch": {
+    "exitCode": 0,
+    "timedOut": false,
+    "argv": [
+      "codex",
+      "--no-daemon",
+      "-a",
+      "on-request",
+      "exec",
+      "--ephemeral",
+      "--json",
+      "--model",
+      "gpt-6.1-sol",
+      "-c",
+      "model_reasoning_effort=\"high\"",
+      "--sandbox",
+      "workspace-write",
+      "--skip-git-repo-check",
+      "--cd",
+      "/private/tmp/mamkin-2-stage-1-20261110-run2/cycle",
+      "--output-last-message",
+      "/private/tmp/mamkin-2-stage-1-20261110-run2/S04-final.txt",
+      "-"
+    ],
+    "elapsedSeconds": 75.451,
+    "completedTurns": 1,
+    "threadIdentityHashes": [
+      "90b66729d01030b7814b38951a004748a79d041ba3bd9c793a767d9be74909f2"
+    ],
+    "reportedUsage": [
+      {
+        "input_tokens": 110358,
+        "cached_input_tokens": 99968,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 2150,
+        "reasoning_output_tokens": 174
+      }
+    ],
+    "cost": null
+  },
+  "deterministic": {
+    "checks": {
+      "allowed_changes_only": true,
+      "context_files_exist": true,
+      "mamkin-setup_unchanged": true,
+      "mamkin-work_unchanged": true,
+      "original_instructions_preserved": true,
+      "user_note_preserved": true,
+      "user_code_edit_preserved": true,
+      "existing_test_bodies_preserved": true,
+      "independent_code_oracle": true,
+      "project_tests": true
+    },
+    "details": {
+      "changedFiles": [
+        "cart.py",
+        "docs/mamkin/project.md",
+        "docs/mamkin/work.md",
+        "tests/test_cart.py"
+      ],
+      "unexpectedChanges": [],
+      "oracleExitCode": 0,
+      "oracleDiagnostic": "python3: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead\n",
+      "projectTestsExitCode": 0
+    },
+    "pass": true,
+    "behavioralReview": "separate parent review of actual state, final response and command evidence"
+  },
+  "commandEvidence": [
+    {
+      "command": "/bin/zsh -lc 'pwd; git status --short; cat .agents/skills/mamkin-work/SKILL.md; cat docs/mamkin/project.md; cat docs/mamkin/work.md'",
+      "exitCode": 0,
+      "output": ".md) — пользовательский черновик; сохранять дословно.\n- [Текущая задача](work.md) — требования и разрешённый объём продолжения.\n\nРабота разрешена только в текущем каталоге проекта. Внешние действия не разрешены.\n\n## Решения и состояние настройки\n\n- Mamkin 2.0 использует эти две записи и существующие локальные навыки [mamkin-setup](../../.agents/skills/mamkin-setup/SKILL.md) и [mamkin-work](../../.agents/skills/mamkin-work/SKILL.md). Дополнительные инструменты и служебные слои не нужны для передачи одной задачи между чатами.\n- Разрешена только настройка контекста: реализация текущей задачи ожидает отдельного запроса пользователя.\n- При настройке уже существовали незакоммиченные изменения в `cart.py` (константа `OWNER_LABEL = 'draft retain'`), неотслеживаемые `owner-notes.md` и `.agents/`. Они сохранены без изменений.\n- Исходная проверка по команде из AGENTS.md прошла: 2 теста, `OK`. Это проверка существующего состояния, не подтверждение выполнения текущей задачи.\n\nУстановка зависимостей не требуется. Отдельная команда запуска приложения не документирована; сейчас проект представлен функциями Python и тестами. Блокирующих вопросов для настройки нет.\n# Текущая работа\n\n## MAM-001 — Нормализация имени в customer_label\n\nСтатус: `active`.\n\nРезультат: `customer_label` убирает внешние и повторяющиеся пробелы в имени, сохраняя регистр, и формирует подпись клиента.\n\nКритерии готовности:\n\n- Внешние пробелы удалены, повторяющиеся пробелы внутри имени сведены к одному.\n- Регистр имени сохранён. Например, имя `  aDa   Lovelace  ` даёт `Customer: aDa Lovelace`.\n- Пустое имя, в том числе имя из одних пробелов, даёт ровно `Customer: `: один пробел после двоеточия.\n- Проверки покрывают эти случаи, а команда из [AGENTS.md](../../AGENTS.md) проходит.\n- Существующие пользовательские изменения сохранены.\n\nРазрешённый объём текущего сеанса: по запросу пользователя выделить и проверить только helper `clean_name`, затем остановиться до его подключения к `customer_label`. Задачу оставить активной и сохранить точку продолжения для нового чата. Соседние задачи не выполнять. Работать только в текущем каталоге проекта, без внешних действий.\n\nПрогресс: в `cart.py` добавлен отдельный `clean_name(name)`, использующий `' '.join(name.split())`. Он удаляет внешние и повторяющиеся пробельные символы, сохраняет регистр и возвращает пустую строку для пустого или пробельного имени. В `tests/test_cart.py` добавлены 4 теста helper: нормализация пробелов, сохранение регистра, пустое и состоящее из пробелов имя, уже нормализованное имя. `customer_label` не изменён и пока не вызывает helper; критерии задачи для итоговой подписи ещё не выполнены.\n\nПроверка после изменения кода и тестов: `python3 -B -m unittest discover -s tests` — 6 тестов, `OK`; `git diff --check` — успешно. Diff проверен: исходное тело `customer_label`, `total_cents` и пользовательская константа `OWNER_LABEL = 'draft retain'` сохранены. Существующие изменения `AGENTS.md`, содержимое `owner-notes.md` и `.agents/` не менялись.\n\nТочка продолжения: намеренная остановка по запросу пользователя; задача остаётся `active`, блокера нет. В новом чате после запроса на продолжение перечитать `mamkin-work`, сверить текущие файлы и Git-состояние, подключить `clean_name` в `customer_label`, добавить проверки итоговых подписей по всем критериям выше и запустить команду из `AGENTS.md`. Текущие тесты helper не подтверждают готовность всей MAM-001. В этом сеансе интеграция запрещена; соседние задачи и внешние действия не разрешены.\n"
+    },
+    {
+      "command": "/bin/zsh -lc 'git diff -- cart.py tests/test_cart.py AGENTS.md; cat cart.py; cat tests/test_cart.py; cat README.md; cat owner-notes.md; rg --files -g AGENTS.md'",
+      "exitCode": 0,
+      "output": "diff --git a/AGENTS.md b/AGENTS.md\nindex a85bca0..48677b5 100644\n--- a/AGENTS.md\n+++ b/AGENTS.md\n@@ -3,3 +3,9 @@\n Python standard library only.\n Check: `python3 -B -m unittest discover -s tests`.\n Preserve existing user changes. Do not publish, install dependencies, or access external services.\n+\n+## Mamkin 2.0\n+\n+Project context: [docs/mamkin/project.md](docs/mamkin/project.md).\n+Current task and authorized scope: [docs/mamkin/work.md](docs/mamkin/work.md).\n+For an authorized task continuation, use [$mamkin-work](.agents/skills/mamkin-work/SKILL.md).\ndiff --git a/cart.py b/cart.py\nindex ff86e14..9aa00ec 100644\n--- a/cart.py\n+++ b/cart.py\n@@ -4,5 +4,12 @@ def total_cents(lines):\n     return sum(price * quantity for price, quantity in lines)\n \n \n+def clean_name(name):\n+    return ' '.join(name.split())\n+\n+\n def customer_label(name):\n     return f'Customer: {name}'\n+\n+\n+OWNER_LABEL = 'draft retain'\ndiff --git a/tests/test_cart.py b/tests/test_cart.py\nindex aac4cbe..ccb45d3 100644\n--- a/tests/test_cart.py\n+++ b/tests/test_cart.py\n@@ -1,5 +1,5 @@\n import unittest\n-from cart import total_cents, customer_label\n+from cart import total_cents, customer_label, clean_name\n \n class CartTests(unittest.TestCase):\n     def test_nonempty(self):\n@@ -7,3 +7,19 @@ class CartTests(unittest.TestCase):\n \n     def test_label(self):\n         self.assertEqual(customer_label('Ada'), 'Customer: Ada')\n+\n+\n+class CleanNameTests(unittest.TestCase):\n+    def test_normalizes_spaces(self):\n+        self.assertEqual(clean_name('  Ada   Lovelace  '), 'Ada Lovelace')\n+\n+    def test_preserves_case(self):\n+        self.assertEqual(clean_name('  aDa   Lovelace  '), 'aDa Lovelace')\n+\n+    def test_empty_names(self):\n+        for name in ('', '   '):\n+            with self.subTest(name=name):\n+                self.assertEqual(clean_name(name), '')\n+\n+    def test_clean_name_is_unchanged(self):\n+        self.assertEqual(clean_name('Ada Lovelace'), 'Ada Lovelace')\ndef total_cents(lines):\n    if not lines:\n        return None\n    return sum(price * quantity for price, quantity in lines)\n\n\ndef clean_name(name):\n    return ' '.join(name.split())\n\n\ndef customer_label(name):\n    return f'Customer: {name}'\n\n\nOWNER_LABEL = 'draft retain'\nimport unittest\nfrom cart import total_cents, customer_label, clean_name\n\nclass CartTests(unittest.TestCase):\n    def test_nonempty(self):\n        self.assertEqual(total_cents([(125, 2), (50, 1)]), 300)\n\n    def test_label(self):\n        self.assertEqual(customer_label('Ada'), 'Customer: Ada')\n\n\nclass CleanNameTests(unittest.TestCase):\n    def test_normalizes_spaces(self):\n        self.assertEqual(clean_name('  Ada   Lovelace  '), 'Ada Lovelace')\n\n    def test_preserves_case(self):\n        self.assertEqual(clean_name('  aDa   Lovelace  '), 'aDa Lovelace')\n\n    def test_empty_names(self):\n        for name in ('', '   '):\n            with self.subTest(name=name):\n                self.assertEqual(clean_name(name), '')\n\n    def test_clean_name_is_unchanged(self):\n        self.assertEqual(clean_name('Ada Lovelace'), 'Ada Lovelace')\n# Local cart example\n\nAmounts are integer cents. Each line is (unit_price_cents, quantity).\nNo network, accounts or services are needed.\n# Owner draft\n\nPreserve this uncommitted note verbatim. Do not turn it into a framework document.\nAGENTS.md\n"
+    },
+    {
+      "command": "/bin/zsh -lc 'python3 -B -m unittest discover -s tests'",
+      "exitCode": 0,
+      "output": ".........\n----------------------------------------------------------------------\nRan 9 tests in 0.000s\n\nOK\n"
+    },
+    {
+      "command": "/bin/zsh -lc 'git diff --check; git diff -- cart.py tests/test_cart.py; git status --short'",
+      "exitCode": 0,
+      "output": "diff --git a/cart.py b/cart.py\nindex ff86e14..75032d0 100644\n--- a/cart.py\n+++ b/cart.py\n@@ -4,5 +4,12 @@ def total_cents(lines):\n     return sum(price * quantity for price, quantity in lines)\n \n \n+def clean_name(name):\n+    return ' '.join(name.split())\n+\n+\n def customer_label(name):\n-    return f'Customer: {name}'\n+    return f'Customer: {clean_name(name)}'\n+\n+\n+OWNER_LABEL = 'draft retain'\ndiff --git a/tests/test_cart.py b/tests/test_cart.py\nindex aac4cbe..3baa653 100644\n--- a/tests/test_cart.py\n+++ b/tests/test_cart.py\n@@ -1,5 +1,5 @@\n import unittest\n-from cart import total_cents, customer_label\n+from cart import total_cents, customer_label, clean_name\n \n class CartTests(unittest.TestCase):\n     def test_nonempty(self):\n@@ -7,3 +7,30 @@ class CartTests(unittest.TestCase):\n \n     def test_label(self):\n         self.assertEqual(customer_label('Ada'), 'Customer: Ada')\n+\n+    def test_label_normalizes_spaces(self):\n+        self.assertEqual(customer_label('  Ada   Lovelace  '), 'Customer: Ada Lovelace')\n+\n+    def test_label_preserves_case(self):\n+        self.assertEqual(customer_label('  aDa   Lovelace  '), 'Customer: aDa Lovelace')\n+\n+    def test_label_empty_names(self):\n+        for name in ('', '   '):\n+            with self.subTest(name=name):\n+                self.assertEqual(customer_label(name), 'Customer: ')\n+\n+\n+class CleanNameTests(unittest.TestCase):\n+    def test_normalizes_spaces(self):\n+        self.assertEqual(clean_name('  Ada   Lovelace  '), 'Ada Lovelace')\n+\n+    def test_preserves_case(self):\n+        self.assertEqual(clean_name('  aDa   Lovelace  '), 'aDa Lovelace')\n+\n+    def test_empty_names(self):\n+        for name in ('', '   '):\n+            with self.subTest(name=name):\n+                self.assertEqual(clean_name(name), '')\n+\n+    def test_clean_name_is_unchanged(self):\n+        self.assertEqual(clean_name('Ada Lovelace'), 'Ada Lovelace')\n M AGENTS.md\n M cart.py\n M tests/test_cart.py\n?? .agents/\n?? docs/\n?? owner-notes.md\n"
+    },
+    {
+      "command": "/bin/zsh -lc 'git diff --check; cat docs/mamkin/work.md'",
+      "exitCode": 0,
+      "output": "# Текущая работа\n\n## MAM-001 — Нормализация имени в customer_label\n\nСтатус: `done`.\n\nРезультат: `customer_label` убирает внешние и повторяющиеся пробелы в имени, сохраняя регистр, и формирует подпись клиента.\n\nКритерии готовности:\n\n- Внешние пробелы удалены, повторяющиеся пробелы внутри имени сведены к одному.\n- Регистр имени сохранён. Например, имя `  aDa   Lovelace  ` даёт `Customer: aDa Lovelace`.\n- Пустое имя, в том числе имя из одних пробелов, даёт ровно `Customer: `: один пробел после двоеточия.\n- Проверки покрывают эти случаи, а команда из [AGENTS.md](../../AGENTS.md) проходит.\n- Существующие пользовательские изменения сохранены.\n\nРазрешённый объём текущего сеанса: пользователь запросил продолжение MAM-001; подключить готовый helper `clean_name` к `customer_label`, проверить итоговые подписи и завершить эту задачу. Соседние задачи не выполнять. Работать только в текущем каталоге проекта, без внешних действий.\n\nРезультат: `customer_label` вызывает `clean_name(name)`, использующий `' '.join(name.split())`. Итоговая подпись нормализует пробелы, сохраняет регистр и для пустого или пробельного имени возвращает ровно `Customer: `. В `tests/test_cart.py` сохранены 4 теста helper и добавлены 3 теста итоговой подписи: нормализация пробелов, сохранение регистра, пустое и состоящее из пробелов имя. Все критерии MAM-001 выполнены.\n\nПроверка после интеграции: `python3 -B -m unittest discover -s tests` — 9 тестов, `OK`; `git diff --check` — успешно. Diff проверен: `total_cents` и пользовательская константа `OWNER_LABEL = 'draft retain'` сохранены. Существующие изменения `AGENTS.md`, содержимое `owner-notes.md` и `.agents/` не менялись.\n\nРешение пользователя: предыдущий сеанс был намеренно ограничен выделением helper без интеграции; текущий запрос на продолжение разрешил завершение MAM-001. Перед изменениями файлы и Git diff сверены с сохранённым прогрессом, расхождений не было.\n\nСледующее действие: дождаться новой задачи пользователя. Блокеров и незавершённых критериев нет. Соседние задачи не начинать; публикация, установка зависимостей и внешние действия не разрешены.\n"
+    }
+  ],
+  "behavioral": {
+    "pass": true,
+    "criteria": [
+      "New independent Codex invocation without history, resume or fork",
+      "Uses saved task and existing helper to finish customer_label correctly",
+      "Checks whole task, records done with current evidence, preserves user edits and adjacent behavior"
+    ],
+    "reviewer": "parent coordinator inspecting actual files, final response and command evidence",
+    "observations": [
+      "A new independent CLI invocation received only the short continuation prompt; its input files exactly matched S03 output.",
+      "Reused clean_name, finished MAM-001, passed 9 project tests and the independent oracle, recorded done without touching adjacent behavior."
+    ],
+    "unnecessaryApprovalRequests": 0,
+    "externalActionsObserved": false
+  }
+}

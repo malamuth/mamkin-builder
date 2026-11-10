@@ -2,6 +2,10 @@
 
 Use this protocol for changes to `AGENTS.md`, coordinator or role instructions, skills, custom-agent presets, handoff rules, hooks that inject context, or default reasoning effort.
 
+## Mamkin 2.0 Stage 1 Evidence 2026-11-10
+
+Two self-contained skills, `mamkin-setup` and `mamkin-work`, passed eight fresh native CLI cases on the final implementation commit `a3ddf41`, with criteria frozen before execution at `1c92ee6`. Actual partial work in one invocation was resumed in another without conversation transfer; distinct thread hashes and exact pause-output/resume-input equality are retained. Checks cover setup, repeat setup, preserved dirty files, unknown commands, required acceptance, blocked-current recovery and one-task scope. Independent static review corrections and a compact-state refinement preceded final acceptance. The initial eight passing cases remain separate evidence. Model, effort, permissions and legacy runtime defaults were unchanged. This is scoped synthetic single-task evidence, not a matched efficiency comparison, full legacy behavior retest, crash/long-context proof or completion of the whole MVP. See [the report and retained artifacts](../follow-ups/mamkin-2-stage-1/README.md).
+
 ## Current Decision (2026-10-16)
 
 The human explicitly approved `gpt-6.1-sol` / `high` as the coordinator default and integration of the evaluated Sol 6.1 validator fix. `.codex/config.toml` and the matrix's `currentPolicy` record that activation. Retain Astra/high for Deep work, including implementation-approach research, Astra/xhigh for Critical work, and existing Terra routing. Historical experiments and scores remain unchanged.

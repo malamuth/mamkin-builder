@@ -1,0 +1,45 @@
+--- a/cart.py
++++ b/cart.py
+@@ -4,0 +5,4 @@
++
++
++def clean_name(name):
++    return ' '.join(name.split())
+--- a/docs/mamkin/work.md
++++ b/docs/mamkin/work.md
+@@ -5 +5 @@
+-Статус: `queued`.
++Статус: `active`.
+@@ -17 +17 @@
+-Разрешённый объём: сейчас только настройка Mamkin 2.0. Реализацию и изменение тестов не начинать. После отдельного запроса на продолжение выполнять одну задачу MAM-001 через [$mamkin-work](../../.agents/skills/mamkin-work/SKILL.md); другие изменения продукта не входят в объём. Работать только в текущем каталоге проекта, без внешних действий.
++Разрешённый объём текущего сеанса: по запросу пользователя выделить и проверить только helper `clean_name`, затем остановиться до его подключения к `customer_label`. Задачу оставить активной и сохранить точку продолжения для нового чата. Соседние задачи не выполнять. Работать только в текущем каталоге проекта, без внешних действий.
+@@ -19 +19 @@
+-Прогресс: контекст и требования записаны; код и тесты не изменялись. Существующие 2 теста прошли при настройке; они пока не проверяют нормализацию пробелов.
++Прогресс: в `cart.py` добавлен отдельный `clean_name(name)`, использующий `' '.join(name.split())`. Он удаляет внешние и повторяющиеся пробельные символы, сохраняет регистр и возвращает пустую строку для пустого или пробельного имени. В `tests/test_cart.py` добавлены 4 теста helper: нормализация пробелов, сохранение регистра, пустое и состоящее из пробелов имя, уже нормализованное имя. `customer_label` не изменён и пока не вызывает helper; критерии задачи для итоговой подписи ещё не выполнены.
+@@ -21 +21,3 @@
+-Следующее действие: после запроса пользователя на реализацию прочитать локальный `mamkin-work`, выполнить MAM-001, проверить результат и обновить эту запись. Блокирующих вопросов нет.
++Проверка после изменения кода и тестов: `python3 -B -m unittest discover -s tests` — 6 тестов, `OK`; `git diff --check` — успешно. Diff проверен: исходное тело `customer_label`, `total_cents` и пользовательская константа `OWNER_LABEL = 'draft retain'` сохранены. Существующие изменения `AGENTS.md`, содержимое `owner-notes.md` и `.agents/` не менялись.
++
++Точка продолжения: намеренная остановка по запросу пользователя; задача остаётся `active`, блокера нет. В новом чате после запроса на продолжение перечитать `mamkin-work`, сверить текущие файлы и Git-состояние, подключить `clean_name` в `customer_label`, добавить проверки итоговых подписей по всем критериям выше и запустить команду из `AGENTS.md`. Текущие тесты helper не подтверждают готовность всей MAM-001. В этом сеансе интеграция запрещена; соседние задачи и внешние действия не разрешены.
+--- a/tests/test_cart.py
++++ b/tests/test_cart.py
+@@ -2 +2 @@
+-from cart import total_cents, customer_label
++from cart import total_cents, customer_label, clean_name
+@@ -9,0 +10,16 @@
++
++
++class CleanNameTests(unittest.TestCase):
++    def test_normalizes_spaces(self):
++        self.assertEqual(clean_name('  Ada   Lovelace  '), 'Ada Lovelace')
++
++    def test_preserves_case(self):
++        self.assertEqual(clean_name('  aDa   Lovelace  '), 'aDa Lovelace')
++
++    def test_empty_names(self):
++        for name in ('', '   '):
++            with self.subTest(name=name):
++                self.assertEqual(clean_name(name), '')
++
++    def test_clean_name_is_unchanged(self):
++        self.assertEqual(clean_name('Ada Lovelace'), 'Ada Lovelace')

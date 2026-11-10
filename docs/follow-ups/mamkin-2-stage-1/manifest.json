@@ -1,0 +1,181 @@
+{
+  "date": "2026-11-10",
+  "criteriaCommit": "a3ddf41f962c89f314d8bcc1b017e00bf50a5f07",
+  "modelRequested": "gpt-6.1-sol",
+  "effortRequested": "high",
+  "cliVersion": "0.167.0-alpha.3.2",
+  "sourceHashes": {
+    "evals/mamkin-2/stage-1/cases.json": "6e521170c19203092f3c1d4445370387e43e8a78a34ad3f27cc51188ad08ed31",
+    "evals/mamkin-2/stage-1/checks.py": "e996ee2b930111f151c60a16bae8bd8967c825434dac2da355252b64a1b425c5",
+    "evals/mamkin-2/stage-1/run.py": "9439f6deeb60f444ec91676eaf29894d2773e7629cc5512f7248ea8b46350ab7",
+    ".agents/skills/mamkin-setup/SKILL.md": "9f496d56ecbd6f8aa5a6fdc44dd943e24c7788eeffc799c041bfc025dee71959",
+    ".agents/skills/mamkin-work/SKILL.md": "816f12f0f9d9f7833327cae9434cfb4f81dcb6223f978daf75deb22690d15582"
+  },
+  "cases": [
+    {
+      "case": "S01",
+      "runtimeCompleted": true,
+      "deterministicPass": true,
+      "behavioralPass": true,
+      "elapsedSeconds": 70.004
+    },
+    {
+      "case": "S02",
+      "runtimeCompleted": true,
+      "deterministicPass": true,
+      "behavioralPass": true,
+      "elapsedSeconds": 23.02
+    },
+    {
+      "case": "S03",
+      "runtimeCompleted": true,
+      "deterministicPass": true,
+      "behavioralPass": true,
+      "elapsedSeconds": 58.245
+    },
+    {
+      "case": "S04",
+      "runtimeCompleted": true,
+      "deterministicPass": true,
+      "behavioralPass": true,
+      "elapsedSeconds": 75.451
+    },
+    {
+      "case": "S05",
+      "runtimeCompleted": true,
+      "deterministicPass": true,
+      "behavioralPass": true,
+      "elapsedSeconds": 40.19
+    },
+    {
+      "case": "S06",
+      "runtimeCompleted": true,
+      "deterministicPass": true,
+      "behavioralPass": true,
+      "elapsedSeconds": 57.046
+    },
+    {
+      "case": "S07",
+      "runtimeCompleted": true,
+      "deterministicPass": true,
+      "behavioralPass": true,
+      "elapsedSeconds": 40.147
+    },
+    {
+      "case": "S08",
+      "runtimeCompleted": true,
+      "deterministicPass": true,
+      "behavioralPass": true,
+      "elapsedSeconds": 59.161
+    }
+  ],
+  "freshSessionProof": {
+    "threadIdentityHashes": [
+      "170e5f7aebccf4bf2dd2fff2b1e503e4c403d07f6402f654a15b488940291df2",
+      "0d7e62ddcd785d6e250c0f0b2282cef722a9725e9107e2c1930750c23afa2f70",
+      "f2c5275cec189e0ccff8758529f8f8e97c212dacb86ae41c5ba3ce9eb5ba3329",
+      "90b66729d01030b7814b38951a004748a79d041ba3bd9c793a767d9be74909f2",
+      "2e5b0cf5c2cbc334e7990e53a1606561124e564500ff438dfd9764cf14410bd0",
+      "dc129aa584a686c475c9a7eb5cd717d55a60218e427a6ecce4584fef8162cec0",
+      "d07dc74b8cdcf6a9bd387d19ff4acfd713f20851884ed7c8da4ae3fc21ca23bc",
+      "4ee059210c2d0bdf50b6135fd32d7aef828ab75d92dd6850b0663666dc211033"
+    ],
+    "allDistinct": true,
+    "count": 8,
+    "resumeInputExactlyEqualsActualPauseOutput": true,
+    "resumePrompt": "Используй $mamkin-work и продолжи текущую задачу.",
+    "historyResumeOrForkUsed": false
+  },
+  "cost": null,
+  "limits": [
+    "Synthetic projects, one run per case",
+    "Actual deliberate pause and new independent CLI chat, not crash/long-context test",
+    "No matched efficiency comparison against Stage 0",
+    "Original user-level CLI environment retained, full injected context not exposed"
+  ],
+  "aggregate": {
+    "runtimeCompletedCases": 8,
+    "deterministicPassedCases": 8,
+    "behavioralPassedCases": 8,
+    "elapsedSeconds": 423.264,
+    "inputTokensIncludingCached": 907842,
+    "cachedInputTokensSubset": 781312,
+    "outputTokens": 13685,
+    "completedCommandEvents": 44,
+    "cost": null
+  },
+  "workStateWords": {
+    "S01": 170,
+    "S03": 300,
+    "S04": 263,
+    "S06": 372,
+    "S07": 434,
+    "S08": 389
+  },
+  "initialRun": {
+    "path": "initial-run/manifest.json",
+    "passedCases": 8,
+    "sourceCommit": "1c92ee6",
+    "observedFinalWorkWords": 800,
+    "reasonForRefinement": "Superseded agent-written notes accumulated as a turn log; consolidate current state without losing human decisions."
+  },
+  "artifactSha256": {
+    "README.md": "9027c7e7a1b737a13994159554d1a42948560d474232960c38373ee9c4009512",
+    "S01/changes.patch": "bbf121b8d3b30e0c939adb396e25404a2016248133cbe65dbf7ed05289dce831",
+    "S01/final.md": "3172efb2a1792052eca3037f77f70930ab8674a902f6ff2864dda14f825710aa",
+    "S01/input.json": "a0400c84a80ab579e5147d6a8b1568365ecc0194ea4b1a02c26d3fb78084e1de",
+    "S01/output/AGENTS.md": "db4722f629313616354b0c02663619d72951f3cdc5e2f44cbfda6ed8c1ebd7ca",
+    "S01/output/docs/mamkin/project.md": "acf6af18163ef6547df01c1ccd858ef62df7d82ab76c67f2dcd9b306fcf6aa2d",
+    "S01/output/docs/mamkin/work.md": "3ca91c1a48f5ba075d2189ef0468ea0d89f371e0f3dcc867c2f65a485e2eecc1",
+    "S01/result.json": "9558ca25bd5b4ca5edda15aa902ba51e11a52def802436a0d62e04744d7cf71e",
+    "S02/changes.patch": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "S02/final.md": "43e5664c1c41ce62001407836583ddc4f9fa9ecb4f0ffbe5decc6c7d850fe326",
+    "S02/input.json": "e96f7422075483f02d5ebe13755f7726219e98361537f821c13137409b4c85b2",
+    "S02/result.json": "b7ef11554f513cdb19f8bc5617d6df89945096ec5d30d8a47d42ecb3aa3788d4",
+    "S03/changes.patch": "9cbde9451127c675229a75ad9128002b33495166b4a4eb7135fff6698730194e",
+    "S03/final.md": "370ff8caef65ec2e9d619561d54e15f36264b6a0e1157061c1dc1f9b57097149",
+    "S03/input.json": "46dfe39a129eb455cc6efec61951dfe8c3c207a93b0912f1c20d747c5513f077",
+    "S03/output/cart.py": "5f02865f24552b89b1df56e6d46a3c1909488bc2f68210c0166b2068a241c0b2",
+    "S03/output/docs/mamkin/work.md": "a9b400794521c7adfbdd68d7fd4cba5a52ea1fa07c6e15b56e0314287e97de6f",
+    "S03/output/tests/test_cart.py": "cd62100efaa030eae124c12e278c2941ec96fcc5a7b7f62a02f5b0411304657a",
+    "S03/result.json": "89b50dc1a19b44217a2b9f64282afb2a5879c4705a3f9478f9369ca01a4c8d96",
+    "S04/changes.patch": "3162f7e44bf80e28398d5084ff97e9a7ce973fdd5d3bb432097cbc0523d512fa",
+    "S04/final.md": "300f625a584e8e79bcbd682e0e1a5ddc339a7a9409ef3d5fc5b593721376f2ff",
+    "S04/input.json": "af763670abe6a535b3a3a3a57a37586f4c6cba3720238492eef69d7cbc84bc8e",
+    "S04/output/cart.py": "6f357e5b39ed5e3080c322750cae08f8fe6a975432962fb89515660953061772",
+    "S04/output/docs/mamkin/project.md": "716cc4ef4466c2f5946935204e0fd03286454f5787e4166daa57bcf529d1853e",
+    "S04/output/docs/mamkin/work.md": "52e68b6b62acac90848ccedcfb68a6078b3b14026bc934bbf81bc93adf0f5038",
+    "S04/output/tests/test_cart.py": "3b1948d0a43283ad5e7b33e7a31e5101db8884bdac2c193e31d87f1db468c96e",
+    "S04/result.json": "1315e6cd2d74f36aa0942279b3f1518a371209610d028bdced2e8017fecc7814",
+    "S05/changes.patch": "051d6df96d3083e8779665bc65e85bad7f0f30e36f88f7b459fb76efb41d171c",
+    "S05/final.md": "fe657ad0db09b62eb2d5da4b869e23255050437909524bbc3e7b693654959262",
+    "S05/input.json": "cb75e8430208e4690821c5e802c4a5d7a88eb63c7441fcb58135b812e92529c0",
+    "S05/output/AGENTS.md": "339f98eae94ae17b154869ba2a4244be4b8b9697ea69b030b7f71b13592b750c",
+    "S05/output/docs/mamkin/project.md": "fdd940e0eea8107446d36d702543f7a800130013857e4eff4dbd11c0d0616e9a",
+    "S05/output/docs/mamkin/work.md": "cc335621d66f1122747f20c27a7d23fd417d784e338073f6c1579072a629a076",
+    "S05/result.json": "9b76251b4e73c8f2854dfde6545f8c78bc1aaa93e535ac6791e58fb9aea67418",
+    "S06/changes.patch": "d924595066c8660c830ee912642856e9a88230faa165219937f0cb9ae1573087",
+    "S06/final.md": "464df776402a18a772ec8c370d9c6c59e3c17d1cb813d1d36e55b805c5823bb1",
+    "S06/input.json": "acb0fa87c2586b2527c2225ca11711721aac216bc76c52f8150798fb7a2ce2a2",
+    "S06/operator-input.patch": "234dc9c8b18bab8396df832b4e73d5df4a4723b03b1be641026fcf920d57ea54",
+    "S06/output/docs/mamkin/work.md": "2694a47437e692b6a21521b2c6eb634e32d63f0d4916d3c63f933ca0415f8b09",
+    "S06/result.json": "da8bacf5c0a9111b857b7b01b4bd4168c0f66d720c3f2fc22a0cfad9e17837df",
+    "S07/changes.patch": "363c994202ae93cfec0117ac534288036dc448f90879c6c8ab8dfce8311f5ccd",
+    "S07/final.md": "e6f78dc2cf34c565c4d224a4b795db2fd5390eb03c355e866f25db68dc820896",
+    "S07/input.json": "f4ded94cd5e03ded6a8a6b2924fa7a76b48a86f6e22f6b33774e3b4a7d64bff1",
+    "S07/operator-input.patch": "6fa7fad4825ebf22b9a3976c88903da9639605457ed215128cea6d34f72f40f5",
+    "S07/output/docs/mamkin/work.md": "15d59e6f5f90f3737ea3cb32acf117bd158e48e1e643177f75fa804c0b416118",
+    "S07/result.json": "592d225aea85c7b16365c6b27fc334eaa362bf5f36a23a881e2c984284687055",
+    "S08/changes.patch": "f6a9aefee86b81ebf6c45da9319879857908944b086e0f690af58347023a1259",
+    "S08/final.md": "5918753268c5a418967045b2faf34983e32aa350d479530c11aa54881361e0b6",
+    "S08/input.json": "6b8389bb6db378c126e6a54b0efdee5c9be73dd3f6ae7285292c441297b23c9d",
+    "S08/operator-input.patch": "c7cf6205651d3a7f39baa28dd87915e220af9a181b932b27e43f20e4b451bdee",
+    "S08/output/docs/mamkin/work.md": "013f17a24f02608e22602e2df735ffd2d4b583d349f47ba4273755405e6ceeab",
+    "S08/result.json": "e59e98861b12c5caf5fb325daaf2bc9864c45191cfbe09beea2b23367d4e3a95",
+    "initial-run/checkpoint-work.md": "c264c8111379165ff6cf87f745319d5fe8993ab60a0c0cded074b6acb2f5da21",
+    "initial-run/final-work.md": "37ab4147c5698ae5fa68b6a51c0abd1d6301365e81c62b66bca2e33e77b347ac",
+    "initial-run/manifest.json": "e10ca186ef22582c1a13a9ee1809654031624add75afcb274d86fa8e7fd46221",
+    "initial-run/results.json": "e056674f3b465e8182e1ca9dd2e467fec9f56065bbe9e379c00c854b3b857255",
+    "review.md": "4cc002ba4026cd7b5f10c417061da691dee3959005286c82a3689ff1e7b189b7"
+  }
+}

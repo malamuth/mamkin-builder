@@ -1,0 +1,109 @@
+{
+  "date": "2026-11-10",
+  "criteriaCommit": "1c92ee67dad54cd67f460fc15dedad608177c501",
+  "modelRequested": "gpt-6.1-sol",
+  "effortRequested": "high",
+  "cliVersion": "0.167.0-alpha.3.2",
+  "sourceHashes": {
+    "evals/mamkin-2/stage-1/cases.json": "6e521170c19203092f3c1d4445370387e43e8a78a34ad3f27cc51188ad08ed31",
+    "evals/mamkin-2/stage-1/checks.py": "e996ee2b930111f151c60a16bae8bd8967c825434dac2da355252b64a1b425c5",
+    "evals/mamkin-2/stage-1/run.py": "9439f6deeb60f444ec91676eaf29894d2773e7629cc5512f7248ea8b46350ab7",
+    ".agents/skills/mamkin-setup/SKILL.md": "9f496d56ecbd6f8aa5a6fdc44dd943e24c7788eeffc799c041bfc025dee71959",
+    ".agents/skills/mamkin-work/SKILL.md": "5bb7ebc1d7a841856addaf27365bf5340565aab3fa94575c5718dd9a380c099e"
+  },
+  "cases": [
+    {
+      "case": "S01",
+      "runtimeCompleted": true,
+      "deterministicPass": true,
+      "behavioralPass": true,
+      "elapsedSeconds": 54.281
+    },
+    {
+      "case": "S02",
+      "runtimeCompleted": true,
+      "deterministicPass": true,
+      "behavioralPass": true,
+      "elapsedSeconds": 23.364
+    },
+    {
+      "case": "S03",
+      "runtimeCompleted": true,
+      "deterministicPass": true,
+      "behavioralPass": true,
+      "elapsedSeconds": 54.868
+    },
+    {
+      "case": "S04",
+      "runtimeCompleted": true,
+      "deterministicPass": true,
+      "behavioralPass": true,
+      "elapsedSeconds": 62.039
+    },
+    {
+      "case": "S05",
+      "runtimeCompleted": true,
+      "deterministicPass": true,
+      "behavioralPass": true,
+      "elapsedSeconds": 46.982
+    },
+    {
+      "case": "S06",
+      "runtimeCompleted": true,
+      "deterministicPass": true,
+      "behavioralPass": true,
+      "elapsedSeconds": 52.238
+    },
+    {
+      "case": "S07",
+      "runtimeCompleted": true,
+      "deterministicPass": true,
+      "behavioralPass": true,
+      "elapsedSeconds": 35.321
+    },
+    {
+      "case": "S08",
+      "runtimeCompleted": true,
+      "deterministicPass": true,
+      "behavioralPass": true,
+      "elapsedSeconds": 46.929
+    }
+  ],
+  "freshSessionProof": {
+    "threadIdentityHashes": [
+      "557b5429a79ed7c9e3d3ac2d0b7dcc5b7a2980692927df172207380155b2838d",
+      "255739e61f43e30385e0facb734d0606da6a2775259f20e2b8319b004da0fcd6",
+      "3d616b48293011150f347948c782610a8c04fc5ead4624bd8b683d7ff954c097",
+      "d6458cad44dc6a7d247774187348fa1bff7626b6a750925f394b30f8dec34f5f",
+      "ddb167b77ce875b0be3bfdafa8ddbbb9de62d5af61a9e14468dd08c5ed112694",
+      "c63aea0abfab3b0477e31bee1b66a069b9657d7e246ed339494a4678c90517e5",
+      "3b3cc01738bffbd3a787585f5864f5295f4def059ad9df331f013f46c31eb6ad",
+      "944738173a1a17a5fed250a07cd1a74ae848dae074569233b1868d2ed55a1dc6"
+    ],
+    "allDistinct": true,
+    "count": 8,
+    "resumeInputExactlyEqualsActualPauseOutput": true,
+    "resumePrompt": "Используй $mamkin-work и продолжи текущую задачу.",
+    "historyResumeOrForkUsed": false
+  },
+  "cost": null,
+  "limits": [
+    "Synthetic projects, one run per case",
+    "Actual deliberate pause and new independent CLI chat, not crash/long-context test",
+    "No matched efficiency comparison against Stage 0",
+    "Original user-level CLI environment retained, full injected context not exposed"
+  ],
+  "classification": "Initial implementation run; 8/8 passed, superseded by compact-state refinement a3ddf41. Retained without rescoring.",
+  "workStateWords": {
+    "S01": 184,
+    "S03": 383,
+    "S04": 420,
+    "S08": 800
+  },
+  "artifactSha256": {
+    "checkpoint-work.md": "c264c8111379165ff6cf87f745319d5fe8993ab60a0c0cded074b6acb2f5da21",
+    "results.json": "e056674f3b465e8182e1ca9dd2e467fec9f56065bbe9e379c00c854b3b857255",
+    "final-work.md": "37ab4147c5698ae5fa68b6a51c0abd1d6301365e81c62b66bca2e33e77b347ac"
+  },
+  "retention": "Compact actual results, input/source hashes, command verdicts, and the checkpoint/final work records explain the refinement. Full raw event streams remain temporary."
+}
