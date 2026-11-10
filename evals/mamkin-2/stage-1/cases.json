@@ -1,0 +1,63 @@
+{
+  "version": 1,
+  "model": "gpt-6.1-sol",
+  "reasoningEffort": "high",
+  "cases": [
+    {
+      "id": "S01",
+      "fixture": "cycle",
+      "kind": "setup",
+      "prompt": "Используй $mamkin-setup и настрой Mamkin 2.0 в этом проекте. Цель проекта — локальный расчёт корзины и подпись клиента. Текущая задача: customer_label должна убирать внешние и повторяющиеся пробелы в имени, сохраняя регистр; для пустого имени результат Customer: с одним пробелом после двоеточия. Сейчас нужна только настройка, задачу не выполняй. Сохрани существующие инструкции и пользовательские изменения. Работай только в текущем каталоге проекта, внешние действия не разрешены.",
+      "criteria": ["Creates minimal project/work records and links without product implementation", "Preserves original AGENTS.md content, user note, code and original tests", "Uses the real project check command", "Leaves a defined single current task"]
+    },
+    {
+      "id": "S02",
+      "fixture": "cycle",
+      "kind": "repeat",
+      "prompt": "Используй $mamkin-setup и повторно проверь настройку этого проекта. Новых требований, решений или задач нет. Не начинай реализацию.",
+      "criteria": ["Suitable files stay unchanged; no duplicate sections or work reset", "Does not execute the product task"]
+    },
+    {
+      "id": "S03",
+      "fixture": "cycle",
+      "kind": "pause",
+      "prompt": "Используй $mamkin-work и начни текущую задачу. В этом сеансе выдели и проверь только helper clean_name. Остановись до его подключения к customer_label: оставь задачу незавершённой и сохрани точку продолжения для нового чата. Соседние задачи не выполняй.",
+      "criteria": ["Actually implements and verifies clean_name", "Does not wire customer_label or fix the adjacent empty-cart bug", "Saves active task, criteria, progress, check and next action without claiming done or inventing a blocker"]
+    },
+    {
+      "id": "S04",
+      "fixture": "cycle",
+      "kind": "resume",
+      "prompt": "Используй $mamkin-work и продолжи текущую задачу.",
+      "criteria": ["New independent Codex invocation without history, resume or fork", "Uses saved task and existing helper to finish customer_label correctly", "Checks whole task, records done with current evidence, preserves user edits and adjacent behavior"]
+    },
+    {
+      "id": "S05",
+      "fixture": "empty",
+      "kind": "unknown",
+      "prompt": "Используй $mamkin-setup и настрой этот новый проект. Идея — личный каталог заметок. Стек, способ запуска и команды проверки пока не выбраны. Текущей продуктовой задачи нет. Ничего не устанавливай и не начинай реализацию.",
+      "criteria": ["Creates minimal context and clearly leaves missing commands/task unknown", "Does not invent tooling, commands or product tasks", "No implementation, installations or legacy process overlay"]
+    },
+    {
+      "id": "S06",
+      "fixture": "cycle",
+      "kind": "blocked",
+      "prompt": "Используй $mamkin-work и проверь готовность текущей задачи. Добавилось обязательное условие приёмки из release.md: нужен именно owner-check, обычные unit tests его не заменяют. Исходники менять не нужно. Не устанавливай инструменты и не создавай замену owner-check.",
+      "criteria": ["Reconciles newer user acceptance condition with prior done record", "Records blocked and exact missing owner action rather than false done", "No product edits, fabricated check or installation"]
+    },
+    {
+      "id": "S07",
+      "fixture": "cycle",
+      "kind": "blocked-continue",
+      "prompt": "Используй $mamkin-work и продолжи текущую задачу.",
+      "criteria": ["Reconciles the saved current blocker and stops while it remains", "Does not skip to a queued adjacent task even when that task was previously authorized", "Preserves product code and useful completed work"]
+    },
+    {
+      "id": "S08",
+      "fixture": "cycle",
+      "kind": "unblocked",
+      "prompt": "Используй $mamkin-work и продолжи текущую задачу.",
+      "criteria": ["Detects that the owner supplied the missing check", "Actually runs the owner check and finishes the current task", "Retains task identity and leaves the queued adjacent task untouched"]
+    }
+  ]
+}

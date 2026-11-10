@@ -1,5 +1,11 @@
 # Universal Vibecode Project Template
 
+## Mamkin 2.0 development branch
+
+On `codex/mamkin-2`, Stage 1 adds two self-contained Codex skills: [`mamkin-setup`](.agents/skills/mamkin-setup/SKILL.md) and [`mamkin-work`](.agents/skills/mamkin-work/SKILL.md). Copy only these two skill directories into a target project's `.agents/skills/`, then invoke `$mamkin-setup` and `$mamkin-work`. No legacy process/config overlay is required. This slice handles one task and continuation in a fresh chat; automatic queue/stage traversal is not implemented yet. See the [2.0 specification](docs/project/mamkin-2-spec.md) and [MVP status](docs/project/mamkin-2-mvp-plan.md).
+
+The template instructions below describe Mamkin 1.x, whose development sources remain in this checkout during the staged implementation.
+
 A tiny, product-agnostic starting point for vibecode projects. Copy it, ask an init agent to run the setup flow, and the agent will interview you, adapt the docs to the specific product, propose git/GitHub setup, and hand off to a coordinator-led implementation workflow.
 
 The workflow is built for projects run by an init agent, a coordinator, optional analyst/architect/designer support, implementation workers, and walkthrough/testing agents. `AGENTS.md` stays short as the agent entrypoint; the durable process lives in `docs/process/`.
