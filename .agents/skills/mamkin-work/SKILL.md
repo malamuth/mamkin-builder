@@ -25,7 +25,7 @@ Verify the task's actual done criteria with available project commands or a defe
 
 ## Save and continue
 
-Update `work.md` at meaningful transitions, not after every tool call. Keep one current status. Store enough to resume: intended result and criteria, completed portion, relevant checked files/state and commands/results, unresolved blocker, next action and applicable permission boundary. Link a detailed spec or runbook only if needed; do not duplicate existing requirements or store secrets/raw diagnostic dumps.
+Update `work.md` at meaningful transitions, not after every tool call. Keep one compact current task record rather than appending a log for each continuation. Consolidate superseded agent-written operational notes into the latest useful state; preserve human decisions and user-authored history. Store enough to resume: ID, intended result and criteria, completed portion, relevant checked files/state and concise commands/results, unresolved blocker, next action and applicable permission boundary. Do not repeat every inspection or unchanged-file check. Link a detailed spec or runbook only if needed; do not duplicate requirements or store secrets/raw diagnostic dumps.
 
 - On an intentional pause, preserve partial work and leave the task active with its next step; do not label it done or invent a blocker.
 - On a real blocker, use blocked and name the smallest required decision/action.
