@@ -1,0 +1,326 @@
+{
+  "date": "2026-11-11",
+  "branch": "codex/mamkin-2",
+  "initialCandidateCommit": "34c7a52",
+  "priorProductCommit": "94bc3e8",
+  "followupCriteriaCommit": "990cee2",
+  "finalProductCommit": "49223a7",
+  "cliVersion": "codex-cli 0.167.0-alpha.3.2",
+  "requestedModel": "gpt-6.1-sol",
+  "requestedEffort": "high",
+  "sandbox": "workspace-write",
+  "approvalPolicy": "on-request",
+  "pilot": "deferred to next step by explicit user decision",
+  "wholeMvpAccepted": false,
+  "cost": null,
+  "suites": {
+    "initialMatrix": {
+      "file": "comparison.json",
+      "sha256": "b5b19fc5508b78436a47e5732ae968d8c2b674cf18f9f7ad033ae7d26c6c76e2",
+      "cases": 21,
+      "deterministicPassed": 21,
+      "parentBehavioralPassed": 21,
+      "distinctThreadHashes": 21,
+      "allThreadsDistinct": true,
+      "threadIdentityHashes": [
+        "7ec6dfca7af54eaa0e4d1fcbd75716e15362d87c055ab0c40a382867e63a34b2",
+        "b3042bee862791b1777401edc2b843131ab03b96dff579221bc5a42f527ad090",
+        "8ed493aaf6e0cb50192be58c46fae693f2f55983ea09490b8e78b7491cbc0677",
+        "7afe58127a8fbb700f58464412b3e7724d4cabebbf146a7615f88ef1a57a194b",
+        "6be144675f27f20c792a01453d32eb39dc40be4a537bfe24fe197bf46eeab89c",
+        "5d43f8eb69ec8c3354e5fdf43239e9ef2ca82832182db43cb0cd7817cbe93606",
+        "fb434c653fdff26805645cd084c3f968caf453092f4ac23a2a06abe14f3d5fae",
+        "c9871ec730811bbfc5f371f94038b2a3525fcf2d3a1692ea502a99ac993b8639",
+        "19fd80f09717b6c25e9d4282355be2e840e5c96a569ffaf174a4db1e17ef7c01",
+        "e1a52ee1a42cd7421f507201dbcabffd67848802e04d52c9208accb108a329df",
+        "fc891b039e2d1dc4ec8ce9e3e20ed02f35821b09fa78161a1cccc303b217bbdc",
+        "68b1cca29a2bac861c0ea482380c232cce9723f769ff009cc50da51c16ad0858",
+        "e05a7ff933e73d631f9ae00a6beb2be74de973fe9d6b52b7ad311b3cc305ed91",
+        "52448025decf1165f498f6ecd2fd49fb29e22c7cde51ec0633c7a3e9558d76b4",
+        "fff7a9ffcf6a9033d13bef7acd69b1cf19967e85f4a914ccefa42bdd063c4722",
+        "5b524d6dca1736a6ed8a13f5e90a467e553341c2223208057133286eddc72b19",
+        "89b1e021661f71654dcee58ecae56f697bfe73b437d28dbdc5fa26e28291ceb2",
+        "395159df0b58b88db3f18fde589647d69b5e4a81fb7e19d64224f2cf0041076c",
+        "0c3a156af2d2c48debec12e5b97aabe48bd2d4029d9f0a4ea4f408c55d746474",
+        "4844f0e0f5e8be98f32be6f5215fc34c1a1a65cdebffd1251612b9301d2c2201",
+        "df1539544abe3e56a612195bb5861193438a84093f0cbf7029916edd9d24f47c"
+      ],
+      "cliElapsedSecondsSum": 749.29,
+      "completedCommandEvents": 130,
+      "reportedUsage": {
+        "input_tokens": 2579260,
+        "cached_input_tokens": 2288000,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 20432,
+        "reasoning_output_tokens": 2498
+      },
+      "workContextWordsBeforeSum": 1593,
+      "workContextWordsAfterSum": 3089,
+      "cost": null
+    },
+    "learning": {
+      "file": "learning.json",
+      "sha256": "d5737f0a62fc17f91c01ac8fd604f0acaa8b3b230722f5d8355fa73ae538b6a0",
+      "cases": 9,
+      "deterministicPassed": 9,
+      "parentBehavioralPassed": 8,
+      "distinctThreadHashes": 9,
+      "allThreadsDistinct": true,
+      "threadIdentityHashes": [
+        "7f1a69380587e64c7866231481eef634ad40c2b580805fb6d5f6081f6a7cdb60",
+        "d4f8f423481048d4395874caa797e856313e982178b62fe30bccf2ae343cd371",
+        "879cd3e40e003d7fa33d4b87cecded1fa833b07484a6a4867c79a5ebfec003f6",
+        "66095542c45949850e0f500f693d2d9edd24fe025da769effca6b1be1e653fe0",
+        "6e50feb83eb265570bc5a920436a29096a936e1232e064416e51a432290b158d",
+        "052c9a5dd7d3c9ce9c000633f2360f744386b4fbb597ab164444b7c8e24b0259",
+        "2a40530c3a4b20cfa422fee61590a8bbb0ff1b357a52010478e2416164635008",
+        "e771a89a72461860a188bac15966801719f7bd6cf8b37f7438103ab4f798acf3",
+        "67655a12cb20ac091d10728c851c10393ac62b3748a885fc745401e1217c6198"
+      ],
+      "cliElapsedSecondsSum": 394.447,
+      "completedCommandEvents": 67,
+      "reportedUsage": {
+        "input_tokens": 1180533,
+        "cached_input_tokens": 1009024,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 11977,
+        "reasoning_output_tokens": 1320
+      },
+      "workContextWordsBeforeSum": 0,
+      "workContextWordsAfterSum": 0,
+      "cost": null
+    },
+    "regressions": {
+      "file": "regressions.json",
+      "sha256": "534317d75c95e455549463f273370b7ff2e8693a4c8bebe7f012b14ccb71b9d5",
+      "cases": 26,
+      "deterministicPassed": 26,
+      "parentBehavioralPassed": 26,
+      "distinctThreadHashes": 26,
+      "allThreadsDistinct": true,
+      "threadIdentityHashes": [
+        "81801775aad3848b215a249d561dbc54711d0cf7b2f8ae521c575414509837b2",
+        "b455c713602294d3145417a9654c1af0d602fc7f7cfea6ced30926165d80f579",
+        "c55810992e796fb95e5d5ef2b5605e5a287d1f8c281a32e91e3264376b46c576",
+        "abb45a77fb6ce1d61e28b0b95c72e2571944d00614a24e0c3644c59a69432e01",
+        "4f69445845f0fe57142750bb4ac0803b08236f1bbd28b788f5ae599b74ca0ab7",
+        "ae6305c72491064d84f9b86861a708b349b01ad2f3f623e71102042f5e86c592",
+        "62af0d44a364bff95a8d7415d15211a237a298a3a24273682f32c633b8c006b7",
+        "83cfbb7c5d7e120eb749afbb51f70a069dc11a67a2487d0a39ca80edd0a357bc",
+        "4ba3a90629dbb8309f708c408662c46720aade22361d86d5432aac76222ff900",
+        "4fc9c1f99bbc7213d95370d2577220cb1c89c998d8abbb11b05d21e2c99f4b7c",
+        "cc1e467a6489b20aa90bb567e0b63a9257f23f3435cf4fbac5111a4eac09bdbc",
+        "e097270da32d65f1dc452c5ba90daa811fa06b9261de39a80e8f9fb182b7dd70",
+        "2b42856f96d96c7f5ef893e706522596d9e5ace6bdca8e08d84d26a65da2ed6a",
+        "9d50968e3bcc701bda6225d84f1fac49a7b94f677ef74aaf51e078aa37f6b50c",
+        "c206e81b38cd83e14ee46266d705c3dcab9c4c4831009a5bc6e40b97f08a742b",
+        "770ebb5d390d7fa8ac11d3b2fca6396606bed253ef08a9e48d241ee18c95ba84",
+        "af7a2be478a15ec98880301042b9a0672ef01ad78df04048b1727ade1345cd23",
+        "db07a420ef32eedab620e941ac210fa1323b6672a211cb5a0d95ab119e95fc31",
+        "57f24aa0d9078e29ad00708ba24b127687aee79798be8ca9937a5762b84ba808",
+        "290f27de6d2589f6450adf3c1e08539e37122f49d70ebfe512a337d6312fd4ee",
+        "6070609416ba8beea8f174838e000d1ebd504704aff67ed5f8b215bd02c12afe",
+        "a5ea6d0d7e4ee7038d8f7fbbd90ac259620629d06f06bf63890e1b4903e91e9f",
+        "7753e74cc9ccbe879e20b00ba04150ffe76d7e23b54db3379ab959246d440880",
+        "466f9529de1f82239080f4149277a5fb2cd8da1c649e47d80310899c36af85aa",
+        "8fa7effd557c83f0ecdf7544f1903a0061bded0b82a1f5c5f0ce03277b358606",
+        "8dce343dfe80da338db320a7f3eef0853bc596e54b7af75c36bdb9686670f987"
+      ],
+      "cliElapsedSecondsSum": 1076.322,
+      "completedCommandEvents": 154,
+      "reportedUsage": {
+        "input_tokens": 3139881,
+        "cached_input_tokens": 2725376,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 32631,
+        "reasoning_output_tokens": 2801
+      },
+      "workContextWordsBeforeSum": 0,
+      "workContextWordsAfterSum": 0,
+      "cost": null
+    },
+    "followupBaseline": {
+      "file": "comparison-followup.json",
+      "sha256": "d908cd9c2e909031e2a0c4053dcba9e0670a0030d5f7c9a8350c7f2810d0a121",
+      "cases": 7,
+      "deterministicPassed": 7,
+      "parentBehavioralPassed": 7,
+      "distinctThreadHashes": 7,
+      "allThreadsDistinct": true,
+      "threadIdentityHashes": [
+        "b3784b11555108fa53c4c211194c3b45ed1ad9aae25e6737a388594cbff37e1d",
+        "e69cffed628e7e32f12678bffff794b85671fe5c7f2a7ce30934180036b16bc9",
+        "5ba964dc4f4e4ea88ebbb638de5b742473831b8c3d86641dbd048291fdf32c87",
+        "2ef090ffd81b1edf465bec70110957189fa290364a417a7f2aa8ad9e8af316af",
+        "b8a2f6ae0cdbda9b408ddd2b13c457cb0618708ef54e48a93634b6a211d95e14",
+        "28fd88be6a2d0709732dcf4cf30d90d375252313bbc657daf77a3a5b244138c7",
+        "062db6361d3a8ec62dd8db057d9035f1fadfa2c2b3a241ce089739912a6969c2"
+      ],
+      "cliElapsedSecondsSum": 282.372,
+      "completedCommandEvents": 43,
+      "reportedUsage": {
+        "input_tokens": 928177,
+        "cached_input_tokens": 804352,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 8161,
+        "reasoning_output_tokens": 1050
+      },
+      "workContextWordsBeforeSum": 720,
+      "workContextWordsAfterSum": 1371,
+      "cost": null
+    }
+  },
+  "continuityChecks": [
+    {
+      "run": "remaining1",
+      "from": "R03",
+      "to": "R04",
+      "allTextFilesIdentical": true
+    },
+    {
+      "run": "remaining1",
+      "from": "R04",
+      "to": "R05",
+      "allTextFilesIdentical": true
+    },
+    {
+      "run": "regression1",
+      "from": "S01",
+      "to": "S02",
+      "allTextFilesIdentical": true
+    },
+    {
+      "run": "regression1",
+      "from": "S02",
+      "to": "S03",
+      "allTextFilesIdentical": true
+    },
+    {
+      "run": "regression1",
+      "from": "S03",
+      "to": "S04",
+      "allTextFilesIdentical": true
+    },
+    {
+      "run": "regression2",
+      "from": "P03",
+      "to": "P04",
+      "allTextFilesIdentical": true
+    },
+    {
+      "run": "regression2",
+      "from": "P07",
+      "to": "P08",
+      "allTextFilesIdentical": true
+    },
+    {
+      "run": "regression2",
+      "from": "P08",
+      "to": "P09",
+      "allTextFilesIdentical": true
+    },
+    {
+      "run": "regression2",
+      "from": "P11",
+      "to": "P12",
+      "allTextFilesIdentical": true
+    },
+    {
+      "run": "regression2",
+      "from": "P12",
+      "to": "P13",
+      "allTextFilesIdentical": true
+    }
+  ],
+  "matrixByArm": {
+    "plain": {
+      "cases": 7,
+      "cliElapsedSecondsSum": 195.411,
+      "completedCommandEvents": 28,
+      "reportedInputTokens": 644198,
+      "reportedCachedInputTokens": 574080,
+      "reportedOutputTokens": 4591
+    },
+    "prior": {
+      "cases": 7,
+      "cliElapsedSecondsSum": 275.916,
+      "completedCommandEvents": 45,
+      "reportedInputTokens": 925295,
+      "reportedCachedInputTokens": 819712,
+      "reportedOutputTokens": 7839
+    },
+    "reduced": {
+      "cases": 7,
+      "cliElapsedSecondsSum": 277.963,
+      "completedCommandEvents": 57,
+      "reportedInputTokens": 1009767,
+      "reportedCachedInputTokens": 894208,
+      "reportedOutputTokens": 8002
+    }
+  },
+  "comparisonCoreEquality": [
+    {
+      "case": "B01",
+      "allFourCoreInputsIdentical": true,
+      "allRequestsIdentical": true
+    },
+    {
+      "case": "B02",
+      "allFourCoreInputsIdentical": true,
+      "allRequestsIdentical": true
+    },
+    {
+      "case": "B03",
+      "allFourCoreInputsIdentical": true,
+      "allRequestsIdentical": true
+    },
+    {
+      "case": "B04",
+      "allFourCoreInputsIdentical": true,
+      "allRequestsIdentical": true
+    },
+    {
+      "case": "B05",
+      "allFourCoreInputsIdentical": true,
+      "allRequestsIdentical": true
+    },
+    {
+      "case": "B06",
+      "allFourCoreInputsIdentical": true,
+      "allRequestsIdentical": true
+    },
+    {
+      "case": "B07",
+      "allFourCoreInputsIdentical": true,
+      "allRequestsIdentical": true
+    }
+  ],
+  "finalSkills": {
+    "mamkin-setup": {
+      "sha256": "3f31db0da62263a3f63e6032ec7d204d928194290485001a1061235096f8bd64",
+      "priorWords": 467,
+      "finalWords": 301
+    },
+    "mamkin-work": {
+      "sha256": "1a426b9d63484f287e15369cf3a01918346a52894a2535ffff3bbc26cf1c9f89",
+      "priorWords": 994,
+      "finalWords": 737
+    }
+  },
+  "delegation": {
+    "file": "delegation.json",
+    "sha256": "a0be8c2b43ba3ab5b38186e117effb7d8a6c76f67a3243b804cd8b4bd85feeab",
+    "pass": true,
+    "independentReviewBeforeDone": true
+  },
+  "limitations": [
+    "User deferred real-project pilot; whole-MVP usefulness and acceptance remain open.",
+    "One sample per version/case; native suites overlapped, CLI time is not isolated model latency, full injected CLI context unobservable.",
+    "Follow-up reduced arm ran later without re-running unchanged plain/prior arms; separate evidence, not a second interleaved matrix.",
+    "Comparison starts with operator-prepared context and original unstructured work.md, not the measured output of mamkin-setup. It tests original functional criteria, not guaranteed normalization of every old task record.",
+    "Some original unstructured records (e.g. B04) remain without IDs; configured-project stable ID continuity is established by S/R suites, not by the baseline comparison.",
+    "One failed behavioral R02 is retained; deterministic pass did not imply overall acceptance. No old result was rescored.",
+    "No crash/long-context or hard resource enforcement proof; no causal/statistical speed or cost claim. Cost unavailable.",
+    "Only the learning paragraph changed after the 26 scheduling/setup/delegation regressions; its affected cases and seven baseline tasks were rerun. Final skill hashes exactly equal tested derived bytes."
+  ]
+}
