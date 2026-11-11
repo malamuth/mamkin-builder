@@ -47,6 +47,6 @@ Use ordinary Codex capabilities and the project's requirements for execution and
 
 An intentional pause preserves partial work, active status and next step. A real blocker records the required decision/action. Retain authorized preparation before an unavailable check or unauthorized action; run scope grants no new external permissions. Partial work never unlocks dependencies.
 
-Update the authoritative record at meaningful transitions: current task/phase, applicable grant/limits, useful progress, actual verification, blocker and next action. Preserve useful work during corrections; queue adjacent ideas without expanding the task.
+Keep one accurate current account per task: ID/phase, applicable grant/limits, useful progress, actual checks, blocker and next step. Replace stale agent checkpoints rather than append per-run logs, retaining human history and decision reasons. Update at meaningful transitions; preserve useful work during corrections and queue adjacent ideas outside the grant.
 
 After each result, reassess dependencies, phase gates and authority. Backlog/hybrid may continue independent authorized work while retaining blocked preparation. Stop at completion, pause, deadline, exhausted admission capacity or no available authorized work. Distinguish completion from waiting/plan repair and report the result and next step.
