@@ -41,6 +41,6 @@ Update the authoritative work record at meaningful transitions. Keep one current
 - Blocker: use blocked with the required decision/action.
 - Done: all required criteria/checks passed; record result, verification and material limits. Merge/deployment belongs to done only when explicitly required.
 
-Apply current user corrections while preserving useful work. Queue adjacent ideas without expanding the task. For observed recurring procedures, briefly suggest a project skill or existing-skill update with its repetition, trigger and saved work; do not create/change skills automatically or block the task on the suggestion.
+Apply current user corrections while preserving useful work. Queue adjacent ideas without expanding the task. For recurring project procedures, include a concrete reuse proposal at handoff: prefer updating an existing matching skill; otherwise suggest a project skill. Name observed repetition, trigger and saved work. This advice never blocks current work or authorizes skill creation/changes.
 
 After each result, reassess dependencies, phase gates and remaining authority. Backlog/hybrid may continue independent authorized work while retaining blocked preparation; partial work never unlocks dependencies. Stop at completion, pause, deadline, exhausted admission capacity or no available authorized work. Distinguish completion from blockers/plan repair and report checks and next action. No background scheduler.
