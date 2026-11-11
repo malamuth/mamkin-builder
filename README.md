@@ -8,6 +8,8 @@ The current [`mamkin-setup`](.agents/skills/mamkin-setup/SKILL.md) and [`mamkin-
 
 Only the two 2.0 skill directories belong in a target project's `.agents/skills/`; the legacy process/config overlay is not required. This development checkout is not a ready-to-copy 2.0 project template.
 
+For existing Mamkin 1.x projects, a separate [one-time migration procedure](docs/process/mamkin-1-to-2-migration.md) covers data preservation, targeted process removal and a fresh coordinator. It is prepared but not yet exercised on a real project. Ordinary 2.0 continuation needs no dedicated audit/reset/rollover skills. The published implementation is pinned at `08c6e05`; migration instructions do not imply automatic changes to existing projects.
+
 The template instructions below describe Mamkin 1.x, whose development sources remain in this checkout during the staged implementation.
 
 A tiny, product-agnostic starting point for vibecode projects. Copy it, ask an init agent to run the setup flow, and the agent will interview you, adapt the docs to the specific product, propose git/GitHub setup, and hand off to a coordinator-led implementation workflow.
