@@ -17,3 +17,11 @@ python3 -B evals/mamkin-2/stage-2/run.py --output /private/tmp/mamkin-2-stage-2-
 The runner refuses an existing output directory and exits nonzero on a failed/incomplete case. It never executes model-created code in the parent: acceptance reads inert files. Semantic statuses, gates, grant limits, blockers and plan preservation are reviewed separately against actual files/commands; automated file checks do not issue an overall behavioral pass. Known preparation scripts are local standard-library fixtures, not new product dependencies.
 
 Re-run the unchanged Stage-1 sequence with the final two skills for regression. Preserve source hashes, actual final responses, meaningful changed output/state, failed attempts, deterministic checks and separately reviewed behavioral results. Keep raw streams temporary and retain compact evidence for no-op/blocked cases. One sample per case, synthetic projects and recorded command events do not establish real-project reliability, hard resource enforcement or an efficiency gain.
+
+## Versioned Stage-1 regression coverage
+
+The first legacy-regression attempt stopped at S04 because the agent expanded `test_label` into a table containing the original Ada assertion plus additional cases. The old AST-body preservation check failed although the behavior, independent oracle and unit suite passed. That failed legacy verdict is retained and is never rescored.
+
+`regression.py` version 2 reuses every unchanged Stage-1 request and fixture, leaving the frozen Stage-1 files intact. It replaces only AST-body identity with executed semantic coverage controls: the normal unit suite must pass, a mutation of the original Ada label must produce assertion failures, and an off-by-one mutation restricted to the original multi-item input `[(125,2),(50,1)]` must produce assertion failures. Import/runtime errors do not count as catching a mutation. These probes run inside the same read-only, network-disabled native sandbox. The old AST result is also retained diagnostically. All other preservation, code, pause/resume and permission criteria remain unchanged.
+
+Freeze this wrapper before its fresh model sequence, then run `python3 -B evals/mamkin-2/stage-2/regression.py --output /private/tmp/mamkin-2-stage-2-new-regression`. This is a new evaluation contract, not a retroactive pass for the original stopped attempt.
