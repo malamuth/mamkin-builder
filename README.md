@@ -2,7 +2,11 @@
 
 ## Mamkin 2.0 development branch
 
-On `codex/mamkin-2`, Mamkin 2.0 provides two self-contained Codex skills: [`mamkin-setup`](.agents/skills/mamkin-setup/SKILL.md) and [`mamkin-work`](.agents/skills/mamkin-work/SKILL.md). Copy only these two skill directories into a target project's `.agents/skills/`, then invoke `$mamkin-setup` and `$mamkin-work`. No legacy process/config overlay is required. They support backlog, ordered stages and hybrid selection with dependencies, priorities, phase gates and preserved continuation limits. One task is the default; a phase or queue run needs explicit authority. Stage 3 reduced the skills by about 29% and checked remaining scenarios, delegation and regressions. Ordinary Codex also passed all seven comparison tasks with lower observed overhead; an efficiency gain is unproven. The real-project pilot is deferred to the next step, and the whole MVP is not accepted. See the [Stage-3 results](docs/follow-ups/mamkin-2-stage-3/README.md), [specification](docs/project/mamkin-2-spec.md) and [MVP status](docs/project/mamkin-2-mvp-plan.md).
+Mamkin 2.0 is a thin Codex layer for a project backlog, roadmap and memory of decisions with their reasons. Its [0.3 specification](docs/project/mamkin-2-spec.md) keeps two skills and Markdown entrypoints, reusing existing sources. Ordinary Codex handles implementation and verification under project rules.
+
+The current [`mamkin-setup`](.agents/skills/mamkin-setup/SKILL.md) and [`mamkin-work`](.agents/skills/mamkin-work/SKILL.md) still implement version 0.2; the [positioning audit](docs/follow-ups/mamkin-2-positioning-audit-2026-11-11.md) identifies excess execution guidance and missing decision-memory behavior. This documentation update does not modify the skills. The [Stage-3 comparison](docs/follow-ups/mamkin-2-stage-3/README.md) found no advantage on seven simple tasks; usefulness of the new positioning must be tested against ordinary Codex with the same Markdown data. The real-project pilot remains deferred and the MVP unaccepted. See the [active MVP plan](docs/project/mamkin-2-mvp-plan.md).
+
+Only the two 2.0 skill directories belong in a target project's `.agents/skills/`; the legacy process/config overlay is not required. This development checkout is not a ready-to-copy 2.0 project template.
 
 The template instructions below describe Mamkin 1.x, whose development sources remain in this checkout during the staged implementation.
 
