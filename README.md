@@ -2,7 +2,7 @@
 
 ## Mamkin 2.0 development branch
 
-On `codex/mamkin-2`, Stage 1 adds two self-contained Codex skills: [`mamkin-setup`](.agents/skills/mamkin-setup/SKILL.md) and [`mamkin-work`](.agents/skills/mamkin-work/SKILL.md). Copy only these two skill directories into a target project's `.agents/skills/`, then invoke `$mamkin-setup` and `$mamkin-work`. No legacy process/config overlay is required. This slice handles one task and continuation in a fresh chat; automatic queue/stage traversal is not implemented yet. See the [2.0 specification](docs/project/mamkin-2-spec.md) and [MVP status](docs/project/mamkin-2-mvp-plan.md).
+On `codex/mamkin-2`, Mamkin 2.0 provides two self-contained Codex skills: [`mamkin-setup`](.agents/skills/mamkin-setup/SKILL.md) and [`mamkin-work`](.agents/skills/mamkin-work/SKILL.md). Copy only these two skill directories into a target project's `.agents/skills/`, then invoke `$mamkin-setup` and `$mamkin-work`. No legacy process/config overlay is required. Stage 2 supports backlog, ordered stages and hybrid selection with dependencies, priorities, phase gates and preserved continuation limits. One task is the default; a phase or queue run needs explicit authority. See the [Stage-2 results](docs/follow-ups/mamkin-2-stage-2/README.md), [2.0 specification](docs/project/mamkin-2-spec.md) and [MVP status](docs/project/mamkin-2-mvp-plan.md). Real-project validation remains Stage 3.
 
 The template instructions below describe Mamkin 1.x, whose development sources remain in this checkout during the staged implementation.
 

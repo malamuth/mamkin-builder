@@ -1,0 +1,164 @@
+{
+  "date": "2026-11-11",
+  "branch": "codex/mamkin-2",
+  "productCommit": "6aca735633fc8d58643a09c73249597af405111d",
+  "regressionV2Commit": "ca9a23b1faf62ba420f72a8eefbdaf78e24e9a79",
+  "cliVersion": "codex-cli 0.167.0-alpha.3.2",
+  "requestedModel": "gpt-6.1-sol",
+  "requestedReasoningEffort": "high",
+  "modelSandbox": "workspace-write",
+  "approvalPolicy": "on-request",
+  "cost": null,
+  "suites": {
+    "run1": {
+      "file": "primary.json",
+      "sha256": "616d37954cf8f74d0cb53f1a87ccb83c00d609659c4a89ef2dc4467194ad27c7",
+      "cases": 18,
+      "distinctThreadIdentityHashes": 18,
+      "allThreadsDistinct": true,
+      "deterministicPassed": 18,
+      "parentBehavioralPassed": 18,
+      "cliElapsedSecondsSum": 685.592,
+      "completedCommandEvents": 100,
+      "reportedUsage": {
+        "input_tokens": 2099867,
+        "cached_input_tokens": 1826688,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 19427,
+        "reasoning_output_tokens": 2425
+      },
+      "cost": null,
+      "threadIdentityHashes": [
+        "1c6c880493b33d6e4abaaefd2ec08f60f799ca38030e3876dbb96d38f7443ab2",
+        "d0be73411a6e694ce5efebddf21225dada3ff9dd4276b88e3ad8ee3e2952368d",
+        "485928eb4f1e957f90b17b5ec460001d0afcfb2bc8d28eb028585c7361f91012",
+        "0d5312059596444353fd1aa6d8e9c4ca82bbfae653004cb2aef4a7eebb209832",
+        "838971032466fa52fc50713dba6abb7bafd9dc3a6450da66b4fd1e4c1c728141",
+        "ee06f71cccf7dc4cb68d075374d73e4c9051ba4ea482e8e246ba95518b0eb617",
+        "df0464a39fa8150b866da68f0c5abdbe81c4ec414b74c7a066f024528e18ff1a",
+        "4e9d7232dd8ae69d75fda0664b4a3f80ec08c4fb03473cdeea3c6ce790f5c2cb",
+        "99629435342920768e0a73d20d612a2cfb7c219600d5b7fee9b24b7e064424ba",
+        "0031e98d174f18180a6bf3e9d1a25417d76aa74825b8f8e6ec04eac2cccd71f2",
+        "d2ec983eecd581c7e0501e6c81f0a9f37c18820bbcd40ab9a7c246991863e9bc",
+        "6994de6040a223ee113f48aa5740f62d7c909b474a14926b0d21e5341cc401a9",
+        "fa533d7216c7e77c0114cc5153641b0281f5d300c185408949d13ba982e2cc3b",
+        "f8a04748c6ef67b6d8e283ad80779e63a27bab85738b4c25d4b9d5c720549f5f",
+        "0a018fbd3c5dcfc3187cc99b7eace5799a430fdffc18d09f6e06f68c73a850bd",
+        "d25323923ca66e2735ca898e57658260d1673953c0f9e7aad7257f63802d41f8",
+        "1001aca1b00ecc2f515bcd507c80b0a35c92ffac9d700da42a1f6f79c48cfcc3",
+        "a54958c30eb1be3c621971273cc5526937f9c95826cd8e991e7d0bf0fa2845f9"
+      ]
+    },
+    "regression2": {
+      "file": "regression-v2.json",
+      "sha256": "3b94282fc43b31921dd1155000289b556116139ae4c12c8b8f61f99e15b8bc75",
+      "cases": 8,
+      "distinctThreadIdentityHashes": 8,
+      "allThreadsDistinct": true,
+      "deterministicPassed": 8,
+      "parentBehavioralPassed": 8,
+      "cliElapsedSecondsSum": 375.088,
+      "completedCommandEvents": 36,
+      "reportedUsage": {
+        "input_tokens": 917935,
+        "cached_input_tokens": 799360,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 11202,
+        "reasoning_output_tokens": 1140
+      },
+      "cost": null,
+      "threadIdentityHashes": [
+        "f39cfae391598c43f1ddbdc1ff70711351f7024fc896a1810149d2f719ceffc5",
+        "ab890b041688197b8b5c49b6adf613ecd4025c64c7c00a986b23fcb8da5e1a48",
+        "9583631f9b4505c7632b03c39b3e29a2b8d6649874bd255919be7c22a83153f6",
+        "8b82b1b6ef7b3bd6d2ef5a1da4ed90e619a1253c09cb9ab2dda1e316d808889a",
+        "7394714271ec998345570822aab118480a521e6b336916397a60f8227240cc6e",
+        "94fadb05085b0fcf3e37f6d93c425b84499b925b4c8ef873e9a4b42ff72c524c",
+        "4211782b2c34c156d2f2cae466c6e20f311e769ef9f45c05b8bc2b961d1f3fd0",
+        "6d801ec30deb0c92410c07c3351582604475efed7caccdc108eea4e89e5af25c"
+      ]
+    },
+    "regression1": {
+      "file": "legacy-attempt.json",
+      "sha256": "d23c188f5ae1598a7f92d7e873f0e6f44b9235ee2a6c18529de20dd930309260",
+      "cases": 4,
+      "distinctThreadIdentityHashes": 4,
+      "allThreadsDistinct": true,
+      "deterministicPassed": 3,
+      "parentBehavioralPassed": null,
+      "cliElapsedSecondsSum": 191.689,
+      "completedCommandEvents": 21,
+      "reportedUsage": {
+        "input_tokens": 494324,
+        "cached_input_tokens": 423296,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 6289,
+        "reasoning_output_tokens": 402
+      },
+      "cost": null,
+      "threadIdentityHashes": [
+        "45437098ee35f5503094b0e4b30a0a7a296d30e28f6136b6498b9b1e37ae5723",
+        "f95ffb1f9e4746be4da64d9686033f9a9e073413518b9dbd214adc0db680f616",
+        "74485326b51c9a645344d044b4e75fb14688fbcf9677b9cb5356899c69d4752b",
+        "0ccc99a32c38f59c10cded12bec30558c0b6cf99aeddaeb589d73b16bdd3df49"
+      ]
+    }
+  },
+  "continuityChecks": [
+    {
+      "suite": "run1",
+      "from": "P03",
+      "to": "P04",
+      "allTextFilesIdentical": true
+    },
+    {
+      "suite": "run1",
+      "from": "P07",
+      "to": "P08",
+      "allTextFilesIdentical": true
+    },
+    {
+      "suite": "run1",
+      "from": "P08",
+      "to": "P09",
+      "allTextFilesIdentical": true
+    },
+    {
+      "suite": "run1",
+      "from": "P11",
+      "to": "P12",
+      "allTextFilesIdentical": true
+    },
+    {
+      "suite": "run1",
+      "from": "P12",
+      "to": "P13",
+      "allTextFilesIdentical": true
+    },
+    {
+      "suite": "regression2",
+      "from": "S01",
+      "to": "S02",
+      "allTextFilesIdentical": true
+    },
+    {
+      "suite": "regression2",
+      "from": "S02",
+      "to": "S03",
+      "allTextFilesIdentical": true
+    },
+    {
+      "suite": "regression2",
+      "from": "S03",
+      "to": "S04",
+      "allTextFilesIdentical": true
+    }
+  ],
+  "limitations": [
+    "One invocation per case in each versioned suite; synthetic projects only.",
+    "Not a matched baseline comparison, real-project pilot, hard resource enforcement, crash recovery or long-context test.",
+    "CLI time includes tools and overlapping evaluation activity; input tokens include cached tokens. Full injected runtime context is not observable.",
+    "Raw event/stderr streams remain temporary; retained command outputs are the runner-captured excerpts, not a complete event dump.",
+    "Duplicate IDs, contradictory ordering and a later narrower grant are product rules reviewed statically, not distinct native behavioral cases in this set."
+  ]
+}

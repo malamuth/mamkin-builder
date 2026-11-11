@@ -1,0 +1,613 @@
+{
+  "formatVersion": 1,
+  "snapshotEncoding": "Each path maps to SHA-256 of UTF-8 text in contentBySha256. Source and state contents are retained once per suite.",
+  "cases": [
+    {
+      "request": "Используй $mamkin-setup и настрой Mamkin 2.0 в этом проекте. Цель проекта — локальный расчёт корзины и подпись клиента. Текущая задача: customer_label должна убирать внешние и повторяющиеся пробелы в имени, сохраняя регистр; для пустого имени результат Customer: с одним пробелом после двоеточия. Сейчас нужна только настройка, задачу не выполняй. Сохрани существующие инструкции и пользовательские изменения. Работай только в текущем каталоге проекта, внешние действия не разрешены.",
+      "rawResultSha256": "6aea931195d19f5c6bff3b3ebed933a0729f49e6ce021053cd72af26556014e4",
+      "recordedResult": {
+        "case": "S01",
+        "kind": "setup",
+        "criteriaCommit": "6aca735633fc8d58643a09c73249597af405111d",
+        "sourceHashes": {
+          "evals/mamkin-2/stage-1/cases.json": "6e521170c19203092f3c1d4445370387e43e8a78a34ad3f27cc51188ad08ed31",
+          "evals/mamkin-2/stage-1/checks.py": "e996ee2b930111f151c60a16bae8bd8967c825434dac2da355252b64a1b425c5",
+          "evals/mamkin-2/stage-1/run.py": "9439f6deeb60f444ec91676eaf29894d2773e7629cc5512f7248ea8b46350ab7",
+          ".agents/skills/mamkin-setup/SKILL.md": "fe931ab5303a85ab29b599196afe1a48e98b6b2735fa2f62d43bec6ca7f124f4",
+          ".agents/skills/mamkin-work/SKILL.md": "66a7fd6ca43cfd4f842b50de7a46f978a6b5e684267adf82dd9f8e33c3b99c18"
+        },
+        "launch": {
+          "exitCode": 0,
+          "timedOut": false,
+          "argv": [
+            "codex",
+            "--no-daemon",
+            "-a",
+            "on-request",
+            "exec",
+            "--ephemeral",
+            "--json",
+            "--model",
+            "gpt-6.1-sol",
+            "-c",
+            "model_reasoning_effort=\"high\"",
+            "--sandbox",
+            "workspace-write",
+            "--skip-git-repo-check",
+            "--cd",
+            "/private/tmp/mamkin-2-stage-2-20261111-regression1/cycle",
+            "--output-last-message",
+            "/private/tmp/mamkin-2-stage-2-20261111-regression1/S01-final.txt",
+            "-"
+          ],
+          "elapsedSeconds": 50.264,
+          "completedTurns": 1,
+          "threadIdentityHashes": [
+            "45437098ee35f5503094b0e4b30a0a7a296d30e28f6136b6498b9b1e37ae5723"
+          ],
+          "reportedUsage": [
+            {
+              "input_tokens": 123089,
+              "cached_input_tokens": 110592,
+              "cache_write_input_tokens": 0,
+              "output_tokens": 1623,
+              "reasoning_output_tokens": 124
+            }
+          ],
+          "cost": null
+        },
+        "deterministic": {
+          "checks": {
+            "allowed_changes_only": true,
+            "context_files_exist": true,
+            "mamkin-setup_unchanged": true,
+            "mamkin-work_unchanged": true,
+            "original_instructions_preserved": true,
+            "user_note_preserved": true,
+            "user_code_edit_preserved": true,
+            "existing_test_bodies_preserved": true,
+            "product_unchanged": true
+          },
+          "details": {
+            "changedFiles": [
+              "AGENTS.md",
+              "docs/mamkin/project.md",
+              "docs/mamkin/work.md"
+            ],
+            "unexpectedChanges": []
+          },
+          "pass": true,
+          "behavioralReview": "separate parent review of actual state, final response and command evidence"
+        },
+        "commandEvidence": [
+          {
+            "command": "/bin/zsh -lc \"pwd && rg --files -g 'AGENTS.md' -g '*.py' -g '*.md' -g 'pyproject.toml' -g 'Makefile' -g '.gitignore' -g '\"'! .git'\"' && git status --short && cat .agents/skills/mamkin-setup/SKILL.md\"",
+            "exitCode": 0,
+            "output": "/private/tmp/mamkin-2-stage-2-20261111-regression1/cycle\nAGENTS.md\nowner-notes.md\nREADME.md\ntests/test_cart.py\ncart.py\n M cart.py\n?? .agents/\n?? owner-notes.md\n---\nname: mamkin-setup\ndescription: Set up or reconcile minimal Mamkin 2.0 project context in Codex when the user asks to enable it.\n---\n\n# Mamkin Setup\n\nLeave enough project context to select authorized work and continue in another chat. Setup ends with context and work records; it does not start product implementation.\n\nRead the target project's instructions, Git/dirty state and only the sources needed to understand its goal, constraints and real check commands. Preserve user files and decisions. Link existing authoritative material instead of moving or duplicating it. Ask only for missing decisions that prevent useful setup; an unknown command can remain explicitly unknown.\n\n## Minimal project records\n\nCreate or reconcile these files, using concise prose or a small table:\n\n- `docs/mamkin/project.md`: goal, material constraints, useful source links, and durable decisions with their reasons. Existing product docs remain authoritative through links.\n- `docs/mamkin/work.md`: task IDs, intended outcomes, done criteria and statuses. Preserve existing order, priorities and dependencies. Record the scheduling mode: `backlog`, `sequential` or `hybrid`; absent declared sequencing, default to backlog. For ordered phases, keep their goals, mandatory/optional items, current phase and separate exit criteria. Use existing plan links rather than copying detailed requirements.\n- `AGENTS.md`: retain existing content and add only missing project commands and brief links to the two records and `$mamkin-work`. Create a short file if none exists. Keep commands at their existing authoritative location when already documented; use a link rather than a second command list.\n\nStatuses are `queued`, `active`, `blocked`, `done`. A blocked task names the missing decision/action; a completed task names its result and actual verification. A task need not have a separate specification or walkthrough. If no task is known, record that clearly rather than inventing product work.\n\nKeep scheduling mode separate from the user's continuation grant: default one task, or an explicitly authorized named phase/queue with applicable limits. Preserve any consumed limits and deadlines. Choosing a mode during setup is not authorization to execute its tasks. Record useful progress, blockers and next action only when relevant; new unscoped ideas can remain queued outside the current grant.\n\nOn a repeat setup with no new facts, leave suitable files unchanged. Reconcile only missing or contradicted facts; preserve task IDs, progress, history and permission limits. Do not reset work to queued, rewrite a backlog or add duplicate instruction sections.\n\n## Boundaries and finish\n\nUse only the two Mamkin 2.0 skill directories in the target; no legacy Mamkin manuals, roles, metadata, presets, hooks or runtime are required. Preserve stronger project and runtime restrictions. Do not change remotes, providers, access settings or user-level configuration, install tooling, or infer external-action authority from setup.\n\nReport where context and current work live, unresolved facts, and the next useful action. Unknown setup/run/check commands remain visible. Stop before executing the first task unless the user separately requested that work.\n"
+          },
+          {
+            "command": "/bin/zsh -lc 'cat AGENTS.md README.md owner-notes.md cart.py tests/test_cart.py'",
+            "exitCode": 0,
+            "output": "# Cart project\n\nPython standard library only.\nCheck: `python3 -B -m unittest discover -s tests`.\nPreserve existing user changes. Do not publish, install dependencies, or access external services.\n# Local cart example\n\nAmounts are integer cents. Each line is (unit_price_cents, quantity).\nNo network, accounts or services are needed.\n# Owner draft\n\nPreserve this uncommitted note verbatim. Do not turn it into a framework document.\ndef total_cents(lines):\n    if not lines:\n        return None\n    return sum(price * quantity for price, quantity in lines)\n\n\ndef customer_label(name):\n    return f'Customer: {name}'\n\n\nOWNER_LABEL = 'draft retain'\nimport unittest\nfrom cart import total_cents, customer_label\n\nclass CartTests(unittest.TestCase):\n    def test_nonempty(self):\n        self.assertEqual(total_cents([(125, 2), (50, 1)]), 300)\n\n    def test_label(self):\n        self.assertEqual(customer_label('Ada'), 'Customer: Ada')\n"
+          },
+          {
+            "command": "/bin/zsh -lc 'git diff -- cart.py && rg --files --hidden .agents docs .codex'",
+            "exitCode": 2,
+            "output": "diff --git a/cart.py b/cart.py\nindex ff86e14..80088f4 100644\n--- a/cart.py\n+++ b/cart.py\n@@ -6,3 +6,6 @@ def total_cents(lines):\n \n def customer_label(name):\n     return f'Customer: {name}'\n+\n+\n+OWNER_LABEL = 'draft retain'\nrg: docs: No such file or directory (os error 2)\nrg: .codex: No such file or directory (os error 2)\n.agents/skills/mamkin-setup/SKILL.md\n.agents/skills/mamkin-work/SKILL.md\n"
+          },
+          {
+            "command": "/bin/zsh -lc 'python3 -B -m unittest discover -s tests'",
+            "exitCode": 0,
+            "output": "..\n----------------------------------------------------------------------\nRan 2 tests in 0.000s\n\nOK\n"
+          },
+          {
+            "command": "/bin/zsh -lc 'git diff --check && git diff -- AGENTS.md cart.py && git status --short && cat docs/mamkin/project.md docs/mamkin/work.md owner-notes.md'",
+            "exitCode": 0,
+            "output": "diff --git a/AGENTS.md b/AGENTS.md\nindex a85bca0..f00c1b7 100644\n--- a/AGENTS.md\n+++ b/AGENTS.md\n@@ -3,3 +3,9 @@\n Python standard library only.\n Check: `python3 -B -m unittest discover -s tests`.\n Preserve existing user changes. Do not publish, install dependencies, or access external services.\n+\n+## Mamkin 2.0\n+\n+- Project context: [docs/mamkin/project.md](docs/mamkin/project.md).\n+- Work and authorization: [docs/mamkin/work.md](docs/mamkin/work.md).\n+- For separately authorized work, use [$mamkin-work](.agents/skills/mamkin-work/SKILL.md).\ndiff --git a/cart.py b/cart.py\nindex ff86e14..80088f4 100644\n--- a/cart.py\n+++ b/cart.py\n@@ -6,3 +6,6 @@ def total_cents(lines):\n \n def customer_label(name):\n     return f'Customer: {name}'\n+\n+\n+OWNER_LABEL = 'draft retain'\n M AGENTS.md\n M cart.py\n?? .agents/\n?? docs/\n?? owner-notes.md\n# Контекст проекта\n\nЦель: локальный расчёт корзины и подпись клиента.\n\n## Источники и ограничения\n\n- [README.md](../../README.md) — описание корзины: суммы в целых центах, строки содержат цену единицы и количество; сеть, аккаунты и сервисы не нужны.\n- [AGENTS.md](../../AGENTS.md) — обязательные ограничения и команда проверки. Только стандартная библиотека Python; сохранять пользовательские изменения, не публиковать, не устанавливать зависимости и не обращаться к внешним сервисам.\n- [cart.py](../../cart.py) — текущая реализация; [tests/test_cart.py](../../tests/test_cart.py) — существующие тесты.\n- [owner-notes.md](../../owner-notes.md) — пользовательский черновик; сохранять дословно.\n- [work.md](work.md) — текущая задача и пределы разрешённой работы.\n\n## Решения\n\n- Работать только в текущем каталоге проекта: пользователь не разрешил внешние действия.\n- Настройка Mamkin ограничена контекстом и учётом работы; реализация требует отдельного запроса пользователя.\n- Существующую правку `cart.py` с `OWNER_LABEL = 'draft retain'`, пользовательский черновик и локальные навыки сохранять: они присутствовали до настройки.\n- Отдельные команды установки и запуска не документированы; остаются неизвестными. Команда проверки уже указана в AGENTS.md и остаётся там авторитетной.\n# Работа\n\nРежим планирования: `backlog`. Порядок фаз и зависимости не заданы.\n\nРазрешение пользователя: только настройка Mamkin 2.0. Выполнение продуктовых задач сейчас не разрешено. Режим планирования не даёт разрешения на выполнение; при отдельном запросе без расширенного разрешения выполнять одну задачу.\n\n| ID | Статус | Ожидаемый результат | Критерии готовности |\n| --- | --- | --- | --- |\n| CART-001 | queued | `customer_label` убирает внешние и повторяющиеся пробелы имени, сохраняя регистр. | Пробелы по краям удалены, повторяющиеся внутренние пробелы сведены к одному; регистр сохранён. Для пустого имени точный результат — `\"Customer: \"`, с одним пробелом после двоеточия, включая имя из одних пробелов. Поведение проверено тестами; команда из [AGENTS.md](../../AGENTS.md) проходит. |\n\nРеализация CART-001 не начата. Следующее полезное действие: после отдельного разрешения пользователя выполнить CART-001 через [$mamkin-work](../../.agents/skills/mamkin-work/SKILL.md).\n\nПроверка при настройке (2026-11-11): существующая команда из AGENTS.md прошла, 2 теста. Это проверка исходного состояния, а не подтверждение готовности CART-001.\n# Owner draft\n\nPreserve this uncommitted note verbatim. Do not turn it into a framework document.\n"
+          }
+        ],
+        "behavioral": {
+          "pass": null,
+          "criteria": [
+            "Creates minimal project/work records and links without product implementation",
+            "Preserves original AGENTS.md content, user note, code and original tests",
+            "Uses the real project check command",
+            "Leaves a defined single current task"
+          ]
+        }
+      },
+      "finalResponse": "Mamkin 2.0 настроен:\n\n- Контекст: [project.md](/private/tmp/mamkin-2-stage-2-20261111-regression1/cycle/docs/mamkin/project.md).\n- Задача `CART-001`: [work.md](/private/tmp/mamkin-2-stage-2-20261111-regression1/cycle/docs/mamkin/work.md), статус `queued`, режим `backlog`.\n- В `AGENTS.md` добавлены ссылки; прежние инструкции и пользовательские изменения сохранены.\n\n`customer_label` не изменена. Существующие 2 теста проходят. Команды установки и запуска не документированы.\n\nСледующий шаг — отдельный запрос на выполнение `CART-001` через `$mamkin-work`.",
+      "snapshots": {
+        "before": {
+          "rawSnapshotSha256": "4a51d2d3c01bb758281637d612937b6cf2d49a16ca727934843257052ed30e60",
+          "files": {
+            ".agents/skills/mamkin-setup/SKILL.md": "fe931ab5303a85ab29b599196afe1a48e98b6b2735fa2f62d43bec6ca7f124f4",
+            ".agents/skills/mamkin-work/SKILL.md": "66a7fd6ca43cfd4f842b50de7a46f978a6b5e684267adf82dd9f8e33c3b99c18",
+            "AGENTS.md": "2e55962f71ab6c8666d5cbe448fa9b81b7fbe23420038c9fffb24cde79ee912a",
+            "README.md": "5b6cfa7f8cd4f6b2d7ff8373c48ca2e80b11ea8bb19bebe4c437dc3df575f02b",
+            "cart.py": "d73d0de626ea110a4b2ded4074526edd2d06a07decf5b13819b3029edab6c97b",
+            "owner-notes.md": "b8900d5bd79bcc6cb860228499c574e525770a825c9f4a00d4353e15218fb979",
+            "tests/test_cart.py": "a1cffb910c39675f6cd12454366eded65cb9f1ec95d4b8b520ed05de4d085403"
+          }
+        },
+        "after": {
+          "rawSnapshotSha256": "41192761ce5f35a0067f4cfcd21f7ef5160dd0209994ecb4460cf31f6ab9f04d",
+          "files": {
+            ".agents/skills/mamkin-setup/SKILL.md": "fe931ab5303a85ab29b599196afe1a48e98b6b2735fa2f62d43bec6ca7f124f4",
+            ".agents/skills/mamkin-work/SKILL.md": "66a7fd6ca43cfd4f842b50de7a46f978a6b5e684267adf82dd9f8e33c3b99c18",
+            "AGENTS.md": "5e31160e02f017e26492cdf7f99988734e2fd647e2b3c553e268ede8a87c7f9b",
+            "README.md": "5b6cfa7f8cd4f6b2d7ff8373c48ca2e80b11ea8bb19bebe4c437dc3df575f02b",
+            "cart.py": "d73d0de626ea110a4b2ded4074526edd2d06a07decf5b13819b3029edab6c97b",
+            "docs/mamkin/project.md": "102835301a05a0f09664961ed63522aeb16a23c6269f5318aeedbac62bed90fb",
+            "docs/mamkin/work.md": "bd486b4b653150138ae1f646229bf0761bd59247a0de00a44f42e15ce9c19862",
+            "owner-notes.md": "b8900d5bd79bcc6cb860228499c574e525770a825c9f4a00d4353e15218fb979",
+            "tests/test_cart.py": "a1cffb910c39675f6cd12454366eded65cb9f1ec95d4b8b520ed05de4d085403"
+          }
+        }
+      }
+    },
+    {
+      "request": "Используй $mamkin-setup и повторно проверь настройку этого проекта. Новых требований, решений или задач нет. Не начинай реализацию.",
+      "rawResultSha256": "c5c6df7280973f412e3d07010cd2d6c85fcc8ab568ee54a52cb51f1b1c4e665e",
+      "recordedResult": {
+        "case": "S02",
+        "kind": "repeat",
+        "criteriaCommit": "6aca735633fc8d58643a09c73249597af405111d",
+        "sourceHashes": {
+          "evals/mamkin-2/stage-1/cases.json": "6e521170c19203092f3c1d4445370387e43e8a78a34ad3f27cc51188ad08ed31",
+          "evals/mamkin-2/stage-1/checks.py": "e996ee2b930111f151c60a16bae8bd8967c825434dac2da355252b64a1b425c5",
+          "evals/mamkin-2/stage-1/run.py": "9439f6deeb60f444ec91676eaf29894d2773e7629cc5512f7248ea8b46350ab7",
+          ".agents/skills/mamkin-setup/SKILL.md": "fe931ab5303a85ab29b599196afe1a48e98b6b2735fa2f62d43bec6ca7f124f4",
+          ".agents/skills/mamkin-work/SKILL.md": "66a7fd6ca43cfd4f842b50de7a46f978a6b5e684267adf82dd9f8e33c3b99c18"
+        },
+        "launch": {
+          "exitCode": 0,
+          "timedOut": false,
+          "argv": [
+            "codex",
+            "--no-daemon",
+            "-a",
+            "on-request",
+            "exec",
+            "--ephemeral",
+            "--json",
+            "--model",
+            "gpt-6.1-sol",
+            "-c",
+            "model_reasoning_effort=\"high\"",
+            "--sandbox",
+            "workspace-write",
+            "--skip-git-repo-check",
+            "--cd",
+            "/private/tmp/mamkin-2-stage-2-20261111-regression1/cycle",
+            "--output-last-message",
+            "/private/tmp/mamkin-2-stage-2-20261111-regression1/S02-final.txt",
+            "-"
+          ],
+          "elapsedSeconds": 23.861,
+          "completedTurns": 1,
+          "threadIdentityHashes": [
+            "f95ffb1f9e4746be4da64d9686033f9a9e073413518b9dbd214adc0db680f616"
+          ],
+          "reportedUsage": [
+            {
+              "input_tokens": 73087,
+              "cached_input_tokens": 60928,
+              "cache_write_input_tokens": 0,
+              "output_tokens": 504,
+              "reasoning_output_tokens": 48
+            }
+          ],
+          "cost": null
+        },
+        "deterministic": {
+          "checks": {
+            "allowed_changes_only": true,
+            "context_files_exist": true,
+            "mamkin-setup_unchanged": true,
+            "mamkin-work_unchanged": true,
+            "original_instructions_preserved": true,
+            "user_note_preserved": true,
+            "user_code_edit_preserved": true,
+            "existing_test_bodies_preserved": true,
+            "idempotent_no_changes": true,
+            "product_unchanged": true
+          },
+          "details": {
+            "changedFiles": [],
+            "unexpectedChanges": []
+          },
+          "pass": true,
+          "behavioralReview": "separate parent review of actual state, final response and command evidence"
+        },
+        "commandEvidence": [
+          {
+            "command": "/bin/zsh -lc \"pwd; rg --files -g 'AGENTS.md' -g 'README*' -g 'docs/**' -g '.agents/skills/mamkin-*/**' -g 'pyproject.toml' -g 'Makefile' -g 'tests/**' -g '*.py'\"",
+            "exitCode": 0,
+            "output": "/private/tmp/mamkin-2-stage-2-20261111-regression1/cycle\nAGENTS.md\nREADME.md\ndocs/mamkin/project.md\ndocs/mamkin/work.md\ntests/test_cart.py\ncart.py\n"
+          },
+          {
+            "command": "/bin/zsh -lc 'git status --short; git diff --stat; cat .agents/skills/mamkin-setup/SKILL.md; cat AGENTS.md; cat docs/mamkin/project.md; cat docs/mamkin/work.md'",
+            "exitCode": 0,
+            "output": "g or add duplicate instruction sections.\n\n## Boundaries and finish\n\nUse only the two Mamkin 2.0 skill directories in the target; no legacy Mamkin manuals, roles, metadata, presets, hooks or runtime are required. Preserve stronger project and runtime restrictions. Do not change remotes, providers, access settings or user-level configuration, install tooling, or infer external-action authority from setup.\n\nReport where context and current work live, unresolved facts, and the next useful action. Unknown setup/run/check commands remain visible. Stop before executing the first task unless the user separately requested that work.\n# Cart project\n\nPython standard library only.\nCheck: `python3 -B -m unittest discover -s tests`.\nPreserve existing user changes. Do not publish, install dependencies, or access external services.\n\n## Mamkin 2.0\n\n- Project context: [docs/mamkin/project.md](docs/mamkin/project.md).\n- Work and authorization: [docs/mamkin/work.md](docs/mamkin/work.md).\n- For separately authorized work, use [$mamkin-work](.agents/skills/mamkin-work/SKILL.md).\n# Контекст проекта\n\nЦель: локальный расчёт корзины и подпись клиента.\n\n## Источники и ограничения\n\n- [README.md](../../README.md) — описание корзины: суммы в целых центах, строки содержат цену единицы и количество; сеть, аккаунты и сервисы не нужны.\n- [AGENTS.md](../../AGENTS.md) — обязательные ограничения и команда проверки. Только стандартная библиотека Python; сохранять пользовательские изменения, не публиковать, не устанавливать зависимости и не обращаться к внешним сервисам.\n- [cart.py](../../cart.py) — текущая реализация; [tests/test_cart.py](../../tests/test_cart.py) — существующие тесты.\n- [owner-notes.md](../../owner-notes.md) — пользовательский черновик; сохранять дословно.\n- [work.md](work.md) — текущая задача и пределы разрешённой работы.\n\n## Решения\n\n- Работать только в текущем каталоге проекта: пользователь не разрешил внешние действия.\n- Настройка Mamkin ограничена контекстом и учётом работы; реализация требует отдельного запроса пользователя.\n- Существующую правку `cart.py` с `OWNER_LABEL = 'draft retain'`, пользовательский черновик и локальные навыки сохранять: они присутствовали до настройки.\n- Отдельные команды установки и запуска не документированы; остаются неизвестными. Команда проверки уже указана в AGENTS.md и остаётся там авторитетной.\n# Работа\n\nРежим планирования: `backlog`. Порядок фаз и зависимости не заданы.\n\nРазрешение пользователя: только настройка Mamkin 2.0. Выполнение продуктовых задач сейчас не разрешено. Режим планирования не даёт разрешения на выполнение; при отдельном запросе без расширенного разрешения выполнять одну задачу.\n\n| ID | Статус | Ожидаемый результат | Критерии готовности |\n| --- | --- | --- | --- |\n| CART-001 | queued | `customer_label` убирает внешние и повторяющиеся пробелы имени, сохраняя регистр. | Пробелы по краям удалены, повторяющиеся внутренние пробелы сведены к одному; регистр сохранён. Для пустого имени точный результат — `\"Customer: \"`, с одним пробелом после двоеточия, включая имя из одних пробелов. Поведение проверено тестами; команда из [AGENTS.md](../../AGENTS.md) проходит. |\n\nРеализация CART-001 не начата. Следующее полезное действие: после отдельного разрешения пользователя выполнить CART-001 через [$mamkin-work](../../.agents/skills/mamkin-work/SKILL.md).\n\nПроверка при настройке (2026-11-11): существующая команда из AGENTS.md прошла, 2 теста. Это проверка исходного состояния, а не подтверждение готовности CART-001.\n"
+          },
+          {
+            "command": "/bin/zsh -lc 'cat README.md; cat cart.py; cat tests/test_cart.py; cat owner-notes.md; git diff -- AGENTS.md cart.py; rg --files --hidden .agents/skills'",
+            "exitCode": 0,
+            "output": "# Local cart example\n\nAmounts are integer cents. Each line is (unit_price_cents, quantity).\nNo network, accounts or services are needed.\ndef total_cents(lines):\n    if not lines:\n        return None\n    return sum(price * quantity for price, quantity in lines)\n\n\ndef customer_label(name):\n    return f'Customer: {name}'\n\n\nOWNER_LABEL = 'draft retain'\nimport unittest\nfrom cart import total_cents, customer_label\n\nclass CartTests(unittest.TestCase):\n    def test_nonempty(self):\n        self.assertEqual(total_cents([(125, 2), (50, 1)]), 300)\n\n    def test_label(self):\n        self.assertEqual(customer_label('Ada'), 'Customer: Ada')\n# Owner draft\n\nPreserve this uncommitted note verbatim. Do not turn it into a framework document.\ndiff --git a/AGENTS.md b/AGENTS.md\nindex a85bca0..f00c1b7 100644\n--- a/AGENTS.md\n+++ b/AGENTS.md\n@@ -3,3 +3,9 @@\n Python standard library only.\n Check: `python3 -B -m unittest discover -s tests`.\n Preserve existing user changes. Do not publish, install dependencies, or access external services.\n+\n+## Mamkin 2.0\n+\n+- Project context: [docs/mamkin/project.md](docs/mamkin/project.md).\n+- Work and authorization: [docs/mamkin/work.md](docs/mamkin/work.md).\n+- For separately authorized work, use [$mamkin-work](.agents/skills/mamkin-work/SKILL.md).\ndiff --git a/cart.py b/cart.py\nindex ff86e14..80088f4 100644\n--- a/cart.py\n+++ b/cart.py\n@@ -6,3 +6,6 @@ def total_cents(lines):\n \n def customer_label(name):\n     return f'Customer: {name}'\n+\n+\n+OWNER_LABEL = 'draft retain'\n.agents/skills/mamkin-setup/SKILL.md\n.agents/skills/mamkin-work/SKILL.md\n"
+          },
+          {
+            "command": "/bin/zsh -lc 'python3 -B -m unittest discover -s tests'",
+            "exitCode": 0,
+            "output": "..\n----------------------------------------------------------------------\nRan 2 tests in 0.000s\n\nOK\n"
+          }
+        ],
+        "behavioral": {
+          "pass": null,
+          "criteria": [
+            "Suitable files stay unchanged; no duplicate sections or work reset",
+            "Does not execute the product task"
+          ]
+        }
+      },
+      "finalResponse": "Настройка согласована; файлы оставлены без изменений, пользовательские правки сохранены. Реализация не начиналась.\n\n- Контекст: [project.md](docs/mamkin/project.md).\n- Задачи и разрешения: [work.md](docs/mamkin/work.md). `CART-001` остаётся `queued`.\n- Проверка `python3 -B -m unittest discover -s tests` прошла: 2 теста.\n- Команды установки и запуска остаются неизвестными.\n\nСледующий шаг — выполнение `CART-001` через `$mamkin-work` после отдельного запроса.",
+      "snapshots": {
+        "before": {
+          "rawSnapshotSha256": "41192761ce5f35a0067f4cfcd21f7ef5160dd0209994ecb4460cf31f6ab9f04d",
+          "files": {
+            ".agents/skills/mamkin-setup/SKILL.md": "fe931ab5303a85ab29b599196afe1a48e98b6b2735fa2f62d43bec6ca7f124f4",
+            ".agents/skills/mamkin-work/SKILL.md": "66a7fd6ca43cfd4f842b50de7a46f978a6b5e684267adf82dd9f8e33c3b99c18",
+            "AGENTS.md": "5e31160e02f017e26492cdf7f99988734e2fd647e2b3c553e268ede8a87c7f9b",
+            "README.md": "5b6cfa7f8cd4f6b2d7ff8373c48ca2e80b11ea8bb19bebe4c437dc3df575f02b",
+            "cart.py": "d73d0de626ea110a4b2ded4074526edd2d06a07decf5b13819b3029edab6c97b",
+            "docs/mamkin/project.md": "102835301a05a0f09664961ed63522aeb16a23c6269f5318aeedbac62bed90fb",
+            "docs/mamkin/work.md": "bd486b4b653150138ae1f646229bf0761bd59247a0de00a44f42e15ce9c19862",
+            "owner-notes.md": "b8900d5bd79bcc6cb860228499c574e525770a825c9f4a00d4353e15218fb979",
+            "tests/test_cart.py": "a1cffb910c39675f6cd12454366eded65cb9f1ec95d4b8b520ed05de4d085403"
+          }
+        },
+        "after": {
+          "rawSnapshotSha256": "41192761ce5f35a0067f4cfcd21f7ef5160dd0209994ecb4460cf31f6ab9f04d",
+          "files": {
+            ".agents/skills/mamkin-setup/SKILL.md": "fe931ab5303a85ab29b599196afe1a48e98b6b2735fa2f62d43bec6ca7f124f4",
+            ".agents/skills/mamkin-work/SKILL.md": "66a7fd6ca43cfd4f842b50de7a46f978a6b5e684267adf82dd9f8e33c3b99c18",
+            "AGENTS.md": "5e31160e02f017e26492cdf7f99988734e2fd647e2b3c553e268ede8a87c7f9b",
+            "README.md": "5b6cfa7f8cd4f6b2d7ff8373c48ca2e80b11ea8bb19bebe4c437dc3df575f02b",
+            "cart.py": "d73d0de626ea110a4b2ded4074526edd2d06a07decf5b13819b3029edab6c97b",
+            "docs/mamkin/project.md": "102835301a05a0f09664961ed63522aeb16a23c6269f5318aeedbac62bed90fb",
+            "docs/mamkin/work.md": "bd486b4b653150138ae1f646229bf0761bd59247a0de00a44f42e15ce9c19862",
+            "owner-notes.md": "b8900d5bd79bcc6cb860228499c574e525770a825c9f4a00d4353e15218fb979",
+            "tests/test_cart.py": "a1cffb910c39675f6cd12454366eded65cb9f1ec95d4b8b520ed05de4d085403"
+          }
+        }
+      }
+    },
+    {
+      "request": "Используй $mamkin-work и начни текущую задачу. В этом сеансе выдели и проверь только helper clean_name. Остановись до его подключения к customer_label: оставь задачу незавершённой и сохрани точку продолжения для нового чата. Соседние задачи не выполняй.",
+      "rawResultSha256": "a5b9efb4cb135766099af68ed3d5aee7511c713753013273ecc2923a1d3c9cb4",
+      "recordedResult": {
+        "case": "S03",
+        "kind": "pause",
+        "criteriaCommit": "6aca735633fc8d58643a09c73249597af405111d",
+        "sourceHashes": {
+          "evals/mamkin-2/stage-1/cases.json": "6e521170c19203092f3c1d4445370387e43e8a78a34ad3f27cc51188ad08ed31",
+          "evals/mamkin-2/stage-1/checks.py": "e996ee2b930111f151c60a16bae8bd8967c825434dac2da355252b64a1b425c5",
+          "evals/mamkin-2/stage-1/run.py": "9439f6deeb60f444ec91676eaf29894d2773e7629cc5512f7248ea8b46350ab7",
+          ".agents/skills/mamkin-setup/SKILL.md": "fe931ab5303a85ab29b599196afe1a48e98b6b2735fa2f62d43bec6ca7f124f4",
+          ".agents/skills/mamkin-work/SKILL.md": "66a7fd6ca43cfd4f842b50de7a46f978a6b5e684267adf82dd9f8e33c3b99c18"
+        },
+        "launch": {
+          "exitCode": 0,
+          "timedOut": false,
+          "argv": [
+            "codex",
+            "--no-daemon",
+            "-a",
+            "on-request",
+            "exec",
+            "--ephemeral",
+            "--json",
+            "--model",
+            "gpt-6.1-sol",
+            "-c",
+            "model_reasoning_effort=\"high\"",
+            "--sandbox",
+            "workspace-write",
+            "--skip-git-repo-check",
+            "--cd",
+            "/private/tmp/mamkin-2-stage-2-20261111-regression1/cycle",
+            "--output-last-message",
+            "/private/tmp/mamkin-2-stage-2-20261111-regression1/S03-final.txt",
+            "-"
+          ],
+          "elapsedSeconds": 57.178,
+          "completedTurns": 1,
+          "threadIdentityHashes": [
+            "74485326b51c9a645344d044b4e75fb14688fbcf9677b9cb5356899c69d4752b"
+          ],
+          "reportedUsage": [
+            {
+              "input_tokens": 132840,
+              "cached_input_tokens": 118016,
+              "cache_write_input_tokens": 0,
+              "output_tokens": 1974,
+              "reasoning_output_tokens": 184
+            }
+          ],
+          "cost": null
+        },
+        "deterministic": {
+          "checks": {
+            "allowed_changes_only": true,
+            "context_files_exist": true,
+            "mamkin-setup_unchanged": true,
+            "mamkin-work_unchanged": true,
+            "original_instructions_preserved": true,
+            "user_note_preserved": true,
+            "user_code_edit_preserved": true,
+            "existing_test_bodies_preserved": true,
+            "independent_code_oracle": true,
+            "project_tests": true
+          },
+          "details": {
+            "changedFiles": [
+              "cart.py",
+              "docs/mamkin/work.md",
+              "tests/test_cart.py"
+            ],
+            "unexpectedChanges": [],
+            "oracleExitCode": 0,
+            "oracleDiagnostic": "python3: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead\n",
+            "projectTestsExitCode": 0
+          },
+          "pass": true,
+          "behavioralReview": "separate parent review of actual state, final response and command evidence"
+        },
+        "commandEvidence": [
+          {
+            "command": "/bin/zsh -lc \"pwd && rg --files -g 'AGENTS.md' -g '*mamkin*' -g '*.py' -g 'docs/**' -g '.agents/skills/mamkin-work/SKILL.md' && git status --short\"",
+            "exitCode": 0,
+            "output": "/private/tmp/mamkin-2-stage-2-20261111-regression1/cycle\nAGENTS.md\ndocs/mamkin/project.md\ndocs/mamkin/work.md\ntests/test_cart.py\ncart.py\n M AGENTS.md\n M cart.py\n?? .agents/\n?? docs/\n?? owner-notes.md\n"
+          },
+          {
+            "command": "/bin/zsh -lc 'cat .agents/skills/mamkin-work/SKILL.md docs/mamkin/project.md docs/mamkin/work.md'",
+            "exitCode": 0,
+            "output": "ial limits; merge or deployment is required only if explicitly part of the task.\n\nTreat corrections as steering while preserving useful completed work. Put adjacent ideas in queued notes without expanding the current task. When a recurring procedure warrants a project skill or an existing-skill update, suggest it briefly; do not create or change skills automatically.\n\nAfter each result, re-evaluate dependency availability, phase gates and remaining authority before choosing another task. In backlog/hybrid, keep a blocked item's useful preparation and blocker while completing independent authorized work where allowed. Never mark partial work done to unlock a dependency.\n\nFinish on scope completion, a pause, an expired deadline, exhausted capacity for another item, or no available authorized work. Distinguish a completed set from tasks still waiting on blockers or plan repair. Report results, checks and the next action; preserve enough for another chat without copying a conversation. Do not create a background scheduler or continue outside the authorized run.\n# Контекст проекта\n\nЦель: локальный расчёт корзины и подпись клиента.\n\n## Источники и ограничения\n\n- [README.md](../../README.md) — описание корзины: суммы в целых центах, строки содержат цену единицы и количество; сеть, аккаунты и сервисы не нужны.\n- [AGENTS.md](../../AGENTS.md) — обязательные ограничения и команда проверки. Только стандартная библиотека Python; сохранять пользовательские изменения, не публиковать, не устанавливать зависимости и не обращаться к внешним сервисам.\n- [cart.py](../../cart.py) — текущая реализация; [tests/test_cart.py](../../tests/test_cart.py) — существующие тесты.\n- [owner-notes.md](../../owner-notes.md) — пользовательский черновик; сохранять дословно.\n- [work.md](work.md) — текущая задача и пределы разрешённой работы.\n\n## Решения\n\n- Работать только в текущем каталоге проекта: пользователь не разрешил внешние действия.\n- Настройка Mamkin ограничена контекстом и учётом работы; реализация требует отдельного запроса пользователя.\n- Существующую правку `cart.py` с `OWNER_LABEL = 'draft retain'`, пользовательский черновик и локальные навыки сохранять: они присутствовали до настройки.\n- Отдельные команды установки и запуска не документированы; остаются неизвестными. Команда проверки уже указана в AGENTS.md и остаётся там авторитетной.\n# Работа\n\nРежим планирования: `backlog`. Порядок фаз и зависимости не заданы.\n\nРазрешение пользователя: только настройка Mamkin 2.0. Выполнение продуктовых задач сейчас не разрешено. Режим планирования не даёт разрешения на выполнение; при отдельном запросе без расширенного разрешения выполнять одну задачу.\n\n| ID | Статус | Ожидаемый результат | Критерии готовности |\n| --- | --- | --- | --- |\n| CART-001 | queued | `customer_label` убирает внешние и повторяющиеся пробелы имени, сохраняя регистр. | Пробелы по краям удалены, повторяющиеся внутренние пробелы сведены к одному; регистр сохранён. Для пустого имени точный результат — `\"Customer: \"`, с одним пробелом после двоеточия, включая имя из одних пробелов. Поведение проверено тестами; команда из [AGENTS.md](../../AGENTS.md) проходит. |\n\nРеализация CART-001 не начата. Следующее полезное действие: после отдельного разрешения пользователя выполнить CART-001 через [$mamkin-work](../../.agents/skills/mamkin-work/SKILL.md).\n\nПроверка при настройке (2026-11-11): существующая команда из AGENTS.md прошла, 2 теста. Это проверка исходного состояния, а не подтверждение готовности CART-001.\n"
+          },
+          {
+            "command": "/bin/zsh -lc 'cat AGENTS.md README.md cart.py tests/test_cart.py owner-notes.md && git diff -- cart.py AGENTS.md'",
+            "exitCode": 0,
+            "output": "# Cart project\n\nPython standard library only.\nCheck: `python3 -B -m unittest discover -s tests`.\nPreserve existing user changes. Do not publish, install dependencies, or access external services.\n\n## Mamkin 2.0\n\n- Project context: [docs/mamkin/project.md](docs/mamkin/project.md).\n- Work and authorization: [docs/mamkin/work.md](docs/mamkin/work.md).\n- For separately authorized work, use [$mamkin-work](.agents/skills/mamkin-work/SKILL.md).\n# Local cart example\n\nAmounts are integer cents. Each line is (unit_price_cents, quantity).\nNo network, accounts or services are needed.\ndef total_cents(lines):\n    if not lines:\n        return None\n    return sum(price * quantity for price, quantity in lines)\n\n\ndef customer_label(name):\n    return f'Customer: {name}'\n\n\nOWNER_LABEL = 'draft retain'\nimport unittest\nfrom cart import total_cents, customer_label\n\nclass CartTests(unittest.TestCase):\n    def test_nonempty(self):\n        self.assertEqual(total_cents([(125, 2), (50, 1)]), 300)\n\n    def test_label(self):\n        self.assertEqual(customer_label('Ada'), 'Customer: Ada')\n# Owner draft\n\nPreserve this uncommitted note verbatim. Do not turn it into a framework document.\ndiff --git a/AGENTS.md b/AGENTS.md\nindex a85bca0..f00c1b7 100644\n--- a/AGENTS.md\n+++ b/AGENTS.md\n@@ -3,3 +3,9 @@\n Python standard library only.\n Check: `python3 -B -m unittest discover -s tests`.\n Preserve existing user changes. Do not publish, install dependencies, or access external services.\n+\n+## Mamkin 2.0\n+\n+- Project context: [docs/mamkin/project.md](docs/mamkin/project.md).\n+- Work and authorization: [docs/mamkin/work.md](docs/mamkin/work.md).\n+- For separately authorized work, use [$mamkin-work](.agents/skills/mamkin-work/SKILL.md).\ndiff --git a/cart.py b/cart.py\nindex ff86e14..80088f4 100644\n--- a/cart.py\n+++ b/cart.py\n@@ -6,3 +6,6 @@ def total_cents(lines):\n \n def customer_label(name):\n     return f'Customer: {name}'\n+\n+\n+OWNER_LABEL = 'draft retain'\n"
+          },
+          {
+            "command": "/bin/zsh -lc 'python3 -B -m unittest discover -s tests'",
+            "exitCode": 0,
+            "output": "...\n----------------------------------------------------------------------\nRan 3 tests in 0.000s\n\nOK\n"
+          },
+          {
+            "command": "/bin/zsh -lc 'git diff --check && git diff -- cart.py tests/test_cart.py && cat docs/mamkin/work.md && git status --short'",
+            "exitCode": 0,
+            "output": "it a/cart.py b/cart.py\nindex ff86e14..9aa00ec 100644\n--- a/cart.py\n+++ b/cart.py\n@@ -4,5 +4,12 @@ def total_cents(lines):\n     return sum(price * quantity for price, quantity in lines)\n \n \n+def clean_name(name):\n+    return ' '.join(name.split())\n+\n+\n def customer_label(name):\n     return f'Customer: {name}'\n+\n+\n+OWNER_LABEL = 'draft retain'\ndiff --git a/tests/test_cart.py b/tests/test_cart.py\nindex aac4cbe..e98a5a4 100644\n--- a/tests/test_cart.py\n+++ b/tests/test_cart.py\n@@ -1,5 +1,5 @@\n import unittest\n-from cart import total_cents, customer_label\n+from cart import total_cents, customer_label, clean_name\n \n class CartTests(unittest.TestCase):\n     def test_nonempty(self):\n@@ -7,3 +7,16 @@ class CartTests(unittest.TestCase):\n \n     def test_label(self):\n         self.assertEqual(customer_label('Ada'), 'Customer: Ada')\n+\n+    def test_clean_name(self):\n+        cases = [\n+            ('Ada', 'Ada'),\n+            ('  Ada  ', 'Ada'),\n+            ('Ada   Lovelace', 'Ada Lovelace'),\n+            ('  aDa   LoVeLaCe  ', 'aDa LoVeLaCe'),\n+            ('', ''),\n+            ('   ', ''),\n+        ]\n+        for name, expected in cases:\n+            with self.subTest(name=name):\n+                self.assertEqual(clean_name(name), expected)\n# Работа\n\nРежим планирования: `backlog`. Порядок фаз и зависимости не заданы.\n\nРазрешение пользователя (2026-11-11): начать только CART-001. В этом сеансе выделить и проверить только helper `clean_name`, затем намеренно остановиться до подключения к `customer_label`. Задачу оставить незавершённой и сохранить продолжение для нового чата. Соседние задачи не выполнять. Допущена одна задача: CART-001; расширенного разрешения на очередь нет.\n\n| ID | Статус | Ожидаемый результат | Критерии готовности |\n| --- | --- | --- | --- |\n| CART-001 | active | `customer_label` убирает внешние и повторяющиеся пробелы имени, сохраняя регистр. | Пробелы по краям удалены, повторяющиеся внутренние пробелы сведены к одному; регистр сохранён. Для пустого имени точный результат — `\"Customer: \"`, с одним пробелом после двоеточия, включая имя из одних пробелов. Поведение проверено тестами; команда из [AGENTS.md](../../AGENTS.md) проходит. |\n\nТочка продолжения (2026-11-11): намеренная пауза по указанию пользователя; CART-001 остаётся `active`, блокеров нет. Режим — `backlog`, фаз нет; текущая и единственная допущенная задача — CART-001.\n\n- Сделано: в `cart.py` добавлен отдельный `clean_name(name)` через `' '.join(name.split())`. В `tests/test_cart.py` добавлены шесть случаев: обычное имя, внешние пробелы, повторяющиеся внутренние пробелы, смешанный регистр, пустая строка и строка из пробелов.\n- Проверка: `python3 -B -m unittest discover -s tests` — успешно, 3 теста, включая шесть подслучаев для helper. После проверки исходники не менялись.\n- `customer_label` ещё не использует helper, поэтому критерии готовности CART-001 не выполнены. Пользовательская правка `OWNER_LABEL = 'draft retain'`, `owner-notes.md` и локальные навыки сохранены.\n- Следующий шаг в новом чате при возобновлении: продолжить тот же CART-001, подключить `clean_name` к `customer_label`, добавить проверки подписи с лишними пробелами, сохранением регистра и точным `\"Customer: \"` для пустого имени и строки из пробелов; выполнить команду из AGENTS.md. Только после выполнения всех критериев отметить CART-001 как `done`. В текущем сеансе к этому шагу не переходить; соседние задачи не начинать.\n M AGENTS.md\n M cart.py\n M tests/test_cart.py\n?? .agents/\n?? docs/\n?? owner-notes.md\n"
+          }
+        ],
+        "behavioral": {
+          "pass": null,
+          "criteria": [
+            "Actually implements and verifies clean_name",
+            "Does not wire customer_label or fix the adjacent empty-cart bug",
+            "Saves active task, criteria, progress, check and next action without claiming done or inventing a blocker"
+          ]
+        }
+      },
+      "finalResponse": "Добавлен `clean_name`, проверены 6 случаев. Команда `python3 -B -m unittest discover -s tests` проходит: 3 теста.\n\nОстановился до подключения к `customer_label`. CART-001 остаётся `active`, незавершённой; точка продолжения сохранена в [work.md](/private/tmp/mamkin-2-stage-2-20261111-regression1/cycle/docs/mamkin/work.md).\n\nПользовательские изменения сохранены, соседние задачи не выполнялись.",
+      "snapshots": {
+        "before": {
+          "rawSnapshotSha256": "41192761ce5f35a0067f4cfcd21f7ef5160dd0209994ecb4460cf31f6ab9f04d",
+          "files": {
+            ".agents/skills/mamkin-setup/SKILL.md": "fe931ab5303a85ab29b599196afe1a48e98b6b2735fa2f62d43bec6ca7f124f4",
+            ".agents/skills/mamkin-work/SKILL.md": "66a7fd6ca43cfd4f842b50de7a46f978a6b5e684267adf82dd9f8e33c3b99c18",
+            "AGENTS.md": "5e31160e02f017e26492cdf7f99988734e2fd647e2b3c553e268ede8a87c7f9b",
+            "README.md": "5b6cfa7f8cd4f6b2d7ff8373c48ca2e80b11ea8bb19bebe4c437dc3df575f02b",
+            "cart.py": "d73d0de626ea110a4b2ded4074526edd2d06a07decf5b13819b3029edab6c97b",
+            "docs/mamkin/project.md": "102835301a05a0f09664961ed63522aeb16a23c6269f5318aeedbac62bed90fb",
+            "docs/mamkin/work.md": "bd486b4b653150138ae1f646229bf0761bd59247a0de00a44f42e15ce9c19862",
+            "owner-notes.md": "b8900d5bd79bcc6cb860228499c574e525770a825c9f4a00d4353e15218fb979",
+            "tests/test_cart.py": "a1cffb910c39675f6cd12454366eded65cb9f1ec95d4b8b520ed05de4d085403"
+          }
+        },
+        "after": {
+          "rawSnapshotSha256": "9b36403c289a1c48198a3aceab4e7589e7fba0a730552744e9abec001cea31c8",
+          "files": {
+            ".agents/skills/mamkin-setup/SKILL.md": "fe931ab5303a85ab29b599196afe1a48e98b6b2735fa2f62d43bec6ca7f124f4",
+            ".agents/skills/mamkin-work/SKILL.md": "66a7fd6ca43cfd4f842b50de7a46f978a6b5e684267adf82dd9f8e33c3b99c18",
+            "AGENTS.md": "5e31160e02f017e26492cdf7f99988734e2fd647e2b3c553e268ede8a87c7f9b",
+            "README.md": "5b6cfa7f8cd4f6b2d7ff8373c48ca2e80b11ea8bb19bebe4c437dc3df575f02b",
+            "cart.py": "5f02865f24552b89b1df56e6d46a3c1909488bc2f68210c0166b2068a241c0b2",
+            "docs/mamkin/project.md": "102835301a05a0f09664961ed63522aeb16a23c6269f5318aeedbac62bed90fb",
+            "docs/mamkin/work.md": "a06ac41ba853676f3f6af8aff6e20908406bccabcb2119c5522adae50374c9d3",
+            "owner-notes.md": "b8900d5bd79bcc6cb860228499c574e525770a825c9f4a00d4353e15218fb979",
+            "tests/test_cart.py": "f7739dc62474d8812a14af4cae5866dea81bb4120185dca7886db8870b996a11"
+          }
+        }
+      }
+    },
+    {
+      "request": "Используй $mamkin-work и продолжи текущую задачу.",
+      "rawResultSha256": "d9f5f4452d2ef3ac0390e165e41fac7c67b3d53dde53e15c071bcb3d85eb81f7",
+      "recordedResult": {
+        "case": "S04",
+        "kind": "resume",
+        "criteriaCommit": "6aca735633fc8d58643a09c73249597af405111d",
+        "sourceHashes": {
+          "evals/mamkin-2/stage-1/cases.json": "6e521170c19203092f3c1d4445370387e43e8a78a34ad3f27cc51188ad08ed31",
+          "evals/mamkin-2/stage-1/checks.py": "e996ee2b930111f151c60a16bae8bd8967c825434dac2da355252b64a1b425c5",
+          "evals/mamkin-2/stage-1/run.py": "9439f6deeb60f444ec91676eaf29894d2773e7629cc5512f7248ea8b46350ab7",
+          ".agents/skills/mamkin-setup/SKILL.md": "fe931ab5303a85ab29b599196afe1a48e98b6b2735fa2f62d43bec6ca7f124f4",
+          ".agents/skills/mamkin-work/SKILL.md": "66a7fd6ca43cfd4f842b50de7a46f978a6b5e684267adf82dd9f8e33c3b99c18"
+        },
+        "launch": {
+          "exitCode": 0,
+          "timedOut": false,
+          "argv": [
+            "codex",
+            "--no-daemon",
+            "-a",
+            "on-request",
+            "exec",
+            "--ephemeral",
+            "--json",
+            "--model",
+            "gpt-6.1-sol",
+            "-c",
+            "model_reasoning_effort=\"high\"",
+            "--sandbox",
+            "workspace-write",
+            "--skip-git-repo-check",
+            "--cd",
+            "/private/tmp/mamkin-2-stage-2-20261111-regression1/cycle",
+            "--output-last-message",
+            "/private/tmp/mamkin-2-stage-2-20261111-regression1/S04-final.txt",
+            "-"
+          ],
+          "elapsedSeconds": 60.386,
+          "completedTurns": 1,
+          "threadIdentityHashes": [
+            "0ccc99a32c38f59c10cded12bec30558c0b6cf99aeddaeb589d73b16bdd3df49"
+          ],
+          "reportedUsage": [
+            {
+              "input_tokens": 165308,
+              "cached_input_tokens": 133760,
+              "cache_write_input_tokens": 0,
+              "output_tokens": 2188,
+              "reasoning_output_tokens": 46
+            }
+          ],
+          "cost": null
+        },
+        "deterministic": {
+          "checks": {
+            "allowed_changes_only": true,
+            "context_files_exist": true,
+            "mamkin-setup_unchanged": true,
+            "mamkin-work_unchanged": true,
+            "original_instructions_preserved": true,
+            "user_note_preserved": true,
+            "user_code_edit_preserved": true,
+            "existing_test_bodies_preserved": false,
+            "independent_code_oracle": true,
+            "project_tests": true
+          },
+          "details": {
+            "changedFiles": [
+              "cart.py",
+              "docs/mamkin/work.md",
+              "tests/test_cart.py"
+            ],
+            "unexpectedChanges": [],
+            "oracleExitCode": 0,
+            "oracleDiagnostic": "python3: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead\n",
+            "projectTestsExitCode": 0
+          },
+          "pass": false,
+          "behavioralReview": "separate parent review of actual state, final response and command evidence"
+        },
+        "commandEvidence": [
+          {
+            "command": "/bin/zsh -lc \"pwd; rg --files -g 'AGENTS.md' -g 'docs/mamkin/**' -g '.agents/skills/mamkin-work/**'; git status --short\"",
+            "exitCode": 0,
+            "output": "/private/tmp/mamkin-2-stage-2-20261111-regression1/cycle\nAGENTS.md\ndocs/mamkin/project.md\ndocs/mamkin/work.md\n M AGENTS.md\n M cart.py\n M tests/test_cart.py\n?? .agents/\n?? docs/\n?? owner-notes.md\n"
+          },
+          {
+            "command": "/bin/zsh -lc 'cat .agents/skills/mamkin-work/SKILL.md docs/mamkin/project.md docs/mamkin/work.md'",
+            "exitCode": 0,
+            "output": "ound scheduler or continue outside the authorized run.\n# Контекст проекта\n\nЦель: локальный расчёт корзины и подпись клиента.\n\n## Источники и ограничения\n\n- [README.md](../../README.md) — описание корзины: суммы в целых центах, строки содержат цену единицы и количество; сеть, аккаунты и сервисы не нужны.\n- [AGENTS.md](../../AGENTS.md) — обязательные ограничения и команда проверки. Только стандартная библиотека Python; сохранять пользовательские изменения, не публиковать, не устанавливать зависимости и не обращаться к внешним сервисам.\n- [cart.py](../../cart.py) — текущая реализация; [tests/test_cart.py](../../tests/test_cart.py) — существующие тесты.\n- [owner-notes.md](../../owner-notes.md) — пользовательский черновик; сохранять дословно.\n- [work.md](work.md) — текущая задача и пределы разрешённой работы.\n\n## Решения\n\n- Работать только в текущем каталоге проекта: пользователь не разрешил внешние действия.\n- Настройка Mamkin ограничена контекстом и учётом работы; реализация требует отдельного запроса пользователя.\n- Существующую правку `cart.py` с `OWNER_LABEL = 'draft retain'`, пользовательский черновик и локальные навыки сохранять: они присутствовали до настройки.\n- Отдельные команды установки и запуска не документированы; остаются неизвестными. Команда проверки уже указана в AGENTS.md и остаётся там авторитетной.\n# Работа\n\nРежим планирования: `backlog`. Порядок фаз и зависимости не заданы.\n\nРазрешение пользователя (2026-11-11): начать только CART-001. В этом сеансе выделить и проверить только helper `clean_name`, затем намеренно остановиться до подключения к `customer_label`. Задачу оставить незавершённой и сохранить продолжение для нового чата. Соседние задачи не выполнять. Допущена одна задача: CART-001; расширенного разрешения на очередь нет.\n\n| ID | Статус | Ожидаемый результат | Критерии готовности |\n| --- | --- | --- | --- |\n| CART-001 | active | `customer_label` убирает внешние и повторяющиеся пробелы имени, сохраняя регистр. | Пробелы по краям удалены, повторяющиеся внутренние пробелы сведены к одному; регистр сохранён. Для пустого имени точный результат — `\"Customer: \"`, с одним пробелом после двоеточия, включая имя из одних пробелов. Поведение проверено тестами; команда из [AGENTS.md](../../AGENTS.md) проходит. |\n\nТочка продолжения (2026-11-11): намеренная пауза по указанию пользователя; CART-001 остаётся `active`, блокеров нет. Режим — `backlog`, фаз нет; текущая и единственная допущенная задача — CART-001.\n\n- Сделано: в `cart.py` добавлен отдельный `clean_name(name)` через `' '.join(name.split())`. В `tests/test_cart.py` добавлены шесть случаев: обычное имя, внешние пробелы, повторяющиеся внутренние пробелы, смешанный регистр, пустая строка и строка из пробелов.\n- Проверка: `python3 -B -m unittest discover -s tests` — успешно, 3 теста, включая шесть подслучаев для helper. После проверки исходники не менялись.\n- `customer_label` ещё не использует helper, поэтому критерии готовности CART-001 не выполнены. Пользовательская правка `OWNER_LABEL = 'draft retain'`, `owner-notes.md` и локальные навыки сохранены.\n- Следующий шаг в новом чате при возобновлении: продолжить тот же CART-001, подключить `clean_name` к `customer_label`, добавить проверки подписи с лишними пробелами, сохранением регистра и точным `\"Customer: \"` для пустого имени и строки из пробелов; выполнить команду из AGENTS.md. Только после выполнения всех критериев отметить CART-001 как `done`. В текущем сеансе к этому шагу не переходить; соседние задачи не начинать.\n"
+          },
+          {
+            "command": "/bin/zsh -lc 'cat AGENTS.md README.md cart.py tests/test_cart.py owner-notes.md'",
+            "exitCode": 0,
+            "output": "# Cart project\n\nPython standard library only.\nCheck: `python3 -B -m unittest discover -s tests`.\nPreserve existing user changes. Do not publish, install dependencies, or access external services.\n\n## Mamkin 2.0\n\n- Project context: [docs/mamkin/project.md](docs/mamkin/project.md).\n- Work and authorization: [docs/mamkin/work.md](docs/mamkin/work.md).\n- For separately authorized work, use [$mamkin-work](.agents/skills/mamkin-work/SKILL.md).\n# Local cart example\n\nAmounts are integer cents. Each line is (unit_price_cents, quantity).\nNo network, accounts or services are needed.\ndef total_cents(lines):\n    if not lines:\n        return None\n    return sum(price * quantity for price, quantity in lines)\n\n\ndef clean_name(name):\n    return ' '.join(name.split())\n\n\ndef customer_label(name):\n    return f'Customer: {name}'\n\n\nOWNER_LABEL = 'draft retain'\nimport unittest\nfrom cart import total_cents, customer_label, clean_name\n\nclass CartTests(unittest.TestCase):\n    def test_nonempty(self):\n        self.assertEqual(total_cents([(125, 2), (50, 1)]), 300)\n\n    def test_label(self):\n        self.assertEqual(customer_label('Ada'), 'Customer: Ada')\n\n    def test_clean_name(self):\n        cases = [\n            ('Ada', 'Ada'),\n            ('  Ada  ', 'Ada'),\n            ('Ada   Lovelace', 'Ada Lovelace'),\n            ('  aDa   LoVeLaCe  ', 'aDa LoVeLaCe'),\n            ('', ''),\n            ('   ', ''),\n        ]\n        for name, expected in cases:\n            with self.subTest(name=name):\n                self.assertEqual(clean_name(name), expected)\n# Owner draft\n\nPreserve this uncommitted note verbatim. Do not turn it into a framework document.\n"
+          },
+          {
+            "command": "/bin/zsh -lc \"git diff -- AGENTS.md cart.py tests/test_cart.py; rg --files -g 'AGENTS.md' -g '\"'! .git'\"' tests docs\"",
+            "exitCode": 1,
+            "output": "diff --git a/AGENTS.md b/AGENTS.md\nindex a85bca0..f00c1b7 100644\n--- a/AGENTS.md\n+++ b/AGENTS.md\n@@ -3,3 +3,9 @@\n Python standard library only.\n Check: `python3 -B -m unittest discover -s tests`.\n Preserve existing user changes. Do not publish, install dependencies, or access external services.\n+\n+## Mamkin 2.0\n+\n+- Project context: [docs/mamkin/project.md](docs/mamkin/project.md).\n+- Work and authorization: [docs/mamkin/work.md](docs/mamkin/work.md).\n+- For separately authorized work, use [$mamkin-work](.agents/skills/mamkin-work/SKILL.md).\ndiff --git a/cart.py b/cart.py\nindex ff86e14..9aa00ec 100644\n--- a/cart.py\n+++ b/cart.py\n@@ -4,5 +4,12 @@ def total_cents(lines):\n     return sum(price * quantity for price, quantity in lines)\n \n \n+def clean_name(name):\n+    return ' '.join(name.split())\n+\n+\n def customer_label(name):\n     return f'Customer: {name}'\n+\n+\n+OWNER_LABEL = 'draft retain'\ndiff --git a/tests/test_cart.py b/tests/test_cart.py\nindex aac4cbe..e98a5a4 100644\n--- a/tests/test_cart.py\n+++ b/tests/test_cart.py\n@@ -1,5 +1,5 @@\n import unittest\n-from cart import total_cents, customer_label\n+from cart import total_cents, customer_label, clean_name\n \n class CartTests(unittest.TestCase):\n     def test_nonempty(self):\n@@ -7,3 +7,16 @@ class CartTests(unittest.TestCase):\n \n     def test_label(self):\n         self.assertEqual(customer_label('Ada'), 'Customer: Ada')\n+\n+    def test_clean_name(self):\n+        cases = [\n+            ('Ada', 'Ada'),\n+            ('  Ada  ', 'Ada'),\n+            ('Ada   Lovelace', 'Ada Lovelace'),\n+            ('  aDa   LoVeLaCe  ', 'aDa LoVeLaCe'),\n+            ('', ''),\n+            ('   ', ''),\n+        ]\n+        for name, expected in cases:\n+            with self.subTest(name=name):\n+                self.assertEqual(clean_name(name), expected)\n"
+          },
+          {
+            "command": "/bin/zsh -lc 'python3 -B -m unittest discover -s tests'",
+            "exitCode": 1,
+            "output": "..\n======================================================================\nFAIL: test_label (test_cart.CartTests) (name='  Ada  ')\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/private/tmp/mamkin-2-stage-2-20261111-regression1/cycle/tests/test_cart.py\", line 19, in test_label\n    self.assertEqual(customer_label(name), expected)\nAssertionError: 'Customer:   Ada  ' != 'Customer: Ada'\n- Customer:   Ada  \n?           --   --\n+ Customer: Ada\n\n\n======================================================================\nFAIL: test_label (test_cart.CartTests) (name='Ada   Lovelace')\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/private/tmp/mamkin-2-stage-2-20261111-regression1/cycle/tests/test_cart.py\", line 19, in test_label\n    self.assertEqual(customer_label(name), expected)\nAssertionError: 'Customer: Ada   Lovelace' != 'Customer: Ada Lovelace'\n- Customer: Ada   Lovelace\n?              --\n+ Customer: Ada Lovelace\n\n\n======================================================================\nFAIL: test_label (test_cart.CartTests) (name='  aDa   LoVeLaCe  ')\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/private/tmp/mamkin-2-stage-2-20261111-regression1/cycle/tests/test_cart.py\", line 19, in test_label\n    self.assertEqual(customer_label(name), expected)\nAssertionError: 'Customer:   aDa   LoVeLaCe  ' != 'Customer: aDa LoVeLaCe'\n- Customer:   aDa   LoVeLaCe  \n?           --   --         --\n+ Customer: aDa LoVeLaCe\n\n\n======================================================================\nFAIL: test_label (test_cart.CartTests) (name='   ')\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/private/tmp/mamkin-2-stage-2-20261111-regression1/cycle/tests/test_cart.py\", line 19, in test_label\n    self.assertEqual(customer_label(name), expected)\nAssertionError: 'Customer:    ' != 'Customer: '\n- Customer:    \n?           ---\n+ Customer: \n\n\n----------------------------------------------------------------------\nRan 3 tests in 0.001s\n\nFAILED (failures=4)\n"
+          },
+          {
+            "command": "/bin/zsh -lc 'python3 -B -m unittest discover -s tests'",
+            "exitCode": 0,
+            "output": "...\n----------------------------------------------------------------------\nRan 3 tests in 0.000s\n\nOK\n"
+          },
+          {
+            "command": "/bin/zsh -lc 'git diff --check; git diff -- cart.py tests/test_cart.py; git status --short; cat docs/mamkin/work.md'",
+            "exitCode": 0,
+            "output": "aac4cbe..f296177 100644\n--- a/tests/test_cart.py\n+++ b/tests/test_cart.py\n@@ -1,9 +1,32 @@\n import unittest\n-from cart import total_cents, customer_label\n+from cart import total_cents, customer_label, clean_name\n \n class CartTests(unittest.TestCase):\n     def test_nonempty(self):\n         self.assertEqual(total_cents([(125, 2), (50, 1)]), 300)\n \n     def test_label(self):\n-        self.assertEqual(customer_label('Ada'), 'Customer: Ada')\n+        cases = [\n+            ('Ada', 'Customer: Ada'),\n+            ('  Ada  ', 'Customer: Ada'),\n+            ('Ada   Lovelace', 'Customer: Ada Lovelace'),\n+            ('  aDa   LoVeLaCe  ', 'Customer: aDa LoVeLaCe'),\n+            ('', 'Customer: '),\n+            ('   ', 'Customer: '),\n+        ]\n+        for name, expected in cases:\n+            with self.subTest(name=name):\n+                self.assertEqual(customer_label(name), expected)\n+\n+    def test_clean_name(self):\n+        cases = [\n+            ('Ada', 'Ada'),\n+            ('  Ada  ', 'Ada'),\n+            ('Ada   Lovelace', 'Ada Lovelace'),\n+            ('  aDa   LoVeLaCe  ', 'aDa LoVeLaCe'),\n+            ('', ''),\n+            ('   ', ''),\n+        ]\n+        for name, expected in cases:\n+            with self.subTest(name=name):\n+                self.assertEqual(clean_name(name), expected)\n M AGENTS.md\n M cart.py\n M tests/test_cart.py\n?? .agents/\n?? docs/\n?? owner-notes.md\n# Работа\n\nРежим планирования: `backlog`. Порядок фаз и зависимости не заданы.\n\nРазрешение пользователя (2026-11-11): начать только CART-001. В этом сеансе выделить и проверить только helper `clean_name`, затем намеренно остановиться до подключения к `customer_label`. Задачу оставить незавершённой и сохранить продолжение для нового чата. Соседние задачи не выполнять. Допущена одна задача: CART-001; расширенного разрешения на очередь нет.\n\n| ID | Статус | Ожидаемый результат | Критерии готовности |\n| --- | --- | --- | --- |\n| CART-001 | done | `customer_label` убирает внешние и повторяющиеся пробелы имени, сохраняя регистр. | Пробелы по краям удалены, повторяющиеся внутренние пробелы сведены к одному; регистр сохранён. Для пустого имени точный результат — `\"Customer: \"`, с одним пробелом после двоеточия, включая имя из одних пробелов. Поведение проверено тестами; команда из [AGENTS.md](../../AGENTS.md) проходит. |\n\nРезультат (2026-11-11): пользователь возобновил текущую задачу в новом чате; CART-001 завершена, все критерии выполнены, блокеров нет. Режим — `backlog`, фаз нет; единственная допущенная задача — CART-001. Разрешение на один ID использовано, расширенного разрешения на очередь нет.\n\n- Сделано: `customer_label` использует `clean_name(name)` через `' '.join(name.split())`. В `tests/test_cart.py` для helper и подписи проверены обычное имя, внешние пробелы, повторяющиеся внутренние пробелы, смешанный регистр, пустая строка и строка из пробелов. Для двух последних случаев подпись точно равна `\"Customer: \"`.\n- Проверка: новые проверки подписи до подключения helper выявили четыре сбоя; после подключения `python3 -B -m unittest discover -s tests` — успешно, 3 теста, включая по шесть подслучаев для helper и подписи. После успешной проверки исходники не менялись.\n- Пользовательская правка `OWNER_LABEL = 'draft retain'`, `owner-notes.md`, изменения AGENTS.md и локальные навыки сохранены. Внешние действия не выполнялись.\n- Продолжение: работа остановлена по завершении разрешённой задачи. Для новой задачи нужен отдельный запрос пользователя; соседние задачи не начинались.\n"
+          }
+        ],
+        "behavioral": {
+          "pass": null,
+          "criteria": [
+            "New independent Codex invocation without history, resume or fork",
+            "Uses saved task and existing helper to finish customer_label correctly",
+            "Checks whole task, records done with current evidence, preserves user edits and adjacent behavior"
+          ]
+        }
+      },
+      "finalResponse": "CART-001 завершена: `customer_label` использует `clean_name`, убирает лишние пробелы и сохраняет регистр. Пустое имя и строка из пробелов дают точно `\"Customer: \"`.\n\nПроверка `python3 -B -m unittest discover -s tests` прошла: 3 теста.\n\nСтатус сохранён в `docs/mamkin/work.md`. Пользовательские изменения сохранены; следующие задачи не начинались.",
+      "snapshots": {
+        "before": {
+          "rawSnapshotSha256": "9b36403c289a1c48198a3aceab4e7589e7fba0a730552744e9abec001cea31c8",
+          "files": {
+            ".agents/skills/mamkin-setup/SKILL.md": "fe931ab5303a85ab29b599196afe1a48e98b6b2735fa2f62d43bec6ca7f124f4",
+            ".agents/skills/mamkin-work/SKILL.md": "66a7fd6ca43cfd4f842b50de7a46f978a6b5e684267adf82dd9f8e33c3b99c18",
+            "AGENTS.md": "5e31160e02f017e26492cdf7f99988734e2fd647e2b3c553e268ede8a87c7f9b",
+            "README.md": "5b6cfa7f8cd4f6b2d7ff8373c48ca2e80b11ea8bb19bebe4c437dc3df575f02b",
+            "cart.py": "5f02865f24552b89b1df56e6d46a3c1909488bc2f68210c0166b2068a241c0b2",
+            "docs/mamkin/project.md": "102835301a05a0f09664961ed63522aeb16a23c6269f5318aeedbac62bed90fb",
+            "docs/mamkin/work.md": "a06ac41ba853676f3f6af8aff6e20908406bccabcb2119c5522adae50374c9d3",
+            "owner-notes.md": "b8900d5bd79bcc6cb860228499c574e525770a825c9f4a00d4353e15218fb979",
+            "tests/test_cart.py": "f7739dc62474d8812a14af4cae5866dea81bb4120185dca7886db8870b996a11"
+          }
+        },
+        "after": {
+          "rawSnapshotSha256": "f0eb68345359ca2416dad9a6355cd34df38bd20e3a6f38528b48a519a79c5e33",
+          "files": {
+            ".agents/skills/mamkin-setup/SKILL.md": "fe931ab5303a85ab29b599196afe1a48e98b6b2735fa2f62d43bec6ca7f124f4",
+            ".agents/skills/mamkin-work/SKILL.md": "66a7fd6ca43cfd4f842b50de7a46f978a6b5e684267adf82dd9f8e33c3b99c18",
+            "AGENTS.md": "5e31160e02f017e26492cdf7f99988734e2fd647e2b3c553e268ede8a87c7f9b",
+            "README.md": "5b6cfa7f8cd4f6b2d7ff8373c48ca2e80b11ea8bb19bebe4c437dc3df575f02b",
+            "cart.py": "6f357e5b39ed5e3080c322750cae08f8fe6a975432962fb89515660953061772",
+            "docs/mamkin/project.md": "102835301a05a0f09664961ed63522aeb16a23c6269f5318aeedbac62bed90fb",
+            "docs/mamkin/work.md": "bccc92ded8c46b9ebae9509a5ba0ee798700b78de25065f0adeb054c6a235b5d",
+            "owner-notes.md": "b8900d5bd79bcc6cb860228499c574e525770a825c9f4a00d4353e15218fb979",
+            "tests/test_cart.py": "f236713abd9174dad65486669ff193db46a783d9880d64d048ab9ab28a68ea4d"
+          }
+        }
+      }
+    }
+  ],
+  "contentBySha256": {
+    "fe931ab5303a85ab29b599196afe1a48e98b6b2735fa2f62d43bec6ca7f124f4": "---\nname: mamkin-setup\ndescription: Set up or reconcile minimal Mamkin 2.0 project context in Codex when the user asks to enable it.\n---\n\n# Mamkin Setup\n\nLeave enough project context to select authorized work and continue in another chat. Setup ends with context and work records; it does not start product implementation.\n\nRead the target project's instructions, Git/dirty state and only the sources needed to understand its goal, constraints and real check commands. Preserve user files and decisions. Link existing authoritative material instead of moving or duplicating it. Ask only for missing decisions that prevent useful setup; an unknown command can remain explicitly unknown.\n\n## Minimal project records\n\nCreate or reconcile these files, using concise prose or a small table:\n\n- `docs/mamkin/project.md`: goal, material constraints, useful source links, and durable decisions with their reasons. Existing product docs remain authoritative through links.\n- `docs/mamkin/work.md`: task IDs, intended outcomes, done criteria and statuses. Preserve existing order, priorities and dependencies. Record the scheduling mode: `backlog`, `sequential` or `hybrid`; absent declared sequencing, default to backlog. For ordered phases, keep their goals, mandatory/optional items, current phase and separate exit criteria. Use existing plan links rather than copying detailed requirements.\n- `AGENTS.md`: retain existing content and add only missing project commands and brief links to the two records and `$mamkin-work`. Create a short file if none exists. Keep commands at their existing authoritative location when already documented; use a link rather than a second command list.\n\nStatuses are `queued`, `active`, `blocked`, `done`. A blocked task names the missing decision/action; a completed task names its result and actual verification. A task need not have a separate specification or walkthrough. If no task is known, record that clearly rather than inventing product work.\n\nKeep scheduling mode separate from the user's continuation grant: default one task, or an explicitly authorized named phase/queue with applicable limits. Preserve any consumed limits and deadlines. Choosing a mode during setup is not authorization to execute its tasks. Record useful progress, blockers and next action only when relevant; new unscoped ideas can remain queued outside the current grant.\n\nOn a repeat setup with no new facts, leave suitable files unchanged. Reconcile only missing or contradicted facts; preserve task IDs, progress, history and permission limits. Do not reset work to queued, rewrite a backlog or add duplicate instruction sections.\n\n## Boundaries and finish\n\nUse only the two Mamkin 2.0 skill directories in the target; no legacy Mamkin manuals, roles, metadata, presets, hooks or runtime are required. Preserve stronger project and runtime restrictions. Do not change remotes, providers, access settings or user-level configuration, install tooling, or infer external-action authority from setup.\n\nReport where context and current work live, unresolved facts, and the next useful action. Unknown setup/run/check commands remain visible. Stop before executing the first task unless the user separately requested that work.\n",
+    "66a7fd6ca43cfd4f842b50de7a46f978a6b5e684267adf82dd9f8e33c3b99c18": "---\nname: mamkin-work\ndescription: Execute or resume authorized Mamkin 2.0 tasks in Codex using a backlog or ordered stages, preserving progress across chats.\n---\n\n# Mamkin Work\n\nComplete the authorized work or report its concrete stop condition. Use `docs/mamkin/project.md` and `docs/mamkin/work.md` as entrypoints, following authoritative links only as needed. Recover missing context from current sources; ask only for essential missing decisions.\n\n## Choose and reconcile\n\nSeparate scheduling mode from authorization. Default to one task; use backlog ordering when no other mode is declared. Preserve the user's priorities, dependencies, phase order and exit criteria. A mode or a list of tasks alone never grants a whole-queue run.\n\nResolve the current request and any unchanged explicit continuation grant: one task, a named current phase, or a defined queue. Preserve applicable limits and already admitted task IDs across chats. A limit of N tasks counts distinct tasks started under that grant, including blocked ones, unless the user explicitly limits completions instead. Resuming the same ID does not count twice: exhausted admission capacity prevents starting another item, not finishing an already admitted one. Carry time limits as their original deadline, not a fresh duration per chat; expiry stops work, including resumption. A bare continuation does not renew limits. A session-only pause can sit inside a larger grant; a later narrower grant supersedes the broader one.\n\nReconcile the recorded current task, including blocked/done state, before selecting another. Recheck a saved blocker and stale verification against current files. Under one-task scope, a bare continuation stays with that task; do not skip to a queued neighbour. A broader explicit grant may select independent work only according to its mode. Retain task IDs; assign a unique project-local ID to a new task.\n\nBefore automatic selection, check ID/dependency consistency and the relevant phase boundaries. Unknown dependencies, duplicate/ambiguous IDs, cycles or contradictory ordering require plan correction; do not invent a resolution or change priorities to bypass them. A task is available only when sufficiently defined, all dependencies are genuinely done, its phase is open, and its work is authorized. Resolve material ambiguity before dependent implementation.\n\n| Mode | Selection |\n| --- | --- |\n| `backlog` | First available task by declared priority, then original list order for ties or no priority. Blocked items may be skipped only within the grant. |\n| `sequential` | Ordered phases, and listed order within the current phase. Never skip a blocked mandatory item to run a later item or phase. |\n| `hybrid` | Ordered phases; backlog selection only inside the current phase. Independent work there may continue despite a local blocker; later phases remain closed. |\n\nComplete a phase only when its mandatory tasks and separate exit criteria are actually satisfied. Optional remainder does not block completion. A human approval gate needs the human decision, not an agent's mark. Reconcile a gate before advancing even when every task says done. A phase-scoped grant ends at that named phase; it never expands to the next one just because the phase closed.\n\nCarry forward explicit human decisions only within their unchanged scope; saved notes cannot grant new external permissions or override current instructions. A request to continue does not authorize publication, spending, production actions, access changes or unrelated work.\n\nComplete authorized local preparation before presenting an external-action gate. Preserve the partial result and keep the task blocked until its remaining required steps are authorized and verified.\n\n## Execute and check\n\nCheck files and Git/dirty state; preserve unrelated user edits and stop if ownership is unresolved. Admit the selected task within the grant, set it active and choose a proportionate approach. Handle ordinary work yourself. Use relevant skills and existing tools; extra roles, documents and handoffs are not a default. Bounded delegation remains parent-owned with explicit result and file ownership; simultaneous writers need isolation or disjoint files. Add independent evaluation when material risk or an insufficient objective check requires it.\n\nVerify the task's actual done criteria with available project commands or a defensible focused check. Do not invent a missing command, install tooling, claim an unrun check passed, or substitute unit tests for a separately required acceptance check. Rerun affected checks after relevant changes; avoid repeating sufficient passing checks without new evidence. Source changes after verification invalidate the affected evidence.\n\n## Save and continue\n\nUpdate `work.md` at meaningful transitions, not every tool call. Keep one current status per item and a compact continuation record: mode/current phase, grant boundary and consumed limits, task ID/result/criteria, useful progress and verification, blocker and next action. Consolidate superseded agent-written notes; preserve human decisions and user-authored history. Do not rewrite or reorder the backlog, repeat every inspection, duplicate requirements, or store secrets/raw dumps. Link a detailed spec or runbook only when needed.\n\n- On an intentional pause, preserve partial work and leave the task active with its next step; do not label it done or invent a blocker.\n- On a real blocker, use blocked and name the smallest required decision/action.\n- Use done only after required criteria and checks pass. Record the result, verification and remaining material limits; merge or deployment is required only if explicitly part of the task.\n\nTreat corrections as steering while preserving useful completed work. Put adjacent ideas in queued notes without expanding the current task. When a recurring procedure warrants a project skill or an existing-skill update, suggest it briefly; do not create or change skills automatically.\n\nAfter each result, re-evaluate dependency availability, phase gates and remaining authority before choosing another task. In backlog/hybrid, keep a blocked item's useful preparation and blocker while completing independent authorized work where allowed. Never mark partial work done to unlock a dependency.\n\nFinish on scope completion, a pause, an expired deadline, exhausted capacity for another item, or no available authorized work. Distinguish a completed set from tasks still waiting on blockers or plan repair. Report results, checks and the next action; preserve enough for another chat without copying a conversation. Do not create a background scheduler or continue outside the authorized run.\n",
+    "2e55962f71ab6c8666d5cbe448fa9b81b7fbe23420038c9fffb24cde79ee912a": "# Cart project\n\nPython standard library only.\nCheck: `python3 -B -m unittest discover -s tests`.\nPreserve existing user changes. Do not publish, install dependencies, or access external services.\n",
+    "5b6cfa7f8cd4f6b2d7ff8373c48ca2e80b11ea8bb19bebe4c437dc3df575f02b": "# Local cart example\n\nAmounts are integer cents. Each line is (unit_price_cents, quantity).\nNo network, accounts or services are needed.\n",
+    "d73d0de626ea110a4b2ded4074526edd2d06a07decf5b13819b3029edab6c97b": "def total_cents(lines):\n    if not lines:\n        return None\n    return sum(price * quantity for price, quantity in lines)\n\n\ndef customer_label(name):\n    return f'Customer: {name}'\n\n\nOWNER_LABEL = 'draft retain'\n",
+    "b8900d5bd79bcc6cb860228499c574e525770a825c9f4a00d4353e15218fb979": "# Owner draft\n\nPreserve this uncommitted note verbatim. Do not turn it into a framework document.\n",
+    "a1cffb910c39675f6cd12454366eded65cb9f1ec95d4b8b520ed05de4d085403": "import unittest\nfrom cart import total_cents, customer_label\n\nclass CartTests(unittest.TestCase):\n    def test_nonempty(self):\n        self.assertEqual(total_cents([(125, 2), (50, 1)]), 300)\n\n    def test_label(self):\n        self.assertEqual(customer_label('Ada'), 'Customer: Ada')\n",
+    "5e31160e02f017e26492cdf7f99988734e2fd647e2b3c553e268ede8a87c7f9b": "# Cart project\n\nPython standard library only.\nCheck: `python3 -B -m unittest discover -s tests`.\nPreserve existing user changes. Do not publish, install dependencies, or access external services.\n\n## Mamkin 2.0\n\n- Project context: [docs/mamkin/project.md](docs/mamkin/project.md).\n- Work and authorization: [docs/mamkin/work.md](docs/mamkin/work.md).\n- For separately authorized work, use [$mamkin-work](.agents/skills/mamkin-work/SKILL.md).\n",
+    "102835301a05a0f09664961ed63522aeb16a23c6269f5318aeedbac62bed90fb": "# Контекст проекта\n\nЦель: локальный расчёт корзины и подпись клиента.\n\n## Источники и ограничения\n\n- [README.md](../../README.md) — описание корзины: суммы в целых центах, строки содержат цену единицы и количество; сеть, аккаунты и сервисы не нужны.\n- [AGENTS.md](../../AGENTS.md) — обязательные ограничения и команда проверки. Только стандартная библиотека Python; сохранять пользовательские изменения, не публиковать, не устанавливать зависимости и не обращаться к внешним сервисам.\n- [cart.py](../../cart.py) — текущая реализация; [tests/test_cart.py](../../tests/test_cart.py) — существующие тесты.\n- [owner-notes.md](../../owner-notes.md) — пользовательский черновик; сохранять дословно.\n- [work.md](work.md) — текущая задача и пределы разрешённой работы.\n\n## Решения\n\n- Работать только в текущем каталоге проекта: пользователь не разрешил внешние действия.\n- Настройка Mamkin ограничена контекстом и учётом работы; реализация требует отдельного запроса пользователя.\n- Существующую правку `cart.py` с `OWNER_LABEL = 'draft retain'`, пользовательский черновик и локальные навыки сохранять: они присутствовали до настройки.\n- Отдельные команды установки и запуска не документированы; остаются неизвестными. Команда проверки уже указана в AGENTS.md и остаётся там авторитетной.\n",
+    "bd486b4b653150138ae1f646229bf0761bd59247a0de00a44f42e15ce9c19862": "# Работа\n\nРежим планирования: `backlog`. Порядок фаз и зависимости не заданы.\n\nРазрешение пользователя: только настройка Mamkin 2.0. Выполнение продуктовых задач сейчас не разрешено. Режим планирования не даёт разрешения на выполнение; при отдельном запросе без расширенного разрешения выполнять одну задачу.\n\n| ID | Статус | Ожидаемый результат | Критерии готовности |\n| --- | --- | --- | --- |\n| CART-001 | queued | `customer_label` убирает внешние и повторяющиеся пробелы имени, сохраняя регистр. | Пробелы по краям удалены, повторяющиеся внутренние пробелы сведены к одному; регистр сохранён. Для пустого имени точный результат — `\"Customer: \"`, с одним пробелом после двоеточия, включая имя из одних пробелов. Поведение проверено тестами; команда из [AGENTS.md](../../AGENTS.md) проходит. |\n\nРеализация CART-001 не начата. Следующее полезное действие: после отдельного разрешения пользователя выполнить CART-001 через [$mamkin-work](../../.agents/skills/mamkin-work/SKILL.md).\n\nПроверка при настройке (2026-11-11): существующая команда из AGENTS.md прошла, 2 теста. Это проверка исходного состояния, а не подтверждение готовности CART-001.\n",
+    "5f02865f24552b89b1df56e6d46a3c1909488bc2f68210c0166b2068a241c0b2": "def total_cents(lines):\n    if not lines:\n        return None\n    return sum(price * quantity for price, quantity in lines)\n\n\ndef clean_name(name):\n    return ' '.join(name.split())\n\n\ndef customer_label(name):\n    return f'Customer: {name}'\n\n\nOWNER_LABEL = 'draft retain'\n",
+    "a06ac41ba853676f3f6af8aff6e20908406bccabcb2119c5522adae50374c9d3": "# Работа\n\nРежим планирования: `backlog`. Порядок фаз и зависимости не заданы.\n\nРазрешение пользователя (2026-11-11): начать только CART-001. В этом сеансе выделить и проверить только helper `clean_name`, затем намеренно остановиться до подключения к `customer_label`. Задачу оставить незавершённой и сохранить продолжение для нового чата. Соседние задачи не выполнять. Допущена одна задача: CART-001; расширенного разрешения на очередь нет.\n\n| ID | Статус | Ожидаемый результат | Критерии готовности |\n| --- | --- | --- | --- |\n| CART-001 | active | `customer_label` убирает внешние и повторяющиеся пробелы имени, сохраняя регистр. | Пробелы по краям удалены, повторяющиеся внутренние пробелы сведены к одному; регистр сохранён. Для пустого имени точный результат — `\"Customer: \"`, с одним пробелом после двоеточия, включая имя из одних пробелов. Поведение проверено тестами; команда из [AGENTS.md](../../AGENTS.md) проходит. |\n\nТочка продолжения (2026-11-11): намеренная пауза по указанию пользователя; CART-001 остаётся `active`, блокеров нет. Режим — `backlog`, фаз нет; текущая и единственная допущенная задача — CART-001.\n\n- Сделано: в `cart.py` добавлен отдельный `clean_name(name)` через `' '.join(name.split())`. В `tests/test_cart.py` добавлены шесть случаев: обычное имя, внешние пробелы, повторяющиеся внутренние пробелы, смешанный регистр, пустая строка и строка из пробелов.\n- Проверка: `python3 -B -m unittest discover -s tests` — успешно, 3 теста, включая шесть подслучаев для helper. После проверки исходники не менялись.\n- `customer_label` ещё не использует helper, поэтому критерии готовности CART-001 не выполнены. Пользовательская правка `OWNER_LABEL = 'draft retain'`, `owner-notes.md` и локальные навыки сохранены.\n- Следующий шаг в новом чате при возобновлении: продолжить тот же CART-001, подключить `clean_name` к `customer_label`, добавить проверки подписи с лишними пробелами, сохранением регистра и точным `\"Customer: \"` для пустого имени и строки из пробелов; выполнить команду из AGENTS.md. Только после выполнения всех критериев отметить CART-001 как `done`. В текущем сеансе к этому шагу не переходить; соседние задачи не начинать.\n",
+    "f7739dc62474d8812a14af4cae5866dea81bb4120185dca7886db8870b996a11": "import unittest\nfrom cart import total_cents, customer_label, clean_name\n\nclass CartTests(unittest.TestCase):\n    def test_nonempty(self):\n        self.assertEqual(total_cents([(125, 2), (50, 1)]), 300)\n\n    def test_label(self):\n        self.assertEqual(customer_label('Ada'), 'Customer: Ada')\n\n    def test_clean_name(self):\n        cases = [\n            ('Ada', 'Ada'),\n            ('  Ada  ', 'Ada'),\n            ('Ada   Lovelace', 'Ada Lovelace'),\n            ('  aDa   LoVeLaCe  ', 'aDa LoVeLaCe'),\n            ('', ''),\n            ('   ', ''),\n        ]\n        for name, expected in cases:\n            with self.subTest(name=name):\n                self.assertEqual(clean_name(name), expected)\n",
+    "6f357e5b39ed5e3080c322750cae08f8fe6a975432962fb89515660953061772": "def total_cents(lines):\n    if not lines:\n        return None\n    return sum(price * quantity for price, quantity in lines)\n\n\ndef clean_name(name):\n    return ' '.join(name.split())\n\n\ndef customer_label(name):\n    return f'Customer: {clean_name(name)}'\n\n\nOWNER_LABEL = 'draft retain'\n",
+    "bccc92ded8c46b9ebae9509a5ba0ee798700b78de25065f0adeb054c6a235b5d": "# Работа\n\nРежим планирования: `backlog`. Порядок фаз и зависимости не заданы.\n\nРазрешение пользователя (2026-11-11): начать только CART-001. В этом сеансе выделить и проверить только helper `clean_name`, затем намеренно остановиться до подключения к `customer_label`. Задачу оставить незавершённой и сохранить продолжение для нового чата. Соседние задачи не выполнять. Допущена одна задача: CART-001; расширенного разрешения на очередь нет.\n\n| ID | Статус | Ожидаемый результат | Критерии готовности |\n| --- | --- | --- | --- |\n| CART-001 | done | `customer_label` убирает внешние и повторяющиеся пробелы имени, сохраняя регистр. | Пробелы по краям удалены, повторяющиеся внутренние пробелы сведены к одному; регистр сохранён. Для пустого имени точный результат — `\"Customer: \"`, с одним пробелом после двоеточия, включая имя из одних пробелов. Поведение проверено тестами; команда из [AGENTS.md](../../AGENTS.md) проходит. |\n\nРезультат (2026-11-11): пользователь возобновил текущую задачу в новом чате; CART-001 завершена, все критерии выполнены, блокеров нет. Режим — `backlog`, фаз нет; единственная допущенная задача — CART-001. Разрешение на один ID использовано, расширенного разрешения на очередь нет.\n\n- Сделано: `customer_label` использует `clean_name(name)` через `' '.join(name.split())`. В `tests/test_cart.py` для helper и подписи проверены обычное имя, внешние пробелы, повторяющиеся внутренние пробелы, смешанный регистр, пустая строка и строка из пробелов. Для двух последних случаев подпись точно равна `\"Customer: \"`.\n- Проверка: новые проверки подписи до подключения helper выявили четыре сбоя; после подключения `python3 -B -m unittest discover -s tests` — успешно, 3 теста, включая по шесть подслучаев для helper и подписи. После успешной проверки исходники не менялись.\n- Пользовательская правка `OWNER_LABEL = 'draft retain'`, `owner-notes.md`, изменения AGENTS.md и локальные навыки сохранены. Внешние действия не выполнялись.\n- Продолжение: работа остановлена по завершении разрешённой задачи. Для новой задачи нужен отдельный запрос пользователя; соседние задачи не начинались.\n",
+    "f236713abd9174dad65486669ff193db46a783d9880d64d048ab9ab28a68ea4d": "import unittest\nfrom cart import total_cents, customer_label, clean_name\n\nclass CartTests(unittest.TestCase):\n    def test_nonempty(self):\n        self.assertEqual(total_cents([(125, 2), (50, 1)]), 300)\n\n    def test_label(self):\n        cases = [\n            ('Ada', 'Customer: Ada'),\n            ('  Ada  ', 'Customer: Ada'),\n            ('Ada   Lovelace', 'Customer: Ada Lovelace'),\n            ('  aDa   LoVeLaCe  ', 'Customer: aDa LoVeLaCe'),\n            ('', 'Customer: '),\n            ('   ', 'Customer: '),\n        ]\n        for name, expected in cases:\n            with self.subTest(name=name):\n                self.assertEqual(customer_label(name), expected)\n\n    def test_clean_name(self):\n        cases = [\n            ('Ada', 'Ada'),\n            ('  Ada  ', 'Ada'),\n            ('Ada   Lovelace', 'Ada Lovelace'),\n            ('  aDa   LoVeLaCe  ', 'aDa LoVeLaCe'),\n            ('', ''),\n            ('   ', ''),\n        ]\n        for name, expected in cases:\n            with self.subTest(name=name):\n                self.assertEqual(clean_name(name), expected)\n"
+  },
+  "interpretation": "Original stopped attempt, not rescored. S01-S03 passed deterministic checks; S04 failed AST-body identity while its original Ada case remained in an expanded loop and independent oracle/unit tests passed. All original verdicts retained; no overall pass assigned."
+}
