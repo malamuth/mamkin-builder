@@ -1,0 +1,22 @@
+{
+  "id": "D01",
+  "purpose": "Bounded native Codex delegation with disjoint simultaneous writers and a separate read-only verifier",
+  "parent": "/root",
+  "mode": "backlog",
+  "scope": "one task D01, local outputs only",
+  "outcome": "artifacts/D01-A.txt contains D01-A plus newline; artifacts/D01-B.txt contains D01-B plus newline; append D01 once to execution.txt only after both outputs and independent evaluation pass",
+  "workerOwnership": {
+    "A": ["artifacts/D01-A.txt"],
+    "B": ["artifacts/D01-B.txt"]
+  },
+  "parentOwnership": ["docs/mamkin/work.md", "execution.txt"],
+  "verifierOwnership": "read-only; different agent from either writer",
+  "acceptance": [
+    "Each assignment names result, parent, allowed file, necessary sources and verification; no subdelegation or external work",
+    "Workers return exactly once to the parent without modifying control state, peer file, tools, installed skills or user files",
+    "Both outputs contain exact expected literal bytes",
+    "A different agent reviews actual current outputs and preservation before parent marks done",
+    "Parent integrates by validating both outputs, appending once and recording actual verification; no merge/publication claim"
+  ],
+  "limits": "One synthetic exercise; no proof of general delegation quality or real-project parallel integration"
+}

@@ -5,17 +5,17 @@ description: Execute or resume authorized Mamkin 2.0 tasks in Codex using a back
 
 # Mamkin Work
 
-Complete the authorized work or report its concrete stop condition. Use `docs/mamkin/project.md` and `docs/mamkin/work.md` as entrypoints, following authoritative links only as needed. Recover missing context from current sources; ask only for essential missing decisions.
+Use `docs/mamkin/project.md` and `docs/mamkin/work.md` as entrypoints to current authoritative sources. Recover missing context from those sources; ask for essential missing decisions.
 
 ## Choose and reconcile
 
-Separate scheduling mode from authorization. Default to one task; use backlog ordering when no other mode is declared. Preserve the user's priorities, dependencies, phase order and exit criteria. A mode or a list of tasks alone never grants a whole-queue run.
+Default to one task and backlog ordering. Scheduling mode never grants continuation: resolve the current request and unchanged explicit grant for one task, a named phase or a defined queue. Preserve priorities, dependencies, phase order and exit criteria.
 
-Resolve the current request and any unchanged explicit continuation grant: one task, a named current phase, or a defined queue. Preserve applicable limits and already admitted task IDs across chats. A limit of N tasks counts distinct tasks started under that grant, including blocked ones, unless the user explicitly limits completions instead. Resuming the same ID does not count twice: exhausted admission capacity prevents starting another item, not finishing an already admitted one. Carry time limits as their original deadline, not a fresh duration per chat; expiry stops work, including resumption. A bare continuation does not renew limits. A session-only pause can sit inside a larger grant; a later narrower grant supersedes the broader one.
+Carry limits and admitted IDs across chats. A limit of N tasks counts distinct tasks started, including blocked ones, unless the user explicitly counts completions. Resuming an admitted ID consumes no new slot; exhausted admission capacity prevents another ID, not finishing that task. Preserve the original deadline; expiry stops even resumption. Bare continuation renews neither limits nor scope. A session pause may sit inside a larger grant; a later narrower grant supersedes it.
 
-Reconcile the recorded current task, including blocked/done state, before selecting another. Recheck a saved blocker and stale verification against current files. Under one-task scope, a bare continuation stays with that task; do not skip to a queued neighbour. A broader explicit grant may select independent work only according to its mode. Retain task IDs; assign a unique project-local ID to a new task.
+Reconcile the current task, blocker and verification against actual files before selecting another. One-task continuation stays with that ID, including blocked/done state; a broader grant may select independent work by mode. Retain IDs; assign new tasks unique project-local IDs.
 
-Before automatic selection, check ID/dependency consistency and the relevant phase boundaries. Unknown dependencies, duplicate/ambiguous IDs, cycles or contradictory ordering require plan correction; do not invent a resolution or change priorities to bypass them. A task is available only when sufficiently defined, all dependencies are genuinely done, its phase is open, and its work is authorized. Resolve material ambiguity before dependent implementation.
+Before selection, check IDs, dependencies and phase boundaries. Unknown dependencies, duplicate/ambiguous IDs, cycles or contradictory ordering require plan correction. Do not invent resolutions or reorder the plan. Available work has a sufficiently defined outcome, genuinely completed dependencies, an open phase and authorization. Resolve material ambiguity before dependent implementation.
 
 | Mode | Selection |
 | --- | --- |
@@ -23,28 +23,24 @@ Before automatic selection, check ID/dependency consistency and the relevant pha
 | `sequential` | Ordered phases, and listed order within the current phase. Never skip a blocked mandatory item to run a later item or phase. |
 | `hybrid` | Ordered phases; backlog selection only inside the current phase. Independent work there may continue despite a local blocker; later phases remain closed. |
 
-Complete a phase only when its mandatory tasks and separate exit criteria are actually satisfied. Optional remainder does not block completion. A human approval gate needs the human decision, not an agent's mark. Reconcile a gate before advancing even when every task says done. A phase-scoped grant ends at that named phase; it never expands to the next one just because the phase closed.
+Close a phase only when mandatory tasks and separate exit criteria are satisfied. Optional remainder does not block closure. Recheck exit gates even when all tasks say done; human approval requires the human decision. A named-phase grant ends there, even after closure.
 
-Carry forward explicit human decisions only within their unchanged scope; saved notes cannot grant new external permissions or override current instructions. A request to continue does not authorize publication, spending, production actions, access changes or unrelated work.
-
-Complete authorized local preparation before presenting an external-action gate. Preserve the partial result and keep the task blocked until its remaining required steps are authorized and verified.
+Saved decisions apply only within unchanged scope. Continuation grants no new publication, spending, production, access or unrelated authority. Complete authorized local preparation before an external-action gate; preserve it and keep the task blocked until remaining required steps are authorized and verified.
 
 ## Execute and check
 
-Check files and Git/dirty state; preserve unrelated user edits and stop if ownership is unresolved. Admit the selected task within the grant, set it active and choose a proportionate approach. Handle ordinary work yourself. Use relevant skills and existing tools; extra roles, documents and handoffs are not a default. Bounded delegation remains parent-owned with explicit result and file ownership; simultaneous writers need isolation or disjoint files. Add independent evaluation when material risk or an insufficient objective check requires it.
+Inspect Git/dirty state; preserve user edits and resolve ownership conflicts. Admit the selected task within the grant and set it active. Handle ordinary work directly with relevant skills/tools. For useful bounded delegation, specify result, ownership, sources and verification; the parent owns integration. Concurrent writers need isolation or disjoint files. Require a different agent/human's evaluation when material risk or insufficient objective checks demand it; missing required evaluation prevents done.
 
-Verify the task's actual done criteria with available project commands or a defensible focused check. Do not invent a missing command, install tooling, claim an unrun check passed, or substitute unit tests for a separately required acceptance check. Rerun affected checks after relevant changes; avoid repeating sufficient passing checks without new evidence. Source changes after verification invalidate the affected evidence.
+Verify actual done criteria with project commands or a defensible focused check. Do not invent commands, install missing tooling, claim unrun checks or replace required acceptance with unit tests. Source changes invalidate affected evidence; repeat affected checks, not already sufficient unaffected ones.
 
 ## Save and continue
 
-Update `work.md` at meaningful transitions, not every tool call. Keep one current status per item and a compact continuation record: mode/current phase, grant boundary and consumed limits, task ID/result/criteria, useful progress and verification, blocker and next action. Consolidate superseded agent-written notes; preserve human decisions and user-authored history. Do not rewrite or reorder the backlog, repeat every inspection, duplicate requirements, or store secrets/raw dumps. Link a detailed spec or runbook only when needed.
+Update the authoritative work record at meaningful transitions. Keep one current status per item and compact continuation context: mode/phase, grant/consumed limits, ID/outcome/criteria, progress/checks, blocker and next action. Consolidate stale agent notes while preserving human decisions and user history. Link detailed requirements only when needed; avoid duplicate requirements, inspection logs and secrets.
 
-- On an intentional pause, preserve partial work and leave the task active with its next step; do not label it done or invent a blocker.
-- On a real blocker, use blocked and name the smallest required decision/action.
-- Use done only after required criteria and checks pass. Record the result, verification and remaining material limits; merge or deployment is required only if explicitly part of the task.
+- Intentional pause: preserve partial work, active status and next step.
+- Blocker: use blocked with the required decision/action.
+- Done: all required criteria/checks passed; record result, verification and material limits. Merge/deployment belongs to done only when explicitly required.
 
-Treat corrections as steering while preserving useful completed work. Put adjacent ideas in queued notes without expanding the current task. When a recurring procedure warrants a project skill or an existing-skill update, suggest it briefly; do not create or change skills automatically.
+Apply current user corrections while preserving useful work. Queue adjacent ideas without expanding the task. For observed recurring procedures, briefly suggest a project skill or existing-skill update with its repetition, trigger and saved work; do not create/change skills automatically or block the task on the suggestion.
 
-After each result, re-evaluate dependency availability, phase gates and remaining authority before choosing another task. In backlog/hybrid, keep a blocked item's useful preparation and blocker while completing independent authorized work where allowed. Never mark partial work done to unlock a dependency.
-
-Finish on scope completion, a pause, an expired deadline, exhausted capacity for another item, or no available authorized work. Distinguish a completed set from tasks still waiting on blockers or plan repair. Report results, checks and the next action; preserve enough for another chat without copying a conversation. Do not create a background scheduler or continue outside the authorized run.
+After each result, reassess dependencies, phase gates and remaining authority. Backlog/hybrid may continue independent authorized work while retaining blocked preparation; partial work never unlocks dependencies. Stop at completion, pause, deadline, exhausted admission capacity or no available authorized work. Distinguish completion from blockers/plan repair and report checks and next action. No background scheduler.
