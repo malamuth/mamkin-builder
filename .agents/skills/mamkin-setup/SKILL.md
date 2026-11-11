@@ -1,30 +1,20 @@
 ---
 name: mamkin-setup
-description: Set up or reconcile minimal Mamkin 2.0 project context in Codex when the user asks to enable it.
+description: Set up or reconcile minimal Mamkin 2.0 backlog, roadmap and decision-memory entrypoints in a Codex project.
 ---
 
 # Mamkin Setup
 
-Set up context for authorized work and continuation in another chat. Setup does not start implementation.
+Find existing owners of project context, tasks, phases and decisions. Read project instructions, Git/dirty state and only needed sources. Preserve user changes, IDs, progress, decision reasons and history. Unknown commands or reasons stay unknown; ask only for decisions preventing useful setup.
 
-Read project instructions, Git/dirty state and sources needed for goals, constraints and real check commands. Preserve user files/decisions and existing information owners; link instead of moving or duplicating sources. Ask only for decisions preventing useful setup. Unknown commands remain explicitly unknown.
+Create or reconcile concise entrypoints:
 
-## Minimal project records
+- `docs/mamkin/project.md`: goal, material constraints, source links and significant decisions with reasons. Link existing decision/ADR sources rather than copying or moving them. Distinguish accepted choices, proposals and unknowns; retain relevant superseded reasons and links to current choices.
+- `docs/mamkin/work.md`: backlog/roadmap and current work, or links to their existing owner. Tasks have IDs, outcomes, done criteria and queued/active/blocked/done state; ideas may stay brief until refined. Preserve priorities, dependencies and order. Keep phase goals, mandatory/optional work and exit criteria when used. Default to backlog absent declared sequencing.
+- `AGENTS.md`: preserve content; add only missing short links to context/work and `$mamkin-work`. Link existing commands instead of repeating them.
 
-Create or reconcile concise records:
+Keep planning mode separate from execution authority. Preserve applicable grants, consumed limits, deadlines and useful continuation state. Setup or choosing a mode grants no execution.
 
-- `docs/mamkin/project.md`: goal, constraints, source links and durable decisions with reasons.
-- `docs/mamkin/work.md`: task IDs, outcomes, done criteria and statuses, or links to their existing owner. Preserve order, priorities, dependencies and detailed-plan links. Record mode: backlog by default, sequential or hybrid when declared. Ordered phases retain goals, mandatory/optional items, current phase and separate exit criteria.
-- `AGENTS.md`: preserve content; add missing commands and brief links to context/work and `$mamkin-work`. Create a short file if absent. Link commands already documented elsewhere.
+With no new facts, leave suitable files unchanged. Reconcile missing/contradicted facts without resetting progress, erasing reasons, reordering work or duplicating sources. No new decision registry, required ADR format or runtime is needed; only these two Mamkin skill directories are required.
 
-Statuses: queued, active, blocked, done. Blocked names the missing decision/action; done names result and actual verification. No known tasks means an empty queue, not invented work. Separate specs/walkthroughs are optional.
-
-Keep mode separate from continuation authority: default one task, or an explicitly granted named phase/queue. Preserve consumed limits, deadlines, progress and blockers. Choosing a mode grants no execution; unscoped ideas stay queued.
-
-With no new facts, leave suitable files unchanged. Reconcile missing/contradicted facts without resetting IDs, progress, history or permissions, reordering work or duplicating instructions.
-
-## Boundaries and finish
-
-Only the two Mamkin 2.0 skill directories are required. Preserve project/runtime restrictions. Setup grants no remote/provider/access/user-config changes, tooling installation or external actions.
-
-Report context/work locations, unknown commands, unresolved facts and next action. Stop before the first task unless separately requested.
+Report locations, unresolved material facts and next useful action. Setup neither starts implementation unless separately requested, nor authorizes tooling installation or external/configuration changes. Existing project/runtime restrictions remain authoritative.
