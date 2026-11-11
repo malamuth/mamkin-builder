@@ -1,0 +1,308 @@
+{
+  "date": "2026-11-12",
+  "branch": "codex/mamkin-2",
+  "finalProductCommit": "94415fc",
+  "initialSourceCommit": "b0846d9",
+  "staleSourceCommit": "6510abc",
+  "checkpointCriteriaCommit": "b9ffe28",
+  "functionalAcceptanceOnly": true,
+  "wholeMvpAccepted": false,
+  "sameDataComparison": "not run in this task",
+  "realPilot": "still deferred",
+  "cliVersion": "codex-cli 0.167.0-alpha.3.2",
+  "requestedModel": "gpt-6.1-sol",
+  "requestedEffort": "high",
+  "modelSandbox": "workspace-write",
+  "approvals": "on-request",
+  "cost": null,
+  "suites": {
+    "newFunctional": {
+      "file": "functional.json",
+      "sha256": "0e40b9ce71ac27af49b9a495edc5a70a6ca650cb6c3033f704f5a83eba642ea4",
+      "cases": 20,
+      "deterministicPassed": 20,
+      "parentBehavioralCriteriaPassed": 20,
+      "additionalV03Findings": 0,
+      "cliSecondsSum": 547.902,
+      "completedCommandEvents": 107,
+      "reportedUsage": {
+        "input_tokens": 1843611,
+        "cached_input_tokens": 1591040,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 13030,
+        "reasoning_output_tokens": 2000
+      },
+      "cost": null
+    },
+    "initialRegressions": {
+      "file": "regressions-initial.json",
+      "sha256": "ff400c61845b4a2abea642444550661ff160e4c0fdfc69c1c315ae63ef14c358",
+      "cases": 27,
+      "deterministicPassed": 27,
+      "parentBehavioralCriteriaPassed": 27,
+      "additionalV03Findings": 1,
+      "cliSecondsSum": 1060.88,
+      "completedCommandEvents": 167,
+      "reportedUsage": {
+        "input_tokens": 3206294,
+        "cached_input_tokens": 2843520,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 32330,
+        "reasoning_output_tokens": 3321
+      },
+      "cost": null
+    },
+    "checkpointFollowup": {
+      "file": "checkpoint-followup.json",
+      "sha256": "3f1c073116f30879c4b8ea636efec921631d3d9dc335cb11b055e6803912482f",
+      "cases": 14,
+      "deterministicPassed": 13,
+      "parentBehavioralCriteriaPassed": 14,
+      "additionalV03Findings": 0,
+      "cliSecondsSum": 611.267,
+      "completedCommandEvents": 83,
+      "reportedUsage": {
+        "input_tokens": 1637521,
+        "cached_input_tokens": 1465216,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 19461,
+        "reasoning_output_tokens": 1398
+      },
+      "cost": null
+    }
+  },
+  "continuity": [
+    {
+      "run": "functional1",
+      "from": "V01",
+      "to": "V02",
+      "allTextFilesIdentical": true
+    },
+    {
+      "run": "functional1",
+      "from": "V02",
+      "to": "V03",
+      "allTextFilesIdentical": true
+    },
+    {
+      "run": "functional1",
+      "from": "V04",
+      "to": "V05",
+      "allTextFilesIdentical": true
+    },
+    {
+      "run": "functional1",
+      "from": "V05",
+      "to": "V06",
+      "allTextFilesIdentical": true
+    },
+    {
+      "run": "functional1",
+      "from": "V06",
+      "to": "V07",
+      "allTextFilesIdentical": true
+    },
+    {
+      "run": "functional1",
+      "from": "V07",
+      "to": "V08",
+      "allTextFilesIdentical": true
+    },
+    {
+      "run": "functional1",
+      "from": "V08",
+      "to": "V09",
+      "allTextFilesIdentical": true
+    },
+    {
+      "run": "functional1",
+      "from": "V12",
+      "to": "V13",
+      "allTextFilesIdentical": true
+    },
+    {
+      "run": "functional1",
+      "from": "V13",
+      "to": "V14",
+      "allTextFilesIdentical": true
+    },
+    {
+      "run": "functional1",
+      "from": "V17",
+      "to": "V18",
+      "allTextFilesIdentical": true
+    },
+    {
+      "run": "scheduling1",
+      "from": "P03",
+      "to": "P04",
+      "allTextFilesIdentical": true
+    },
+    {
+      "run": "scheduling1",
+      "from": "P07",
+      "to": "P08",
+      "allTextFilesIdentical": true
+    },
+    {
+      "run": "scheduling1",
+      "from": "P08",
+      "to": "P09",
+      "allTextFilesIdentical": true
+    },
+    {
+      "run": "scheduling1",
+      "from": "P11",
+      "to": "P12",
+      "allTextFilesIdentical": true
+    },
+    {
+      "run": "scheduling1",
+      "from": "P12",
+      "to": "P13",
+      "allTextFilesIdentical": true
+    },
+    {
+      "run": "cycle1",
+      "from": "S01",
+      "to": "S02",
+      "allTextFilesIdentical": true
+    },
+    {
+      "run": "cycle1",
+      "from": "S02",
+      "to": "S03",
+      "allTextFilesIdentical": true
+    },
+    {
+      "run": "cycle1",
+      "from": "S03",
+      "to": "S04",
+      "allTextFilesIdentical": true
+    },
+    {
+      "run": "cycle2",
+      "from": "S01",
+      "to": "S02",
+      "allTextFilesIdentical": true
+    },
+    {
+      "run": "cycle2",
+      "from": "S02",
+      "to": "S03",
+      "allTextFilesIdentical": true
+    },
+    {
+      "run": "cycle2",
+      "from": "S03",
+      "to": "S04",
+      "allTextFilesIdentical": true
+    },
+    {
+      "run": "bounds2",
+      "from": "P07",
+      "to": "P08",
+      "allTextFilesIdentical": true
+    },
+    {
+      "run": "bounds2",
+      "from": "P08",
+      "to": "P09",
+      "allTextFilesIdentical": true
+    },
+    {
+      "run": "bounds2",
+      "from": "P11",
+      "to": "P12",
+      "allTextFilesIdentical": true
+    },
+    {
+      "run": "bounds2",
+      "from": "P12",
+      "to": "P13",
+      "allTextFilesIdentical": true
+    }
+  ],
+  "distinctThreadIdentityHashes": [
+    "f58c57cbafab9c7ac580d0fdcc538dedcb283869d74131c22edde681f79e2563",
+    "f4ae06de773715b69d443b3f6baec8d8563ff2d7626441037c1a07f10b0bc03e",
+    "43661ba08ac598046f1f777b49a4dc73248e1eb3f074444901a6ea505bd2e3ee",
+    "d668d291d820bcf1d8a131f226dfc6425069dab207b38f5701a7c4aac70ae496",
+    "095149682fd8941a33e5c4e1591fa222720a5f46dfb8ac0086972dc69ca565de",
+    "3ef3378af5d36dce9a5bc90b826321f5ff677e93c60c3227f920e480772db191",
+    "431497722f41d7153310567bf3a719b96b533c2a17022300ac279894393aa920",
+    "038216f7e814b9da498fbe63a9613d08f952281d41ccd23f5f52d5633cfd2975",
+    "072064347dd8d4d1a831c7d48fc91d563fd39e540f652e81b14817619011bed5",
+    "139e88827667b999d636c70a7bc9145131d84c011706d33a37e2da80be289c0f",
+    "c3dce51ceba9d5f003c5a0da9a3de6c8d98e2465a99c4397270d18005dddd0a2",
+    "f1945b4d3b6397168326ec62f934b2254c1e88761b6df87e90ef0057c7852d2a",
+    "f9d77355a8b4d315a736708280c673c6dadceb404d2d9e585dc499cc1121890e",
+    "1ff8b266a3da8ac3a024960244ffd3f6a162b7a9f5bdf853932d56853da21b1c",
+    "e2e8bbc82b2d5f561e466e313d1e65b39f4cb9bf204cf8a1123e7cb5fd773c29",
+    "d8ce405b07fc3c2804314351e960773240c3723f593ab13a8da886daf0c72ab6",
+    "8a2cdec6c3290b820970f4d862f270c7cd2524c21eb280445b5ce88ce5e68511",
+    "46ebd952ffbefd17952c3c3486151c40aa8cb10828ace014604c1757739d553a",
+    "0f4697eb8c0891dcea1de16022db4f7215467c870f69839d20441f4a6fc60130",
+    "a55f686799c4a3987a7234745ce115d40cdf9a89d3004cd7c3fb0cacf56e901d",
+    "1e5b7aa766126bb2056af28a7010f39ba510382a9a90edfd8d745b7a58005ed5",
+    "02dc7aaced3a3be0d17ce02d48689e66558e7d94858b3a45ded9d6e24c0b2b5f",
+    "5157e8a32257242fdf6f8dffc11855404df684e484b381c48367c2f96eb6c4fb",
+    "e8f9ee959ff45e2753a06cddd15dafd929698651fbec3b5e3c9004c1ae74b77e",
+    "7719809909a371f4658220400c4e9513b8513a317118c4bdcc6286f7468a87f5",
+    "a79b4a9f98c0be23a184e54415535dc035ae6a0cca9f2fb94bd1d0f93de7e1d6",
+    "8ba79796001bae23e89e31c1a1a227abdc14c4225531c253a096257d47ed96a6",
+    "4c18c5692259cfa824ba27bba383801479a8dfbdff894eaa57b4795a10e9de8e",
+    "0dcc02351df8a545b3b54761a00f2f62d569edc5040631ce14d17f1edd7400dc",
+    "1daddd5b588095b4292540a73e6941c9b2bb42136a1ff6c8c53340e5efa59d57",
+    "b7e518a4567f3b9a66c84f08bc97ce8d48e704cfcf82fc13ee6d1bfb38d96774",
+    "3c5403a6f581f651b8906769a78abf02f1610274b0b20dc7cfeb42b1137267e6",
+    "eec1a6f5ee093cd4ef3fc69a7ddccd6d3ec2b2298b3d7916b72b067c284c9edb",
+    "263c0812b5868e088a48bb7ac91bbe1360914c24d70f177e967e48d29e7cb2f1",
+    "2d77aa77d6387f2daabf3128075c35f4496603319430611cf2f848736ae545ad",
+    "a1b5a038e2078b8aae58b0316a46b3e56670ea7565557af726af49c27d6a41af",
+    "efbc81da7c5d70fb27baca58e09e1c27c46b840291f16520461ae48fe189ee17",
+    "76b16c0a890e89cadf1871ae7accea5bdbf3dc95b4fa45a3868cea2e0eabc47d",
+    "284bbbaa4af5f1ae48438e76124afcef4f48ef39ed29dfd67e0e50cbff367bbb",
+    "2a186544b1f8f512ae8b7266475c7af476ab9fa97edb28ae04567a36a7690979",
+    "140f088c7036d762ca8e5678e59b0c706c93d593a4ba07444ca9ddb6aa4166b2",
+    "e49293c6cb1ad448d70a0ad06a2af0c616de363ef3633d4debde62083f5c852a",
+    "de4c4a1d2d4aa6e48e32077c6098bf760e32fe2731c16de37546df7dd13a935d",
+    "37878b0175527b740027486f379c2fc1bd6e2c92b8082c239a9ab2d889180dba",
+    "b07c5471fad7193099971dda779eed93359358ac4cd6fd8cd654317e4c0d4404",
+    "9d05d2ba02ad75f046090a1506b057ec1cda6301dc5417df9411f3dcd100eb65",
+    "978e5e7dd8767ec423b06c062471ae0371cd93fa5002216bf1d54a8cf611e64d",
+    "1122a1467d1ad17cbc86bf8015cf8bb73117d1398a9bbe5405ed065cc0452e7c",
+    "ab90b57762275bd47a760473a705965ca5c997a623efd81f19727f5f34a47262",
+    "37b17b1067733e15049fa643ab893a38a5e88dce7ffa00437b0d083dc7fb872c",
+    "5799a2073d00cd7155e2c856acea94083513707aaa53e6845968f307e67fb3d0",
+    "e5cefa1159a3866f7decafef1632f6fa801238954f87640f232f32e28fe19fd7",
+    "93f50b7a9f8ab0e5dce0a6e57ef71c2d87bdbc33ea3e0b601c86ca16ce1b3726",
+    "e507e071a48e81577355ed78a302be0a809a9707ca03d725c92cd4fafb71944b",
+    "9167bf45774c5da2b9b9d18a930c0963bc1f888d912b6709f4572e8459444143",
+    "949c51487d946aa7d1be5b1ea5f8952015e7a0af52f783dfca9bb17908f8121d",
+    "39c219bb36ea5098edf18ebde8f1e98dd100d154aed397b811a05a24e314f7ce",
+    "0fdbb31df143fa3833f7e2b20af077ea6e57fc80daf28e1f158fa9f1c5aa9d14",
+    "5a22bc22eaa7e32b5b6ef40b9703dc514c101754ffeb40077c6fc39b5dfc50f7",
+    "d5b1725e73d559711ca7bb4955ae0afc7b506d24f058c6989967e063f1d64c2d",
+    "66ddc64206a6ebb91492f5a26a89a616dcedc15b1b89f93092c298db4aeb2869"
+  ],
+  "finalSkills": {
+    "mamkin-work": {
+      "sha256": "df65fb77aaf43ee856d6ea7c7d7c31b8868de841afb0a7f621d261cfb45cb762",
+      "priorWords": 737,
+      "words": 774
+    },
+    "mamkin-setup": {
+      "sha256": "5257a195fe5f4537b1c1248000a2bd5fa0380c6473c40d746572d89d54475238",
+      "priorWords": 301,
+      "words": 268
+    }
+  },
+  "limits": [
+    "Synthetic cases, one invocation per case/version, no real pilot or same-data comparison; functional evidence does not prove usefulness or efficiency.",
+    "Original S07 state-accuracy finding retained despite legacy pass. Original follow-up S08 legacy path failure also retained: existing-source factual update accepted independently under v0.3 without changing its legacy score. Only a checkpoint paragraph changed; repeat cycle demonstrates avoidance, not an exact replay repair of old S07 text.",
+    "Initial 20 decision/routing cases remain evidence for unchanged rules; final checkpoint body tested separately by 8 cycle and 6 phase/cap cases, not a full rerun of every combination.",
+    "CLI seconds include tools and concurrent suite activity; tokens include cached input, command events do not count all tool calls, actual full injected context unobservable; cost unavailable.",
+    "No crash/long-context/hard-resource-enforcement proof or real external delivery."
+  ]
+}
