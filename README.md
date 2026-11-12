@@ -32,13 +32,13 @@ Backlog, sequential phases and a combination of both are supported. Planning mod
 
 ## Migrate an existing Mamkin 1.x project
 
-Use the separate [one-time migration procedure](docs/process/mamkin-1-to-2-migration.md) in the target project's own chat. It preserves project data, decision reasons, unfinished work and real safeguards, removes confirmed obsolete process, and prepares a fresh coordinator. This procedure has been reviewed but has not yet been exercised on a real project.
+Use the separate [one-time migration procedure](docs/process/mamkin-1-to-2-migration.md) in the target project's own chat. It preserves project data, decision reasons, unfinished work and real safeguards, removes confirmed obsolete process, and prepares a fresh coordinator. A first pilot verified file preservation and context recovery in a separate chat; [results and limits](docs/follow-ups/mamkin-2-migration-pilot-2026-11-12.md) remain explicit. The procedure now describes a handoff prepared by the old coordinator, with source verification and the ownership update in the new chat’s first response. Automated chat creation/sending requires explicit user authorization; the revised handoff has not yet been exercised.
 
 Do not install 2.0 over an active 1.x setup by copying the whole repository or running the old bootstrap/init/adopt/template-sync flows.
 
 ## Scope and evidence
 
-The [v0.3 specification](docs/project/mamkin-2-spec.md) and [MVP plan](docs/project/mamkin-2-mvp-plan.md) define the contract. The [functional checks](docs/follow-ups/mamkin-2-v03/README.md) retain failures and limitations alongside the final assessment. The [earlier comparison](docs/follow-ups/mamkin-2-stage-3/README.md) found no advantage over ordinary Codex on seven simple tasks. A comparison with identical Markdown data and the real-project pilot remain outstanding; publication as the primary version does not mean MVP acceptance or proven efficiency gains.
+The [v0.3 specification](docs/project/mamkin-2-spec.md) and [MVP plan](docs/project/mamkin-2-mvp-plan.md) define the contract. The [functional checks](docs/follow-ups/mamkin-2-v03/README.md) retain failures and limitations alongside the final assessment. The [earlier comparison](docs/follow-ups/mamkin-2-stage-3/README.md) found no advantage over ordinary Codex on seven simple tasks. A comparison with identical Markdown data and a full real-project execution/resumption cycle remain outstanding; publication as the primary version does not mean MVP acceptance or proven efficiency gains.
 
 ## Repository contents
 
