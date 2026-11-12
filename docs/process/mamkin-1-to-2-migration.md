@@ -6,9 +6,9 @@
 
 ## Источник и границы
 
-Проверенный источник **реализации** опубликован в `https://github.com/malamuth/mamkin-builder`, ветка `codex/mamkin-2`, commit `08c6e05fa5bc2c90874159089c51ad962357f699`. Для двух skills использовать полный commit, не подвижный HEAD и не `main`, где пока остаётся Mamkin 1.x.
+Проверенный источник **реализации** опубликован в `https://github.com/malamuth/mamkin-builder`, ветка `codex/mamkin-2`, commit `08c6e05fa5bc2c90874159089c51ad962357f699`. Для двух skills использовать полный commit, а не подвижный HEAD ветки. Mamkin 2.0 становится основной версией в `main`; этот переход не меняет проверенный pin реализации.
 
-Источник **процедуры** — [этот документ в ветке codex/mamkin-2](https://github.com/malamuth/mamkin-builder/blob/codex/mamkin-2/docs/process/mamkin-1-to-2-migration.md), публикуемый отдельным documentation commit. В commit реализации `08c6e05` этой процедуры нет. Перед миграцией разрешить ссылку процедуры в конкретный полный Git commit, проверить наличие/содержимое файла в нём и записать оба pins в проектную запись миграции. Далее читать Git objects по этим pins, а не изменяемый working tree источника. Если опубликованный документ недоступен или источник не подтверждён, оставить подготовку read-only. Ссылка на конкретный опубликованный documentation commit предпочтительна, если уже дана в задании.
+Источник **процедуры** — [опубликованная процедура](https://github.com/malamuth/mamkin-builder/blob/7be2dfbcd2c84f0daa15925c09284f1aaf23aa82/docs/process/mamkin-1-to-2-migration.md) в отдельном documentation commit `7be2dfbcd2c84f0daa15925c09284f1aaf23aa82`. Эта редакция уточняет только публикацию основной версии; порядок миграции и pins двух skills не меняются. В commit реализации `08c6e05` этой процедуры нет. Перед миграцией разрешить ссылку процедуры в конкретный полный Git commit, проверить наличие/содержимое файла в нём и записать оба pins в проектную запись миграции. Далее читать Git objects по этим pins, а не изменяемый working tree источника. Если опубликованный документ недоступен или источник не подтверждён, оставить подготовку read-only. Ссылка на конкретный опубликованный documentation commit предпочтительна, если уже дана в задании.
 
 Из этого commit в проект переносятся только:
 
@@ -149,7 +149,7 @@ Dirty состояние допустимо, если известны влад�
 В этом репозитории подготовь переход Mamkin 1.x → 2.0 по опубликованному
 08c6e05fa5bc2c90874159089c51ad962357f699 из malamuth/mamkin-builder.
 Это pin реализации двух skills. Процедура опубликована отдельно:
-https://github.com/malamuth/mamkin-builder/blob/codex/mamkin-2/docs/process/mamkin-1-to-2-migration.md
+https://github.com/malamuth/mamkin-builder/blob/7be2dfbcd2c84f0daa15925c09284f1aaf23aa82/docs/process/mamkin-1-to-2-migration.md
 Сначала разреши её ref в полный Git commit, проверь файл и сохрани оба pins;
 если в задании дан конкретный commit процедуры, используй его. Не ищи runbook в 08c6e05.
 Действуй по проверенному документу; недоступный источник оставляет подготовку read-only.

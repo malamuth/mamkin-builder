@@ -1,178 +1,47 @@
-# Universal Vibecode Project Template
+# Mamkin 2.0
 
-## Mamkin 2.0 development branch
+A thin project-memory layer for Codex: backlog, roadmap and decisions with their reasons, stored in Markdown. Mamkin helps select and resume authorized work across chats. Ordinary Codex handles implementation and verification under the project's rules.
 
-Mamkin 2.0 is a thin Codex layer for a project backlog, roadmap and memory of decisions with their reasons. Its [0.3 specification](docs/project/mamkin-2-spec.md) keeps two skills and Markdown entrypoints, reusing existing sources. Ordinary Codex handles implementation and verification under project rules.
+Mamkin 2.0 is the primary version on `main`. The product consists of two skills; no Mamkin role system, custom runtime or mandatory audit/rollover workflow is required.
 
-The current [`mamkin-setup`](.agents/skills/mamkin-setup/SKILL.md) and [`mamkin-work`](.agents/skills/mamkin-work/SKILL.md) implement the 0.3 functional contract: distinguish answers, data updates and execution; preserve decision reasons and supersession; reuse existing source owners. General execution/review policy and mandatory skill proposals are removed. The [v0.3 checks](docs/follow-ups/mamkin-2-v03/README.md) retain the discovered checkpoint issue and the old S08 path failure separately from the v0.3 assessment. The [earlier comparison](docs/follow-ups/mamkin-2-stage-3/README.md) found no advantage on seven simple tasks. A comparison against ordinary Codex with identical Markdown data and the real-project pilot remain outstanding; the MVP is unaccepted. See the [active plan](docs/project/mamkin-2-mvp-plan.md).
+## Start using Mamkin 2.0
 
-Only the two 2.0 skill directories belong in a target project's `.agents/skills/`; the legacy process/config overlay is not required. This development checkout is not a ready-to-copy 2.0 project template.
+For a project without Mamkin 1.x, copy only these two directories into its `.agents/skills/`, preserving existing files:
 
-For existing Mamkin 1.x projects, a separate [one-time migration procedure](docs/process/mamkin-1-to-2-migration.md) covers data preservation, targeted process removal and a fresh coordinator. It is prepared but not yet exercised on a real project. Ordinary 2.0 continuation needs no dedicated audit/reset/rollover skills. The published implementation is pinned at `08c6e05`; migration instructions do not imply automatic changes to existing projects.
+- [`mamkin-setup`](.agents/skills/mamkin-setup/SKILL.md)
+- [`mamkin-work`](.agents/skills/mamkin-work/SKILL.md)
 
-The template instructions below describe Mamkin 1.x, whose development sources remain in this checkout during the staged implementation.
-
-A tiny, product-agnostic starting point for vibecode projects. Copy it, ask an init agent to run the setup flow, and the agent will interview you, adapt the docs to the specific product, propose git/GitHub setup, and hand off to a coordinator-led implementation workflow.
-
-The workflow is built for projects run by an init agent, a coordinator, optional analyst/architect/designer support, implementation workers, and walkthrough/testing agents. `AGENTS.md` stays short as the agent entrypoint; the durable process lives in `docs/process/`.
-
-## Quick Start
-
-1. Copy this repository for a new project. If you duplicate the folder directly, the hidden `.git/` directory is copied too, including branch, dirty state, and remotes. Treat that Git state as inherited template state until init decides what to keep.
-2. Ask your agent to run the repo skill if available:
-
-   ```text
-   $mamkin-init
-   ```
-
-   Or use the plain prompt:
-
-   ```text
-   Read AGENTS.md and run the project init flow.
-   ```
-
-3. Answer the init questions.
-4. Let the init agent adapt:
-   - `README.md` from `docs/templates/project-readme.md`
-   - `docs/project/brief.md`
-   - `docs/project/decision-log.md`
-   - `features/00-roadmap.md`
-   - `AGENTS.md` project commands once the stack is known
-   - the project prefix in `docs/process/naming-conventions.md`
-   - `.mamkin/template-version.json` with the copied template baseline when known
-   - approved project-local Codex config, hooks, rules, skills, or agent presets
-   - process docs only when the reusable workflow or custom roles change
-   - custom role cards and packets, if the project needs recurring specialist roles
-5. The init agent verifies git state, calls out any inherited template branch, dirty state, or remote, proposes GitHub setup, and hands off to the coordinator flow.
-
-## Adopt An Existing Project
-
-For a repository that already contains a real project and was not copied from Mamkin, first install the portable bootstrap skill once per Codex machine:
+Then ask Codex in that project:
 
 ```text
-Use $skill-installer to install:
-https://github.com/malamuth/mamkin-builder/tree/main/.agents/skills/mamkin-bootstrap
+Use $mamkin-setup to set up project memory. Preserve existing context,
+backlog, roadmap and decision sources; link them instead of duplicating them.
+Do not start implementation.
 ```
 
-The skill installer makes `$mamkin-bootstrap` available on the next turn. Open the existing project and run:
+Setup prepares concise `docs/mamkin/project.md` and `docs/mamkin/work.md` entrypoints and adds missing navigation to the project's `AGENTS.md`. Existing plans and ADRs can remain the owners of their data. Setup does not authorize execution.
+
+Use `$mamkin-work` to inspect or update the plan, explain decisions, or execute a specifically authorized task or phase. For example:
 
 ```text
-$mamkin-bootstrap
+Use $mamkin-work to explain the current roadmap, what is available next
+and why. Do not change files or start tasks.
 ```
 
-Bootstrap acquires and verifies the full Mamkin source from GitHub, then starts the adopter. The adopter audits the repository read-only, interviews only for missing facts, and produces a commit-pinned process-overlay plan. It applies nothing until that exact plan is approved. After approval, it seeds all project-local Mamkin skills and process files together, protects every existing collision, reconstructs project docs from current evidence, and runs safe existing checks. Completed adoption recommends a fresh coordinator task and asks before creating it; continuing product work in the adoption task requires an explicit human choice. Do not manually copy `mamkin-adopt` into the target. Use `mamkin-init` for new copied templates and `mamkin-template-sync` only after init or adoption has established valid `.mamkin/` metadata.
+Backlog, sequential phases and a combination of both are supported. Planning mode does not grant permission to run the queue. When continuing in a new chat, read the project entrypoints and reconcile saved state with the current files and request.
 
-## Start From GitHub
+## Migrate an existing Mamkin 1.x project
 
-If you want the fresh published template but a new project that is not the `mamkin-builder` repo, first create and enter your new project folder. Then clone the template into that folder and detach the copied Git history before init:
+Use the separate [one-time migration procedure](docs/process/mamkin-1-to-2-migration.md) in the target project's own chat. It preserves project data, decision reasons, unfinished work and real safeguards, removes confirmed obsolete process, and prepares a fresh coordinator. This procedure has been reviewed but has not yet been exercised on a real project.
 
-```bash
-mkdir my-new-project
-cd my-new-project
-git clone https://github.com/malamuth/mamkin-builder.git .
-rm -rf .git
-```
+Do not install 2.0 over an active 1.x setup by copying the whole repository or running the old bootstrap/init/adopt/template-sync flows.
 
-Then open this same folder in Codex and run:
+## Scope and evidence
 
-```text
-$mamkin-init
-```
+The [v0.3 specification](docs/project/mamkin-2-spec.md) and [MVP plan](docs/project/mamkin-2-mvp-plan.md) define the contract. The [functional checks](docs/follow-ups/mamkin-2-v03/README.md) retain failures and limitations alongside the final assessment. The [earlier comparison](docs/follow-ups/mamkin-2-stage-3/README.md) found no advantage over ordinary Codex on seven simple tasks. A comparison with identical Markdown data and the real-project pilot remain outstanding; publication as the primary version does not mean MVP acceptance or proven efficiency gains.
 
-During init, decide whether to keep the project without Git for now, run `git init`, or connect a project-specific remote. Local `git init`, staging, and committing may still ask for approval because they write Git metadata. Do not push project commits back to `https://github.com/malamuth/mamkin-builder.git`.
+## Repository contents
 
-Project-local Codex config, hooks, rules, and agent presets load only after Codex trusts the copied project. If hooks or rules do not fire after init or template sync, review the project trust state and hook review state in Codex before assuming the process is broken.
+This is the development repository, not a project template to copy wholesale. Only the two skill directories above are the Mamkin 2.0 installation payload. Specifications, eval tools and saved results support development and do not belong in target projects.
 
-## Why This Shape
-
-Use `AGENTS.md` as the entrypoint because many coding agents already look for it. Keep it concise so every worker sees only high-signal rules. Put the coordinator manual, role cards, handoff packets, and testing contracts under `docs/process/`.
-
-Use `.mamkin/` metadata to keep initialized and adopted projects aligned with future template improvements. `mamkin-template-sync` updates the reusable process layer from the upstream template while protecting project-owned docs, feature specs, code, secrets, and remotes. For mature projects, `mamkin-project-evolution-audit` then evaluates both newly available mechanics and repeated project-native lessons. It recommends the smallest profitable action—keep knowledge in place, consolidate an existing source, add a deterministic check, create a project-local skill, retire redundancy, or propose a project-agnostic Mamkin improvement—without applying changes or leaking domain details upstream.
-
-## After Updating Mamkin
-
-Use the smallest post-update sequence the project needs:
-
-1. Run `$mamkin-template-sync` in review mode, approve any apply or mixed-file merge separately, and validate the resulting project state.
-2. After a major capability update, several prior syncs, substantial project customization, recurring coordination friction, or accumulated decision/surprise lessons, run the read-only `$mamkin-project-evolution-audit`. Any recommended project skill is a separate, human-approved `$skill-creator` step. Skip the audit for routine minor syncs.
-3. If the active coordinator task predates a material process update, or may retain old routing, ownership, handoff, or source-authority assumptions, run the read-only `$mamkin-context-audit`.
-
-Follow the context-audit result:
-
-- `OK` or `watch`: continue in the current coordinator task; record the watch trigger when applicable.
-- `context reset recommended`: run `$mamkin-context-reset` in the same coordinator task before more routing, implementation, or live validation.
-- `rollover recommended`: after explicit human approval, run `$mamkin-coordinator-rollover` to promote a fresh coordinator task from a source-grounded reset baseline. The outgoing coordinator stops coordinating.
-
-Do not reset or roll over merely because a sync occurred. A minor update usually needs only a reread of the changed process sources. After any sync that changes hooks, rules, config, or presets, review project trust and hook review state before relying on the new runtime behavior.
-
-## Included Files
-
-For a portfolio with child repositories, use `docs/process/managed-projects.md`. It adds an optional parent coordinator registry, child task ledgers, parent-led rollover with verified receipt, and separate chat/worktree closeout. Start through `$mamkin-coordinate`; single-project workflows need no portfolio registry. Templates and the read-only coordination validator check declared records without contacting chats or mutating repositories.
-
-- `AGENTS.md`: short always-on agent entrypoint.
-- `.agents/skills/mamkin-bootstrap/`: portable global entrypoint that can be installed from GitHub before a target has Mamkin.
-- `.agents/skills/`: repo-scoped Codex workflow entrypoints installed together during init or adoption.
-- `.mamkin/`: template version, file ownership, validation, and adaptive model-routing policy.
-- `.codex/agents/`: project-scoped Codex custom agent presets.
-- `.codex/config.toml`: conservative project Codex runtime defaults.
-- `.codex/hooks.json` and `.codex/hooks/`: project lifecycle reminders and scanners.
-- `.codex/rules/`: project-local outside-sandbox command policy.
-- `docs/process/adopt-existing-project.md`: guarded brownfield adoption protocol for existing repositories.
-- `docs/process/init-agent.md`: project initialization protocol and questionnaire.
-- `docs/process/agent-orchestration.md`: coordinator orchestration manual.
-- `docs/process/execution-lane-routing.md`: exact subagent-versus-separate-task rules and the optional two-track protocol.
-- `docs/process/git-delivery.md`: feature branch, authority, integration, and cleanup lifecycle.
-- `docs/process/model-routing.md`: role-independent Economy, Balanced, Deep, and Critical selection with deterministic risk floors.
-- `docs/process/thread-operations.md`: focused worker-thread creation, delivery, and recovery rules.
-- `docs/process/context-health-audit.md`: read-only audit protocol for OK/watch/context reset/rollover decisions.
-- `docs/process/project-evolution-audit.md`: profitability-gated review of current Mamkin mechanics against a mature copied project.
-- `docs/process/prompt-evals.md`: regression protocol for prompt, role, hook, and reasoning changes.
-- `docs/process/template-sync.md`: safe sync protocol for updating copied projects from the current template.
-- `docs/process/naming-conventions.md`: doc and agent-thread naming rules.
-- `docs/process/roles/*.md`: small role cards for non-coordinator worker threads.
-- `docs/process/handoff-packets.md`: index of shared packet templates.
-- `docs/process/handoff-packets/*.md`: individual kickoff, handoff, defect, retest, and final report templates.
-- `docs/project/brief.md`: adapted project source of truth.
-- `docs/project/decision-log.md`: durable trace of important decisions.
-- `docs/walkthroughs/`: coordinator-owned walkthroughs for implemented slices.
-- `docs/follow-ups/`: completed test notes and non-blocking follow-up work.
-- `features/README.md`: feature-spec folder guide.
-- `features/00-roadmap.md`: roadmap candidates created or refined during init.
-- `docs/templates/project-readme.md`: compact README shape for initialized projects.
-- `docs/templates/feature-spec.md`: feature spec template.
-- `docs/templates/walkthrough.md`: coordinator-owned walkthrough/runbook template.
-- `docs/templates/role-card.md`: scaffold for custom recurring specialist roles.
-- `docs/templates/handoff-packet.md`: scaffold for custom role handoff packets.
-- `evals/mamkin-prompt-cases.json`: representative behavior cases for prompt regressions.
-- `scripts/validate_prompt_contracts.py`: deterministic prompt-contract and size checks.
-- `scripts/adopt_mamkin_process.py`: deterministic review/apply tool for collision-free brownfield process seeding.
-
-## Design Principles
-
-- Keep `AGENTS.md` short and use it as a pointer to durable process docs.
-- Put known setup/run/check commands in `AGENTS.md` so agents can verify work without guessing.
-- Keep `README.md` lightweight; the brief and roadmap own product detail.
-- Keep live coordination state out of feature specs.
-- Require every feature to include product value, acceptance criteria, test plan, manual walkthrough, and human-in-loop gates.
-- Require a Git delivery contract before feature writes; use named feature branches by default and make the coordinator own accepted integration and cleanup.
-- Use a coordinator-led flow rather than loose worker-to-worker relay.
-- Prefer subagents for bounded delegation; use separate tasks for independent or durable workstreams.
-- Run at most two parallel tracks, with one coordinator and an integration check after both tracks are ready.
-- Make traceback explicit: project brief -> feature spec -> implementation handoff -> tests -> walkthrough -> follow-ups.
-- Treat GitHub/project setup, production actions, secrets, and ambiguous product calls as human approval gates.
-- Treat copied-project Git state and remotes as `TBD` until the human approves a project-specific repo; never push project commits to the template repo.
-- Treat project-local Codex runtime config, hooks, rules, and presets as active only after the copied project is trusted; changed hooks may need review before they run.
-- Change prompt contracts and reasoning defaults one group at a time, and keep only changes that pass representative evals.
-
-## Normal Operating Loop
-
-1. Init or adoption establishes the project brief, roadmap, commands, human gates, and Mamkin metadata.
-2. Coordinator reviews the project brief and roadmap.
-3. Coordinator calls analyst if the domain is fuzzy, then architect to polish architecture and feature boundaries.
-4. Coordinator creates or assigns one bounded feature spec and walkthrough definition, declares its Git delivery contract, or admits two independent specs into tracks A and B.
-5. Each track uses a separate task for its durable workstream and may use subagents for bounded internal delegation.
-6. Optional reviewer inspects the completed diff when risk warrants it.
-7. Walkthrough/testing agent verifies the exact branch/commit.
-8. Coordinator records per-track results, verifies the integrated state, completes the authorized Git closeout, and reports `Delivered` only when the base and required remote state are clean.
-
-The goal is a predictable process with enough structure to stay clean, but not so much ceremony that a small project becomes a bureaucracy cosplay.
+Legacy Mamkin 1.x process files, skills and Codex configuration remain here as development/migration sources. They are not part of the 2.0 installation. The repository's own agent/runtime configuration is not a target-project configuration. Historical [1.x documentation](https://github.com/malamuth/mamkin-builder/blob/6a5c99d38043955e2b966f22922009efed68b62b/README.md) remains available at its last main commit.
