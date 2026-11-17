@@ -34,6 +34,8 @@ Backlog, sequential phases and a combination of both are supported. Planning mod
 
 Use the separate [one-time migration procedure](docs/process/mamkin-1-to-2-migration.md) in the target project's own chat. It preserves project data, decision reasons, unfinished work and real safeguards, removes confirmed obsolete process, and prepares a fresh coordinator. A first pilot verified file preservation and context recovery in a separate chat; [results and limits](docs/follow-ups/mamkin-2-migration-pilot-2026-11-12.md) remain explicit. The procedure now describes a handoff prepared by the old coordinator, with source verification and the ownership update in the new chat’s first response. Automated chat creation/sending requires explicit user authorization; the revised handoff has not yet been exercised.
 
+When internal coordination must stay outside product Git, use the procedure’s [private coordination option](docs/process/mamkin-1-to-2-migration.md#когда-внутренняя-координация-должна-оставаться-приватной). Keep the two skills and memory at an authorized private owner, pass exact paths in the private continuation prompt, and preserve product documentation and consumer skills. Discovery outside the current project is not assumed. This option and multi-project migration have not yet been exercised.
+
 Do not install 2.0 over an active 1.x setup by copying the whole repository or running the old bootstrap/init/adopt/template-sync flows.
 
 ## Scope and evidence
